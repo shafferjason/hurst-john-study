@@ -1,0 +1,110 @@
+# HURST CLASS STUDY - FILE STRUCTURE
+
+Your complete website structure should look like this:
+
+📁 hurst-study/                     (Your main folder)
+│
+├── 📄 index.html                   (Homepage - lists all lessons)
+├── 📄 lesson.html                  (Template for lesson pages)
+├── 📄 style.css                    (All styling - dark mode, layout, etc.)
+├── 📄 data.js                      ⭐ THE ONLY FILE YOU EDIT ⭐
+│
+├── 📄 README.md                    (Full documentation)
+├── 📄 QUICK-START.md               (10-minute setup guide)
+├── 📄 TROUBLESHOOTING.md           (Common problems & solutions)
+├── 📄 FILE-STRUCTURE.txt           (This file)
+│
+├── 📁 audio/                       (MP3 audio files go here)
+│   ├── 📄 README.txt               (Instructions)
+│   ├── 🎵 lesson-1.mp3            (Your audio files)
+│   ├── 🎵 lesson-2.mp3
+│   └── 🎵 lesson-3.mp3
+│
+└── 📁 images/                      (JPG/PNG images go here)
+    ├── 📄 README.txt               (Instructions)
+    ├── 🖼️  lesson-1.jpg            (Your image files)
+    ├── 🖼️  lesson-2.jpg
+    └── 🖼️  lesson-3.jpg
+
+
+═══════════════════════════════════════════════════════════
+
+WHAT EACH FILE DOES:
+
+📄 index.html
+   - The main homepage
+   - Auto-generates list of all lessons from data.js
+   - ⚠️ Never needs to be edited
+
+📄 lesson.html  
+   - The template for displaying individual lessons
+   - Reads data.js and creates the lesson page
+   - ⚠️ Never needs to be edited
+
+📄 style.css
+   - All the visual styling (dark mode, fonts, spacing)
+   - Can be edited if you want to change colors/fonts
+   - Not required for adding lessons
+
+📄 data.js ⭐
+   - Contains ALL your lesson content
+   - This is THE ONLY file you edit to add lessons
+   - Has 3 sample lessons built in
+   - Includes templates and instructions
+
+📁 audio/
+   - Place your MP3 files here
+   - Name them: lesson-1.mp3, lesson-2.mp3, etc.
+   - Download from Suno, rename, upload here
+
+📁 images/
+   - Place your JPG or PNG images here  
+   - Name them: lesson-1.jpg, lesson-2.jpg, etc.
+   - Song artwork or lesson images
+
+═══════════════════════════════════════════════════════════
+
+HOW IT ALL WORKS TOGETHER:
+
+1. User visits index.html
+2. JavaScript reads data.js
+3. Generates list of lessons automatically
+4. User clicks a lesson
+5. lesson.html loads
+6. JavaScript finds that lesson in data.js
+7. Displays all content from data.js
+8. Loads audio from /audio/ folder
+9. Loads image from /images/ folder
+10. Auto-generates Previous/Next buttons
+
+═══════════════════════════════════════════════════════════
+
+WORKFLOW FOR ADDING A NEW LESSON:
+
+Step 1: Create Content
+   - Write your lesson text
+   - Create/download song in Suno
+   - Get song artwork/image
+
+Step 2: Prepare Files
+   - Download song as MP3 → Rename to lesson-X.mp3
+   - Save image → Rename to lesson-X.jpg
+   - Upload both to audio/ and images/ folders
+
+Step 3: Edit data.js
+   - Open data.js in text editor
+   - Add comma after last lesson
+   - Copy template from bottom
+   - Fill in your content
+   - Save file
+   - Upload to website
+
+Step 4: Done!
+   - Lesson automatically appears on homepage
+   - Lesson page is automatically created
+   - Navigation links are automatically generated
+   - Everything just works!
+
+═══════════════════════════════════════════════════════════
+
+That's it! The "smart template" does all the hard work for you.

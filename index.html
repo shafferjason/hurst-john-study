@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hurst Class Study: Book of John</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Hurst Class Study: Book of John</h1>
+            <p class="subtitle">Presented by the Tenth Hour</p>
+        </header>
+
+        <section class="about-section">
+            <p class="about-preview">
+                A collection of lessons exploring the Gospel of John through Scripture, music, and reflection.
+            </p>
+            <details class="accordion">
+                <summary>Read More</summary>
+                <div class="accordion-content">
+                    <p>
+                        This study guide brings together careful examination of the Gospel of John with 
+                        contemporary Christian music. Each lesson includes a detailed summary of the passage, 
+                        a song that connects thematically to the text, and an explanation of how the music 
+                        illuminates the biblical truth. Whether you're studying individually or as part of 
+                        a group, these resources are designed to deepen your understanding of John's Gospel 
+                        and help you encounter Jesus through both Scripture and song.
+                    </p>
+                </div>
+            </details>
+        </section>
+
+        <section class="lessons-section">
+            <h2>Lessons</h2>
+            <div id="lessons-list">
+                <!-- Lessons will be dynamically inserted here -->
+            </div>
+        </section>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        // Build the lesson list dynamically
+        const lessonsList = document.getElementById('lessons-list');
+        
+        if (typeof lessonData !== 'undefined' && lessonData.length > 0) {
+            lessonData.forEach(lesson => {
+                const lessonItem = document.createElement('div');
+                lessonItem.className = 'lesson-item';
+                
+                const link = document.createElement('a');
+                link.href = `lesson.html?id=${lesson.id}`;
+                link.innerHTML = `
+                    <span class="lesson-title">${lesson.title}</span>
+                    <span class="lesson-scripture">${lesson.scripture}</span>
+                `;
+                
+                lessonItem.appendChild(link);
+                lessonsList.appendChild(lessonItem);
+            });
+        } else {
+            lessonsList.innerHTML = '<p class="no-lessons">No lessons available yet. Check back soon!</p>';
+        }
+    </script>
+</body>
+</html>

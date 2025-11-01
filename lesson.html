@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson - Hurst Class Study</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="back-link">
+            <a href="index.html">← Back to All Lessons</a>
+        </div>
+
+        <article id="lesson-content">
+            <!-- Content will be dynamically inserted here -->
+        </article>
+
+        <nav class="lesson-navigation">
+            <!-- Previous/Next links will be inserted here -->
+        </nav>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        // Get the lesson ID from the URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const lessonId = urlParams.get('id');
+
+        // Find the lesson in the data
+        const currentLesson = lessonData.find(lesson => lesson.id === lessonId);
+
+        if (!currentLesson) {
+            // Lesson not found
+            document.getElementById('lesson-content').innerHTML = `
+                <div class="error-message">
+                    <h1>Lesson Not Found</h1>
+                    <p>Sorry, we couldn't find the lesson you're looking for.</p>
+                    <a href="index.html" class="button">Return to All Lessons</a>
+                </div>
+            `;
+        } else {
+            // Update page title
+            document.title = currentLesson.title + ' - Hurst Class Study';
+
+            // Build the lesson content
+            const lessonContent = document.getElementById('lesson-content');
+            
+            lessonContent.innerHTML = `
+                <header class="lesson-header">
+                    <h1>${currentLesson.title}</h1>
+                    <p class="scripture-reference">${currentLesson.scripture}</p>
+                </header>
+
+                <section class="lesson-summary">
+                    <h2>Lesson Summary</h2>
+                    <p class="preview-text">${currentLesson.summary_preview}</p>
+                    <details class="accordion">
+                        <summary>Read the Full Lesson</summary>
+                        <div class="accordion-content">
+                            <p>${currentLesson.summary_full}</p>
+                        </div>
+                    </details>
+                </section>
+
+                <section class="song-tie-in">
+                    <h2>Song Tie-in</h2>
+                    <p class="preview-text">${currentLesson.tie_in_preview}</p>
+                    <details class="accordion">
+                        <summary>Read About the Song</summary>
+                        <div class="accordion-content">
+                            <p>${currentLesson.tie_in_full}</p>
+                        </div>
+                    </details>
+                </section>
+
+                <section class="song-section">
+                    <h2>${currentLesson.song_title}</h2>
+                    ${currentLesson.image_url ? `<img src="${currentLesson.image_url}" alt="${currentLesson.song_title}" class="song-image">` : ''}
+                    
+                    ${currentLesson.audio_file ? `
+                        <div class="audio-player">
+                            <audio controls>
+                                <source src="${currentLesson.audio_file}" type="audio/mpeg">
+                                Your browser does not support the audio player.
+                            </audio>
+                        </div>
+                    ` : ''}
+                    
+                    ${currentLesson.suno_link ? `
+                        <p class="suno-link">
+                            Can't play? <a href="${currentLesson.suno_link}" target="_blank" rel="noopener">Listen on Suno →</a>
+                        </p>
+                    ` : ''}
+                </section>
+            `;
+
+            // Build navigation links
+            const currentIndex = lessonData.findIndex(lesson => lesson.id === lessonId);
+            const navSection = document.querySelector('.lesson-navigation');
+            
+            let navHTML = '<div class="nav-links">';
+            
+            // Previous lesson link
+            if (currentIndex > 0) {
+                const prevLesson = lessonData[currentIndex - 1];
+                navHTML += `
+                    <a href="lesson.html?id=${prevLesson.id}" class="nav-link prev-link">
+                        ← Previous Lesson: ${prevLesson.title}
+                    </a>
+                `;
+            } else {
+                navHTML += '<span class="nav-link-placeholder"></span>';
+            }
+            
+            // Next lesson link
+            if (currentIndex < lessonData.length - 1) {
+                const nextLesson = lessonData[currentIndex + 1];
+                navHTML += `
+                    <a href="lesson.html?id=${nextLesson.id}" class="nav-link next-link">
+                        Next Lesson: ${nextLesson.title} →
+                    </a>
+                `;
+            } else {
+                navHTML += '<span class="nav-link-placeholder"></span>';
+            }
+            
+            navHTML += '</div>';
+            navSection.innerHTML = navHTML;
+        }
+    </script>
+</body>
+</html>
