@@ -170,7 +170,7 @@ header {
 }
 
 .accordion summary::before {
-    content: "▸ ";
+    content: "â–¸ ";
     display: inline-block;
     transition: transform 0.2s ease;
     margin-right: 0.5rem;
@@ -306,7 +306,7 @@ header {
 }
 
 .back-link a::before {
-    content: "← ";
+    content: "â† ";
     margin-right: 0.4rem;
 }
 
