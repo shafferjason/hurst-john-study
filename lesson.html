@@ -178,7 +178,7 @@
                 // Allow user to seek by dragging the bar
                 seekBar.addEventListener('input', () => {
                     // The value of the seek bar is now in seconds
-                    audio.currentTime = seekBar.value;
+                    audio.currentTime = audio.currentTime;
                 });
                 
                 // Reset player when audio ends
