@@ -18,7 +18,7 @@ body {
     font-size: 18px;
     /* Subtle texture for analog warmth */
     background-image: 
-        url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU:bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQwIDc5LjE2MDQ1MSwgMjAxNy8wNS8wNi0wMTowODoyMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY:YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYxRjUzQzBGNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYxRjUzQzExNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RjFGNTNDMEQ2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RjFGNTNDMEU2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4/3cKNAAACFElEQVR42uyby47DMAwD4/T+D6UPJJAGDbNlHtkQ6aRpmqZJ+7CxzAhb5MfFxEsmWfzLZrPZlP88y+VSNptNHx3PZrNVn3G5XF6en5+vp/NyuRzL5ZLRaFTHF4vFOI5Rz7Nzc3Ol0+m02WxKjUaDarVqE4lEqFQqbTab/f392VRKJZVKpbBYLIZlWfgf8fr6mlAohN/vZ7Vatdlsxul0UigUmM1mOJ1OsVgMvV6Py+VCURSapnE6naLRKENDQ9rtNkEQGI1GhEKh0r/fEASB1WplNptlMpk0m02SyeQf4vPzcyQSCZRKJaRSKSaTCcPhkMPhgGEYKpWK1WqFYRi8Xi+j0QhjGAYSCTqdDjweD2q1Gk3TfH5+ptfrMRwOM5lMaLVaIpEIQqEQbrebTqeDYRhCoZDC4bA0TYfDYTAYDHq9nsFg0Ol0SktLyMvLo62tDWtry8rKCnNzc+bm5vj4+ERFRb2/r01LSyMvL4+WlhZaWhobGxvUajVBEHAcB8/zMAxDLBbDbDZD0zQcxwSDQQiFQiQSCQSB4XCIYRg0TWM2myEIAkEQ2O/3RUREHD10qKurQ1FREVVVValUilAohNlsptvtxuFwkMlkSKVSGAwGhMNhjMfjHA7nJ5tN0zQej4fb7UYoFMLv98MwDE3TMAyjy+WSz+cxx+N5nlAoBE3TMAxDIMR7vV6dTidjGMYwjDAMvF4vAEBRFGEYDgaDxWLRbDbj8XgwDAOPx0Mmk8GyrNvtptPpdDqddsU4HFYulxljGIRAiFgsRm9vr9vthmEYBEHgOA4AwHEcSJLEcrkkSRKNRmOMn5+fKJVKKpWKZVlEo1EIhULMZrPhcBiVSsVsNkNTU1O73SYSiZAkCbPZLEmS+L4PwzB4vV6MRiMOhwO2bDabqdVqrFar9vZ2rKysyMjIwNzcHHNzcyQSCZqamtTU1NDS0kJFRQVtbW3c3d1xcnJCtVqlVqsxmUx4PB5sNhuKogRB4HA4YLVasVgsUqkUbNvGNE3c3d0hSRLdbsdisSguLkZGRgapVMrj8aBUKjEGg6G3txdjGCIIAo/Hg2VZURQhm82GUqnEYDAgmUwyGAxIpVLE43GTyURTU5O8vDy0trZycnLC398fj8eDt7c3NTU1kMlkOBwOpFLp16sPvx5+fHyYzeZoNBrpdHo8HmfT6XRbLbfrdrtxOp1SqRRLliyXywSDQRRFobOzE4/HQ6vVYhgGkUiEUChEMBgkSRKPxwNBEENDQ+qSJCGE3Gw2sSwLnucEQQAAy7LQNA2e52EYouHhYaFQCDzPw7IsLMtijEqlEqFQCFKpFGEYHMfBtm2aplGr1VqtVsPhECMjIxRF4fV6kUqlaLVaEAhxOp3xeDzf39+r1ep/4h/8VfXw8DCPx4NWqwWAZrPJZDKl1+uJRCLE43ECQQjDMI7Hk/cLAQMAqH+0BbIMDDEAAAAASUVORK5CYII=),
+        url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU:bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQwIDc5LjE2MDQ1MSwgMjAxNy8wNS8wNi0wMTowODoyMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY:YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYxRjUzQzBGNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYxRjUzQzExNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RjFGNTNDMEQ2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RjFGNTNDMEU2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4/3cKNAAACFElEQVR42uyby47DMAwD4/T+D6UPJJAGDbNlHtkQ6aRpmqZJ+7CxzAhb5MfFxEsmWfzLZrPZlP88y+VSNptNHx3PZrNVn3G5XF6en5+vp/NyuRzL5ZLRaFTHF4vFOI5Rz7Nzc3Ol0+m02WxKjUaDarVqE4lEqFQqbTab/f392VRKJZVKpbBYLIZlWfgf8fr6mlAohN/vZ7Vatdlsxul0UigUmM1mOJ1OsVgMvV6Py+VCURSapnE6naLRKENDQ9rtNkEQGI1GhEKh0r/fEASB1WplNptlMpk0m02SyeQf4vPzcyQSCZRKJaRSKSaTCcPhkMPhgGEYKpWK1WqFYRi8Xi+j0QhjGAYSCTqdDjweD2q1Gk3TfH5+ptfrMRwOM5lMaLVaIpEIQqEQbrebTqeDYRhCoZDC4bA0TYfDYTAYDHq9nsFg0Ol0SktLyMvLo62tDWtry8rKCnNzc+bm5vj4+ERFRb2/r01LSyMvL4+WlhZaWhobGxvUajVBEHAcB8/zMAxDLBbDbDZD0zQcxwSDQQiFQiQSCQSB4XCIYRg0TWM2myEIAkEQ2O/3RUREHD00qKurQ1FREVVVValUilAohNlsptvtxuFwkMlkSKVSGAwGhMNhjMfjHA7nJ5tN0zQej4fb7UYoFMLv98MwDE3TMAyjy+WSz+cxx+N5nlAoBE3TMAxDIMR7vV6dTidjGMYwjDAMvF4vAEBRFGEYDgaDxWLRbDbj8XgwDAOPx0Mmk8GyrNvtptPpdDqddsU4HFYulxljGIRAiFgsRm9vr9vthmEYBEHgOA4AwHEcSJLEcrkkSRKNRmOMn5+fKJVKKpWKZVlEo1EIhULMZrPhcBiVSsVsNkNTU1O73SYSiZAkCbPZLEmS+L4PwzB4vV6MRiMOhwO2bDabqdVqrFar9vZ2rKysyMjIwNzcHHNzcyQSCZqamtTU1NDS0kJFRQVtbW3c3d1xcnJCtVqlVqsxmUx4PB5sNhuKogRB4HA4YLVasVgsUqkUbNvGNE3c3d0hSRLdbsdisSguLkZGRgapVMrj8aBUKjEGg6G3txdjGCIIAo/Hg2VZURQhm82GUqnEYDAgmUwyGAxIpVLE43GTyURTU5O8vDy0trZycnLC398fj8eDt7c3NTU1kMlkOBwOpFLp16sPvx5+fHyYzeZoNBrpdHo8HmfT6XRbLbfrdrtxOp1SqRRLliyXywSDQRRFobOzE4/HQ6vVYhgGkUiEUChEMBgkSRKPxwNBEENDQ+qSJCGE3Gw2sSwLnucEQQAAy7LQNA2e52EYouHhYaFQCDzPw7IsLMtijEqlEqFQCFKpFGEYHMfBtm2aplGr1VqtVsPhECMjIxRF4fV6kUqlaLVaEAhxOp3xeDzf39+r1ep/4h/8VfXw8DCPx4NWqwWAZrPJZDKl1+uJRCLE43ECQQjDMI7Hk/cLAQMAqH+0BbIMDDEAAAAASUVORK5CYII=),
         radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
 }
@@ -118,7 +118,7 @@ header {
     font-size: 1.05rem;
     color: #7a766d;
     font-style: italic;
-    margin-top: 1rem;
+  t margin-top: 1rem;
     font-weight: 300;
 }
 
@@ -268,7 +268,137 @@ header {
 .lesson-scripture {
     display: block;
     font-size: 0.95rem;
-  .custom-audio-player {
+    color: #8a8577;
+    font-style: italic;
+    font-weight: 300;
+}
+
+.no-lessons {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #7a766d;
+    font-style: italic;
+    font-size: 1.05rem;
+}
+
+/* ===================================
+   LESSON PAGE
+   =================================== */
+
+.back-link {
+    margin-bottom: 2.5rem;
+}
+
+.back-link a {
+    display: inline-block;
+    padding: 0.5rem 0;
+    color: #8a8577;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid transparent;
+    transition: all 0.25s ease;
+}
+
+.back-link a:hover {
+    color: #c9a47a; /* Warm amber/gold */
+    border-bottom-color: #c9a47a;
+    transform: translateX(-4px);
+}
+
+.back-link a::before {
+    content: "â†  ";
+    margin-right: 0.4rem;
+}
+
+.lesson-header {
+    text-align: center;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #2d2a25; /* Softened divider */
+    background: linear-gradient(to bottom, transparent 98%, #2d2a25 100%);
+    margin-bottom: 3.5rem;
+}
+
+.scripture-reference {
+    font-size: 1.05rem;
+    color: #8a8577;
+    font-style: italic;
+    margin-top: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+}
+
+.lesson-summary,
+.song-tie-in,
+.song-section {
+    margin-bottom: 4.5rem;
+}
+
+/* Section headers for lesson content */
+.lesson-summary h2,
+.song-tie-in h2 {
+    text-align: center;
+}
+
+.preview-text {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* ===================================
+   SONG SECTION
+   =================================== */
+
+.song-section {
+    text-align: center;
+    padding: 3rem 0;
+    /* Replaced hard lines with soft gradient borders */
+    border-top: 1px solid #2d2a25;
+    border-bottom: 1px solid #2d2a25;
+    background: linear-gradient(to bottom, #2d2a25 0%, transparent 10%, transparent 90%, #2d2a25 100%);
+}
+
+.song-section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.65rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+    color: #e0ddd5;
+}
+
+/* === "Faded & Rounded" Look === */
+.song-image {
+    max-width: 65%;
+    height: auto;
+    margin: 2rem auto;
+    display: block;
+    
+    /* 1. Add rounded corners for the "old photo" shape */
+    border-radius: 12px;
+
+    /* 2. Use an ELLIPSE mask to fade the sides and top/bottom */
+    mask-image: radial-gradient(ellipse at center, black 60%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 60%, transparent 90%);
+
+    /* 3. Add the tint and opacity */
+    opacity: 0.9;
+    filter: contrast(0.95) brightness(0.95) saturate(0.9) sepia(0.25);
+    
+    /* 4. Keep the *inset* shadow for the vignette effect. */
+    box-shadow: 
+        inset 0 0 80px rgba(0, 0, 0, 0.5),
+        inset 0 0 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ===================================
+   CUSTOM AUDIO PLAYER (TEXTURED) - ENHANCED 3D
+   =================================== */
+
+.custom-audio-player {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -291,7 +421,7 @@ header {
         /* Stronger inset shadow for depth */
         inset 0 2px 6px rgba(0,0,0,0.6), 
         /* Subtle highlight on top edge */
-        inset 0 1px 1px rgba(255,255,255,0.08); 
+        inset 0 1px 1px rgba(255,255,255,0.08);s
 }
 
 .player-button {
@@ -413,7 +543,7 @@ header {
     /* --- ENHANCED THUMB GRADIENT & SHADOW --- */
     background: radial-gradient(circle at center, 
                 #e8e4dc 0%, 
-                #d4d0c8 60%,s
+                #d4d0c8 60%, 
                 #c8c4bb 100%);
     cursor: pointer;
     border: 1px solid rgba(0,0,0,0.3);
@@ -426,12 +556,12 @@ header {
 .seek-bar:hover::-moz-range-thumb {
     background: radial-gradient(circle at center, 
                 #e0c6a7 0%, 
-                #c9a47a 60%,s
+                #c9a47a 60%, 
                 #b08d6d 100%);
     box-shadow: 
         0 3px 8px rgba(0,0,0,0.6), 
         inset 0 1px 2px rgba(255,255,255,0.3);
-    transform: translateY(-1px);
+s   transform: translateY(-1px);
 }
 
 
@@ -456,7 +586,7 @@ header {
 .lesson-navigation {
     margin-top: 5rem;
     padding-top: 2.5rem;
-    border-top: 1px solid #2d2a25; /* Softened divider */
+  T border-top: 1px solid #2d2a25; /* Softened divider */
     background: linear-gradient(to top, transparent 98%, #2d2a25 100%);
 }
 
@@ -468,136 +598,7 @@ header {
 
 .nav-link {
     flex: 1;
-  t color: #8a8577;
-    font-style: italic;
-    font-weight: 300;
-}
-
-.no-lessons {
-    text-align: center;
-    padding: 3rem 2rem;
-    color: #7a766d;
-    font-style: italic;
-    font-size: 1.05rem;
-}
-
-/* ===================================
-   LESSON PAGE
-   =================================== */
-
-.back-link {
-    margin-bottom: 2.5rem;
-}
-
-.back-link a {
-    display: inline-block;
-    padding: 0.5rem 0;
-    color: #8a8577;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-weight: 500;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    border-bottom: 1px solid transparent;
-    transition: all 0.25s ease;
-}
-
-.back-link a:hover {
-    color: #c9a47a; /* Warm amber/gold */
-    border-bottom-color: #c9a47a;
-    transform: translateX(-4px);
-}
-
-.back-link a::before {
-//     content: "â†  ";
-    margin-right: 0.4rem;
-}
-
-.lesson-header {
-    text-align: center;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid #2d2a25; /* Softened divider */
-    background: linear-gradient(to bottom, transparent 98%, #2d2a25 100%);
-    margin-bottom: 3.5rem;
-}
-
-.scripture-reference {
-    font-size: 1.05rem;
-    color: #8a8577;
-    font-style: italic;
-    margin-top: 1rem;
-    font-weight: 300;
-    letter-spacing: 0.01em;
-}
-
-.lesson-summary,
-.song-tie-in,
-.song-section {
-    margin-bottom: 4.5rem;
-}
-
-/* Section headers for lesson content */
-.lesson-summary h2,
-.song-tie-in h2 {
-    text-align: center;
-}
-
-.preview-text {
-    text-align: center;
-    margin-bottom: 2rem;
-}
-
-/* ===================================
-   SONG SECTION
-   =================================== */
-
-.song-section {
-    text-align: center;
-    padding: 3rem 0;
-    /* Replaced hard lines with soft gradient borders */
-    border-top: 1px solid #2d2a25;
-    border-bottom: 1px solid #2d2a25;
-    background: linear-gradient(to bottom, #2d2a25 0%, transparent 10%, transparent 90%, #2d2a25 100%);
-}
-
-.song-section h2 {
-s    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.65rem;
-    font-weight: 400;
-    text-transform: none;
-    letter-spacing: -0.01em;
-    margin-bottom: 2rem;
-    color: #e0ddd5;
-}
-
-/* === "Faded & Rounded" Look === */
-.song-image {
-    max-width: 65%;
-    height: auto;
-    margin: 2rem auto;
-    display: block;
-    
-    /* 1. Add rounded corners for the "old photo" shape */
-    border-radius: 12px;
-
-    /* 2. Use an ELLIPSE mask to fade the sides and top/bottom */
-    mask-image: radial-gradient(ellipse at center, black 60%, transparent 90%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 60%, transparent 90%);
-
-    /* 3. Add the tint and opacity */
-    opacity: 0.9;
-    filter: contrast(0.95) brightness(0.95) saturate(0.9) sepia(0.25);
-    
-    /* 4. Keep the *inset* shadow for the vignette effect. */
-    box-shadow: 
-        inset 0 0 80px rgba(0, 0, 0, 0.5),
-        inset 0 0 40px rgba(0, 0, 0, 0.3);
-}
-
-/* ===================================
-   CUSTOM AUDIO PLAYER (TEXTURED) - ENHANCED 3D
-   =================================== */
-padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.5rem;
     background-color: rgba(42, 38, 33, 0.3);
     border: 1px solid #3a3630;
     border-radius: 2px;
@@ -686,13 +687,13 @@ strong, b {
     border-radius: 2px;
     transition: all 0.2s ease;
     text-transform: uppercase;
-  s   letter-spacing: 0.08em;
+    letter-spacing: 0.08em;
     font-size: 0.85rem;
     border: none;
 }
 
 .button:hover {
-    background-color: #e0c6a7; /* Brighter gold hover */
+s   background-color: #e0c6a7; /* Brighter gold hover */
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(201, 164, 122, 0.25);
     border-bottom: none;
@@ -740,7 +741,7 @@ strong, b {
     }
 
     /* Image remains balanced on mobile */
-s   .song-image {
+    .song-image {
         max-width: 75%;
     }
     
@@ -758,7 +759,7 @@ s   .song-image {
         gap: 1rem;
     }
 
-s   .prev-link,
+    .prev-link,
     .next-link {
         text-align: center;
     }
@@ -778,7 +779,7 @@ s   .prev-link,
         font-size: 1.75rem;
     }
 
-    .subtitle {
+  s .subtitle {
         font-size: 0.95rem;
     }
 
@@ -788,7 +789,7 @@ s   .prev-link,
 
     h3 {
         font-size: 1.1rem;
-s   }
+    }
 
     .emphasis-text,
     .preview-text {
@@ -802,11 +803,11 @@ s   }
     /* Image scales down further on very small screens */
     .song-image {
         max-width: 85%;
-    }
+  s }
     
     .custom-audio-player {
         padding: 0.4rem 0.5rem;
-    }
+CH    }
     
     .player-button {
         margin-right: 0.5rem;
@@ -827,20 +828,21 @@ s   }
     }
 
     #duration {
-        margin-left: 0.5rem;
+  E      margin-left: 0.5rem;
     }
     
     .seek-bar::-webkit-slider-thumb {
-        width: 14px;
+D        width: 14px;
         height: 14px;
-.seek-bar::-moz-range-thumb {
-        width: 14px;
+    }
+    .seek-bar::-moz-range-thumb {
+      D width: 14px;
         height: 14px;
     }
 
     .accordion-content {
         font-size: 1rem;
-        line-height: 1.75;
+A        line-height: 1.75;
     }
 }
 
