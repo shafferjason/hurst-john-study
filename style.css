@@ -16,17 +16,7 @@ body {
     line-height: 1.75;
     padding: 20px;
     font-size: 18px;
-
-    /* --- MODIFIED --- */
-    /* Added a subtle, gritty texture */
-    background-image: 
-        /* The texture PNG (must be in the same folder or update path) */
-        url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQwIDc5LjE2MDQ1MSwgMjAxNy8wNS8wNi0wMTowODoyMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYxRjUzQzBGNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYxRjUzQzExNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RjFGNTNDMEQ2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RjFGNTNDMEU2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4/3cKNAAACFElEQVR42uyby47DMAwD4/T+D6UPJJAGDbNlHtkQ6aRpmqZJ+7CxzAhb5MfFxEsmWfzLZrPZlP88y+VSNptNHx3PZrNVn3G5XF6en5+vp/NyuRzL5ZLRaFTHF4vFOI5Rz7Nzc3Ol0+m02WxKjUaDarVqE4lEqFQqbTab/f392VRKJZVKpbBYLIZlWfgf8fr6mlAohN/vZ7Vatdlsxul0UigUmM1mOJ1OsVgMvV6Py+VCURSapnE6naLRKENDQ9rtNkEQGI1GhEKh0r/fEASB1WplNptlMpk0m02SyeQf4vPzcyQSCZRKJaRSKSaTCcPhkMPhgGEYKpWK1WqFYRi8Xi+j0QhjGAYSCTqdDjweD2q1Gk3TfH5+ptfrMRwOM5lMaLVaIpEIQqEQbrebTqeDYRhCoZDC4bA0TYfDYTAYDHq9nsFg0Ol0SktLyMvLo62tDWtry8rKCnNzc+bm5vj4+ERFRb2/r01LSyMvL4+WlhZaWhobGxvUajVBEHAcB8/zMAxDLBbDbDZD0zQcxwSDQQiFQiQSCQSB4XCIYRg0TWM2myEIAkEQ2O/3RUREHD10qKurQ1FREVVVValUilAohNlsptvtxuFwkMlkSKVSGAwGhMNhjMfjHA7nJ5tN0zQej4fb7UYoFMLv98MwDE3TMAyjy+WSz+cxx+N5nlAoBE3TMAxDIMR7vV6dTidjGMYwjDAMvF4vAEBRFGEYDgaDxWLRbDbj8XgwDAOPx0Mmk8GyrNvtptPpdDqddsU4HFYulxljGIRAiFgsRm9vr9vthmEYBEHgOA4AwHEcSJLEcrkkSRKNRmOMn5+fKJVKKpWKZVlEo1EIhULMZrPhcBiVSsVsNkNTU1O73SYSiZAkCbPZLEmS+L4PwzB4vV6MRiMOhwO2bDabqdVqrFar9vZ2rKysyMjIwNzcHHNzcyQSCZqamtTU1NDS0kJFRQVtbW3c3d1xcnJCtVqlVqsxmUx4PB5sNhuKogRB4HA4YLVasVgsUqkUbNvGNE3c3d0hSRLdbsdisSguLkZGRgapVMrj8aBUKjEGg6G3txdjGCIIAo/Hg2VZURQhm82GUqnEYDAgmUwyGAxIpVLE43GTyURTU5O8vDy0trZycnLC398fj8eDt7c3NTU1kMlkOBwOpFLp16sPvx5+fHyYzeZoNBrpdHo8HmfT6XRbLbfrdrtxOp1SqRRLliyXywSDQRRFobOzE4/HQ6vVYhgGkUiEUChEMBhEMBgkSRKPxwNBEENDQ+qSJCGE3Gw2sSwLnucEQQAAy7LQNA2e52EYouHhYaFQCDzPw7IsLMtijEqlEqFQCFKpFGEYHMfBtm2aplGr1VqtVsPhECMjIxRF4fV6kUqlaLVaEAhxOp3xeDzf39+r1ep/4h/8VfXw8DCPx4NWqwWAZrPJZDKl1+uJRCLE43ECQQjDMI7Hk/cLAQMAqH+0BbIMDDEAAAAASUVORK5CYII=);
-    background-repeat: repeat;
-    background-size: 50px 50px;
-    background-blend-mode: multiply;
-
-    /* Your original subtle gradients are good */
+    /* Subtle texture for analog warmth */
     background-image: 
         url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQwIDc5LjE2MDQ1MSwgMjAxNy8wNS8wNi0wMTowODoyMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYxRjUzQzBGNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYxRjUzQzExNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RjFGNTNDMEQ2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RjFGNTNDMEU2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4/3cKNAAACFElEQVR42uyby47DMAwD4/T+D6UPJJAGDbNlHtkQ6aRpmqZJ+7CxzAhb5MfFxEsmWfzLZrPZlP88y+VSNptNHx3PZrNVn3G5XF6en5+vp/NyuRzL5ZLRaFTHF4vFOI5Rz7Nzc3Ol0+m02WxKjUaDarVqE4lEqFQqbTab/f392VRKJZVKpbBYLIZlWfgf8fr6mlAohN/vZ7Vatdlsxul0UigUmM1mOJ1OsVgMvV6Py+VCURSapnE6naLRKENDQ9rtNkEQGI1GhEKh0r/fEASB1WplNptlMpk0m02SyeQf4vPzcyQSCZRKJaRSKSaTCcPhkMPhgGEYKpWK1WqFYRi8Xi+j0QhjGAYSCTqdDjweD2q1Gk3TfH5+ptfrMRwOM5lMaLVaIpEIQqEQbrebTqeDYRhCoZDC4bA0TYfDYTAYDHq9nsFg0Ol0SktLyMvLo62tDWtry8rKCnNzc+bm5vj4+ERFRb2/r01LSyMvL4+WlhZaWhobGxvUajVBEHAcB8/zMAxDLBbDbDZD0zQcxwSDQQiFQiQSCQSB4XCIYRg0TWM2myEIAkEQ2O/3RUREHD10qKurQ1FREVVVValUilAohNlsptvtxuFwkMlkSKVSGAwGhMNhjMfjHA7nJ5tN0zQej4fb7UYoFMLv98MwDE3TMAyjy+WSz+cxx+N5nlAoBE3TMAxDIMR7vV6dTidjGMYwjDAMvF4vAEBRFGEYDgaDxWLRbDbj8XgwDAOPx0Mmk8GyrNvtptPpdDqddsU4HFYulxljGIRAiFgsRm9vr9vthmEYBEHgOA4AwHEcSJLEcrkkSRKNRmOMn5+fKJVKKpWKZVlEo1EIhULMZrPhcBiVSsVsNkNTU1O73SYSiZAkCbPZLEmS+L4PwzB4vV6MRiMOhwO2bDabqdVqrFar9vZ2rKysyMjIwNzcHHNzcyQSCZqamtTU1NDS0kJFRQVtbW3c3d1xcnJCtVqlVqsxmUx4PB5sNhuKogRB4HA4YLVasVgsUqkUbNvGNE3c3d0hSRLdbsdisSguLkZGRgapVMrj8aBUKjEGg6G3txdjGCIIAo/Hg2VZURQhm82GUqnEYDAgmUwyGAxIpVLE43GTyURTU5O8vDy0trZycnLC398fj8eDt7c3NTU1kMlkOBwOpFLp16sPvx5+fHyYzeZoNBrpdHo8HmfT6XRbLbfrdrtxOp1SqRRLliyXywSDQRRFobOzE4/HQ6vVYhgGkUiEUChEMBgkSRKPxwNBEENDQ+qSJCGE3Gw2sSwLnucEQQAAy7LQNA2e52EYouHhYaFQCDzPw7IsLMtijEqlEqFQCFKpFGEYHMfBtm2aplGr1VqtVsPhECMjIxRF4fV6kUqlaLVaEAhxOp3xeDzf39+r1ep/4h/8VfXw8DCPx4NWqwWAZrPJZDKl1+uJRCLE43ECQQjDMI7Hk/cLAQMAqH+0BbIMDDEAAAAASUVORK5CYII=),
         radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 50%),
@@ -390,7 +380,6 @@ header {
     color: #e0ddd5;
 }
 
-/* === THIS IS THE BLOCK FROM OUR LAST STEP === */
 /* === "Faded & Rounded" Look === */
 .song-image {
     max-width: 65%;
@@ -414,20 +403,103 @@ header {
         inset 0 0 80px rgba(0, 0, 0, 0.5),
         inset 0 0 40px rgba(0, 0, 0, 0.3);
 }
-/* === END MODIFIED SECTION === */
 
+/* ===================================
+   CUSTOM AUDIO PLAYER
+   =================================== */
 
-.audio-player {
-    margin: 2.5rem 0;
-}
-
-.audio-player audio {
+.custom-audio-player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
     max-width: 480px;
-    height: 54px;
-    border-radius: 2px;
+    margin: 2.5rem auto;
+    padding: 0.5rem 1rem;
     background-color: rgba(42, 38, 33, 0.4);
+    border-radius: 50px; /* Pill shape */
+    border: 1px solid #3a3630;
 }
+
+.player-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 1rem;
+}
+
+.player-button svg {
+    width: 36px;
+    height: 36px;
+    fill: #d4d0c8;
+    transition: all 0.2s ease;
+}
+
+.player-button:hover svg {
+    fill: #e0c6a7; /* Warm gold hover */
+}
+
+.time-display {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.85rem;
+    color: #8a8577;
+    width: 40px; /* Fixed width to prevent layout shift */
+}
+
+#current-time {
+    text-align: right;
+    margin-right: 0.75rem;
+}
+
+#duration {
+    text-align: left;
+    margin-left: 0.75rem;
+}
+
+.seek-bar {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    background: #3a3630;
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+}
+
+/* --- Chrome/Safari Thumb --- */
+.seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #d4d0c8;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.seek-bar:hover::-webkit-slider-thumb {
+    background: #c9a47a; /* Warm gold */
+}
+
+/* --- Firefox Thumb --- */
+.seek-bar::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #d4d0c8;
+    cursor: pointer;
+    border: none;
+    transition: background 0.2s ease;
+}
+
+.seek-bar:hover::-moz-range-thumb {
+    background: #c9a47a; /* Warm gold */
+}
+
 
 .suno-link {
     margin-top: 1.5rem;
@@ -614,6 +686,15 @@ strong, b {
     .song-image {
         max-width: 75%;
     }
+    
+    .custom-audio-player {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .time-display {
+        font-size: 0.8rem;
+        width: 35px;
+    }
 
     .nav-links {
         flex-direction: column;
@@ -664,6 +745,41 @@ strong, b {
     /* Image scales down further on very small screens */
     .song-image {
         max-width: 85%;
+    }
+    
+    .custom-audio-player {
+        padding: 0.4rem 0.5rem;
+    }
+    
+    .player-button {
+        margin-right: 0.5rem;
+    }
+    
+    .player-button svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .time-display {
+        font-size: 0.75rem;
+        width: 32px;
+    }
+    
+    #current-time {
+        margin-right: 0.5rem;
+    }
+
+    #duration {
+        margin-left: 0.5rem;
+    }
+    
+    .seek-bar::-webkit-slider-thumb {
+        width: 14px;
+        height: 14px;
+    }
+    .seek-bar::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
     }
 
     .accordion-content {
