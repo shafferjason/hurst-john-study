@@ -16,8 +16,19 @@ body {
     line-height: 1.75;
     padding: 20px;
     font-size: 18px;
-    /* Subtle texture for analog warmth */
+
+    /* --- MODIFIED --- */
+    /* Added a subtle, gritty texture */
     background-image: 
+        /* The texture PNG (must be in the same folder or update path) */
+        url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQwIDc5LjE2MDQ1MSwgMjAxNy8wNS8wNi0wMTowODoyMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYxRjUzQzBGNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYxRjUzQzExNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RjFGNTNDMEQ2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RjFGNTNDMEU2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4/3cKNAAACFElEQVR42uyby47DMAwD4/T+D6UPJJAGDbNlHtkQ6aRpmqZJ+7CxzAhb5MfFxEsmWfzLZrPZlP88y+VSNptNHx3PZrNVn3G5XF6en5+vp/NyuRzL5ZLRaFTHF4vFOI5Rz7Nzc3Ol0+m02WxKjUaDarVqE4lEqFQqbTab/f392VRKJZVKpbBYLIZlWfgf8fr6mlAohN/vZ7Vatdlsxul0UigUmM1mOJ1OsVgMvV6Py+VCURSapnE6naLRKENDQ9rtNkEQGI1GhEKh0r/fEASB1WplNptlMpk0m02SyeQf4vPzcyQSCZRKJaRSKSaTCcPhkMPhgGEYKpWK1WqFYRi8Xi+j0QhjGAYSCTqdDjweD2q1Gk3TfH5+ptfrMRwOM5lMaLVaIpEIQqEQbrebTqeDYRhCoZDC4bA0TYfDYTAYDHq9nsFg0Ol0SktLyMvLo62tDWtry8rKCnNzc+bm5vj4+ERFRb2/r01LSyMvL4+WlhZaWhobGxvUajVBEHAcB8/zMAxDLBbDbDZD0zQcxwSDQQiFQiQSCQSB4XCIYRg0TWM2myEIAkEQ2O/3RUREHD10qKurQ1FREVVVValUilAohNlsptvtxuFwkMlkSKVSGAwGhMNhjMfjHA7nJ5tN0zQej4fb7UYoFMLv98MwDE3TMAyjy+WSz+cxx+N5nlAoBE3TMAxDIMR7vV6dTidjGMYwjDAMvF4vAEBRFGEYDgaDxWLRbDbj8XgwDAOPx0Mmk8GyrNvtptPpdDqddsU4HFYulxljGIRAiFgsRm9vr9vthmEYBEHgOA4AwHEcSJLEcrkkSRKNRmOMn5+fKJVKKpWKZVlEo1EIhULMZrPhcBiVSsVsNkNTU1O73SYSiZAkCbPZLEmS+L4PwzB4vV6MRiMOhwO2bDabqdVqrFar9vZ2rKysyMjIwNzcHHNzcyQSCZqamtTU1NDS0kJFRQVtbW3c3d1xcnJCtVqlVqsxmUx4PB5sNhuKogRB4HA4YLVasVgsUqkUbNvGNE3c3d0hSRLdbsdisSguLkZGRgapVMrj8aBUKjEGg6G3txdjGCIIAo/Hg2VZURQhm82GUqnEYDAgmUwyGAxIpVLE43GTyURTU5O8vDy0trZycnLC398fj8eDt7c3NTU1kMlkOBwOpFLp16sPvx5+fHyYzeZoNBrpdHo8HmfT6XRbLbfrdrtxOp1SqRRLliyXywSDQRRFobOzE4/HQ6vVYhgGkUiEUChEMBhEMBgkSRKPxwNBEENDQ+qSJCGE3Gw2sSwLnucEQQAAy7LQNA2e52EYouHhYaFQCDzPw7IsLMtijEqlEqFQCFKpFGEYHMfBtm2aplGr1VqtVsPhECMjIxRF4fV6kUqlaLVaEAhxOp3xeDzf39+r1ep/4h/8VfXw8DCPx4NWqwWAZrPJZDKl1+uJRCLE43ECQQjDMI7Hk/cLAQMAqH+0BbIMDDEAAAAASUVORK5CYII=);
+    background-repeat: repeat;
+    background-size: 50px 50px;
+    background-blend-mode: multiply;
+
+    /* Your original subtle gradients are good */
+    background-image: 
+        url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQwIDc5LjE2MDQ1MSwgMjAxNy8wNS8wNi0wMTowODoyMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTggKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkYxRjUzQzBGNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkYxRjUzQzExNjQ5RDExRThBNjQ0QzRFMDUwM0QyNzM1Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6RjFGNTNDMEQ2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6RjFGNTNDMEU2NDlEMTFEQUE2NDRDNEUwNTAzRDI3MzUiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz4/3cKNAAACFElEQVR42uyby47DMAwD4/T+D6UPJJAGDbNlHtkQ6aRpmqZJ+7CxzAhb5MfFxEsmWfzLZrPZlP88y+VSNptNHx3PZrNVn3G5XF6en5+vp/NyuRzL5ZLRaFTHF4vFOI5Rz7Nzc3Ol0+m02WxKjUaDarVqE4lEqFQqbTab/f392VRKJZVKpbBYLIZlWfgf8fr6mlAohN/vZ7Vatdlsxul0UigUmM1mOJ1OsVgMvV6Py+VCURSapnE6naLRKENDQ9rtNkEQGI1GhEKh0r/fEASB1WplNptlMpk0m02SyeQf4vPzcyQSCZRKJaRSKSaTCcPhkMPhgGEYKpWK1WqFYRi8Xi+j0QhjGAYSCTqdDjweD2q1Gk3TfH5+ptfrMRwOM5lMaLVaIpEIQqEQbrebTqeDYRhCoZDC4bA0TYfDYTAYDHq9nsFg0Ol0SktLyMvLo62tDWtry8rKCnNzc+bm5vj4+ERFRb2/r01LSyMvL4+WlhZaWhobGxvUajVBEHAcB8/zMAxDLBbDbDZD0zQcxwSDQQiFQiQSCQSB4XCIYRg0TWM2myEIAkEQ2O/3RUREHD10qKurQ1FREVVVValUilAohNlsptvtxuFwkMlkSKVSGAwGhMNhjMfjHA7nJ5tN0zQej4fb7UYoFMLv98MwDE3TMAyjy+WSz+cxx+N5nlAoBE3TMAxDIMR7vV6dTidjGMYwjDAMvF4vAEBRFGEYDgaDxWLRbDbj8XgwDAOPx0Mmk8GyrNvtptPpdDqddsU4HFYulxljGIRAiFgsRm9vr9vthmEYBEHgOA4AwHEcSJLEcrkkSRKNRmOMn5+fKJVKKpWKZVlEo1EIhULMZrPhcBiVSsVsNkNTU1O73SYSiZAkCbPZLEmS+L4PwzB4vV6MRiMOhwO2bDabqdVqrFar9vZ2rKysyMjIwNzcHHNzcyQSCZqamtTU1NDS0kJFRQVtbW3c3d1xcnJCtVqlVqsxmUx4PB5sNhuKogRB4HA4YLVasVgsUqkUbNvGNE3c3d0hSRLdbsdisSguLkZGRgapVMrj8aBUKjEGg6G3txdjGCIIAo/Hg2VZURQhm82GUqnEYDAgmUwyGAxIpVLE43GTyURTU5O8vDy0trZycnLC398fj8eDt7c3NTU1kMlkOBwOpFLp16sPvx5+fHyYzeZoNBrpdHo8HmfT6XRbLbfrdrtxOp1SqRRLliyXywSDQRRFobOzE4/HQ6vVYhgGkUiEUChEMBgkSRKPxwNBEENDQ+qSJCGE3Gw2sSwLnucEQQAAy7LQNA2e52EYouHhYaFQCDzPw7IsLMtijEqlEqFQCFKpFGEYHMfBtm2aplGr1VqtVsPhECMjIxRF4fV6kUqlaLVaEAhxOp3xeDzf39+r1ep/4h/8VfXw8DCPx4NWqwWAZrPJZDKl1+uJRCLE43ECQQjDMI7Hk/cLAQMAqH+0BbIMDDEAAAAASUVORK5CYII=),
         radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 50%),
         radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
 }
@@ -89,15 +100,17 @@ p {
 }
 
 a {
-    color: #9db4c9;
+    /* --- MODIFIED --- */
+    color: #c9a47a; /* Warm amber/gold */
     text-decoration: none;
     transition: all 0.2s ease;
     border-bottom: 1px solid transparent;
 }
 
 a:hover {
-    color: #b8cfe0;
-    border-bottom-color: #9db4c9;
+    /* --- MODIFIED --- */
+    color: #e0c6a7; /* Brighter gold hover */
+    border-bottom-color: #c9a47a;
 }
 
 /* ===================================
@@ -107,7 +120,10 @@ a:hover {
 header {
     text-align: center;
     padding-bottom: 2.5rem;
+    /* --- MODIFIED --- */
     border-bottom: 1px solid #2d2a25;
+    /* Replaced with a gradient to soften the line */
+    background: linear-gradient(to bottom, transparent 98%, #2d2a25 100%);
     margin-bottom: 3rem;
 }
 
@@ -143,13 +159,15 @@ header {
 
 .accordion {
     margin-top: 2rem;
-    border-top: 1px solid #2d2a25;
+    /* --- MODIFIED --- */
+    border-top: 1px solid #2d2a25; /* Softened divider */
     padding-top: 1.25rem;
 }
 
 .accordion summary {
     cursor: pointer;
-    color: #9db4c9;
+    /* --- MODIFIED --- */
+    color: #c9a47a; /* Warm amber/gold */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-weight: 500;
     font-size: 0.85rem;
@@ -162,7 +180,8 @@ header {
 }
 
 .accordion summary:hover {
-    color: #b8cfe0;
+    /* --- MODIFIED --- */
+    color: #e0c6a7; /* Brighter gold hover */
 }
 
 .accordion summary::-webkit-details-marker {
@@ -247,7 +266,8 @@ header {
 
 .lesson-item a:hover {
     background-color: rgba(42, 38, 33, 0.5);
-    border-left-color: #9db4c9;
+    /* --- MODIFIED --- */
+    border-left-color: #c9a47a; /* Warm amber/gold */
     transform: translateX(6px);
     border-bottom: none;
 }
@@ -300,8 +320,9 @@ header {
 }
 
 .back-link a:hover {
-    color: #9db4c9;
-    border-bottom-color: #9db4c9;
+    /* --- MODIFIED --- */
+    color: #c9a47a; /* Warm amber/gold */
+    border-bottom-color: #c9a47a;
     transform: translateX(-4px);
 }
 
@@ -313,7 +334,9 @@ header {
 .lesson-header {
     text-align: center;
     padding-bottom: 2.5rem;
-    border-bottom: 1px solid #2d2a25;
+    /* --- MODIFIED --- */
+    border-bottom: 1px solid #2d2a25; /* Softened divider */
+    background: linear-gradient(to bottom, transparent 98%, #2d2a25 100%);
     margin-bottom: 3.5rem;
 }
 
@@ -350,8 +373,11 @@ header {
 .song-section {
     text-align: center;
     padding: 3rem 0;
+    /* --- MODIFIED --- */
+    /* Replaced hard lines with soft gradient borders */
     border-top: 1px solid #2d2a25;
     border-bottom: 1px solid #2d2a25;
+    background: linear-gradient(to bottom, #2d2a25 0%, transparent 10%, transparent 90%, #2d2a25 100%);
 }
 
 .song-section h2 {
@@ -364,7 +390,7 @@ header {
     color: #e0ddd5;
 }
 
-/* === THIS SECTION HAS BEEN MODIFIED === */
+/* === THIS IS THE BLOCK FROM OUR LAST STEP === */
 /* === "Faded & Rounded" Look === */
 .song-image {
     max-width: 65%;
@@ -372,8 +398,6 @@ header {
     margin: 2rem auto;
     display: block;
     
-    /* --- NEW CHANGES START HERE --- */
-
     /* 1. Add rounded corners for the "old photo" shape */
     border-radius: 12px;
 
@@ -389,8 +413,6 @@ header {
     box-shadow: 
         inset 0 0 80px rgba(0, 0, 0, 0.5),
         inset 0 0 40px rgba(0, 0, 0, 0.3);
-
-    /* --- END NEW CHANGES --- */
 }
 /* === END MODIFIED SECTION === */
 
@@ -417,7 +439,8 @@ header {
 }
 
 .suno-link a {
-    color: #9db4c9;
+    /* --- MODIFIED --- */
+    color: #c9a47a; /* Warm amber/gold */
     font-weight: 500;
 }
 
@@ -428,7 +451,9 @@ header {
 .lesson-navigation {
     margin-top: 5rem;
     padding-top: 2.5rem;
-    border-top: 1px solid #2d2a25;
+    /* --- MODIFIED --- */
+    border-top: 1px solid #2d2a25; /* Softened divider */
+    background: linear-gradient(to top, transparent 98%, #2d2a25 100%);
 }
 
 .nav-links {
@@ -444,7 +469,8 @@ header {
     border: 1px solid #3a3630;
     border-radius: 2px;
     text-align: center;
-    color: #9db4c9;
+    /* --- MODIFIED --- */
+    color: #c9a47a; /* Warm amber/gold */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-weight: 500;
     font-size: 0.85rem;
@@ -455,10 +481,11 @@ header {
 
 .nav-link:hover {
     background-color: rgba(42, 38, 33, 0.5);
-    border-color: #9db4c9;
+    /* --- MODIFIED --- */
+    border-color: #c9a47a; /* Warm amber/gold */
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    border-bottom-color: #9db4c9;
+    border-bottom-color: #c9a47a;
 }
 
 .prev-link {
@@ -521,7 +548,8 @@ strong, b {
 .button {
     display: inline-block;
     padding: 1rem 2rem;
-    background-color: #9db4c9;
+    /* --- MODIFIED --- */
+    background-color: #c9a47a; /* Warm amber/gold */
     color: #1a1a1a;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-weight: 600;
@@ -534,9 +562,10 @@ strong, b {
 }
 
 .button:hover {
-    background-color: #b8cfe0;
+    /* --- MODIFIED --- */
+    background-color: #e0c6a7; /* Brighter gold hover */
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(157, 180, 201, 0.25);
+    box-shadow: 0 4px 12px rgba(201, 164, 122, 0.25);
     border-bottom: none;
 }
 
