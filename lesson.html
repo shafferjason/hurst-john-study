@@ -130,7 +130,7 @@
             navHTML += '</div>';
             navSection.innerHTML = navHTML;
 
-            // === NEW JAVASCRIPT FOR CUSTOM PLAYER ===
+            // === THIS IS THE JAVASCRIPT FOR THE PLAYER ===
             // This code must run *after* the innerHTML is set
             if (currentLesson.audio_file) {
                 const audio = document.getElementById('lesson-audio');
@@ -163,19 +163,23 @@
 
                 // Update seek bar and time as audio plays
                 audio.addEventListener('timeupdate', () => {
+                    // Use audio.duration for the max value in the calculation
                     const progress = (audio.currentTime / audio.duration) * 100;
-                    seekBar.value = progress;
+                    // Update the range input's value based on time, not percentage
+                    seekBar.value = audio.currentTime; 
                     currentTimeEl.textContent = formatTime(audio.currentTime);
                 });
 
                 // Set total duration when audio loads
                 audio.addEventListener('loadedmetadata', () => {
                     durationEl.textContent = formatTime(audio.duration);
-                    seekBar.max = audio.duration; // Set max for easier seeking
+                    // Set the range input's max value to the audio duration in seconds
+                    seekBar.max = audio.duration; 
                 });
                 
                 // Allow user to seek by dragging the bar
                 seekBar.addEventListener('input', () => {
+                    // The value of the seek bar is now in seconds
                     audio.currentTime = seekBar.value;
                 });
                 
@@ -187,7 +191,7 @@
                     currentTimeEl.textContent = '0:00';
                 });
             }
-            // === END NEW JAVASCRIPT ===
+            // === END PLAYER JAVASCRIPT ===
         }
     </script>
 </body>
