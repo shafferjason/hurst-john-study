@@ -1,855 +1,815 @@
 /* ===================================
-   RESET & BASE STLES
-   =================================== */
+   RESET & BASE STLES
+   =================================== */
 
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    /* Warm, readable serif for that analog, testimonial feel */
-    font-family: 'Georgia', 'Iowan Old Style', 'Times New Roman', serif;
-    background-color: #1a1a1a;
-    color: #d4d0c8;
-    line-height: 1.75;
-    padding: 20px;
-    font-size: 18px;
-    /* Subtle texture for analog warmth */
-    background-image: 
-        url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU:bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQwIDc5LjE2MDQ1MSwgMjAxNy8wNS8wNi0wMTowODoyMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY: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),
-        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 50%),
-        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
+    /* Warm, readable serif for that analog, testimonial feel */
+    font-family: 'Georgia', 'Iowan Old Style', 'Times New Roman', serif;
+    background-color: #1a1a1a;
+    color: #d4d0c8;
+    line-height: 1.75;
+    padding: 20px;
+    font-size: 18px;
+    /* Subtle texture for analog warmth */
+    background-image: 
+        url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU:bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTQwIDc5LjE2MDQ1MSwgMjAxNy8wNS8wNi0wMTowODoyMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY: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),
+        radial-gradient(circle at 20% 50%, rgba(255, 255, 255, 0.01) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
 }
 
 /* ===================================
-   CONTAINER & LAYOUT
-   =================================== */
+   CONTAINER & LAYOUT
+   =================================== */
 
 .container {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 40px 20px;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px;
 }
 
 /* ===================================
-   TYPOGRAPHY
-   =================================== */
+   TYPOGRAPHY
+   =================================== */
 
 h1 {
-    /* Restrained, weathered headline */
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 2.4rem;
-    font-weight: 400;
-    margin-bottom: 0.75rem;
-    color: #e8e4dc;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+    /* Restrained, weathered headline */
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2.4rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    color: #e8e4dc;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
 }
 
 h2 {
-    /* Section headers - quiet but present */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-top: 3.5rem;
-    margin-bottom: 1.75rem;
-    color: #8a8577;
-    text-align: left;
+    /* Section headers - quiet but present */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 3.5rem;
+    margin-bottom: 1.75rem;
+    color: #8a8577;
+    text-align: left;
 }
 
 h3 {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.35rem;
-    font-weight: 400;
-    color: #c8c4bb;
-    margin-bottom: 1.25rem;
-    line-height: 1.4;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #c8c4bb;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
 }
 
 p {
-    margin-bottom: 1.5rem;
-    color: #d4d0c8;
-    font-size: 1.05rem;
-    line-height: 1.75;
+    margin-bottom: 1.5rem;
+    color: #d4d0c8;
+    font-size: 1.05rem;
+    line-height: 1.75;
 }
 
 /* Emphasis text - for preview/pull quotes */
 .emphasis-text,
 .preview-text {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.25rem;
-    line-height: 1.65;
-    color: #e0ddd5;
-    font-style: italic;
-    margin: 2.5rem 0;
-    padding: 0 1.5rem;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.25rem;
+    line-height: 1.65;
+    color: #e0ddd5;
+    font-style: italic;
+    margin: 2.5rem 0;
+    padding: 0 1.5rem;
 }
 
 a {
-    color: #c9a47a; /* Warm amber/gold */
-    text-decoration: none;
-    transition: all 0.2s ease;
-    border-bottom: 1px solid transparent;
+    color: #c9a47a; /* Warm amber/gold */
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid transparent;
 }
 
 a:hover {
-    color: #e0c6a7; /* Brighter gold hover */
-    border-bottom-color: #c9a47a;
+    color: #e0c6a7; /* Brighter gold hover */
+    border-bottom-color: #c9a47a;
 }
 
 /* ===================================
-   HEADER
-   =================================== */
+   HEADER
+   =================================== */
 
 header {
-    text-align: center;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid #2d2a25;
-    /* Replaced with a gradient to soften the line */
-    background: linear-gradient(to bottom, transparent 98%, #2d2a25 100%);
-    margin-bottom: 3rem;
+    text-align: center;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #2d2a25;
+    /* Replaced with a gradient to soften the line */
+    background: linear-gradient(to bottom, transparent 98%, #2d2a25 100%);
+    margin-bottom: 3rem;
 }
 
 .subtitle {
-    font-size: 1.05rem;
-    color: #7a766d;
-    font-style: italic;
-    margin-top: 1rem;
-    font-weight: 300;
+    font-size: 1.05rem;
+    color: #7a766d;
+    font-style: italic;
+    margin-top: 1rem;
+    font-weight: 300;
 }
 
 /* ===================================
-   ABOUT SECTION
-   =================================== */
+   ABOUT SECTION
+   =================================== */
 
 .about-section {
-    margin-bottom: 4rem;
+    margin-bottom: 4rem;
 }
 
 .about-preview {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.2rem;
-    color: #e0ddd5;
-    margin-bottom: 1.25rem;
-    line-height: 1.65;
-    font-style: italic;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.2rem;
+    color: #e0ddd5;
+    margin-bottom: 1.25rem;
+    line-height: 1.65;
+    font-style: italic;
 }
 
 /* ===================================
-   ACCORDION / DETAILS
-   For the "Read More" sections - optimized for extended reading
-   =================================== */
+   ACCORDION / DETAILS
+   For the "Read More" sections - optimized for extended reading
+   =================================== */
 
 .accordion {
-    margin-top: 2rem;
-    border-top: 1px solid #2d2a25; /* Softened divider */
-    padding-top: 1.25rem;
+    margin-top: 2rem;
+    border-top: 1px solid #2d2a25; /* Softened divider */
+    padding-top: 1.25rem;
 }
 
 .accordion summary {
-    cursor: pointer;
-    color: #c9a47a; /* Warm amber/gold */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-weight: 500;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    list-style: none;
-    padding: 0.75rem 0;
-    user-select: none;
-    transition: color 0.2s ease;
+    cursor: pointer;
+    color: #c9a47a; /* Warm amber/gold */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    list-style: none;
+    padding: 0.75rem 0;
+    user-select: none;
+    transition: color 0.2s ease;
 }
 
 .accordion summary:hover {
-    color: #e0c6a7; /* Brighter gold hover */
+    color: #e0c6a7; /* Brighter gold hover */
 }
 
 .accordion summary::-webkit-details-marker {
-    display: none;
+    display: none;
 }
 
 .accordion summary::before {
-    content: "\25B8  ";
-    display: inline-block;
-    transition: transform 0.2s ease;
-    margin-right: 0.5rem;
-    font-size: 0.9rem;
+    content: "\25B8  ";
+    display: inline-block;
+    transition: transform 0.2s ease;
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
 }
 
 .accordion[open] summary::before {
-    transform: rotate(90deg);
+    transform: rotate(90deg);
 }
 
 /* === SYNTAX ERROR FIXED HERE === */
 .accordion-content {
-    padding: 2rem 0 0 0;
-    color: #d4d0c8;
-    animation: fadeIn 0.4s ease;
-    
-    /* Optimized for extended reading */
-    font-size: 1.05rem;
-    line-height: 1.8;
-    max-width: 38rem; /* Optimal line length for reading */
+    padding: 2rem 0 0 0;
+    color: #d4d0c8;
+    animation: fadeIn 0.4s ease;
+    
+    /* Optimized for extended reading */
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 38rem; /* Optimal line length for reading */
 }
 
 /* Add subtle paragraph spacing for easier scanning */
 .accordion-content p {
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.75rem;
 }
 
 /* Add breathing room between sections */
 .accordion-content p + p {
-    text-indent: 0;
+    text-indent: 0;
 }
 /* === END FIX === */
 
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-8px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* ===================================
-   LESSONS SECTION
-   =================================== */
+   LESSONS SECTION
+   =================================== */
 
 .lessons-section {
-    margin-top: 4rem;
+    margin-top: 4rem;
 }
 
 .lessons-section h2 {
-    text-align: center;
-    margin-bottom: 2.5rem;
+    text-align: center;
+    margin-bottom: 2.5rem;
 }
 
 #lessons-list {
-    margin-top: 2rem;
+    margin-top: 2rem;
 }
 
 .lesson-item {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
 }
 
 .lesson-item a {
-    display: block;
-    padding: 1.5rem 1.5rem;
-    background-color: rgba(42, 38, 33, 0.3);
-    border-radius: 2px;
-    border-left: 2px solid #3a3630;
-    transition: all 0.3s ease;
-    text-decoration: none;
+    display: block;
+    padding: 1.5rem 1.5rem;
+    background-color: rgba(42, 38, 33, 0.3);
+    border-radius: 2px;
+    border-left: 2px solid #3a3630;
+    transition: all 0.3s ease;
+    text-decoration: none;
 }
 
 .lesson-item a:hover {
-    background-color: rgba(42, 38, 33, 0.5);
-    border-left-color: #c9a47a; /* Warm amber/gold */
-    transform: translateX(6px);
-    border-bottom: none;
+    background-color: rgba(42, 38, 33, 0.5);
+    border-left-color: #c9a47a; /* Warm amber/gold */
+    transform: translateX(6px);
+    border-bottom: none;
 }
 
 .lesson-title {
-    display: block;
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.25rem;
-    font-weight: 400;
-    color: #e8e4dc;
-    margin-bottom: 0.5rem;
-    line-height: 1.35;
+    display: block;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #e8e4dc;
+    margin-bottom: 0.5rem;
+    line-height: 1.35;
 }
 
 .lesson-scripture {
-    display: block;
-    font-size: 0.95rem;
-    color: #8a8577;
-    font-style: italic;
-    font-weight: 300;
+    display: block;
+    font-size: 0.95rem;
+    color: #8a8577;
+    font-style: italic;
+    font-weight: 300;
 }
 
 .no-lessons {
-    text-align: center;
-    padding: 3rem 2rem;
-    color: #7a766d;
-    font-style: italic;
-    font-size: 1.05rem;
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #7a766d;
+    font-style: italic;
+    font-size: 1.05rem;
 }
 
 /* ===================================
-   LESSON PAGE
-   =================================== */
+   LESSON PAGE
+   =================================== */
 
 .back-link {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2.5rem;
 }
 
 .back-link a {
-    display: inline-block;
-    padding: 0.5rem 0;
-    color: #8a8577;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-weight: 500;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    border-bottom: 1px solid transparent;
-    transition: all 0.25s ease;
+    display: inline-block;
+    padding: 0.5rem 0;
+    color: #8a8577;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid transparent;
+    transition: all 0.25s ease;
 }
 
 .back-link a:hover {
-    color: #c9a47a; /* Warm amber/gold */
-    border-bottom-color: #c9a47a;
-    transform: translateX(-4px);
+    color: #c9a47a; /* Warm amber/gold */
+    border-bottom-color: #c9a47a;
+    transform: translateX(-4px);
 }
 
 .back-link a::before {
-    content: "â†  ";
-    margin-right: 0.4rem;
+    content: "â†  ";
+    margin-right: 0.4rem;
 }
 
 .lesson-header {
-    text-align: center;
-    padding-bottom: 2.5rem;
-    border-bottom: 1px solid #2d2a25; /* Softened divider */
-s   background: linear-gradient(to bottom, transparent 98%, #2d2a25 100%);
-    margin-bottom: 3.5rem;
+    text-align: center;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #2d2a25; /* Softened divider */
+    background: linear-gradient(to bottom, transparent 98%, #2d2a25 100%);
+    margin-bottom: 3.5rem;
 }
 
 .scripture-reference {
-    font-size: 1.05rem;
-    color: #8a8577;
-    font-style: italic;
-MS   margin-top: 1rem;
-    font-weight: 300;
-    letter-spacing: 0.01em;
+    font-size: 1.05rem;
+    color: #8a8577;
+    font-style: italic;
+    margin-top: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.01em;
 }
 
 .lesson-summary,
 .song-tie-in,
 .song-section {
-    margin-bottom: 4.5rem;
+    margin-bottom: 4.5rem;
 }
 
 /* Section headers for lesson content */
 .lesson-summary h2,
 .song-tie-in h2 {
-    text-align: center;
+    text-align: center;
 }
 
 .preview-text {
-    text-align: center;
-    margin-bottom: 2rem;
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 /* ===================================
-   SONG SECTION
-   =================================== */
+   SONG SECTION
+   =================================== */
 
 .song-section {
-    text-align: center;
-    padding: 3rem 0;
-    /* Replaced hard lines with soft gradient borders */
-    border-top: 1px solid #2d2a25;
-    border-bottom: 1px solid #2d2a25;
-    background: linear-gradient(to bottom, #2d2a25 0%, transparent 10%, transparent 90%, #2d2a25 100%);
+    text-align: center;
+    padding: 3rem 0;
+    /* Replaced hard lines with soft gradient borders */
+    border-top: 1px solid #2d2a25;
+    border-bottom: 1px solid #2d2a25;
+    background: linear-gradient(to bottom, #2d2a25 0%, transparent 10%, transparent 90%, #2d2a25 100%);
 }
 
 .song-section h2 {
-WH   font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.65rem;
-    font-weight: 400;
-    text-transform: none;
-    letter-spacing: -0.01em;
-    margin-bottom: 2rem;
-    color: #e0ddd5;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.65rem;
+    font-weight: 400;
+    text-transform: none;
+    letter-spacing: -0.01em;
+    margin-bottom: 2rem;
+    color: #e0ddd5;
 }
 
 /* === "Faded & Rounded" Look === */
 .song-image {
-    max-width: 65%;
-    height: auto;
-    margin: 2rem auto;
-    display: block;
-    
-    /* 1. Add rounded corners for the "old photo" shape */
-    border-radius: 12px;
+    max-width: 65%;
+    height: auto;
+    margin: 2rem auto;
+    display: block;
+    
+    /* 1. Add rounded corners for the "old photo" shape */
+    border-radius: 12px;
 
-    /* 2. Use an ELLIPSE mask to fade the sides and top/bottom */
-    mask-image: radial-gradient(ellipse at center, black 60%, transparent 90%);
-    -webkit-mask-image: radial-gradient(ellipse at center, black 60%, transparent 90%);
+    /* 2. Use an ELLIPSE mask to fade the sides and top/bottom */
+    mask-image: radial-gradient(ellipse at center, black 60%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 60%, transparent 90%);
 
-s   /* 3. Add the tint and opacity */
-    opacity: 0.9;
-    filter: contrast(0.95) brightness(0.95) saturate(0.9) sepia(0.25);
-    
-    /* 4. Keep the *inset* shadow for the vignette effect. */
-    box-shadow: 
-        inset 0 0 80px rgba(0, 0, 0, 0.5),
-        inset 0 0 40px rgba(0, 0, 0, 0.3);
+    /* 3. Add the tint and opacity */
+    opacity: 0.9;
+    filter: contrast(0.95) brightness(0.95) saturate(0.9) sepia(0.25);
+    
+    /* 4. Keep the *inset* shadow for the vignette effect. */
+    box-shadow: 
+        inset 0 0 80px rgba(0, 0, 0, 0.5),
+        inset 0 0 40px rgba(0, 0, 0, 0.3);
 }
 
 /* ===================================
-   CUSTOM AUDIO PLAYER (TEXTURED) - ENHANCED 3D
-   =================================== */
+   CUSTOM AUDIO PLAYER (TEXTURED)
+   =================================== */
 
 .custom-audio-player {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    max-width: 480px;
-    margin: 2.5rem auto;
-    padding: 0.5rem 1rem;
-    background: linear-gradient(to bottom, 
-        rgba(50, 45, 40, 0.6) 0%, /* Slightly lighter top for subtle highlight */
-        rgba(42, 38, 33, 0.4) 20%, 
-        rgba(30, 28, 25, 0.5) 80%,
-        rgba(25, 23, 20, 0.6) 100%); /* Slightly darker bottom for deeper recess */
-    border-radius: 50px; /* Pill shape */
-    border: 1px solid #3a3630; /* Main border */
-    box-shadow: 
-        0 4px 10px rgba(0,0,0,0.4), /* Outer shadow for lift */
-        inset 0 2px 6px rgba(0,0,0,0.6), /* Stronger inset shadow for depth */
-        inset 0 1px 1px rgba(255,255,255,0.08); /* Subtle highlight on top edge */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 480px;
+    margin: 2.5rem auto;
+    padding: 0.5rem 1rem;
+    /* --- MODIFIED --- */
+    /* Added gradient for texture */
+    background: linear-gradient(to bottom, rgba(42, 38, 33, 0.4) 0%, rgba(30, 28, 25, 0.5) 100%);
+    border-radius: 50px; /* Pill shape */
+    border: 1px solid #3a3630;
+    /* Added shadows for depth */
+    box-shadow: 
+        inset 0 1px 3px rgba(0,0,0,0.4), 
+        0 1px 1px rgba(255,255,255,0.05);
 }
 
 .player-button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    margin-right: 1rem;
-    position: relative;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.5), 
-                inset 0 0 5px rgba(0,0,0,0.2); 
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s ease;
-}
-
-.player-button:hover {
-    box-shadow: 0 2px 5px rgba(0,0,0,0.6), 
-                inset 0 0 5px rgba(0,0,0,0.3);
-    transform: translateY(-1px);
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 1rem;
 }
 
 .player-button svg {
-    width: 36px;
-    height: 36px;
-    fill: #d4d0c8;
-    transition: all 0.2s ease;
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5))
-            drop-shadow(0 0 5px rgba(255,255,255,0.05));
+    width: 36px;
+    height: 36px;
+    fill: #d4d0c8;
+    transition: all 0.2s ease;
+    /* Add a subtle shadow to the icon itself */
+    filter: drop-shadow(0 1px 1px rgba(0,0,0,0.3));
 }
 
 .player-button:hover svg {
-    fill: #e0c6a7;
-    transform: scale(0.98); 
+    fill: #e0c6a7; /* Warm gold hover */
 }
 
 .time-display {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 0.85rem;
-    color: #8a8577;
-    width: 40px;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.3);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.85rem;
+    color: #8a8577;
+    width: 40px; /* Fixed width to prevent layout shift */
 }
 
 #current-time {
-    text-align: right;
-    margin-right: 0.75rem;
+    text-align: right;
+    margin-right: 0.75rem;
 }
 
 #duration {
-    text-align: left;
-    margin-left: 0.75rem;
+    text-align: left;
+    margin-left: 0.75rem;
 }
 
 .seek-bar {
-    flex: 1;
-    -webkit-appearance: none;
-    appearance: none;
-    width: 100%;
-    height: 6px;
-    background: linear-gradient(to bottom, #2a2622 0%, #3a3630 100%);
-    box-shadow: 
-        inset 0 1px 3px rgba(0,0,0,0.8), 
-        inset 0 -1px 1px rgba(255,255,255,0.05);
-    border-radius: 3px;
-    outline: none;
-    cursor: pointer;
-    border: 1px solid rgba(0,0,0,0.2); 
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 4px;
+    /* --- MODIFIED --- */
+    /* Changed to a gradient for "trough" effect */
+    background: linear-gradient(to bottom, #2a2622 0%, #3a3630 100%);
+    /* Added inset shadow for depth */
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.5);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
 }
 
 /* --- Chrome/Safari Thumb --- */
 .seek-bar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: radial-gradient(circle at center, 
-                #e8e4dc 0%,
-                #d4d0c8 60%,
-section               #c8c4bb 100%);
-    cursor: pointer;
-    border: 1px solid rgba(0,0,0,0.3);
-    box-shadow: 
-        0 2px 5px rgba(0,0,0,0.5), 
-        inset 0 1px 1px rgba(255,255,255,0.2);
-    transition: all 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #d4d0c8;
+    cursor: pointer;
+    /* --- MODIFIED --- */
+    /* Added border and shadow for 3D feel */
+    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    transition: background 0.2s ease;
 }
 
 .seek-bar:hover::-webkit-slider-thumb {
-    background: radial-gradient(circle at center, 
-                #e0c6a7 0%, 
-                #c9a47a 60%, 
-                #b08d6d 100%);
-s   box-shadow: 
-        0 3px 8px rgba(0,0,0,0.6), 
-        inset 0 1px 2px rgba(255,255,255,0.3);
-    transform: translateY(-1px);
+    background: #c9a47a; /* Warm gold */
 }
 
 /* --- Firefox Thumb --- */
 .seek-bar::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: radial-gradient(circle at center, 
-                #e8e4dc 0%, 
-              t #d4d0c8 60%, 
-                #c8c4bb 100%);
-s   cursor: pointer;
-    border: 1px solid rgba(0,0,0,0.3);
-    box-shadow: 
-        0 2px 5px rgba(0,0,0,0.5), 
-        inset 0 1px 1px rgba(255,255,255,0.2);
-    transition: all 0.2s ease;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: #d4d0c8;
+    cursor: pointer;
+    /* --- MODIFIED --- */
+    /* Added border and shadow for 3D feel */
+    border: 1px solid rgba(0,0,0,0.2);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+    transition: background 0.2s ease;
 }
 
 .seek-bar:hover::-moz-range-thumb {
-    background: radial-gradient(circle at center, 
-                #e0c6a7 0%, 
-                #c9a47a 60%, 
-                #b08d6d 100%);
-    box-shadow: 
-        0 3px 8px rgba(0,0,0,0.6), 
-        inset 0 1px 2px rgba(255,255,255,0.3);
-    transform: translateY(-1px);
+    background: #c9a47a; /* Warm gold */
 }
 
 
 .suno-link {
-    margin-top: 1.5rem;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-size: 0.85rem;
-    color: #7a766d;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    margin-top: 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.85rem;
+    color: #7a766d;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
 }
 
 .suno-link a {
-    color: #c9a47a; /* Warm amber/gold */
-    font-weight: 500;
+    color: #c9a47a; /* Warm amber/gold */
+    font-weight: 500;
 }
 
 /* ===================================
-   NAVIGATION
-   =================================== */
+   NAVIGATION
+   =================================== */
 
 .lesson-navigation {
-    margin-top: 5rem;
-    padding-top: 2.5rem;
-    border-top: 1px solid #2d2a25; /* Softened divider */
-    background: linear-gradient(to top, transparent 98%, #2d2a25 100%);
+    margin-top: 5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid #2d2a25; /* Softened divider */
+    background: linear-gradient(to top, transparent 98%, #2d2a25 100%);
 }
 
 .nav-links {
-    display: flex;
-    justify-content: space-between;
-    gap: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
 }
 
 .nav-link {
-    flex: 1;
-    padding: 1.25rem 1.5rem;
-    background-color: rgba(42, 38, 33, 0.3);
-    border: 1px solid #3a3630;
-    border-radius: 2px;
-    text-align: center;
-    color: #c9a47a; /* Warm amber/gold */
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-weight: 500;
-    font-size: 0.85rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    transition: all 0.25s ease;
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    background-color: rgba(42, 38, 33, 0.3);
+    border: 1px solid #3a3630;
+    border-radius: 2px;
+    text-align: center;
+    color: #c9a47a; /* Warm amber/gold */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: all 0.25s ease;
 }
 
 .nav-link:hover {
-    background-color: rgba(42, 38, 33, 0.5);
-    border-color: #c9a47a; /* Warm amber/gold */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-    border-bottom-color: #c9a47a;
+    background-color: rgba(42, 38, 33, 0.5);
+    border-color: #c9a47a; /* Warm amber/gold */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-bottom-color: #c9a47a;
 }
 
 .prev-link {
-WH   text-align: left;
+    text-align: left;
 }
 
 .next-link {
-    text-align: right;
+    text-align: right;
 }
 
 .nav-link-placeholder {
-    flex: 1;
+    flex: 1;
 }
 
 /* ===================================
-   SPECIAL TEXT ELEMENTS
-   =================================== */
+   SPECIAL TEXT ELEMENTS
+   =================================== */
 
 /* Scripture quotes within text */
 .scripture-quote {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-style: italic;
-    color: #e0ddd5;
-Indented     padding-left: 2rem;
-    border-left: 2px solid #3a3630;
-    margin: 2.5rem 0;
-    font-size: 1.1rem;
-    line-height: 1.7;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: #e0ddd5;
+    padding-left: 2rem;
+    border-left: 2px solid #3a3630;
+    margin: 2.5rem 0;
+    font-size: 1.1rem;
+    line-height: 1.7;
 }
 
 em, i {
-    font-style: italic;
-    color: #e0ddd5;
+    font-style: italic;
+    color: #e0ddd5;
 }
 
 strong, b {
-    font-weight: 600;
-    color: #e8e4dc;
+    font-weight: 600;
+    color: #e8e4dc;
 }
 
 /* ===================================
-s  ERROR MESSAGE
-   =================================== */
+   ERROR MESSAGE
+   =================================== */
 
 .error-message {
-    text-align: center;
-    padding: 5rem 2rem;
+    text-align: center;
+    padding: 5rem 2rem;
 }
 
 .error-message h1 {
-    color: #c98a7a;
-    margin-bottom: 1.5rem;
+    color: #c98a7a;
+    margin-bottom: 1.5rem;
 }
 
 .error-message p {
-    margin-bottom: 2.5rem;
-    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
 }
 
 .button {
-    display: inline-block;
-s   padding: 1rem 2rem;
-    background-color: #c9a47a; /* Warm amber/gold */
-    color: #1a1a1a;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    font-weight: 600;
-    border-radius: 2px;
-    transition: all 0.2s ease;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-  s font-size: 0.85rem;
-    border: none;
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #c9a47a; /* Warm amber/gold */
+    color: #1a1a1a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 600;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+    border: none;
 }
 
 .button:hover {
-    background-color: #e0c6a7; /* Brighter gold hover */
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(201, 164, 122, 0.25);
-    border-bottom: none;
+    background-color: #e0c6a7; /* Brighter gold hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(201, 164, 122, 0.25);
+    border-bottom: none;
 }
 
 /* ===================================
-   RESPONSIVE DESIGN
-   =================================== */
+   RESPONSIVE DESIGN
+   =================================== */
 
 @media (max-width: 768px) {
-    body {
-        padding: 15px;
-        font-size: 17px;
-    }
+    body {
+        padding: 15px;
+        font-size: 17px;
+    }
 
-    .container {
-        padding: 30px 15px;
-    }
+    .container {
+        padding: 30px 15px;
+    }
 
-    h1 {
-        font-size: 2rem;
-    }
+    h1 {
+        font-size: 2rem;
+    }
 
-    h2 {
-        font-size: 0.8rem;
-  Warning       margin-top: 3rem;
-    }
+    h2 {
+        font-size: 0.8rem;
+        margin-top: 3rem;
+    }
 
-    h3 {
-        font-size: 1.2rem;
-    }
+    h3 {
+        font-size: 1.2rem;
+    }
 
-    .emphasis-text,
-    .preview-text {
-        font-size: 1.15rem;
-        padding: 0 1rem;
-Note   }
+    .emphasis-text,
+    .preview-text {
+        font-size: 1.15rem;
+        padding: 0 1rem;
+    }
 
-    .lesson-item a {
-        padding: 1.25rem 1.25rem;
-    }
+    .lesson-item a {
+        padding: 1.25rem 1.25rem;
+    }
 
-    .lesson-title {
-        font-size: 1.15rem;
-    }
+    .lesson-title {
+        font-size: 1.15rem;
+    }
 
-    /* Image remains balanced on mobile */
-    .song-image {
-        max-width: 75%;
-    }
-    
-    .custom-audio-player {
-        padding: 0.5rem 0.75rem;
-    }
-    
-    .time-display {
-        font-size: 0.8rem;
-s       width: 35px;
-    }
+    /* Image remains balanced on mobile */
+    .song-image {
+        max-width: 75%;
+    }
+    
+    .custom-audio-player {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    .time-display {
+        font-size: 0.8rem;
+        width: 35px;
+    }
 
-    .nav-links {
-        flex-direction: column;
-        gap: 1rem;
-    }
+    .nav-links {
+        flex-direction: column;
+        gap: 1rem;
+    }
 
-    .prev-link,
-    .next-link {
-        text-align: center;
-    }
+    .prev-link,
+    .next-link {
+        text-align: center;
+    }
 
-    .accordion-content {
-        max-width: 100%;
-        font-size: 1.025rem;
-    }
+    .accordion-content {
+        max-width: 100%;
+        font-size: 1.025rem;
+    }
 }
 
 @media (max-width: 480px) {
-    body {
-        font-size: 16px;
-    }
+    body {
+        font-size: 16px;
+    }
 
-    h1 {
-        font-size: 1.75rem;
-    }
+    h1 {
+        font-size: 1.75rem;
+    }
 
-    .subtitle {
-        font-size: 0.95rem;
-    }
+    .subtitle {
+        font-size: 0.95rem;
+    }
 
-    h2 {
-        font-size: 0.75rem;
-    }
+    h2 {
+        font-size: 0.75rem;
+    }
 
-    h3 {
-        font-size: 1.1rem;
-    }
+    h3 {
+        font-size: 1.1rem;
+    }
 
-    .emphasis-text,
-    .preview-text {
-        font-size: 1.05rem;
-    }
+    .emphasis-text,
+    .preview-text {
+        font-size: 1.05rem;
+    }
 
-    .about-preview {
-        font-size: 1.05rem;
-Note   }
+    .about-preview {
+        font-size: 1.05rem;
+    }
 
-    /* Image scales down further on very small screens */
-    .song-image {
-        max-width: 85%;
-    }
-    
-    .custom-audio-player {
-        padding: 0.4rem 0.5rem;
-    }
-    
-    .player-button {
-        margin-right: 0.5rem;
-    }
-    
-s   .player-button svg {
-        width: 32px;
-        height: 32px;
-    }
+    /* Image scales down further on very small screens */
+    .song-image {
+        max-width: 85%;
+    }
+    
+    .custom-audio-player {
+        padding: 0.4rem 0.5rem;
+    }
+    
+    .player-button {
+        margin-right: 0.5rem;
+    }
+    
+    .player-button svg {
+        width: 32px;
+        height: 32px;
+    }
 
-    .time-display {
-        font-size: 0.75rem;
-        width: 32px;
-s   }
-    
-    #current-time {
-        margin-right: 0.5rem;
-    }
+    .time-display {
+        font-size: 0.75rem;
+        width: 32px;
+    }
+    
+    #current-time {
+        margin-right: 0.5rem;
+    }
 
-    #duration {
-        margin-left: 0.5rem;
-    }
-    
-    .seek-bar::-webkit-slider-thumb {
-        width: 14px;
-        height: 14px;
-    }
-    .seek-bar::-moz-range-thumb {
-Indented         width: 14px;
-        height: 14px;
-    }
+    #duration {
+        margin-left: 0.5rem;
+    }
+    
+    .seek-bar::-webkit-slider-thumb {
+        width: 14px;
+        height: 14px;
+    }
+    .seek-bar::-moz-range-thumb {
+        width: 14px;
+        height: 14px;
+    }
 
-    .accordion-content {
-        font-size: 1rem;
-        line-height: 1.75;
-    }
+    .accordion-content {
+        font-size: 1rem;
+        line-height: 1.75;
+    }
 }
 
 /* ===================================
-   UTILITY CLASSES
-   =================================== */
+   UTILITY CLASSES
+   =================================== */
 
 .text-center {
-    text-align: center;
+    text-align: center;
 }
 
 /* Subtle divider with warm tone */
 .divider {
-Where   border: 0;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #3a3630, transparent);
-    margin: 3.5rem 0;
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #3a3630, transparent);
+    margin: 3.5rem 0;
 }
 
 .small-caps {
-    font-variant: small-caps;
-    letter-spacing: 0.08em;
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
 }
