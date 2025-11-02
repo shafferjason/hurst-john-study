@@ -66,7 +66,6 @@ const lessonData = [
         audio_file: "audio/lesson-2.mp3",
         suno_link: "https://suno.com/s/qyxWoygzR74r0Aqd"
     }
-
     
     // ============================================
     // TO ADD A NEW LESSON:
@@ -76,16 +75,16 @@ const lessonData = [
     // 
     // ,
     // {
-    //     id: "lesson-2",
-    //     title: "Lesson 2: Your Title Here",
+    //     id: "lesson-3",
+    //     title: "Lesson 3: Your Title Here",
     //     scripture: "John X:XX-XX",
     //     summary_preview: "Short preview here...",
     //     summary_full: "Full lesson text here...",
     //     tie_in_preview: "Short song connection here...",
     //     tie_in_full: "Full song explanation here...",
     //     song_title: "Song Title Here",
-    //     image_url: "images/lesson-2.png",
-    //     audio_file: "audio/lesson-2.mp3",
+    //     image_url: "images/lesson-3.png",
+    //     audio_file: "audio/lesson-3.mp3",
     //     suno_link: "https://suno.com/song/your-song-id"
     // }
     //
