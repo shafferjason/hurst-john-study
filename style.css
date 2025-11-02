@@ -170,7 +170,7 @@ header {
 }
 
 .accordion summary::before {
-    content: "â–¸ ";
+    content: "\25B8  ";
     display: inline-block;
     transition: transform 0.2s ease;
     margin-right: 0.5rem;
