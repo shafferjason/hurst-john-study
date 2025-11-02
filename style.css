@@ -118,7 +118,7 @@ header {
     font-size: 1.05rem;
     color: #7a766d;
     font-style: italic;
-  t margin-top: 1rem;
+    margin-top: 1rem;
     font-weight: 300;
 }
 
@@ -406,22 +406,17 @@ header {
     max-width: 480px;
     margin: 2.5rem auto;
     padding: 0.5rem 1rem;
-    
-    /* --- ENHANCED GRADIENT & SHADOWS --- */
-    background: linear-gradient(to bottom, 
-                rgba(50, 45, 40, 0.6) 0%, /* Slightly lighter top for subtle highlight */
-                rgba(42, 38, 33, 0.4) 20%, 
-                rgba(30, 28, 25, 0.5) 80%,
-                rgba(25, 23, 20, 0.6) 100%); /* Slightly darker bottom for deeper recess */
-    border-radius: 50px; /* Pill shape */
-    border: 1px solid #3a3630; /* Main border */
-    box-shadow: 
-        /* Outer shadow for lift */
-        0 4px 10px rgba(0,0,0,0.4), 
-        /* Stronger inset shadow for depth */
-        inset 0 2px 6px rgba(0,0,0,0.6), 
-        /* Subtle highlight on top edge */
-        inset 0 1px 1px rgba(255,255,255,0.08);s
+    background: linear-gradient(to bottom, 
+        rgba(50, 45, 40, 0.6) 0%,
+        rgba(42, 38, 33, 0.4) 20%, 
+        rgba(30, 28, 25, 0.5) 80%,
+        rgba(25, 23, 20, 0.6) 100%);
+    border-radius: 50px;
+    border: 1px solid #3a3630;
+    box-shadow: 
+        0 4px 10px rgba(0,0,0,0.4), 
+        inset 0 2px 6px rgba(0,0,0,0.6), 
+        inset 0 1px 1px rgba(255,255,255,0.08); 
 }
 
 .player-button {
@@ -430,14 +425,12 @@ header {
     cursor: pointer;
     padding: 0;
     margin-right: 1rem;
-    /* --- ADDED BUTTON DEPTH --- */
-    position: relative; /* For absolute positioning of pseudo-elements or more complex shadows */
-    /* Simulating a subtle button press effect */
-    box-shadow: 0 1px 2px rgba(0,0,0,0.5), 
-                inset 0 0 5px rgba(0,0,0,0.2); 
-    border-radius: 50%; /* Make the clickable area round too */
-    width: 40px; /* Give it a defined area */
-    height: 40px; /* Give it a defined area */
+    position: relative;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.5), 
+                inset 0 0 5px rgba(0,0,0,0.2); 
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -445,10 +438,9 @@ header {
 }
 
 .player-button:hover {
-    /* Lift effect on hover */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.6), 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.6), 
                 inset 0 0 5px rgba(0,0,0,0.3);
-    transform: translateY(-1px); /* Slight lift */
+    transform: translateY(-1px);
 }
 
 .player-button svg {
@@ -456,14 +448,12 @@ header {
     height: 36px;
     fill: #d4d0c8;
     transition: all 0.2s ease;
-    /* --- ENHANCED ICON SHADOW --- */
-    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5)) /* Stronger shadow for more pop */
-            drop-shadow(0 0 5px rgba(255,255,255,0.05)); /* Subtle glow */
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,0.5))
+            drop-shadow(0 0 5px rgba(255,255,255,0.05));
 }
 
 .player-button:hover svg {
-    fill: #e0c6a7; /* Warm gold hover */
-    /* Subtle push-in effect on icon on hover */
+    fill: #e0c6a7;
     transform: scale(0.98); 
 }
 
@@ -471,8 +461,7 @@ header {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: 0.85rem;
     color: #8a8577;
-    width: 40px; /* Fixed width to prevent layout shift */
-    /* --- SUBTLE TEXT SHADOW --- */
+    width: 40px;
     text-shadow: 0 1px 1px rgba(0,0,0,0.3);
 }
 
@@ -491,16 +480,14 @@ header {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 6px; /* Slightly thicker for more visual impact */
-    /* --- ENHANCED TROUGH GRADIENT & SHADOW --- */
+    height: 6px;
     background: linear-gradient(to bottom, #2a2622 0%, #3a3630 100%);
-    box-shadow: 
-        inset 0 1px 3px rgba(0,0,0,0.8), /* Deeper inset shadow */
-        inset 0 -1px 1px rgba(255,255,255,0.05); /* Subtle bottom highlight for depth */
-    border-radius: 3px; /* Slightly more rounded */
+    box-shadow: 
+        inset 0 1px 3px rgba(0,0,0,0.8), 
+        inset 0 -1px 1px rgba(255,255,255,0.05);
+    border-radius: 3px;
     outline: none;
     cursor: pointer;
-    /* Add a subtle border to the track itself for more definition */
     border: 1px solid rgba(0,0,0,0.2); 
 }
 
@@ -508,68 +495,69 @@ header {
 .seek-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 18px; /* Slightly larger */
-    height: 18px; /* Slightly larger */
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
-    /* --- ENHANCED THUMB GRADIENT & SHADOW --- */
-    background: radial-gradient(circle at center, 
-                #e8e4dc 0%, /* Lighter center */
-                #d4d0c8 60%, /* Base color */
-                #c8c4bb 100%); /* Slightly darker edge */
-    cursor: pointer;
-    border: 1px solid rgba(0,0,0,0.3); /* More defined border */
-    box-shadow: 
-        0 2px 5px rgba(0,0,0,0.5), /* Stronger shadow for lift */
-        inset 0 1px 1px rgba(255,255,255,0.2); /* Top-left highlight for spherical look */
-    transition: all 0.2s ease;
-}
-
-.seek-bar:hover::-webkit-slider-thumb {
-    background: radial-gradient(circle at center, 
-                #e0c6a7 0%, 
-                #c9a47a 60%, 
-                #b08d6d 100%); /* Warm gold gradient on hover */
-    box-shadow: 
-        0 3px 8px rgba(0,0,0,0.6), /* Even stronger shadow on hover */
-        inset 0 1px 2px rgba(255,255,255,0.3);
-    transform: translateY(-1px); /* Slight lift on hover */
-}
-
-/* --- Firefox Thumb --- */
-.seek-bar::-moz-range-thumb {
-    width: 18px; /* Slightly larger */
-    height: 18px; /* Slightly larger */
-    border-radius: 50%;
-    /* --- ENHANCED THUMB GRADIENT & SHADOW --- */
-    background: radial-gradient(circle at center, 
-                #e8e4dc 0%, 
-                #d4d0c8 60%, 
+    background: radial-gradient(circle at center, 
+                #e8e4dc 0%,
+                #d4d0c8 60%,
                 #c8c4bb 100%);
     cursor: pointer;
     border: 1px solid rgba(0,0,0,0.3);
     box-shadow: 
-        0 2px 5px rgba(0,0,0,0.5), 
+        0 2px 5px rgba(0,0,0,0.5), 
+        inset 0 1px 1px rgba(255,255,255,0.2);
+    transition: all 0.2s ease;
+}
+
+.seek-bar:hover::-webkit-slider-thumb {
+    background: radial-gradient(circle at center, 
+                #e0c6a7 0%, 
+                #c9a47a 60%, 
+                #b08d6d 100%);
+warning     box-shadow: 
+        0 3px 8px rgba(0,0,0,0.6), 
+        inset 0 1px 2px rgba(255,255,255,0.3);
+ci   transform: translateY(-1px);
+}
+
+/* --- Firefox Thumb --- */
+.seek-bar::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, 
+                #e8e4dc 0%, 
+                #d4d0c8 60%, 
+                #c8c4bb 100%);
+    cursor: pointer;
+    border: 1px solid rgba(0,0,0,0.3);
+    box-shadow: 
+        0 2px 5px rgba(0,0,0,0.5), 
         inset 0 1px 1px rgba(255,255,255,0.2);
     transition: all 0.2s ease;
 }
 
 .seek-bar:hover::-moz-range-thumb {
-    background: radial-gradient(circle at center, 
-                #e0c6a7 0%, 
-                #c9a47a 60%, 
+    background: radial-gradient(circle at center, 
+  s             #e0c6a7 0%, 
+                #c9a47a 60%, 
                 #b08d6d 100%);
-    box-shadow: 
-        0 3px 8px rgba(0,0,0,0.6), 
+s   box-shadow: 
+        0 3px 8px rgba(0,0,0,0.6), 
         inset 0 1px 2px rgba(255,255,255,0.3);
-s   transform: translateY(-1px);
+E   transform: translateY(-1px);
 }
 
+/* ===================================
+   END PLAYER SECTION
+   =================================== */
 
 .suno-link {
     margin-top: 1.5rem;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: 0.85rem;
-    color: #7a766d;
+  J color: #7a766d;
     text-transform: uppercase;
     letter-spacing: 0.08em;
 }
@@ -586,7 +574,7 @@ s   transform: translateY(-1px);
 .lesson-navigation {
     margin-top: 5rem;
     padding-top: 2.5rem;
-  T border-top: 1px solid #2d2a25; /* Softened divider */
+    border-top: 1px solid #2d2a25; /* Softened divider */
     background: linear-gradient(to top, transparent 98%, #2d2a25 100%);
 }
 
@@ -609,7 +597,7 @@ s   transform: translateY(-1px);
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    transition: all 0.25s ease;
+  s transition: all 0.25s ease;
 }
 
 .nav-link:hover {
@@ -650,7 +638,7 @@ s   transform: translateY(-1px);
 
 em, i {
     font-style: italic;
-    color: #e0ddd5;
+Note     color: #e0ddd5;
 }
 
 strong, b {
@@ -687,13 +675,13 @@ strong, b {
     border-radius: 2px;
     transition: all 0.2s ease;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
+  g letter-spacing: 0.08em;
     font-size: 0.85rem;
     border: none;
 }
 
 .button:hover {
-s   background-color: #e0c6a7; /* Brighter gold hover */
+    background-color: #e0c6a7; /* Brighter gold hover */
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(201, 164, 122, 0.25);
     border-bottom: none;
@@ -715,7 +703,7 @@ s   background-color: #e0c6a7; /* Brighter gold hover */
 
     h1 {
         font-size: 2rem;
-    }
+s   }
 
     h2 {
         font-size: 0.8rem;
@@ -729,7 +717,7 @@ s   background-color: #e0c6a7; /* Brighter gold hover */
     .emphasis-text,
     .preview-text {
         font-size: 1.15rem;
-        padding: 0 1rem;
+  Note       padding: 0 1rem;
     }
 
     .lesson-item a {
@@ -751,7 +739,7 @@ s   background-color: #e0c6a7; /* Brighter gold hover */
     
     .time-display {
         font-size: 0.8rem;
-        width: 35px;
+s       width: 35px;
     }
 
     .nav-links {
@@ -761,7 +749,7 @@ s   background-color: #e0c6a7; /* Brighter gold hover */
 
     .prev-link,
     .next-link {
-        text-align: center;
+s       text-align: center;
     }
 
     .accordion-content {
@@ -779,7 +767,7 @@ s   background-color: #e0c6a7; /* Brighter gold hover */
         font-size: 1.75rem;
     }
 
-  s .subtitle {
+    .subtitle {
         font-size: 0.95rem;
     }
 
@@ -787,7 +775,7 @@ s   background-color: #e0c6a7; /* Brighter gold hover */
         font-size: 0.75rem;
     }
 
-    h3 {
+  C h3 {
         font-size: 1.1rem;
     }
 
@@ -798,16 +786,16 @@ s   background-color: #e0c6a7; /* Brighter gold hover */
 
     .about-preview {
         font-size: 1.05rem;
-    }
+After   }
 
     /* Image scales down further on very small screens */
     .song-image {
         max-width: 85%;
-  s }
-    
+    }
+   s
     .custom-audio-player {
         padding: 0.4rem 0.5rem;
-CH    }
+    }
     
     .player-button {
         margin-right: 0.5rem;
@@ -816,7 +804,7 @@ CH    }
     .player-button svg {
         width: 32px;
         height: 32px;
-    }
+  s }
 
     .time-display {
         font-size: 0.75rem;
@@ -828,21 +816,21 @@ s   }
     }
 
     #duration {
-  E      margin-left: 0.5rem;
+      m margin-left: 0.5rem;
     }
     
     .seek-bar::-webkit-slider-thumb {
-D        width: 14px;
+        width: 14px;
         height: 14px;
     }
     .seek-bar::-moz-range-thumb {
-      D width: 14px;
+        width: 14px;
         height: 14px;
     }
 
     .accordion-content {
         font-size: 1rem;
-A        line-height: 1.75;
+        line-height: 1.75;
     }
 }
 
@@ -856,7 +844,7 @@ A        line-height: 1.75;
 
 /* Subtle divider with warm tone */
 .divider {
-    border: 0;
+To   border: 0;
     height: 1px;
     background: linear-gradient(to right, transparent, #3a3630, transparent);
     margin: 3.5rem 0;
