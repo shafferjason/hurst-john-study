@@ -91,7 +91,9 @@ const lessonData = [
         image_url: "images/lesson-4.png",
         audio_file: "audio/lesson-4.mp3",
         suno_link: "https://suno.com/s/sCJVmoBBPZD71zHl"
-    }// ============================================
+    }
+    
+    // ============================================
     // TO ADD A NEW LESSON:
     // 
     // 1. Add a comma after the closing } above
