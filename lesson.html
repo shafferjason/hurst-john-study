@@ -4,20 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
-    <link rel="stylesheet" href="style.css">
+    <!-- Updated CSS file with all UX enhancements -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Reading progress bar will be auto-injected here by JavaScript -->
+    
     <div class="container">
         <div class="back-link">
             <a href="index.html">← Back to All Lessons</a>
         </div>
 
         <article id="lesson-content">
-            </article>
+        </article>
 
         <nav class="lesson-navigation">
-            </nav>
+        </nav>
     </div>
+
+    <!-- Back-to-top button will be auto-injected here by JavaScript -->
 
     <script src="data.js"></script>
     <script>
@@ -61,6 +66,9 @@
                     </details>
                 </section>
 
+                <!-- Ornate divider for visual section break -->
+                <div class="divider-ornate"></div>
+
                 <section class="song-tie-in">
                     <h2>Song Tie-in</h2>
                     <p class="preview-text">${currentLesson.tie_in_preview}</p>
@@ -72,6 +80,9 @@
                     </details>
                 </section>
 
+                <!-- Ornate divider before song section -->
+                <div class="divider-ornate"></div>
+
                 <section class="song-section">
                     <h2>${currentLesson.song_title}</h2>
                     ${currentLesson.image_url ? `<img src="${currentLesson.image_url}" alt="${currentLesson.song_title}" class="song-image">` : ''}
@@ -80,12 +91,12 @@
                         <div class="custom-audio-player">
                             <audio id="lesson-audio" src="${currentLesson.audio_file}"></audio>
                             
-                            <button id="play-pause-btn" class="player-button">
+                            <button id="play-pause-btn" class="player-button" aria-label="Play/Pause">
                                 <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
                                 <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                             </button>
                             <div id="current-time" class="time-display">0:00</div>
-                            <input type="range" id="seek-bar" class="seek-bar" value="0" min="0" max="100">
+                            <input type="range" id="seek-bar" class="seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
                             <div id="duration" class="time-display">0:00</div>
                         </div>
                     ` : ''}
@@ -130,7 +141,7 @@
             navHTML += '</div>';
             navSection.innerHTML = navHTML;
 
-            // === THIS IS THE JAVASCRIPT FOR THE PLAYER ===
+            // === AUDIO PLAYER JAVASCRIPT ===
             // This code must run *after* the innerHTML is set
             if (currentLesson.audio_file) {
                 const audio = document.getElementById('lesson-audio');
@@ -163,7 +174,6 @@
 
                 // Update seek bar and time as audio plays
                 audio.addEventListener('timeupdate', () => {
-                    // Update the range input's value based on time, not percentage
                     seekBar.value = audio.currentTime; 
                     currentTimeEl.textContent = formatTime(audio.currentTime);
                 });
@@ -171,14 +181,12 @@
                 // Set total duration when audio loads
                 audio.addEventListener('loadedmetadata', () => {
                     durationEl.textContent = formatTime(audio.duration);
-                    // Set the range input's max value to the audio duration in seconds
                     seekBar.max = audio.duration; 
                 });
                 
                 // Allow user to seek by dragging the bar
                 seekBar.addEventListener('input', () => {
-                    // The value of the seek bar is now in seconds
-                    audio.currentTime = audio.currentTime;
+                    audio.currentTime = seekBar.value;
                 });
                 
                 // Reset player when audio ends
@@ -189,8 +197,11 @@
                     currentTimeEl.textContent = '0:00';
                 });
             }
-            // === END PLAYER JAVASCRIPT ===
+            // === END AUDIO PLAYER JAVASCRIPT ===
         }
     </script>
+
+    <!-- UX Enhancements: Progress Bar & Back-to-Top Button -->
+    <script src="ux-enhancements.js"></script>
 </body>
 </html>
