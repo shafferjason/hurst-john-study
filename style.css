@@ -129,6 +129,14 @@ a:hover {
     text-shadow: 0 0 12px rgba(240, 212, 168, 0.3);
 }
 
+/* Active state for mobile - gives immediate visual feedback */
+a:active {
+    color: #f0d4a8;
+    border-bottom-color: #d4a574;
+    text-shadow: 0 0 15px rgba(240, 212, 168, 0.5);
+    transform: scale(0.98);
+}
+
 /* ===================================
    HEADER
    =================================== */
@@ -195,6 +203,13 @@ header {
 .accordion summary:hover {
     color: #f0d4a8; /* Brighter candlelight gold hover */
     text-shadow: 0 0 8px rgba(240, 212, 168, 0.2);
+}
+
+/* Active state for mobile taps */
+.accordion summary:active {
+    color: #f0d4a8;
+    text-shadow: 0 0 12px rgba(240, 212, 168, 0.4);
+    transform: translateX(2px);
 }
 
 .accordion summary::-webkit-details-marker {
@@ -286,6 +301,14 @@ header {
     border-bottom: none;
     /* Subtle golden candlelight glow */
     box-shadow: -3px 0 15px rgba(212, 165, 116, 0.12);
+}
+
+/* Mobile active state - fires on tap */
+.lesson-item a:active {
+    background-color: rgba(52, 48, 43, 0.7);
+    border-left-color: #f0d4a8;
+    transform: translateX(8px);
+    box-shadow: -5px 0 20px rgba(240, 212, 168, 0.25);
 }
 
 .lesson-title {
@@ -532,6 +555,14 @@ header {
             drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
 }
 
+/* Active state for mobile taps */
+.player-button:active svg {
+    fill: #f0d4a8;
+    filter: drop-shadow(0 3px 6px rgba(240, 212, 168, 0.6))
+            drop-shadow(0 2px 3px rgba(0, 0, 0, 0.8));
+    transform: scale(0.95);
+}
+
 .time-display {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-size: 0.85rem;
@@ -696,6 +727,16 @@ header {
     border-bottom-color: #c9a47a;
 }
 
+/* Active state for mobile taps - more fire! */
+.nav-link:active {
+    background-color: rgba(52, 48, 43, 0.7);
+    border-color: #f0d4a8;
+    transform: translateY(0px);
+    box-shadow: 
+        0 6px 16px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(240, 212, 168, 0.15);
+}
+
 .prev-link {
     text-align: left;
 }
@@ -812,6 +853,20 @@ strong, b {
     .lesson-item a {
         padding: 1.5rem 1.25rem; /* Increased vertical padding for better tap target */
         min-height: 48px;
+    }
+    
+    /* Subtle pulse on mobile to show interactivity */
+    @keyframes mobilePulse {
+        0%, 100% {
+            border-left-color: #3a3630;
+        }
+        50% {
+            border-left-color: rgba(212, 165, 116, 0.4);
+        }
+    }
+    
+    .lesson-item a {
+        animation: mobilePulse 3s ease-in-out infinite;
     }
 
     .lesson-title {
@@ -1060,6 +1115,17 @@ strong, b {
         0 6px 20px rgba(0, 0, 0, 0.6),
         0 0 15px rgba(212, 165, 116, 0.3),
         inset 0 1px 2px rgba(255, 255, 255, 0.08);
+}
+
+/* Active state for mobile - immediate visual feedback */
+.back-to-top:active {
+    transform: translateY(-1px) scale(0.95);
+    background: linear-gradient(135deg, rgba(62, 58, 53, 1) 0%, rgba(50, 48, 45, 1) 100%);
+    border-color: #f0d4a8;
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.7),
+        0 0 25px rgba(240, 212, 168, 0.5),
+        inset 0 1px 3px rgba(255, 255, 255, 0.1);
 }
 
 .back-to-top::before {
