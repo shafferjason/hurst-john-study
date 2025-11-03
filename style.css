@@ -28,6 +28,12 @@ body {
     max-width: 680px;
     margin: 0 auto;
     padding: 40px 20px;
+    /* Johannine candlelight glow - light shining in darkness */
+    position: relative;
+    background: 
+        radial-gradient(ellipse at 50% 20%, rgba(201, 164, 122, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 60%, rgba(224, 198, 167, 0.02) 0%, transparent 40%),
+        radial-gradient(ellipse at 70% 80%, rgba(201, 164, 122, 0.025) 0%, transparent 45%);
 }
 
 /* ===================================
@@ -43,6 +49,8 @@ h1 {
     color: #e8e4dc;
     line-height: 1.2;
     letter-spacing: -0.01em;
+    /* Johannine light element - subtle glow */
+    text-shadow: 0 0 20px rgba(232, 228, 220, 0.1);
 }
 
 h2 {
@@ -84,18 +92,23 @@ p {
     font-style: italic;
     margin: 2.5rem 0;
     padding: 0 1.5rem;
+    /* Johannine contemplative glow */
+    text-shadow: 0 0 15px rgba(224, 221, 213, 0.08);
 }
 
 a {
-    color: #c9a47a; /* Warm amber/gold */
+    color: #d4a574; /* Warmer, more luminous gold */
     text-decoration: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     border-bottom: 1px solid transparent;
+    /* Subtle glow on links - light imagery */
+    text-shadow: 0 0 8px rgba(212, 165, 116, 0.15);
 }
 
 a:hover {
-    color: #e0c6a7; /* Brighter gold hover */
-    border-bottom-color: #c9a47a;
+    color: #f0d4a8; /* Brighter, candlelight glow */
+    border-bottom-color: #d4a574;
+    text-shadow: 0 0 12px rgba(240, 212, 168, 0.3);
 }
 
 /* ===================================
@@ -149,7 +162,7 @@ header {
 
 .accordion summary {
     cursor: pointer;
-    color: #c9a47a; /* Warm amber/gold */
+    color: #d4a574; /* Warmer Johannine gold */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-weight: 500;
     font-size: 0.85rem;
@@ -162,7 +175,8 @@ header {
 }
 
 .accordion summary:hover {
-    color: #e0c6a7; /* Brighter gold hover */
+    color: #f0d4a8; /* Brighter candlelight gold hover */
+    text-shadow: 0 0 8px rgba(240, 212, 168, 0.2);
 }
 
 .accordion summary::-webkit-details-marker {
@@ -249,9 +263,11 @@ header {
 
 .lesson-item a:hover {
     background-color: rgba(42, 38, 33, 0.5);
-    border-left-color: #c9a47a; /* Warm amber/gold */
+    border-left-color: #d4a574; /* Warmer gold */
     transform: translateX(6px);
     border-bottom: none;
+    /* Subtle golden candlelight glow */
+    box-shadow: -3px 0 15px rgba(212, 165, 116, 0.12);
 }
 
 .lesson-title {
@@ -900,6 +916,28 @@ strong, b {
     height: 1px;
     background: linear-gradient(to right, transparent, #3a3630, transparent);
     margin: 3.5rem 0;
+}
+
+/* Johannine eagle feather ornament divider */
+.divider-ornate {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212, 165, 116, 0.3), transparent);
+    margin: 3.5rem 0;
+    position: relative;
+}
+
+.divider-ornate::after {
+    content: 'âœ¦';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #1a1a1a;
+    color: #d4a574;
+    padding: 0 15px;
+    font-size: 0.9rem;
+    text-shadow: 0 0 10px rgba(212, 165, 116, 0.4);
 }
 
 .small-caps {
