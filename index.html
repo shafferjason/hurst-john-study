@@ -7,11 +7,14 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Reading progress bar will be auto-injected here by JavaScript -->
+    
     <div class="container">
         <header>
             <h1>Hurst Class Study: Book of John</h1>
             <p class="subtitle">Presented by the Tenth Hour</p>
         </header>
+        
         <section class="about-section">
             <p class="about-preview">
                 A collection of lessons exploring the Gospel of John through Scripture, music, and reflection.
@@ -31,25 +34,40 @@
             </details>
         </section>
 
-        <!-- NEW SECTION: About This Music -->
+        <!-- About This Music Section with Accordion -->
         <section class="about-music-section">
             <h3>About This Music</h3>
-            <p>
-                Welcome. "The Tenth Hour" is a musical project focused on the "turning point"—those life-changing moments where a person has a real encounter with God. The name comes from John 1:39, the <em>original</em> "tenth hour" when the first disciples met Jesus and their lives were changed.
+            
+            <!-- Preview text - always visible -->
+            <p class="preview-text">
+                "The Tenth Hour" is a musical project focused on life-changing encounters with God, inspired by the Gospel of John's powerful moments of struggle, grace, doubt, and revelation.
             </p>
-            <p>
-                This study of the Gospel of John is our main inspiration. The book is filled with these powerful encounters. These lessons, with their themes of "struggle and grace" and "doubt and revelation", are what sparked these songs.
-            </p>
-            <p>
-                Our goal is to <strong>highlight the key points of each lesson</strong> by sharing a story, not by preaching. This music uses an "honest, earthy" folk-rock sound to tell a timeless truth through a real, personal story. As you go through this study, we hope this music feels less like a performance and more like a group of friends sharing their experience alongside you.
-            </p>
-            <p>
-                Our hope is that this music helps you connect with these lessons and makes the truths of the Gospel feel personal.
-            </p>
-            <hr>
-            <p class="production-note">
-                <em>A note on the production: To bring these lyrical themes to life, the music for The Tenth Hour was produced using AI tools, guided by the creative vision for a roots-rock, folk, and soul sound.</em>
-            </p>
+            
+            <!-- Accordion for expanded content -->
+            <details class="accordion">
+                <summary>Read More About the Music</summary>
+                <div class="accordion-content">
+                    <p>
+                        Welcome. "The Tenth Hour" is a musical project focused on the "turning point"—those life-changing moments where a person has a real encounter with God. The name comes from John 1:39, the <em>original</em> "tenth hour" when the first disciples met Jesus and their lives were changed.
+                    </p>
+                    <p>
+                        This study of the Gospel of John is our main inspiration. The book is filled with these powerful encounters. These lessons, with their themes of "struggle and grace" and "doubt and revelation", are what sparked these songs.
+                    </p>
+                    <p>
+                        Our goal is to <strong>highlight the key points of each lesson</strong> by sharing a story, not by preaching. This music uses an "honest, earthy" folk-rock sound to tell a timeless truth through a real, personal story. As you go through this study, we hope this music feels less like a performance and more like a group of friends sharing their experience alongside you.
+                    </p>
+                    <p>
+                        Our hope is that this music helps you connect with these lessons and makes the truths of the Gospel feel personal.
+                    </p>
+                    
+                    <!-- Golden divider before production note -->
+                    <hr class="content-divider">
+                    
+                    <p class="production-note">
+                        <em>A note on the production: To bring these lyrical themes to life, the music for The Tenth Hour was produced using AI tools, guided by the creative vision for a roots-rock, folk, and soul sound.</em>
+                    </p>
+                </div>
+            </details>
         </section>
 
         <section class="lessons-section">
@@ -59,6 +77,9 @@
             </div>
         </section>
     </div>
+
+    <!-- Back-to-top button will be auto-injected here by JavaScript -->
+
     <script src="data.js"></script>
     <script>
         // Build the lesson list dynamically
@@ -83,5 +104,8 @@
             lessonsList.innerHTML = '<p class="no-lessons">No lessons available yet. Check back soon!</p>';
         }
     </script>
+
+    <!-- UX Enhancements: Progress Bar & Back-to-Top Button -->
+    <script src="ux-enhancements.js"></script>
 </body>
 </html>
