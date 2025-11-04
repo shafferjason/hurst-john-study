@@ -242,6 +242,8 @@ header {
     padding: 0.75rem 0;
     user-select: none;
     transition: color 0.2s ease;
+    /* Center the Read More buttons for better visibility */
+    text-align: center;
 }
 
 .accordion summary:hover {
@@ -470,6 +472,34 @@ header {
 
 .song-lyrics-section h2 {
     text-align: center;
+}
+
+/* Song title in lyrics section */
+.song-lyrics-section h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #c8c4bb;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+    text-align: center;
+}
+
+/* Lyrics preview text - matches other preview sections */
+.song-lyrics-section .preview-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: #e0ddd5;
+    font-style: italic;
+    margin: 1.5rem auto 2rem auto;
+    padding: 0 1.5rem;
+    max-width: 32rem;
+    text-align: center;
+    /* Preserve line breaks for lyrics preview */
+    white-space: pre-line;
+    /* Subtle glow for contemplative feel */
+    text-shadow: 0 0 12px rgba(224, 221, 213, 0.08);
 }
 
 .lyrics-content {
@@ -1006,6 +1036,17 @@ strong, b {
         max-width: 100%;
     }
     
+    /* Lyrics preview mobile styling */
+    .song-lyrics-section .preview-text {
+        font-size: 1rem;
+        line-height: 1.7;
+        padding: 0 1rem;
+    }
+    
+    .song-lyrics-section h3 {
+        font-size: 1.2rem;
+    }
+    
     /* Larger tap target for accordion summary */
     .accordion summary {
         padding: 1rem 0;
@@ -1111,6 +1152,17 @@ strong, b {
         font-size: 0.95rem;
         line-height: 1.75;
         padding: 0.75rem;
+    }
+    
+    /* Lyrics preview small screen styling */
+    .song-lyrics-section .preview-text {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        padding: 0 0.75rem;
+    }
+    
+    .song-lyrics-section h3 {
+        font-size: 1.1rem;
     }
     
     /* Comfortable tap targets on small screens */

@@ -46,6 +46,13 @@
             // Update page title
             document.title = currentLesson.title + ' - Hurst Class Study';
 
+            // Extract lyrics preview (first 4 lines)
+            let lyricsPreview = '';
+            if (currentLesson.song_lyrics) {
+                const lyricsLines = currentLesson.song_lyrics.split('\n');
+                lyricsPreview = lyricsLines.slice(0, 4).join('\n');
+            }
+
             // Build the lesson content
             const lessonContent = document.getElementById('lesson-content');
             
@@ -85,9 +92,10 @@
                     <div class="divider-ornate"></div>
 
                     <section class="song-lyrics-section">
-                        <h2>Song Lyrics</h2>
+                        <h3>${currentLesson.song_title}</h3>
+                        <p class="preview-text">${lyricsPreview}</p>
                         <details class="accordion">
-                            <summary>Read the Lyrics</summary>
+                            <summary>Read the Full Lyrics</summary>
                             <div class="accordion-content lyrics-content">
                                 <div class="lyrics-text">${currentLesson.song_lyrics}</div>
                             </div>
