@@ -1219,7 +1219,7 @@ strong, b {
 }
 
 .divider-ornate::after {
-    content: 'âœ¦';
+    content: '\2726'; /* Unicode for the ornamental diamond */
     position: absolute;
     left: 50%;
     top: 50%;
