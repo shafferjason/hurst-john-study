@@ -1062,6 +1062,32 @@ strong, b {
         min-height: 48px;
     }
     
+    /* Mobile fire: Subtle pulse on lesson page sections */
+    @keyframes sectionPulse {
+        0%, 100% {
+            border-left-color: transparent;
+        }
+        50% {
+            border-left-color: rgba(212, 165, 116, 0.2);
+        }
+    }
+    
+    /* Add subtle left border pulse to sections on mobile */
+    .lesson-summary,
+    .song-tie-in,
+    .song-lyrics-section {
+        border-left: 2px solid transparent;
+        padding-left: 1rem;
+        animation: sectionPulse 4s ease-in-out infinite;
+    }
+    
+    /* Enhanced glow on headings for mobile */
+    .lesson-summary h2,
+    .song-tie-in h2,
+    .song-lyrics-section h3 {
+        text-shadow: 0 0 15px rgba(212, 165, 116, 0.2);
+    }
+    
     /* Back to top button - adjusted for mobile */
     .back-to-top {
         bottom: 20px;
@@ -1182,6 +1208,22 @@ strong, b {
     
     .nav-link {
         padding: 1.75rem 1rem;
+    }
+    
+    /* Mobile fire: Ornate dividers pulse with golden glow on small screens */
+    @keyframes dividerGlow {
+        0%, 100% {
+            opacity: 0.7;
+            filter: drop-shadow(0 0 6px rgba(212, 165, 116, 0.4));
+        }
+        50% {
+            opacity: 1;
+            filter: drop-shadow(0 0 15px rgba(212, 165, 116, 0.7));
+        }
+    }
+    
+    .divider-ornate::after {
+        animation: dividerGlow 3s ease-in-out infinite;
     }
     
     /* Back to top button sizing for small screens */
