@@ -1,222 +1,1308 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lesson - Hurst Class Study</title>
-    <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <!-- Reading progress bar will be auto-injected here by JavaScript -->
+/* ===================================
+   RESET & BASE STLES
+   =================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    /* Warm, readable serif for that analog, testimonial feel */
+    font-family: 'Georgia', 'Iowan Old Style', 'Times New Roman', serif;
+    background-color: #1a1a1a;
+    color: #d4d0c8;
+    line-height: 1.75;
+    padding: 20px;
+    font-size: 18px;
+    /* Black leather texture with pebbled grain effect */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='leatherFilter'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.35' numOctaves='5' stitchTiles='stitch' seed='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23leatherFilter)' opacity='0.22'/%3E%3C/svg%3E");
+    position: relative;
+}
+
+/* Reading Progress Bar */
+.reading-progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 0%;
+    height: 3px;
+    background: linear-gradient(to right, #d4a574, #f0d4a8);
+    z-index: 1000;
+    transition: width 0.1s ease;
+    box-shadow: 0 0 10px rgba(212, 165, 116, 0.5);
+}
+
+/* ===================================
+   CONTAINER & LAYOUT
+   =================================== */
+
+.container {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 40px 20px;
+    /* Johannine candlelight glow - light shining in darkness */
+    position: relative;
+    background: 
+        radial-gradient(ellipse at 50% 20%, rgba(201, 164, 122, 0.03) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 60%, rgba(224, 198, 167, 0.02) 0%, transparent 40%),
+        radial-gradient(ellipse at 70% 80%, rgba(201, 164, 122, 0.025) 0%, transparent 45%);
+}
+
+/* ===================================
+   TYPOGRAPHY
+   =================================== */
+
+h1 {
+    /* Restrained, weathered headline */
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2.4rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+    color: #e8e4dc;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    /* Johannine light element - subtle glow */
+    text-shadow: 0 0 20px rgba(232, 228, 220, 0.1);
+}
+
+h2 {
+    /* Section headers - quiet but present */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-top: 3.5rem;
+    margin-bottom: 1.75rem;
+    color: #8a8577;
+    text-align: left;
+}
+
+h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #c8c4bb;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+}
+
+p {
+    margin-bottom: 1.5rem;
+    color: #d4d0c8;
+    font-size: 1.05rem;
+    line-height: 1.75;
+}
+
+/* Emphasis text - for preview/pull quotes */
+.emphasis-text,
+.preview-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.25rem;
+    line-height: 1.65;
+    color: #e0ddd5;
+    font-style: italic;
+    margin: 2.5rem 0;
+    padding: 0 1.5rem;
+    /* Johannine contemplative glow */
+    text-shadow: 0 0 15px rgba(224, 221, 213, 0.08);
+}
+
+a {
+    color: #d4a574; /* Warmer, more luminous gold */
+    text-decoration: none;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid transparent;
+    /* Subtle glow on links - light imagery */
+    text-shadow: 0 0 8px rgba(212, 165, 116, 0.15);
+}
+
+a:hover {
+    color: #f0d4a8; /* Brighter, candlelight glow */
+    border-bottom-color: #d4a574;
+    text-shadow: 0 0 12px rgba(240, 212, 168, 0.3);
+}
+
+/* Active state for mobile - gives immediate visual feedback */
+a:active {
+    color: #f0d4a8;
+    border-bottom-color: #d4a574;
+    text-shadow: 0 0 15px rgba(240, 212, 168, 0.5);
+    transform: scale(0.98);
+}
+
+/* ===================================
+   HEADER
+   =================================== */
+
+header {
+    text-align: center;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #2d2a25;
+    /* Replaced with a gradient to soften the line */
+    background: linear-gradient(to bottom, transparent 98%, #2d2a25 100%);
+    margin-bottom: 3rem;
+}
+
+.subtitle {
+    font-size: 1.05rem;
+    color: #7a766d;
+    font-style: italic;
+    margin-top: 1rem;
+    font-weight: 300;
+}
+
+/* ===================================
+   ABOUT SECTION
+   =================================== */
+
+.about-section {
+    margin-bottom: 4rem;
+}
+
+.about-preview {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.6rem !important; /* Much larger - very prominent */
+    color: #f5f3ed !important; /* Almost white - very bright */
+    margin-bottom: 2rem;
+    line-height: 1.75;
+    font-style: italic;
+    text-align: center !important;
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+    font-weight: 500; /* Bolder weight */
+    letter-spacing: 0.01em; /* Slight spacing for elegance */
+    /* Very strong Johannine glow */
+    text-shadow: 0 0 40px rgba(245, 243, 237, 0.3) !important;
+    padding: 1rem 2rem; /* Add padding for breathing room */
+}
+
+/* ===================================
+   ABOUT THIS MUSIC SECTION
+   =================================== */
+
+.about-music-section {
+    margin: 4.5rem 0;
+}
+
+.about-music-section h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #c8c4bb;
+    margin-bottom: 1.25rem;
+    line-height: 1.4;
+}
+
+.about-music-section .preview-text {
+    margin-bottom: 1.5rem;
+}
+
+/* Production note styling when in accordion */
+.about-music-section .production-note {
+    font-style: italic;
+    color: #a8a49b;
+    font-size: 0.95rem;
+    text-align: center;
+    margin-top: 2.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid rgba(212, 165, 116, 0.15);
+    /* Subtle warmth */
+    text-shadow: 0 0 8px rgba(168, 164, 155, 0.08);
+}
+
+/* Golden divider within accordion content */
+.about-music-section .content-divider {
+    max-width: 12rem;
+    margin: 2.5rem auto;
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212, 165, 116, 0.4), transparent);
+    box-shadow: 0 0 6px rgba(212, 165, 116, 0.15);
+}
+
+/* ===================================
+   ACCORDION / DETAILS
+   For the "Read More" sections - optimized for extended reading
+   =================================== */
+
+.accordion {
+    margin-top: 2rem;
+    border-top: 1px solid #2d2a25; /* Softened divider */
+    padding-top: 1.25rem;
+}
+
+.accordion summary {
+    cursor: pointer;
+    color: #d4a574; /* Warmer Johannine gold */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    list-style: none;
+    padding: 0.75rem 0;
+    user-select: none;
+    transition: color 0.2s ease;
+    /* Center the Read More buttons for better visibility */
+    text-align: center;
+}
+
+.accordion summary:hover {
+    color: #f0d4a8; /* Brighter candlelight gold hover */
+    text-shadow: 0 0 8px rgba(240, 212, 168, 0.2);
+}
+
+/* Active state for mobile taps */
+.accordion summary:active {
+    color: #f0d4a8;
+    text-shadow: 0 0 12px rgba(240, 212, 168, 0.4);
+    transform: translateX(2px);
+}
+
+.accordion summary::-webkit-details-marker {
+    display: none;
+}
+
+.accordion summary::before {
+    content: "\25B8  ";
+    display: inline-block;
+    transition: transform 0.2s ease;
+    margin-right: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.accordion[open] summary::before {
+    transform: rotate(90deg);
+}
+
+/* === SYNTAX ERROR FIXED HERE === */
+.accordion-content {
+    padding: 2rem 0 0 0;
+    color: #d4d0c8;
+    animation: fadeIn 0.4s ease;
     
-    <div class="container">
-        <div class="back-link">
-            <a href="index.html">&larr; Back to All Lessons</a>
-        </div>
+    /* Optimized for extended reading */
+    font-size: 1.05rem;
+    line-height: 1.8;
+    max-width: 38rem; /* Optimal line length for reading */
+}
 
-        <article id="lesson-content">
-        </article>
+/* Enhanced paragraph spacing for better scannability */
+.accordion-content p {
+    margin-bottom: 2rem; /* Increased from 1.75rem for better scanning */
+}
 
-        <nav class="lesson-navigation">
-        </nav>
-    </div>
+/* Add breathing room between sections */
+.accordion-content p + p {
+    text-indent: 0;
+}
+/* === END FIX === */
 
-    <!-- Back-to-top button will be auto-injected here by JavaScript -->
 
-    <script src="data.js"></script>
-    <script>
-        // Get the lesson ID from the URL parameter
-        const urlParams = new URLSearchParams(window.location.search);
-        const lessonId = urlParams.get('id');
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
 
-        // Find the lesson in the data
-        const currentLesson = lessonData.find(lesson => lesson.id === lessonId);
+/* ===================================
+   LESSONS SECTION
+   =================================== */
 
-        if (!currentLesson) {
-            // Lesson not found
-            document.getElementById('lesson-content').innerHTML = `
-                <div class="error-message">
-                    <h1>Lesson Not Found</h1>
-                    <p>Sorry, we couldn't find the lesson you're looking for.</p>
-                    <a href="index.html" class="button">Return to All Lessons</a>
-                </div>
-            `;
-        } else {
-            // Update page title
-            document.title = currentLesson.title + ' - Hurst Class Study';
+.lessons-section {
+    margin-top: 4rem;
+}
 
-            // Build the lesson content
-            const lessonContent = document.getElementById('lesson-content');
-            
-            lessonContent.innerHTML = `
-                <header class="lesson-header">
-                    <h1>${currentLesson.title}</h1>
-                    <p class="scripture-reference">${currentLesson.scripture}</p>
-                </header>
+.lessons-section h2 {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
 
-                <section class="lesson-summary">
-                    <h2>Lesson Summary</h2>
-                    <p class="preview-text">${currentLesson.summary_preview}</p>
-                    <details class="accordion">
-                        <summary>Read the Full Lesson</summary>
-                        <div class="accordion-content">
-                            <p>${currentLesson.summary_full}</p>
-                        </div>
-                    </details>
-                </section>
+#lessons-list {
+    margin-top: 2rem;
+}
 
-                <!-- Ornate divider for visual section break -->
-                <div class="divider-ornate"></div>
+.lesson-item {
+    margin-bottom: 1.25rem;
+}
 
-                <section class="song-tie-in">
-                    <h2>Song Tie-in</h2>
-                    <p class="preview-text">${currentLesson.tie_in_preview}</p>
-                    <details class="accordion">
-                        <summary>Read About the Song</summary>
-                        <div class="accordion-content">
-                            <p>${currentLesson.tie_in_full}</p>
-                        </div>
-                    </details>
-                </section>
+.lesson-item a {
+    display: block;
+    padding: 1.5rem 1.5rem;
+    background-color: rgba(42, 38, 33, 0.3);
+    border-radius: 2px;
+    border-left: 2px solid #3a3630;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
 
-                ${currentLesson.song_lyrics ? `
-                    <!-- Ornate divider before lyrics -->
-                    <div class="divider-ornate"></div>
+.lesson-item a:hover {
+    background-color: rgba(42, 38, 33, 0.5);
+    border-left-color: #d4a574; /* Warmer gold */
+    transform: translateX(6px);
+    border-bottom: none;
+    /* Subtle golden candlelight glow */
+    box-shadow: -3px 0 15px rgba(212, 165, 116, 0.12);
+}
 
-                    <section class="song-lyrics-section">
-                        <h2>Song Lyrics</h2>
-                        <details class="accordion">
-                            <summary>Read the Lyrics</summary>
-                            <div class="accordion-content lyrics-content">
-                                <div class="lyrics-text">${currentLesson.song_lyrics}</div>
-                            </div>
-                        </details>
-                    </section>
-                ` : ''}
+/* Mobile active state - fires on tap */
+.lesson-item a:active {
+    background-color: rgba(52, 48, 43, 0.7);
+    border-left-color: #f0d4a8;
+    transform: translateX(8px);
+    box-shadow: -5px 0 20px rgba(240, 212, 168, 0.25);
+}
 
-                <!-- Ornate divider before song section -->
-                <div class="divider-ornate"></div>
+.lesson-title {
+    display: block;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: #e8e4dc;
+    margin-bottom: 0.5rem;
+    line-height: 1.35;
+}
 
-                <section class="song-section">
-                    <h2>${currentLesson.song_title}</h2>
-                    ${currentLesson.image_url ? `<img src="${currentLesson.image_url}" alt="${currentLesson.song_title}" class="song-image">` : ''}
-                    
-                    ${currentLesson.audio_file ? `
-                        <div class="custom-audio-player">
-                            <audio id="lesson-audio" src="${currentLesson.audio_file}"></audio>
-                            
-                            <button id="play-pause-btn" class="player-button" aria-label="Play/Pause">
-                                <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                            </button>
-                            <div id="current-time" class="time-display">0:00</div>
-                            <input type="range" id="seek-bar" class="seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
-                            <div id="duration" class="time-display">0:00</div>
-                        </div>
-                    ` : ''}
-                    ${currentLesson.suno_link ? `
-                        <p class="suno-link">
-                            Can't play? <a href="${currentLesson.suno_link}" target="_blank" rel="noopener">Listen on Suno →</a>
-                        </p>
-                    ` : ''}
-                </section>
-            `;
+.lesson-scripture {
+    display: block;
+    font-size: 0.95rem;
+    color: #8a8577;
+    font-style: italic;
+    font-weight: 300;
+}
 
-            // Build navigation links
-            const currentIndex = lessonData.findIndex(lesson => lesson.id === lessonId);
-            const navSection = document.querySelector('.lesson-navigation');
-            
-            let navHTML = '<div class="nav-links">';
-            
-            // Previous lesson link
-            if (currentIndex > 0) {
-                const prevLesson = lessonData[currentIndex - 1];
-                navHTML += `
-                    <a href="lesson.html?id=${prevLesson.id}" class="nav-link prev-link">
-                        ← Previous Lesson: ${prevLesson.title}
-                    </a>
-                `;
-            } else {
-                navHTML += '<span class="nav-link-placeholder"></span>';
-            }
-            
-            // Next lesson link
-            if (currentIndex < lessonData.length - 1) {
-                const nextLesson = lessonData[currentIndex + 1];
-                navHTML += `
-                    <a href="lesson.html?id=${nextLesson.id}" class="nav-link next-link">
-                        Next Lesson: ${nextLesson.title} →
-                    </a>
-                `;
-            } else {
-                navHTML += '<span class="nav-link-placeholder"></span>';
-            }
-            
-            navHTML += '</div>';
-            navSection.innerHTML = navHTML;
+.no-lessons {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: #7a766d;
+    font-style: italic;
+    font-size: 1.05rem;
+}
 
-            // === AUDIO PLAYER JAVASCRIPT ===
-            // This code must run *after* the innerHTML is set
-            if (currentLesson.audio_file) {
-                const audio = document.getElementById('lesson-audio');
-                const playPauseBtn = document.getElementById('play-pause-btn');
-                const playIcon = playPauseBtn.querySelector('.play-icon');
-                const pauseIcon = playPauseBtn.querySelector('.pause-icon');
-                const seekBar = document.getElementById('seek-bar');
-                const currentTimeEl = document.getElementById('current-time');
-                const durationEl = document.getElementById('duration');
+/* ===================================
+   LESSON PAGE
+   =================================== */
 
-                // Helper function to format time in 0:00
-                function formatTime(seconds) {
-                    const minutes = Math.floor(seconds / 60);
-                    const secs = Math.floor(seconds % 60);
-                    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-                }
+.back-link {
+    margin-bottom: 2.5rem;
+}
 
-                // Play/Pause functionality
-                playPauseBtn.addEventListener('click', () => {
-                    if (audio.paused) {
-                        audio.play();
-                        playIcon.style.display = 'none';
-                        pauseIcon.style.display = 'inline-block';
-                    } else {
-                        audio.pause();
-                        playIcon.style.display = 'inline-block';
-                        pauseIcon.style.display = 'none';
-                    }
-                });
+.back-link a {
+    display: inline-block;
+    padding: 0.5rem 0;
+    color: #8a8577;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 1px solid transparent;
+    transition: all 0.25s ease;
+}
 
-                // Update seek bar and time as audio plays
-                audio.addEventListener('timeupdate', () => {
-                    seekBar.value = audio.currentTime; 
-                    currentTimeEl.textContent = formatTime(audio.currentTime);
-                });
+.back-link a:hover {
+    color: #c9a47a; /* Warm amber/gold */
+    border-bottom-color: #c9a47a;
+    transform: translateX(-4px);
+}
 
-                // Set total duration when audio loads
-                audio.addEventListener('loadedmetadata', () => {
-                    durationEl.textContent = formatTime(audio.duration);
-                    seekBar.max = audio.duration; 
-                });
-                
-                // Allow user to seek by dragging the bar
-                seekBar.addEventListener('input', () => {
-                    audio.currentTime = seekBar.value;
-                });
-                
-                // Reset player when audio ends
-                audio.addEventListener('ended', () => {
-                    playIcon.style.display = 'inline-block';
-                    pauseIcon.style.display = 'none';
-                    seekBar.value = 0;
-                    currentTimeEl.textContent = '0:00';
-                });
-            }
-            // === END AUDIO PLAYER JAVASCRIPT ===
+.back-link a::before {
+    content: "←  ";
+    margin-right: 0.4rem;
+}
+
+.lesson-header {
+    text-align: center;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid #2d2a25; /* Softened divider */
+    background: linear-gradient(to bottom, transparent 98%, #2d2a25 100%);
+    margin-bottom: 3.5rem;
+}
+
+.scripture-reference {
+    font-size: 1.05rem;
+    color: #8a8577;
+    font-style: italic;
+    margin-top: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.01em;
+}
+
+.lesson-summary,
+.song-tie-in,
+.song-section {
+    margin-bottom: 4.5rem;
+}
+
+/* Section headers for lesson content */
+.lesson-summary h2,
+.song-tie-in h2 {
+    text-align: center;
+}
+
+.preview-text {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+/* ===================================
+   SONG SECTION
+   =================================== */
+
+.song-section {
+    text-align: center;
+    padding: 3rem 0;
+    /* Replaced hard lines with soft gradient borders */
+    border-top: 1px solid #2d2a25;
+    border-bottom: 1px solid #2d2a25;
+    background: linear-gradient(to bottom, #2d2a25 0%, transparent 10%, transparent 90%, #2d2a25 100%);
+}
+
+/* ===================================
+   SONG LYRICS SECTION
+   =================================== */
+
+.song-lyrics-section {
+    margin-bottom: 4.5rem;
+}
+
+.song-lyrics-section h2 {
+    text-align: center;
+}
+
+/* Song title in lyrics section */
+.song-lyrics-section h3 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: #c8c4bb;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+    text-align: center;
+}
+
+/* Lyrics preview text - matches other preview sections */
+.song-lyrics-section .preview-text {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    line-height: 1.75;
+    color: #e0ddd5;
+    font-style: italic;
+    margin: 1.5rem auto 2rem auto;
+    padding: 0 1.5rem;
+    max-width: 32rem;
+    text-align: center;
+    /* Preserve line breaks for lyrics preview */
+    white-space: pre-line;
+    /* Subtle glow for contemplative feel */
+    text-shadow: 0 0 12px rgba(224, 221, 213, 0.08);
+}
+
+.lyrics-content {
+    /* Center the lyrics container */
+    display: flex;
+    justify-content: center;
+}
+
+.lyrics-text {
+    /* Poetic, centered formatting */
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.1rem;
+    line-height: 1.9;
+    color: #e0ddd5;
+    font-style: italic;
+    max-width: 32rem; /* Narrower than regular content for poetic feel */
+    
+    /* Preserve line breaks from data */
+    white-space: pre-line;
+    
+    /* Subtle glow for contemplative feel */
+    text-shadow: 0 0 12px rgba(224, 221, 213, 0.08);
+    
+    /* Extra spacing for stanzas (double line breaks) */
+    margin: 0 auto;
+    padding: 1rem 2rem;
+}
+
+.song-section h2 {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 2rem; /* Increased from 1.65rem */
+    font-weight: 500; /* Increased from 400 for more presence */
+    text-transform: none;
+    letter-spacing: -0.01em;
+    margin-bottom: 2.5rem; /* Increased from 2rem for more space */
+    color: #e8e4dc; /* Brighter than before */
+    /* Enhanced Johannine glow for prominence */
+    text-shadow: 0 0 25px rgba(232, 228, 220, 0.15);
+}
+
+/* === "Faded & Rounded" Look === */
+.song-image {
+    max-width: 55%; /* Reduced from 65% to be less dominant */
+    height: auto;
+    margin: 2.5rem auto; /* Increased top/bottom margin */
+    display: block;
+    
+    /* 1. Add rounded corners for the "old photo" shape */
+    border-radius: 12px;
+
+    /* 2. Use an ELLIPSE mask to fade the sides and top/bottom */
+    mask-image: radial-gradient(ellipse at center, black 60%, transparent 90%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 60%, transparent 90%);
+
+    /* 3. Reduced opacity for subtlety - less overpowering */
+    opacity: 0.85; /* Reduced from 0.9 */
+    filter: contrast(0.9) brightness(0.9) saturate(0.85) sepia(0.3); /* Adjusted for cohesion */
+    
+    /* 4. Keep the *inset* shadow for the vignette effect. */
+    box-shadow: 
+        inset 0 0 80px rgba(0, 0, 0, 0.5),
+        inset 0 0 40px rgba(0, 0, 0, 0.3);
+}
+
+/* ===================================
+   CUSTOM AUDIO PLAYER (ENHANCED 3D)
+   =================================== */
+
+.custom-audio-player {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 480px;
+    margin: 2.5rem auto;
+    padding: 0.5rem 1rem;
+    /* Enhanced 3D texture with layered gradients */
+    background: 
+        /* Top highlight layer */
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 0%, transparent 15%),
+        /* Diagonal texture */
+        linear-gradient(135deg, rgba(60, 55, 48, 0.4) 0%, rgba(25, 23, 20, 0.7) 100%),
+        /* Base depth gradient */
+        linear-gradient(to bottom, rgba(42, 38, 33, 0.6) 0%, rgba(18, 16, 14, 0.8) 100%);
+    border-radius: 50px; /* Pill shape */
+    /* Dual-tone border for depth */
+    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    border-bottom: 1px solid #1a1816;
+    border-left: 1px solid #2a2622;
+    border-right: 1px solid #1a1816;
+    /* Deep layered shadows for pronounced 3D effect */
+    box-shadow: 
+        /* Deep inset shadows for recessed look */
+        inset 0 3px 12px rgba(0, 0, 0, 0.8),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.6),
+        inset 0 1px 1px rgba(0, 0, 0, 0.9),
+        /* Subtle top highlight */
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        /* Strong outer shadows for separation */
+        0 6px 16px rgba(0, 0, 0, 0.7),
+        0 3px 8px rgba(0, 0, 0, 0.5),
+        0 1px 3px rgba(0, 0, 0, 0.4);
+    position: relative;
+}
+
+/* Add textured overlay for analog feel */
+.custom-audio-player::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 50px;
+    /* Subtle horizontal scan lines */
+    background-image: 
+        repeating-linear-gradient(
+            0deg,
+            rgba(255, 255, 255, 0.02) 0px,
+            transparent 1px,
+            transparent 2px,
+            rgba(0, 0, 0, 0.03) 3px
+        );
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Add subtle glow effect on hover */
+.custom-audio-player:hover {
+    box-shadow: 
+        inset 0 3px 12px rgba(0, 0, 0, 0.8),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.6),
+        inset 0 1px 1px rgba(0, 0, 0, 0.9),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04),
+        0 6px 20px rgba(0, 0, 0, 0.8),
+        0 3px 10px rgba(0, 0, 0, 0.6),
+        0 1px 4px rgba(0, 0, 0, 0.5),
+        /* Subtle warm glow */
+        0 0 20px rgba(201, 164, 122, 0.08);
+}
+
+.player-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-right: 1rem;
+    position: relative;
+    z-index: 1;
+}
+
+.player-button svg {
+    width: 36px;
+    height: 36px;
+    fill: #d4d0c8;
+    transition: all 0.2s ease;
+    /* Enhanced shadow for icon depth */
+    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.5))
+            drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+}
+
+.player-button:hover svg {
+    fill: #e0c6a7; /* Warm gold hover */
+    filter: drop-shadow(0 2px 4px rgba(201, 164, 122, 0.4))
+            drop-shadow(0 1px 2px rgba(0, 0, 0, 0.7));
+}
+
+/* Active state for mobile taps */
+.player-button:active svg {
+    fill: #f0d4a8;
+    filter: drop-shadow(0 3px 6px rgba(240, 212, 168, 0.6))
+            drop-shadow(0 2px 3px rgba(0, 0, 0, 0.8));
+    transform: scale(0.95);
+}
+
+.time-display {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.85rem;
+    color: #8a8577;
+    width: 40px; /* Fixed width to prevent layout shift */
+    position: relative;
+    z-index: 1;
+    /* Add subtle text shadow for depth */
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+#current-time {
+    text-align: right;
+    margin-right: 0.75rem;
+}
+
+#duration {
+    text-align: left;
+    margin-left: 0.75rem;
+}
+
+.seek-bar {
+    flex: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 5px;
+    /* Deep recessed trough with enhanced gradient */
+    background: 
+        linear-gradient(to bottom, #1a1816 0%, #2d2925 50%, #242120 100%);
+    /* Deep inset shadow for trough */
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.8),
+        inset 0 1px 2px rgba(0, 0, 0, 0.6),
+        0 1px 0 rgba(255, 255, 255, 0.02);
+    border-radius: 3px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+}
+
+/* --- Chrome/Safari Thumb --- */
+.seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    /* Enhanced gradient for 3D sphere */
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), transparent 50%),
+        linear-gradient(135deg, #e8e4dc 0%, #c8c4bb 50%, #a8a49b 100%);
+    cursor: pointer;
+    /* Strong 3D border and shadow */
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    box-shadow: 
+        /* Inner highlight */
+        inset 0 1px 1px rgba(255, 255, 255, 0.3),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.2),
+        /* Outer shadow for lift */
+        0 2px 6px rgba(0, 0, 0, 0.6),
+        0 1px 3px rgba(0, 0, 0, 0.4);
+    transition: all 0.2s ease;
+}
+
+.seek-bar:hover::-webkit-slider-thumb {
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent 50%),
+        linear-gradient(135deg, #e0c6a7 0%, #c9a47a 50%, #b8935f 100%);
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.2),
+        0 3px 8px rgba(0, 0, 0, 0.7),
+        0 2px 4px rgba(0, 0, 0, 0.5),
+        0 0 8px rgba(201, 164, 122, 0.3);
+}
+
+/* --- Firefox Thumb --- */
+.seek-bar::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.15), transparent 50%),
+        linear-gradient(135deg, #e8e4dc 0%, #c8c4bb 50%, #a8a49b 100%);
+    cursor: pointer;
+    border: 1px solid rgba(0, 0, 0, 0.4);
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.3),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.2),
+        0 2px 6px rgba(0, 0, 0, 0.6),
+        0 1px 3px rgba(0, 0, 0, 0.4);
+    transition: all 0.2s ease;
+}
+
+.seek-bar:hover::-moz-range-thumb {
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.2), transparent 50%),
+        linear-gradient(135deg, #e0c6a7 0%, #c9a47a 50%, #b8935f 100%);
+    box-shadow: 
+        inset 0 1px 1px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 1px rgba(0, 0, 0, 0.2),
+        0 3px 8px rgba(0, 0, 0, 0.7),
+        0 2px 4px rgba(0, 0, 0, 0.5),
+        0 0 8px rgba(201, 164, 122, 0.3);
+}
+
+
+.suno-link {
+    margin-top: 1.5rem;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 0.85rem;
+    color: #7a766d;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.suno-link a {
+    color: #c9a47a; /* Warm amber/gold */
+    font-weight: 500;
+}
+
+/* ===================================
+   NAVIGATION
+   =================================== */
+
+.lesson-navigation {
+    margin-top: 5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid #2d2a25; /* Softened divider */
+    background: linear-gradient(to top, transparent 98%, #2d2a25 100%);
+}
+
+.nav-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+.nav-link {
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    background-color: rgba(42, 38, 33, 0.3);
+    border: 1px solid #3a3630;
+    border-radius: 2px;
+    text-align: center;
+    color: #c9a47a; /* Warm amber/gold */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 500;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transition: all 0.25s ease;
+}
+
+.nav-link:hover {
+    background-color: rgba(42, 38, 33, 0.5);
+    border-color: #c9a47a; /* Warm amber/gold */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    border-bottom-color: #c9a47a;
+}
+
+/* Active state for mobile taps - more fire! */
+.nav-link:active {
+    background-color: rgba(52, 48, 43, 0.7);
+    border-color: #f0d4a8;
+    transform: translateY(0px);
+    box-shadow: 
+        0 6px 16px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(240, 212, 168, 0.15);
+}
+
+.prev-link {
+    text-align: left;
+}
+
+.next-link {
+    text-align: right;
+}
+
+.nav-link-placeholder {
+    flex: 1;
+}
+
+/* ===================================
+   SPECIAL TEXT ELEMENTS
+   =================================== */
+
+/* Scripture quotes within text */
+.scripture-quote {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-style: italic;
+    color: #e0ddd5;
+    padding-left: 2rem;
+    border-left: 2px solid #3a3630;
+    margin: 2.5rem 0;
+    font-size: 1.1rem;
+    line-height: 1.7;
+}
+
+em, i {
+    font-style: italic;
+    color: #e0ddd5;
+}
+
+strong, b {
+    font-weight: 600;
+    color: #e8e4dc;
+}
+
+/* ===================================
+   ERROR MESSAGE
+   =================================== */
+
+.error-message {
+    text-align: center;
+    padding: 5rem 2rem;
+}
+
+.error-message h1 {
+    color: #c98a7a;
+    margin-bottom: 1.5rem;
+}
+
+.error-message p {
+    margin-bottom: 2.5rem;
+    font-size: 1.1rem;
+}
+
+.button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background-color: #c9a47a; /* Warm amber/gold */
+    color: #1a1a1a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-weight: 600;
+    border-radius: 2px;
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+    border: none;
+}
+
+.button:hover {
+    background-color: #e0c6a7; /* Brighter gold hover */
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(201, 164, 122, 0.25);
+    border-bottom: none;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 768px) {
+    body {
+        padding: 15px;
+        font-size: 17px;
+    }
+
+    .container {
+        padding: 30px 15px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    h2 {
+        font-size: 0.8rem;
+        margin-top: 3rem;
+    }
+
+    h3 {
+        font-size: 1.2rem;
+    }
+
+    .emphasis-text,
+    .preview-text {
+        font-size: 1.15rem;
+        padding: 0 1rem;
+    }
+
+    /* Larger tap targets for mobile - minimum 48x48px */
+    .lesson-item a {
+        padding: 1.5rem 1.25rem; /* Increased vertical padding for better tap target */
+        min-height: 48px;
+    }
+    
+    /* Subtle pulse on mobile to show interactivity */
+    @keyframes mobilePulse {
+        0%, 100% {
+            border-left-color: #3a3630;
         }
-    </script>
+        50% {
+            border-left-color: rgba(212, 165, 116, 0.4);
+        }
+    }
+    
+    .lesson-item a {
+        animation: mobilePulse 3s ease-in-out infinite;
+    }
 
-    <!-- UX Enhancements: Progress Bar & Back-to-Top Button -->
-    <script src="ux-enhancements.js"></script>
-</body>
-</html>
+    .lesson-title {
+        font-size: 1.15rem;
+    }
+
+    /* Image balanced on mobile - reduced to match desktop proportion */
+    .song-image {
+        max-width: 65%; /* Reduced from 75% for better balance */
+    }
+    
+    .custom-audio-player {
+        padding: 0.5rem 0.75rem;
+    }
+    
+    /* Larger tap targets for audio controls */
+    .player-button {
+        padding: 8px; /* Adds tap area around the icon */
+        margin-right: 0.5rem;
+    }
+    
+    .time-display {
+        font-size: 0.8rem;
+        width: 35px;
+    }
+
+    /* Mobile navigation improvements */
+    .nav-links {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    /* Larger tap targets for navigation */
+    .nav-link {
+        padding: 1.5rem;
+        min-height: 48px;
+    }
+
+    .prev-link,
+    .next-link {
+        text-align: center;
+    }
+
+    .accordion-content {
+        max-width: 100%;
+        font-size: 1.025rem;
+    }
+    
+    /* Mobile-optimized lyrics display */
+    .lyrics-text {
+        font-size: 1rem;
+        line-height: 1.8;
+        padding: 1rem;
+        max-width: 100%;
+    }
+    
+    /* Lyrics preview mobile styling */
+    .song-lyrics-section .preview-text {
+        font-size: 1rem;
+        line-height: 1.7;
+        padding: 0 1rem;
+    }
+    
+    .song-lyrics-section h3 {
+        font-size: 1.2rem;
+    }
+    
+    /* Larger tap target for accordion summary */
+    .accordion summary {
+        padding: 1rem 0;
+        min-height: 48px;
+    }
+    
+    /* Back to top button - adjusted for mobile */
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 56px;
+        height: 56px;
+    }
+    
+    .back-to-top::before {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 1.75rem;
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+    }
+
+    h2 {
+        font-size: 0.75rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    .emphasis-text,
+    .preview-text {
+        font-size: 1.05rem;
+    }
+
+    .about-preview {
+        font-size: 1.3rem !important; /* Still prominent on mobile */
+        padding: 0.75rem 1rem;
+    }
+
+    /* Image scales appropriately on very small screens */
+    .song-image {
+        max-width: 75%; /* Reduced from 85% for better balance */
+    }
+    
+    .custom-audio-player {
+        padding: 0.4rem 0.5rem;
+    }
+    
+    .player-button {
+        margin-right: 0.5rem;
+        padding: 10px; /* Larger tap area on small screens */
+    }
+    
+    .player-button svg {
+        width: 32px;
+        height: 32px;
+    }
+
+    .time-display {
+        font-size: 0.75rem;
+        width: 32px;
+    }
+    
+    #current-time {
+        margin-right: 0.5rem;
+    }
+
+    #duration {
+        margin-left: 0.5rem;
+    }
+    
+    /* Larger slider controls for easier touch */
+    .seek-bar {
+        height: 6px;
+    }
+    
+    .seek-bar::-webkit-slider-thumb {
+        width: 18px;
+        height: 18px;
+    }
+    .seek-bar::-moz-range-thumb {
+        width: 18px;
+        height: 18px;
+    }
+
+    .accordion-content {
+        font-size: 1rem;
+        line-height: 1.75;
+    }
+    
+    /* Optimized lyrics for small screens */
+    .lyrics-text {
+        font-size: 0.95rem;
+        line-height: 1.75;
+        padding: 0.75rem;
+    }
+    
+    /* Lyrics preview small screen styling */
+    .song-lyrics-section .preview-text {
+        font-size: 0.95rem;
+        line-height: 1.65;
+        padding: 0 0.75rem;
+    }
+    
+    .song-lyrics-section h3 {
+        font-size: 1.1rem;
+    }
+    
+    /* Comfortable tap targets on small screens */
+    .lesson-item a {
+        padding: 1.75rem 1rem;
+    }
+    
+    .nav-link {
+        padding: 1.75rem 1rem;
+    }
+    
+    /* Back to top button sizing for small screens */
+    .back-to-top {
+        bottom: 15px;
+        right: 15px;
+        width: 52px;
+        height: 52px;
+    }
+}
+
+/* ===================================
+   UTILITY CLASSES
+   =================================== */
+
+.text-center {
+    text-align: center;
+}
+
+/* Subtle divider with warm tone */
+.divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #3a3630, transparent);
+    margin: 3.5rem 0;
+}
+
+/* Johannine eagle feather ornament divider */
+.divider-ornate {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212, 165, 116, 0.3), transparent);
+    margin: 3.5rem 0;
+    position: relative;
+}
+
+.divider-ornate::after {
+    content: '\2726'; /* Unicode for the ornamental diamond */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: #1a1a1a;
+    color: #d4a574;
+    padding: 0 15px;
+    font-size: 0.9rem;
+    text-shadow: 0 0 10px rgba(212, 165, 116, 0.4);
+}
+
+.small-caps {
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+}
+
+/* ===================================
+   BACK TO TOP BUTTON
+   =================================== */
+
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, rgba(42, 38, 33, 0.9) 0%, rgba(30, 28, 25, 0.95) 100%);
+    border: 1px solid #d4a574;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 999;
+    box-shadow: 
+        0 4px 15px rgba(0, 0, 0, 0.5),
+        inset 0 1px 2px rgba(255, 255, 255, 0.05);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.back-to-top:hover {
+    transform: translateY(-3px);
+    background: linear-gradient(135deg, rgba(52, 48, 43, 0.95) 0%, rgba(40, 38, 35, 1) 100%);
+    border-color: #f0d4a8;
+    box-shadow: 
+        0 6px 20px rgba(0, 0, 0, 0.6),
+        0 0 15px rgba(212, 165, 116, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.08);
+}
+
+/* Active state for mobile - immediate visual feedback */
+.back-to-top:active {
+    transform: translateY(-1px) scale(0.95);
+    background: linear-gradient(135deg, rgba(62, 58, 53, 1) 0%, rgba(50, 48, 45, 1) 100%);
+    border-color: #f0d4a8;
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.7),
+        0 0 25px rgba(240, 212, 168, 0.5),
+        inset 0 1px 3px rgba(255, 255, 255, 0.1);
+}
+
+.back-to-top::before {
+    content: '↑';
+    color: #d4a574;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: 1;
+    text-shadow: 0 0 8px rgba(212, 165, 116, 0.4);
+}
+
+.back-to-top:hover::before {
+    color: #f0d4a8;
+    text-shadow: 0 0 12px rgba(240, 212, 168, 0.6);
+}
+
+/* ===================================
+   END OF STYLESHEET
+   =================================== */
+
