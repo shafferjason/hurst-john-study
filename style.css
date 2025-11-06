@@ -31,7 +31,7 @@ body {
     top: 0;
     left: 0;
     width: 0%;
-    height: 3px;
+    height: 5px; /* Thicker: 3px → 5px */
     /* Light blooming gradient - grows brighter as you progress */
     background: linear-gradient(to right, 
         #b8935f, 
@@ -40,59 +40,64 @@ body {
         #fffdf7);
     z-index: 1000;
     transition: width 0.1s ease;
-    /* Symbolic divine light glow */
+    /* MUCH MORE VISIBLE divine light glow */
     box-shadow: 
-        0 0 10px rgba(212, 165, 116, 0.5),
-        0 0 20px rgba(240, 212, 168, 0.3);
+        0 0 15px rgba(212, 165, 116, 0.8),
+        0 0 30px rgba(240, 212, 168, 0.6),
+        0 0 45px rgba(255, 253, 247, 0.3);
 }
 
-/* Desktop fire: Progress bar pulses with growing light */
+/* Desktop fire: Progress bar pulses with growing light - BRIGHTER */
 @keyframes progressGlow {
     0%, 100% {
         box-shadow: 
-            0 0 10px rgba(212, 165, 116, 0.5),
-            0 0 20px rgba(240, 212, 168, 0.3);
+            0 0 15px rgba(212, 165, 116, 0.8),
+            0 0 30px rgba(240, 212, 168, 0.6),
+            0 0 45px rgba(255, 253, 247, 0.3);
     }
     50% {
-        /* Light blooms brighter at peak */
+        /* Light blooms MUCH brighter at peak */
         box-shadow: 
-            0 0 16px rgba(212, 165, 116, 0.7),
-            0 0 30px rgba(240, 212, 168, 0.4),
-            0 0 45px rgba(255, 253, 247, 0.2);
+            0 0 25px rgba(212, 165, 116, 1),
+            0 0 50px rgba(240, 212, 168, 0.8),
+            0 0 75px rgba(255, 253, 247, 0.5);
     }
 }
 
 .reading-progress {
-    animation: progressGlow 3s ease-in-out infinite;
+    animation: progressGlow 2.5s ease-in-out infinite; /* Faster pulse */
 }
 
-/* Add symbolic light markers at milestones */
+/* MUCH LARGER and MORE VISIBLE symbolic light marker */
 .reading-progress::after {
     content: '✦';
     position: absolute;
-    right: -8px;
+    right: -12px; /* Further out so it's fully visible */
     top: 50%;
     transform: translateY(-50%);
-    color: #f0d4a8;
-    font-size: 12px;
+    color: #fffdf7; /* Brighter white-gold */
+    font-size: 18px; /* Much larger: 12px → 18px */
     text-shadow: 
-        0 0 10px rgba(240, 212, 168, 0.8),
-        0 0 20px rgba(255, 253, 247, 0.4);
+        0 0 20px rgba(255, 253, 247, 1),
+        0 0 35px rgba(240, 212, 168, 0.9),
+        0 0 50px rgba(212, 165, 116, 0.6);
     animation: markerpulse 2s ease-in-out infinite;
 }
 
 @keyframes markerpulse {
     0%, 100% {
         text-shadow: 
-            0 0 10px rgba(240, 212, 168, 0.8),
-            0 0 20px rgba(255, 253, 247, 0.4);
+            0 0 20px rgba(255, 253, 247, 1),
+            0 0 35px rgba(240, 212, 168, 0.9),
+            0 0 50px rgba(212, 165, 116, 0.6);
         transform: translateY(-50%) scale(1);
     }
     50% {
         text-shadow: 
-            0 0 15px rgba(240, 212, 168, 1),
-            0 0 30px rgba(255, 253, 247, 0.6);
-        transform: translateY(-50%) scale(1.2);
+            0 0 30px rgba(255, 253, 247, 1),
+            0 0 50px rgba(240, 212, 168, 1),
+            0 0 70px rgba(212, 165, 116, 0.7);
+        transform: translateY(-50%) scale(1.4); /* Bigger pulse */
     }
 }
 
@@ -311,16 +316,16 @@ header {
     padding-top: 1.25rem;
 }
 
-/* Smooth closing: fade out content when closing */
+/* Smooth closing: fade out content when closing - EVEN MORE GENTLE */
 .accordion[closing] .accordion-content {
-    animation: accordionFadeOut 1.2s ease-in-out forwards; /* Slower: 0.6s → 1.2s, gentler easing */
+    animation: accordionFadeOut 1.6s ease-in-out forwards; /* Even slower: 1.2s → 1.6s */
     pointer-events: none;
 }
 
 /* Rotate arrow gently when closing */
 .accordion[closing] summary::before {
     transform: rotate(0deg);
-    transition: transform 0.8s ease-out;
+    transition: transform 1.2s ease-out; /* Slower arrow rotation */
 }
 
 @keyframes accordionFadeOut {
@@ -328,13 +333,13 @@ header {
         opacity: 1;
         transform: translateY(0);
     }
-    60% {
-        opacity: 0.3; /* Linger a bit before fully fading */
-        transform: translateY(-5px);
+    70% {
+        opacity: 0.4; /* Linger LONGER before fully fading */
+        transform: translateY(-3px);
     }
     100% {
         opacity: 0;
-        transform: translateY(-8px); /* Less movement */
+        transform: translateY(-6px); /* Even less movement */
     }
 }
 
@@ -574,22 +579,32 @@ header {
     font-weight: 300;
     letter-spacing: 0.01em;
     /* Divine illumination when visible */
-    transition: all 0.8s ease;
+    transition: all 1s ease;
 }
 
-/* Scripture glows when illuminated (works with scroll effect) */
+/* Scripture glows when illuminated - MUCH MORE VISIBLE */
 .illuminate .scripture-reference {
-    color: #b8935f;
-    text-shadow: 0 0 12px rgba(212, 165, 116, 0.3);
-    animation: scripturePulse 4s ease-in-out infinite;
+    color: #f0d4a8; /* Much brighter brass */
+    text-shadow: 
+        0 0 20px rgba(240, 212, 168, 0.8),
+        0 0 35px rgba(240, 212, 168, 0.5),
+        0 0 50px rgba(212, 165, 116, 0.3);
+    animation: scripturePulse 3s ease-in-out infinite;
+    font-weight: 400; /* Slightly bolder when glowing */
 }
 
 @keyframes scripturePulse {
     0%, 100% {
-        text-shadow: 0 0 12px rgba(212, 165, 116, 0.3);
+        text-shadow: 
+            0 0 20px rgba(240, 212, 168, 0.8),
+            0 0 35px rgba(240, 212, 168, 0.5),
+            0 0 50px rgba(212, 165, 116, 0.3);
     }
     50% {
-        text-shadow: 0 0 18px rgba(240, 212, 168, 0.4);
+        text-shadow: 
+            0 0 30px rgba(255, 253, 247, 1),
+            0 0 50px rgba(240, 212, 168, 0.7),
+            0 0 70px rgba(212, 165, 116, 0.4);
     }
 }
 
