@@ -215,9 +215,9 @@
                             title: currentLesson.song_title,
                             artist: 'The Tenth Hour',
                             album: 'Hurst Class Study: Book of John',
-                            artwork: currentLesson.image_url ? [
+                            artwork: [
                                 { src: currentLesson.image_url, sizes: '512x512', type: 'image/jpeg' }
-                            ] : []
+                            ]
                         });
                         
                         // Set up action handlers for media controls
@@ -267,6 +267,34 @@
             }
             // === END AUDIO PLAYER JAVASCRIPT ===
         }
+        
+        // === LIGHT ON SCROLL EFFECT ===
+        // Illuminate sections as user scrolls - like moving a candle down the page
+        const observerOptions = {
+            threshold: 0.15, // Trigger when 15% of section is visible
+            rootMargin: '0px 0px -100px 0px' // Start slightly before section enters view
+        };
+        
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('illuminate');
+                }
+            });
+        }, observerOptions);
+        
+        // Observe all major sections
+        document.querySelectorAll('.lesson-summary, .song-tie-in, .song-lyrics-section, .song-section').forEach(section => {
+            section.classList.add('awaiting-light'); // Initial hidden state
+            sectionObserver.observe(section);
+        });
+        
+        // Header illuminates immediately
+        const header = document.querySelector('.lesson-header');
+        if (header) {
+            header.classList.add('illuminate');
+        }
+        // === END LIGHT ON SCROLL ===
     </script>
 
     <!-- UX Enhancements: Progress Bar & Back-to-Top Button -->
