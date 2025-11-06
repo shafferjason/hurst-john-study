@@ -665,7 +665,7 @@ header {
         linear-gradient(145deg, #1f1d19 0%, #1c1a17 30%, #0f0e0c 70%, #0a0908 100%);
     
     /* Rectangular book/journal shape with softened corners */
-    border-radius: 6px;
+    border-radius: 8px;
     
     /* Brass corner reinforcements - like old book bindings */
     border: 2px solid transparent;
@@ -735,20 +735,34 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: 6px;
+    border-radius: 8px;
     
-    /* Brass edge trim that follows the rounded corners smoothly */
+    /* Layered shadows for textured brass effect */
+    box-shadow: 
+        inset 0 0 0 1px rgba(201, 164, 122, 0.45),
+        inset 0 0 12px 2px rgba(212, 165, 116, 0.35),
+        inset 2px 2px 4px rgba(184, 147, 95, 0.3),
+        inset -1px -1px 3px rgba(160, 125, 74, 0.25);
+    
+    /* Add subtle texture pattern */
     background: 
-        /* Subtle brass glow around entire edge */
-        linear-gradient(to right, rgba(160, 125, 74, 0.3) 0%, transparent 8%) left,
-        linear-gradient(to left, rgba(160, 125, 74, 0.3) 0%, transparent 8%) right,
-        linear-gradient(to bottom, rgba(160, 125, 74, 0.25) 0%, transparent 6%) top,
-        linear-gradient(to top, rgba(160, 125, 74, 0.25) 0%, transparent 6%) bottom;
+        repeating-linear-gradient(
+            45deg,
+            transparent,
+            transparent 2px,
+            rgba(184, 147, 95, 0.15) 2px,
+            rgba(184, 147, 95, 0.15) 4px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            transparent,
+            transparent 2px,
+            rgba(160, 125, 74, 0.12) 2px,
+            rgba(160, 125, 74, 0.12) 4px
+        );
     
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
     pointer-events: none;
-    opacity: 0.6;
+    opacity: 0.8;
     transition: all 0.3s ease;
 }
 
@@ -760,41 +774,37 @@ header {
     left: 0;
     right: 0;
     bottom: 0;
-    border-radius: 6px;
+    border-radius: 8px;
     
-    /* Very subtle corner emphasis - curves naturally with border-radius */
+    /* Corner highlights with slight variation for worn brass look */
     background: 
-        radial-gradient(ellipse 30px 30px at 0% 0%, rgba(160, 125, 74, 0.2) 0%, transparent 70%),
-        radial-gradient(ellipse 30px 30px at 100% 0%, rgba(160, 125, 74, 0.2) 0%, transparent 70%),
-        radial-gradient(ellipse 30px 30px at 0% 100%, rgba(160, 125, 74, 0.2) 0%, transparent 70%),
-        radial-gradient(ellipse 30px 30px at 100% 100%, rgba(160, 125, 74, 0.2) 0%, transparent 70%);
+        radial-gradient(circle 25px at 8px 8px, rgba(212, 165, 116, 0.3) 0%, rgba(201, 164, 122, 0.15) 50%, transparent 100%),
+        radial-gradient(circle 25px at calc(100% - 8px) 8px, rgba(212, 165, 116, 0.3) 0%, rgba(201, 164, 122, 0.15) 50%, transparent 100%),
+        radial-gradient(circle 25px at 8px calc(100% - 8px), rgba(212, 165, 116, 0.3) 0%, rgba(201, 164, 122, 0.15) 50%, transparent 100%),
+        radial-gradient(circle 25px at calc(100% - 8px) calc(100% - 8px), rgba(212, 165, 116, 0.3) 0%, rgba(201, 164, 122, 0.15) 50%, transparent 100%);
     
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.7;
     transition: all 0.3s ease;
 }
 
 /* Brass corners glow intensely when playing - fire effect */
 .custom-audio-player.playing::before {
-    opacity: 0.85;
-    background: 
-        /* Warm brass glow around entire edge */
-        linear-gradient(to right, rgba(184, 147, 95, 0.5) 0%, transparent 10%) left,
-        linear-gradient(to left, rgba(184, 147, 95, 0.5) 0%, transparent 10%) right,
-        linear-gradient(to bottom, rgba(184, 147, 95, 0.4) 0%, transparent 8%) top,
-        linear-gradient(to top, rgba(184, 147, 95, 0.4) 0%, transparent 8%) bottom;
-    
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
+    opacity: 1;
+    box-shadow: 
+        inset 0 0 0 1px rgba(240, 212, 168, 0.7),
+        inset 0 0 18px 4px rgba(240, 212, 168, 0.5),
+        inset 2px 2px 6px rgba(212, 165, 116, 0.4),
+        inset -1px -1px 4px rgba(184, 147, 95, 0.3);
 }
 
 .custom-audio-player.playing::after {
-    opacity: 0.8;
+    opacity: 0.95;
     background: 
-        radial-gradient(ellipse 35px 35px at 0% 0%, rgba(212, 165, 116, 0.4) 0%, transparent 70%),
-        radial-gradient(ellipse 35px 35px at 100% 0%, rgba(212, 165, 116, 0.4) 0%, transparent 70%),
-        radial-gradient(ellipse 35px 35px at 0% 100%, rgba(212, 165, 116, 0.4) 0%, transparent 70%),
-        radial-gradient(ellipse 35px 35px at 100% 100%, rgba(212, 165, 116, 0.4) 0%, transparent 70%);
+        radial-gradient(circle 35px at 8px 8px, rgba(240, 212, 168, 0.5) 0%, rgba(212, 165, 116, 0.25) 50%, transparent 100%),
+        radial-gradient(circle 35px at calc(100% - 8px) 8px, rgba(240, 212, 168, 0.5) 0%, rgba(212, 165, 116, 0.25) 50%, transparent 100%),
+        radial-gradient(circle 35px at 8px calc(100% - 8px), rgba(240, 212, 168, 0.5) 0%, rgba(212, 165, 116, 0.25) 50%, transparent 100%),
+        radial-gradient(circle 35px at calc(100% - 8px) calc(100% - 8px), rgba(240, 212, 168, 0.5) 0%, rgba(212, 165, 116, 0.25) 50%, transparent 100%);
 }
 
 /* Brass Play Button - Like striking a match */
@@ -904,7 +914,7 @@ header {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 5px; /* Reduced from 6px */
+    height: 8px; /* Increased from 5px for more substantial feel */
     
     /* Worn brass track with patina */
     background: 
@@ -917,49 +927,69 @@ header {
         /* Base dark brass */
         linear-gradient(to bottom, #3a3330 0%, #2d2925 50%, #3a3330 100%);
     
-    /* Deep groove in leather/brass */
+    /* Deep groove in leather/brass - enhanced depth */
     box-shadow: 
-        inset 0 2px 5px rgba(0, 0, 0, 0.8),
-        inset 0 1px 3px rgba(0, 0, 0, 0.7),
+        inset 0 4px 8px rgba(0, 0, 0, 0.8),
+        inset 0 2px 4px rgba(0, 0, 0, 0.9),
         /* Brass edge highlights */
-        inset 0 -1px 0 rgba(184, 147, 95, 0.1),
-        0 1px 0 rgba(184, 147, 95, 0.05);
+        inset 0 -1px 2px rgba(184, 147, 95, 0.15),
+        0 1px 0 rgba(184, 147, 95, 0.1);
     
-    border-radius: 3px;
+    border-radius: 4px; /* Increased from 3px to match thickness */
     outline: none;
     cursor: pointer;
     position: relative;
     z-index: 1;
 }
 
+/* Add vertical groove texture to track */
+.seek-bar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 4px;
+    background: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 3px,
+            rgba(0, 0, 0, 0.1) 3px,
+            rgba(0, 0, 0, 0.1) 4px
+        );
+    pointer-events: none;
+}
+
 /* --- Chrome/Safari Thumb - Polished Brass Knob --- */
 .seek-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 22px; /* Increased from 20px */
+    height: 22px;
     border-radius: 50%;
     
     /* Polished brass sphere with highlight */
     background: 
         /* Top highlight - light catching brass */
         radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.4), transparent 55%),
+        /* Secondary highlight for more dimension */
+        radial-gradient(circle at 35% 35%, rgba(255, 240, 210, 0.4), transparent 60%),
         /* Brass gradient */
         radial-gradient(circle at 50% 50%, #d4af82 0%, #c9a47a 40%, #a07d4a 100%);
     
     cursor: pointer;
     
     /* Brass border */
-    border: 1.5px solid rgba(160, 125, 74, 0.8);
+    border: 1px solid rgba(160, 125, 74, 0.6);
     
-    /* 3D brass sphere effect */
+    /* Enhanced 3D brass sphere effect */
     box-shadow: 
-        /* Inner highlight */
-        inset 0 2px 2px rgba(255, 255, 255, 0.3),
-        inset 0 -2px 2px rgba(0, 0, 0, 0.3),
-        /* Outer shadow for lift */
         0 3px 8px rgba(0, 0, 0, 0.7),
-        0 1px 4px rgba(0, 0, 0, 0.6);
+        0 1px 3px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0 rgba(255, 240, 210, 0.4),
+        inset 0 -1px 2px rgba(160, 125, 74, 0.5);
     
     transition: all 0.2s ease;
 }
@@ -986,23 +1016,24 @@ header {
 
 /* --- Firefox Thumb - Polished Brass Knob --- */
 .seek-bar::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
+    width: 22px; /* Increased from 20px */
+    height: 22px;
     border-radius: 50%;
     
     /* Polished brass sphere */
     background: 
         radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.4), transparent 55%),
+        radial-gradient(circle at 35% 35%, rgba(255, 240, 210, 0.4), transparent 60%),
         radial-gradient(circle at 50% 50%, #d4af82 0%, #c9a47a 40%, #a07d4a 100%);
     
     cursor: pointer;
-    border: 1.5px solid rgba(160, 125, 74, 0.8);
+    border: 1px solid rgba(160, 125, 74, 0.6);
     
     box-shadow: 
-        inset 0 2px 2px rgba(255, 255, 255, 0.3),
-        inset 0 -2px 2px rgba(0, 0, 0, 0.3),
         0 3px 8px rgba(0, 0, 0, 0.7),
-        0 1px 4px rgba(0, 0, 0, 0.6);
+        0 1px 3px rgba(0, 0, 0, 0.8),
+        inset 0 1px 0 rgba(255, 240, 210, 0.4),
+        inset 0 -1px 2px rgba(160, 125, 74, 0.5);
     
     transition: all 0.2s ease;
 }
