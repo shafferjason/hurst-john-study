@@ -5,11 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=8">
+    <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
-    <!-- Reading progress bar will be auto-injected here by JavaScript -->
-    
+
     <div class="container">
         <div class="back-link">
             <a href="index.html">&larr; Back to All Lessons</a>
@@ -270,6 +269,7 @@
         
         // === LIGHT ON SCROLL EFFECT ===
         // Illuminate sections as user scrolls - like moving a candle down the page
+        // Sections stay illuminated once revealed (no re-animation going up)
         const observerOptions = {
             threshold: 0.15, // Trigger when 15% of section is visible
             rootMargin: '0px 0px -100px 0px' // Start slightly before section enters view
@@ -277,12 +277,10 @@
         
         const sectionObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Add illuminate class when entering view
+                // Only add illuminate class when entering view
+                // Once illuminated, sections stay lit (improves performance)
+                if (entry.isIntersecting && !entry.target.classList.contains('illuminate')) {
                     entry.target.classList.add('illuminate');
-                } else {
-                    // Remove illuminate class when leaving view (so it can re-animate)
-                    entry.target.classList.remove('illuminate');
                 }
             });
         }, observerOptions);
@@ -339,7 +337,5 @@
         // === END ACCORDION REPLAY ===
     </script>
 
-    <!-- UX Enhancements: Progress Bar & Back-to-Top Button -->
-    <script src="ux-enhancements.js"></script>
 </body>
 </html>
