@@ -626,9 +626,9 @@ header {
     align-items: center;
     justify-content: center;
     width: 100%;
-    max-width: 520px;
+    max-width: 420px; /* Reduced from 520px */
     margin: 3rem auto;
-    padding: 1.25rem 1.75rem;
+    padding: 1rem 1.25rem; /* Reduced from 1.25rem 1.75rem */
     
     /* Realistic worn black leather texture - like a vintage journal cover */
     background: 
@@ -737,16 +737,16 @@ header {
     bottom: 0;
     border-radius: 6px;
     
-    /* Much larger, more visible brass corners with layered effect */
+    /* Brass corners positioned to match the rounded border-radius */
     background: 
-        /* Top-left corner - larger and brighter */
-        radial-gradient(circle at 0% 0%, rgba(240, 212, 168, 1) 0%, rgba(212, 165, 116, 0.9) 8%, rgba(201, 164, 122, 0.6) 25%, transparent 60%),
+        /* Top-left corner - positioned inward to match curve */
+        radial-gradient(circle at 10px 10px, rgba(240, 212, 168, 1) 0%, rgba(212, 165, 116, 0.9) 8%, rgba(201, 164, 122, 0.6) 20%, transparent 50%),
         /* Top-right corner */
-        radial-gradient(circle at 100% 0%, rgba(240, 212, 168, 1) 0%, rgba(212, 165, 116, 0.9) 8%, rgba(201, 164, 122, 0.6) 25%, transparent 60%),
+        radial-gradient(circle at calc(100% - 10px) 10px, rgba(240, 212, 168, 1) 0%, rgba(212, 165, 116, 0.9) 8%, rgba(201, 164, 122, 0.6) 20%, transparent 50%),
         /* Bottom-left corner */
-        radial-gradient(circle at 0% 100%, rgba(240, 212, 168, 1) 0%, rgba(212, 165, 116, 0.9) 8%, rgba(201, 164, 122, 0.6) 25%, transparent 60%),
+        radial-gradient(circle at 10px calc(100% - 10px), rgba(240, 212, 168, 1) 0%, rgba(212, 165, 116, 0.9) 8%, rgba(201, 164, 122, 0.6) 20%, transparent 50%),
         /* Bottom-right corner */
-        radial-gradient(circle at 100% 100%, rgba(240, 212, 168, 1) 0%, rgba(212, 165, 116, 0.9) 8%, rgba(201, 164, 122, 0.6) 25%, transparent 60%);
+        radial-gradient(circle at calc(100% - 10px) calc(100% - 10px), rgba(240, 212, 168, 1) 0%, rgba(212, 165, 116, 0.9) 8%, rgba(201, 164, 122, 0.6) 20%, transparent 50%);
     
     pointer-events: none;
     opacity: 0.9;
@@ -763,14 +763,14 @@ header {
     bottom: 0;
     border-radius: 6px;
     
-    /* Inner brass corner highlights - creates depth */
+    /* Corner accent triangles positioned to align with rounded corners */
     background: 
-        linear-gradient(135deg, rgba(212, 165, 116, 0.4) 0%, transparent 15%) top left,
-        linear-gradient(225deg, rgba(212, 165, 116, 0.4) 0%, transparent 15%) top right,
-        linear-gradient(45deg, rgba(212, 165, 116, 0.4) 0%, transparent 15%) bottom left,
-        linear-gradient(315deg, rgba(212, 165, 116, 0.4) 0%, transparent 15%) bottom right;
+        linear-gradient(135deg, rgba(212, 165, 116, 0.4) 0%, transparent 12%) top left,
+        linear-gradient(225deg, rgba(212, 165, 116, 0.4) 0%, transparent 12%) top right,
+        linear-gradient(45deg, rgba(212, 165, 116, 0.4) 0%, transparent 12%) bottom left,
+        linear-gradient(315deg, rgba(212, 165, 116, 0.4) 0%, transparent 12%) bottom right;
     
-    background-size: 80px 80px;
+    background-size: 60px 60px;
     background-repeat: no-repeat;
     pointer-events: none;
     opacity: 0.8;
@@ -781,22 +781,22 @@ header {
 .custom-audio-player.playing::before {
     opacity: 1;
     background: 
-        /* Intense golden glow at all corners */
-        radial-gradient(circle at 0% 0%, rgba(255, 235, 180, 1) 0%, rgba(240, 212, 168, 1) 10%, rgba(212, 165, 116, 0.8) 30%, transparent 65%),
-        radial-gradient(circle at 100% 0%, rgba(255, 235, 180, 1) 0%, rgba(240, 212, 168, 1) 10%, rgba(212, 165, 116, 0.8) 30%, transparent 65%),
-        radial-gradient(circle at 0% 100%, rgba(255, 235, 180, 1) 0%, rgba(240, 212, 168, 1) 10%, rgba(212, 165, 116, 0.8) 30%, transparent 65%),
-        radial-gradient(circle at 100% 100%, rgba(255, 235, 180, 1) 0%, rgba(240, 212, 168, 1) 10%, rgba(212, 165, 116, 0.8) 30%, transparent 65%);
+        /* Intense golden glow at all corners - positioned to match curve */
+        radial-gradient(circle at 10px 10px, rgba(255, 235, 180, 1) 0%, rgba(240, 212, 168, 1) 10%, rgba(212, 165, 116, 0.8) 25%, transparent 55%),
+        radial-gradient(circle at calc(100% - 10px) 10px, rgba(255, 235, 180, 1) 0%, rgba(240, 212, 168, 1) 10%, rgba(212, 165, 116, 0.8) 25%, transparent 55%),
+        radial-gradient(circle at 10px calc(100% - 10px), rgba(255, 235, 180, 1) 0%, rgba(240, 212, 168, 1) 10%, rgba(212, 165, 116, 0.8) 25%, transparent 55%),
+        radial-gradient(circle at calc(100% - 10px) calc(100% - 10px), rgba(255, 235, 180, 1) 0%, rgba(240, 212, 168, 1) 10%, rgba(212, 165, 116, 0.8) 25%, transparent 55%);
 }
 
 .custom-audio-player.playing::after {
     opacity: 1;
     background: 
-        linear-gradient(135deg, rgba(240, 212, 168, 0.7) 0%, transparent 18%) top left,
-        linear-gradient(225deg, rgba(240, 212, 168, 0.7) 0%, transparent 18%) top right,
-        linear-gradient(45deg, rgba(240, 212, 168, 0.7) 0%, transparent 18%) bottom left,
-        linear-gradient(315deg, rgba(240, 212, 168, 0.7) 0%, transparent 18%) bottom right;
+        linear-gradient(135deg, rgba(240, 212, 168, 0.7) 0%, transparent 15%) top left,
+        linear-gradient(225deg, rgba(240, 212, 168, 0.7) 0%, transparent 15%) top right,
+        linear-gradient(45deg, rgba(240, 212, 168, 0.7) 0%, transparent 15%) bottom left,
+        linear-gradient(315deg, rgba(240, 212, 168, 0.7) 0%, transparent 15%) bottom right;
     
-    background-size: 90px 90px;
+    background-size: 70px 70px;
     background-repeat: no-repeat;
 }
 
@@ -809,8 +809,8 @@ header {
     border: 2px solid rgba(184, 147, 95, 0.6);
     border-radius: 50%;
     cursor: pointer;
-    padding: 10px;
-    margin-right: 1.25rem;
+    padding: 8px; /* Reduced from 10px */
+    margin-right: 1rem; /* Reduced from 1.25rem */
     position: relative;
     z-index: 1;
     
@@ -827,8 +827,8 @@ header {
 }
 
 .player-button svg {
-    width: 32px;
-    height: 32px;
+    width: 28px; /* Reduced from 32px */
+    height: 28px; /* Reduced from 32px */
     fill: #2a2622; /* Dark fill for contrast on brass */
     transition: all 0.2s ease;
     /* Subtle shadow for depth */
@@ -907,7 +907,7 @@ header {
     -webkit-appearance: none;
     appearance: none;
     width: 100%;
-    height: 6px;
+    height: 5px; /* Reduced from 6px */
     
     /* Worn brass track with patina */
     background: 
