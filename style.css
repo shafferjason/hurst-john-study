@@ -513,7 +513,7 @@ header {
         0 0 20px rgba(240, 212, 168, 0.8),
         0 0 35px rgba(240, 212, 168, 0.5),
         0 0 50px rgba(212, 165, 116, 0.3);
-    animation: scripturePulse 3s ease-in-out infinite;
+    animation: scripturePulse 3s ease-in-out 3; /* Pulse 3 times then stop */
     font-weight: 400; /* Slightly bolder when glowing */
 }
 
@@ -1717,11 +1717,8 @@ strong, b {
     opacity: 1;
     transform: translateY(0);
     transition: opacity 1.8s ease-out, /* Slower: 1.2s → 1.8s */
-                transform 1.8s ease-out,
-                box-shadow 1.8s ease-out;
-    
-    /* Subtle golden glow as section comes into light */
-    animation: candleGlow 3s ease-in-out infinite;
+                transform 1.8s ease-out;
+    /* Removed infinite candleGlow animation for performance */
 }
 
 /* Cascading fade: child elements appear progressively from top to bottom */
