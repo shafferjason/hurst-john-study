@@ -307,7 +307,7 @@ header {
     letter-spacing: 0.02em; /* Subtle spacing */
     list-style: none;
     padding: 0.75rem 0;
-    margin-top: 1rem;
+    margin-top: 0.5rem; /* Reduced from 1rem - closer to preview text */
     user-select: none;
     transition: all 0.3s ease; /* Slower, more contemplative */
     text-align: center;
@@ -1200,7 +1200,7 @@ header {
 
 /* === Worn photograph on vellum === */
 .song-image {
-    max-width: 60%;
+    max-width: 70%; /* Increased from 60% - same as or larger than player */
     height: auto;
     margin: 2rem auto;
     display: block;
@@ -1209,15 +1209,15 @@ header {
     /* Rough, irregular edges - not perfectly rounded */
     border-radius: 2% 3% 2% 4% / 3% 2% 4% 2%;
 
-    /* Much more visible - less faded */
-    opacity: 0.90; /* Slightly reduced for deeper vintage feel */
+    /* Slightly more faded for deeper vintage feel */
+    opacity: 0.85; /* Reduced from 0.90 */
     
-    /* Deeper sepia tone for vintage photograph feel */
+    /* Heavier sepia tone for vintage photograph feel */
     filter: 
         contrast(0.95)          /* Slightly softer */
         brightness(0.98)        /* Slightly darker */
         saturate(0.8)           /* More muted */
-        sepia(0.4);             /* Much stronger sepia - deep vintage tone */
+        sepia(0.5);             /* Even stronger sepia - heavier vintage tone */
     
     /* MUCH heavier edge bleeding - very prominent dark edges */
     box-shadow: 
@@ -2316,4 +2316,3 @@ strong, b {
 /* ===================================
    END OF STYLESHEET
    =================================== */
-
