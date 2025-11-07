@@ -331,27 +331,27 @@ header {
 
 /* === SYNTAX ERROR FIXED HERE === */
 .accordion-content {
-    /* Vellum reading surface emerges from within leather panel */
+    /* Aged off-white vellum reading surface emerges from within leather panel */
     background: 
         /* Very subtle paper fiber texture */
         repeating-linear-gradient(
             45deg,
             transparent 0px,
-            rgba(245, 242, 235, 0.02) 1px,
+            rgba(248, 245, 238, 0.03) 1px,
             transparent 2px,
             transparent 4px
         ),
         repeating-linear-gradient(
             -45deg,
             transparent 0px,
-            rgba(240, 237, 230, 0.015) 1px,
+            rgba(248, 245, 238, 0.025) 1px,
             transparent 2px,
             transparent 4px
         ),
-        /* Soft cream/ivory gradient for aged vellum */
+        /* Aged off-white gradient - warmer, slightly yellowed old paper */
         linear-gradient(to bottom, 
-            rgba(245, 242, 235, 0.08) 0%, 
-            rgba(240, 237, 230, 0.06) 100%
+            rgba(248, 245, 238, 0.12) 0%, 
+            rgba(245, 242, 235, 0.10) 100%
         ),
         /* Dark base for high contrast */
         #1a1816;
@@ -369,7 +369,7 @@ header {
         0 2px 8px rgba(0, 0, 0, 0.15);
     
     /* Brighter text for high readability on vellum */
-    color: #e8e4dc;
+    color: #ebe7df;
     animation: fadeIn 1.4s ease; /* Much slower: 0.8s → 1.4s */
     
     /* Optimized for extended reading */
@@ -580,7 +580,7 @@ header {
     opacity: 1;
 }
 
-/* Leather panel treatment for lesson sections */
+/* Leather panel treatment for lesson sections - ENHANCED 3D JOURNAL */
 .lesson-summary,
 .song-tie-in,
 .song-lyrics-section {
@@ -606,18 +606,24 @@ header {
     /* Padding for breathing room */
     padding: 2.5rem 2rem;
     
-    /* Subtle inset shadow - recessed into page */
+    /* ENHANCED 3D: Stacked journal pages with depth */
     box-shadow: 
-        inset 0 2px 8px rgba(0, 0, 0, 0.3),
-        inset 0 1px 2px rgba(0, 0, 0, 0.4),
-        /* Outer subtle lift */
-        0 2px 12px rgba(0, 0, 0, 0.2);
+        /* Multiple page layers - creates thickness/depth */
+        inset 0 2px 8px rgba(0, 0, 0, 0.4),
+        inset 0 1px 2px rgba(0, 0, 0, 0.5),
+        /* Darker left edge (spine side) */
+        inset 3px 0 8px rgba(0, 0, 0, 0.3),
+        /* Stacked page effect - multiple shadows for thickness */
+        0 4px 6px rgba(0, 0, 0, 0.3),
+        0 6px 12px rgba(0, 0, 0, 0.25),
+        0 10px 20px rgba(0, 0, 0, 0.2),
+        0 15px 30px rgba(0, 0, 0, 0.15);
     
     /* Brass corner accents */
     position: relative;
 }
 
-/* Brass corner tabs - top-left and bottom-right */
+/* Brass corner tabs - MORE PROMINENT for 3D journal effect */
 .lesson-summary::before,
 .song-tie-in::before,
 .song-lyrics-section::before {
@@ -625,11 +631,15 @@ header {
     position: absolute;
     top: 0;
     left: 0;
-    width: 20px;
-    height: 20px;
-    border-top: 2px solid rgba(212, 165, 116, 0.4);
-    border-left: 2px solid rgba(212, 165, 116, 0.4);
+    width: 24px; /* Larger: 20px → 24px */
+    height: 24px;
+    border-top: 2.5px solid rgba(212, 165, 116, 0.5); /* Thicker and brighter */
+    border-left: 2.5px solid rgba(212, 165, 116, 0.5);
     border-top-left-radius: 12px;
+    /* Add subtle glow to brass */
+    box-shadow: 
+        0 0 8px rgba(212, 165, 116, 0.2),
+        inset 1px 1px 2px rgba(240, 212, 168, 0.15);
 }
 
 .lesson-summary::after,
@@ -639,11 +649,15 @@ header {
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 20px;
-    height: 20px;
-    border-bottom: 2px solid rgba(212, 165, 116, 0.4);
-    border-right: 2px solid rgba(212, 165, 116, 0.4);
+    width: 24px; /* Larger: 20px → 24px */
+    height: 24px;
+    border-bottom: 2.5px solid rgba(212, 165, 116, 0.5); /* Thicker and brighter */
+    border-right: 2.5px solid rgba(212, 165, 116, 0.5);
     border-bottom-right-radius: 12px;
+    /* Add subtle glow to brass */
+    box-shadow: 
+        0 0 8px rgba(212, 165, 116, 0.2),
+        inset -1px -1px 2px rgba(240, 212, 168, 0.15);
 }
 
 /* Remove old left border styling */
@@ -1464,6 +1478,22 @@ strong, b {
     .accordion-content {
         max-width: 100%;
         font-size: 1.025rem;
+        /* MOBILE FIX: Ensure visibility */
+        display: block !important;
+        opacity: 1 !important;
+        padding: 1.5rem 1rem !important; /* Reduce padding on mobile */
+        margin-top: 1rem !important;
+        /* Brighter text for mobile screens */
+        color: #f0ede5 !important;
+        /* Simpler vellum for mobile performance */
+        background: 
+            linear-gradient(to bottom, 
+                rgba(248, 245, 238, 0.15) 0%, 
+                rgba(245, 242, 235, 0.12) 100%
+            ),
+            #1a1816 !important;
+        /* Ensure box shows */
+        min-height: 50px !important;
     }
     
     /* Mobile-optimized lyrics display */
@@ -1801,97 +1831,6 @@ strong, b {
     text-shadow: 
         0 0 15px rgba(240, 212, 168, 0.7),
         0 0 25px rgba(240, 212, 168, 0.4);
-}
-
-/* ===================================
-   LIGHT ON SCROLL EFFECT
-   Candle illuminating testimony
-   =================================== */
-
-/* Sections start hidden, awaiting light */
-.awaiting-light {
-    opacity: 0;
-    transform: translateY(40px); /* Increased from 30px */
-    transition: none; /* No transition until illuminated */
-}
-
-/* When section scrolls into view, it illuminates with candlelight glow */
-.illuminate {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 1.8s ease-out, /* Slower: 1.2s → 1.8s */
-                transform 1.8s ease-out,
-                box-shadow 1.8s ease-out;
-    
-    /* Subtle golden glow as section comes into light */
-    animation: candleGlow 3s ease-in-out infinite;
-}
-
-/* Cascading fade: child elements appear progressively from top to bottom */
-.illuminate > * {
-    animation: cascadeFadeIn 1.2s ease-out backwards;
-}
-
-.illuminate > *:nth-child(1) { animation-delay: 0s; }
-.illuminate > *:nth-child(2) { animation-delay: 0.15s; }
-.illuminate > *:nth-child(3) { animation-delay: 0.3s; }
-.illuminate > *:nth-child(4) { animation-delay: 0.45s; }
-.illuminate > *:nth-child(5) { animation-delay: 0.6s; }
-.illuminate > *:nth-child(6) { animation-delay: 0.75s; }
-.illuminate > *:nth-child(7) { animation-delay: 0.9s; }
-.illuminate > *:nth-child(8) { animation-delay: 1.05s; }
-
-@keyframes cascadeFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(15px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-/* Gentle pulsing candlelight effect */
-@keyframes candleGlow {
-    0%, 100% {
-        box-shadow: 0 0 20px rgba(212, 165, 116, 0.1);
-    }
-    50% {
-        box-shadow: 0 0 30px rgba(240, 212, 168, 0.15);
-    }
-}
-
-/* Header is always illuminated (it's the title/witness) */
-.lesson-header {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Mobile: Slightly faster, less dramatic for smaller screens */
-@media (max-width: 768px) {
-    .awaiting-light {
-        transform: translateY(25px); /* Less distance */
-    }
-    
-    .illuminate {
-        transition: opacity 1.3s ease-out, /* Slower than before */
-                    transform 1.3s ease-out,
-                    box-shadow 1.3s ease-out;
-    }
-    
-    .illuminate > * {
-        animation-duration: 0.9s; /* Slightly faster on mobile */
-    }
-    
-    @keyframes candleGlow {
-        0%, 100% {
-            box-shadow: 0 0 15px rgba(212, 165, 116, 0.08);
-        }
-        50% {
-            box-shadow: 0 0 25px rgba(240, 212, 168, 0.12);
-        }
-    }
 }
 
 /* ===================================

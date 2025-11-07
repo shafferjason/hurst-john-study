@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=15">
+    <link rel="stylesheet" href="style.css?v=16">
 </head>
 <body>
 
@@ -267,37 +267,6 @@
             // === END AUDIO PLAYER JAVASCRIPT ===
         }
         
-        // === LIGHT ON SCROLL EFFECT ===
-        // Illuminate sections as user scrolls - like moving a candle down the page
-        const observerOptions = {
-            threshold: 0.15, // Trigger when 15% of section is visible
-            rootMargin: '0px 0px -100px 0px' // Start slightly before section enters view
-        };
-        
-        const sectionObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Add illuminate class when entering view
-                    entry.target.classList.add('illuminate');
-                } else {
-                    // Remove illuminate class when leaving view (so it can re-animate)
-                    entry.target.classList.remove('illuminate');
-                }
-            });
-        }, observerOptions);
-        
-        // Observe all major sections
-        document.querySelectorAll('.lesson-summary, .song-tie-in, .song-lyrics-section, .song-section').forEach(section => {
-            section.classList.add('awaiting-light'); // Initial hidden state
-            sectionObserver.observe(section);
-        });
-        
-        // Header illuminates immediately
-        const header = document.querySelector('.lesson-header');
-        if (header) {
-            header.classList.add('illuminate');
-        }
-        // === END LIGHT ON SCROLL ===
         
         // === ACCORDION ANIMATION REPLAY ===
         // Force animations to replay every time accordion opens + smooth closing
