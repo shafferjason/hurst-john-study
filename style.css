@@ -571,7 +571,7 @@ header {
     display: block;
     /* SPINE PROPORTIONS - wider than tall, like looking at book spine */
     padding: 1.75rem 4rem; /* Increased horizontal padding from 3rem to 4rem */
-    min-height: 110px; /* Increased from 100px to accommodate text wrapping */
+    min-height: 120px; /* Increased from 110px for taller brass plate */
     
     /* Rich leather spine texture - MORE REALISTIC */
     background: 
@@ -674,11 +674,11 @@ header {
 .lesson-item a::before {
     content: '';
     position: absolute;
-    left: 3rem; /* Increased from 2.5rem */
-    right: 3rem; /* Increased from 2.5rem */
+    left: 2.5rem; /* Reduced from 3rem - wider plate */
+    right: 2.5rem; /* Reduced from 3rem - wider plate */
     top: 50%;
     transform: translateY(-50%);
-    height: 65px; /* Slightly taller */
+    height: 75px; /* Increased from 65px - taller plate */
     
     /* Worn brass plate pressed into leather */
     background: 
@@ -794,11 +794,15 @@ header {
     margin-bottom: 0.25rem;
     line-height: 1.25;
     letter-spacing: 0.01em;
-    /* Embossed into brass plate */
+    /* DEBOSSED/PRESSED effect - text stamped into leather */
     text-shadow: 
-        0 1px 2px rgba(0, 0, 0, 0.5),
-        0 -1px 0 rgba(240, 212, 168, 0.1),
-        0 0 8px rgba(232, 228, 220, 0.15);
+        /* Deep shadow below (pressed down) */
+        0 2px 3px rgba(0, 0, 0, 0.7),
+        0 3px 5px rgba(0, 0, 0, 0.5),
+        /* Subtle highlight above (edge catch) */
+        0 -1px 0 rgba(240, 212, 168, 0.2),
+        /* Inner darkness (recessed) */
+        inset 0 1px 2px rgba(0, 0, 0, 0.4);
     position: relative;
     z-index: 1;
     /* Allow wrapping - removed nowrap */
@@ -812,6 +816,10 @@ header {
     color: #b8b4a8;
     font-style: italic;
     line-height: 1.3;
+    /* Lighter pressed effect for secondary text */
+    text-shadow: 
+        0 1px 2px rgba(0, 0, 0, 0.6),
+        0 -1px 0 rgba(240, 212, 168, 0.15);
     /* Allow wrapping */
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -1351,7 +1359,7 @@ header {
 }
 
 .song-logo {
-    max-width: 280px;
+    max-width: 240px; /* Reduced from 280px */
     width: 100%;
     height: auto;
     display: block;
@@ -2335,13 +2343,13 @@ strong, b {
     border: 0;
     height: 1px;
     background: linear-gradient(to right, transparent, rgba(212, 165, 116, 0.3), transparent);
-    margin: 7rem 0 6rem 0; /* Much larger - was 5rem 0 4rem 0 */
+    margin: 3.5rem 0; /* Reverted to original */
     position: relative;
 }
 
 /* When divider is inside an accordion (details element) */
 details .divider-ornate {
-    margin: 3.5rem 0 3.5rem 0; /* Much more space - was 2rem 0 2.5rem 0 */
+    margin: 1.5rem 0 2rem 0; /* Reverted to original */
 }
 
 .divider-ornate::after {
@@ -2350,11 +2358,18 @@ details .divider-ornate {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: #151515 url('cross-icon.svg') center center no-repeat; /* Cross icon instead of diamond */
-    background-size: 60px auto; /* Size the cross appropriately */
+    /* VERTICAL OVAL instead of black box */
+    background: 
+        radial-gradient(ellipse 40px 60px at center, rgba(21, 21, 21, 0.95) 0%, rgba(21, 21, 21, 0.98) 70%, rgba(21, 21, 21, 1) 100%),
+        url('cross-icon.svg') center center no-repeat;
+    background-size: auto, 50px auto; /* Cross icon size */
     width: 80px;
-    height: 40px;
-    padding: 0 10px;
+    height: 100px; /* Taller oval */
+    border-radius: 50%; /* Makes it elliptical */
+    /* Subtle brass glow around oval */
+    box-shadow: 
+        0 0 15px rgba(212, 165, 116, 0.15),
+        inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
 
 /* Desktop fire: Subtle candlelight flicker on ornate dividers */
