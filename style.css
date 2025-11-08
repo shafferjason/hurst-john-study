@@ -931,8 +931,8 @@ header {
     /* Organic rounded corners */
     border-radius: 12px;
     
-    /* Padding for breathing room */
-    padding: 2.5rem 2rem;
+    /* Padding for breathing room - extra left for hand-stitched binding */
+    padding: 2.5rem 2rem 2.5rem 3rem;
     
     /* ENHANCED 3D: Maximum stacked journal depth with light catch */
     box-shadow: 
@@ -1071,11 +1071,12 @@ header {
         inset -1px -1px 2px rgba(240, 212, 168, 0.15);
 }
 
-/* Distinctive brass stitching on left edge - journal binding detail */
+/* Distinctive hand-stitched binding on left edge */
 .lesson-summary,
 .song-tie-in,
 .song-lyrics-section {
-    border-left: 3px dotted rgba(212, 165, 116, 0.4); /* Increased from 2px and 0.15 opacity */
+    border-left: 5px dotted rgba(212, 165, 116, 0.5); /* Increased from 3px to 5px for larger stitches */
+    padding-left: 3rem; /* Increased left padding to move content away from stitches */
 }
 
 /* Worn corners - darker/aged on high-traffic areas */
