@@ -1,0 +1,141 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 900" width="2000" height="900">
+  <defs>
+    <linearGradient id="m" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7a6030;stop-opacity:0.3"/>
+      <stop offset="50%" style="stop-color:#fff8e0;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#7a6030;stop-opacity:0.3"/>
+    </linearGradient>
+    <radialGradient id="g" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#f4d58d;stop-opacity:0.5"/>
+      <stop offset="100%" style="stop-color:#d4a850;stop-opacity:0"/>
+    </radialGradient>
+    <radialGradient id="c" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.9"/>
+      <stop offset="100%" style="stop-color:#f4d58d;stop-opacity:0"/>
+    </radialGradient>
+    <linearGradient id="v" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#fffbf5;stop-opacity:0"/>
+      <stop offset="15%" style="stop-color:#fffbf5;stop-opacity:0.15"/>
+      <stop offset="50%" style="stop-color:#fffbf5;stop-opacity:0.5"/>
+      <stop offset="85%" style="stop-color:#fffbf5;stop-opacity:0.15"/>
+      <stop offset="100%" style="stop-color:#fffbf5;stop-opacity:0"/>
+    </linearGradient>
+
+    <!-- Gradient for top vertical beam point -->
+    <linearGradient id="topBeamGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#fffef8;stop-opacity:1"/>
+      <stop offset="20%" style="stop-color:#fff8e0;stop-opacity:1"/>
+      <stop offset="50%" style="stop-color:#d4b080;stop-opacity:1"/>
+      <stop offset="80%" style="stop-color:#8a6040;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#5a4020;stop-opacity:1"/>
+    </linearGradient>
+
+    <!-- Gradients for outer pulse points -->
+    <linearGradient id="topPulseGradient" x1="0%" y1="100%" x2="0%" y2="0%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8"/>
+      <stop offset="80%" style="stop-color:#ffffff;stop-opacity:0.8"/>
+      <stop offset="90%" style="stop-color:#ffd080;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#4a3018;stop-opacity:0.05"/>
+    </linearGradient>
+
+    <linearGradient id="bottomPulseGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.8"/>
+      <stop offset="80%" style="stop-color:#ffffff;stop-opacity:0.8"/>
+      <stop offset="90%" style="stop-color:#ffd080;stop-opacity:0.4"/>
+      <stop offset="100%" style="stop-color:#4a3018;stop-opacity:0.05"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Threshold Cross Center Element -->
+  <g>
+    <!-- Vertical pulse - split into top and bottom with gradients -->
+    <!-- Top section -->
+    <polygon points="994,220 998,200 1002,220 1002,444" fill="url(#topPulseGradient)"/>
+    <!-- Bottom section -->
+    <polygon points="994,456 994,680 998,720 1002,680 1002,456" fill="url(#bottomPulseGradient)"/>
+    <rect x="993" y="310" width="10" height="340" fill="url(#v)"/>
+
+    <!-- Essence layers -->
+    <ellipse cx="1000" cy="450" rx="50" ry="120" fill="url(#g)" opacity="0.3"/>
+    <ellipse cx="1000" cy="450" rx="45" ry="100" fill="url(#g)" opacity="0.4"/>
+    <ellipse cx="1000" cy="450" rx="40" ry="80" fill="url(#g)" opacity="0.5"/>
+
+    <!-- Pulsating ovals -->
+    <ellipse cx="1000" cy="400" rx="35" ry="20" fill="#fff9f0" opacity="0.08"/>
+    <ellipse cx="1000" cy="500" rx="35" ry="20" fill="#fff9f0" opacity="0.08"/>
+
+    <!-- Particles -->
+    <circle cx="980" cy="380" r="1.5" fill="#ffe8a0" opacity="0.4"/>
+    <circle cx="1020" cy="380" r="1.5" fill="#ffe8a0" opacity="0.4"/>
+    <circle cx="975" cy="450" r="1.2" fill="#ffe8a0" opacity="0.4"/>
+    <circle cx="1025" cy="450" r="1.2" fill="#ffe8a0" opacity="0.4"/>
+    <circle cx="982" cy="520" r="1.5" fill="#ffe8a0" opacity="0.4"/>
+    <circle cx="1018" cy="520" r="1.5" fill="#ffe8a0" opacity="0.4"/>
+
+    <!-- Tendrils -->
+    <line x1="995" y1="380" x2="960" y2="375" stroke="#fff9f0" stroke-width="0.8" opacity="0.3" stroke-linecap="round"/>
+    <line x1="1005" y1="380" x2="1040" y2="375" stroke="#fff9f0" stroke-width="0.8" opacity="0.3" stroke-linecap="round"/>
+    <line x1="990" y1="450" x2="950" y2="450" stroke="#fff9f0" stroke-width="0.8" opacity="0.3" stroke-linecap="round"/>
+    <line x1="1010" y1="450" x2="1050" y2="450" stroke="#fff9f0" stroke-width="0.8" opacity="0.3" stroke-linecap="round"/>
+    <line x1="995" y1="520" x2="960" y2="525" stroke="#fff9f0" stroke-width="0.8" opacity="0.3" stroke-linecap="round"/>
+    <line x1="1005" y1="520" x2="1040" y2="525" stroke="#fff9f0" stroke-width="0.8" opacity="0.3" stroke-linecap="round"/>
+
+    <!-- Vertical beam - split into top and bottom -->
+    <!-- Top section with gradient -->
+    <polygon points="994,320 1000,308 1006,320 1006,444" fill="url(#topBeamGradient)"/>
+    <!-- Bottom section with original gradient -->
+    <polygon points="994,456 994,640 1000,657 1006,640 1006,456" fill="url(#m)"/>
+
+    <!-- Highlight and shadow edges -->
+    <polygon points="994,320 995,321 995,444" fill="#fff8d0" opacity="0.7"/>
+    <polygon points="1006,320 1005,321 1005,444" fill="#5a4020" opacity="0.6"/>
+    <polygon points="994,456 995,456 995,639 994,640" fill="#fff8d0" opacity="0.7"/>
+    <polygon points="1006,456 1005,456 1005,639 1006,640" fill="#5a4020" opacity="0.6"/>
+
+    <!-- Horizontal beam -->
+    <polygon points="935,444 922,450 935,456 1065,456 1078,450 1065,444" fill="url(#m)"/>
+    <polygon points="935,444 936,445 1064,445 1065,444" fill="#fff8d0" opacity="0.7"/>
+    <polygon points="935,456 936,455 1064,455 1065,456" fill="#5a4020" opacity="0.6"/>
+
+    <!-- Rays -->
+    <line x1="1000" y1="450" x2="1085" y2="450" stroke="#f4d58d" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+    <line x1="1000" y1="450" x2="915" y2="450" stroke="#f4d58d" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+    <line x1="1000" y1="450" x2="1000" y2="535" stroke="#f4d58d" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+    <line x1="1000" y1="450" x2="1000" y2="365" stroke="#f4d58d" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+
+    <!-- Ray glow -->
+    <line x1="1000" y1="450" x2="1085" y2="450" stroke="#ffe8a0" stroke-width="3.5" opacity="0.08" stroke-linecap="round"/>
+    <line x1="1000" y1="450" x2="915" y2="450" stroke="#ffe8a0" stroke-width="3.5" opacity="0.08" stroke-linecap="round"/>
+    <line x1="1000" y1="450" x2="1000" y2="535" stroke="#ffe8a0" stroke-width="3.5" opacity="0.08" stroke-linecap="round"/>
+    <line x1="1000" y1="450" x2="1000" y2="365" stroke="#ffe8a0" stroke-width="3.5" opacity="0.08" stroke-linecap="round"/>
+
+    <!-- Diagonal rays -->
+    <line x1="1000" y1="450" x2="1031.82" y2="481.82" stroke="#f4d58d" stroke-width="1.5" opacity="0.5" stroke-linecap="round"/>
+    <line x1="1031.82" y1="481.82" x2="1045.96" y2="495.96" stroke="#ff9944" stroke-width="1.5" opacity="0.65" stroke-linecap="round"/>
+    <line x1="1000" y1="450" x2="968.18" y2="481.82" stroke="#f4d58d" stroke-width="1.5" opacity="0.5" stroke-linecap="round"/>
+    <line x1="968.18" y1="481.82" x2="954.04" y2="495.96" stroke="#ff9944" stroke-width="1.5" opacity="0.65" stroke-linecap="round"/>
+    <line x1="1000" y1="450" x2="968.18" y2="418.18" stroke="#f4d58d" stroke-width="1.5" opacity="0.5" stroke-linecap="round"/>
+    <line x1="968.18" y1="418.18" x2="954.04" y2="404.04" stroke="#ff9944" stroke-width="1.5" opacity="0.65" stroke-linecap="round"/>
+    <line x1="1000" y1="450" x2="1031.82" y2="418.18" stroke="#f4d58d" stroke-width="1.5" opacity="0.5" stroke-linecap="round"/>
+    <line x1="1031.82" y1="418.18" x2="1045.96" y2="404.04" stroke="#ff9944" stroke-width="1.5" opacity="0.65" stroke-linecap="round"/>
+
+    <!-- Core -->
+    <circle cx="1000" cy="450" r="40" fill="url(#c)" opacity="0.35"/>
+    <circle cx="1000" cy="450" r="40" fill="#ffa640" opacity="0.08"/>
+    <circle cx="1000" cy="450" r="35" fill="url(#c)" opacity="0.55"/>
+    <circle cx="1000" cy="450" r="35" fill="#ffc480" opacity="0.06"/>
+    <circle cx="1000" cy="450" r="25" fill="url(#c)" opacity="0.75"/>
+    <circle cx="1000" cy="450" r="15" fill="url(#c)" opacity="0.85"/>
+    <circle cx="1000" cy="450" r="8" fill="#fff" opacity="0.95"/>
+
+    <!-- Sparkles -->
+    <circle cx="1009" cy="381" r="2" fill="#f4e4c1" opacity="0.7"/>
+    <circle cx="1000" cy="450" r="2" fill="#f4e4c1" opacity="0.7"/>
+    <circle cx="1056" cy="481" r="2" fill="#f4e4c1" opacity="0.7"/>
+
+    <!-- Sparkle auras -->
+    <circle cx="1009" cy="381" r="4" stroke="#fff9f0" stroke-width="1" opacity="0.15" fill="none"/>
+    <circle cx="1000" cy="450" r="4" stroke="#fff9f0" stroke-width="1" opacity="0.15" fill="none"/>
+    <circle cx="1056" cy="481" r="4" stroke="#fff9f0" stroke-width="1" opacity="0.15" fill="none"/>
+  </g>
+</svg>

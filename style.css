@@ -173,6 +173,27 @@ header {
     font-weight: 300;
 }
 
+/* "Presented by" text above logo */
+.subtitle-text {
+    font-size: 0.9rem;
+    color: #7a766d;
+    font-style: italic;
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    font-weight: 300;
+    text-align: center;
+}
+
+/* The Tenth Hour logo */
+.tenth-hour-logo {
+    max-width: 400px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    opacity: 0.9;
+}
+
 /* ===================================
    ABOUT SECTION
    =================================== */
@@ -2174,21 +2195,26 @@ strong, b {
     border: 0;
     height: 1px;
     background: linear-gradient(to right, transparent, rgba(212, 165, 116, 0.3), transparent);
-    margin: 3.5rem 0;
+    margin: 4.5rem 0 3.5rem 0; /* Increased top margin from 3.5rem to 4.5rem */
     position: relative;
 }
 
+/* When divider is inside an accordion (details element) */
+details .divider-ornate {
+    margin: 1.5rem 0 2rem 0; /* Tighter spacing inside accordion */
+}
+
 .divider-ornate::after {
-    content: '\2726'; /* Unicode for the ornamental diamond */
+    content: '';
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    background: #151515; /* Match darkened background */
-    color: #d4a574;
-    padding: 0 15px;
-    font-size: 0.9rem;
-    text-shadow: 0 0 10px rgba(212, 165, 116, 0.4);
+    background: #151515 url('cross-icon.svg') center center no-repeat; /* Cross icon instead of diamond */
+    background-size: 60px auto; /* Size the cross appropriately */
+    width: 80px;
+    height: 40px;
+    padding: 0 10px;
 }
 
 /* Desktop fire: Subtle candlelight flicker on ornate dividers */
@@ -2316,3 +2342,4 @@ strong, b {
 /* ===================================
    END OF STYLESHEET
    =================================== */
+
