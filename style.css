@@ -30,7 +30,7 @@ body {
    =================================== */
 
 .container {
-    max-width: 680px;
+    max-width: 900px; /* Increased from 680px for wider spines */
     margin: 0 auto;
     padding: 40px 20px;
     /* Johannine candlelight glow - light shining in darkness */
@@ -2321,13 +2321,13 @@ strong, b {
     border: 0;
     height: 1px;
     background: linear-gradient(to right, transparent, rgba(212, 165, 116, 0.3), transparent);
-    margin: 5rem 0 4rem 0; /* Increased top margin from 4.5rem to 5rem */
+    margin: 7rem 0 6rem 0; /* Much larger - was 5rem 0 4rem 0 */
     position: relative;
 }
 
 /* When divider is inside an accordion (details element) */
 details .divider-ornate {
-    margin: 2rem 0 2.5rem 0; /* Increased spacing - was 1.5rem 0 2rem 0 */
+    margin: 3.5rem 0 3.5rem 0; /* Much more space - was 2rem 0 2.5rem 0 */
 }
 
 .divider-ornate::after {
@@ -2468,4 +2468,3 @@ details .divider-ornate {
 /* ===================================
    END OF STYLESHEET
    =================================== */
-
