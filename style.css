@@ -570,61 +570,79 @@ header {
 .lesson-item a {
     display: block;
     /* SPINE PROPORTIONS - wider than tall, like looking at book spine */
-    padding: 1.5rem 3rem; /* Increased vertical padding */
-    height: 90px; /* Increased from 70px for more room */
+    padding: 1.75rem 3rem; /* Increased vertical padding */
+    min-height: 100px; /* Changed to min-height, increased from 90px */
     
-    /* Rich leather spine texture */
+    /* Rich leather spine texture - MORE REALISTIC */
     background: 
-        /* Horizontal leather grain (spine runs horizontally) */
+        /* Deep vertical grain (books stacked horizontally) */
         repeating-linear-gradient(
             0deg,
-            rgba(52, 48, 43, 0.3) 0px,
-            rgba(45, 42, 38, 0.2) 0.5px,
-            transparent 1px,
-            transparent 2px
+            rgba(58, 54, 48, 0.4) 0px,
+            rgba(52, 48, 43, 0.3) 1px,
+            transparent 2px,
+            transparent 4px
         ),
-        /* Worn leather patches */
-        radial-gradient(ellipse at 30% 50%, rgba(58, 54, 48, 0.4) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 50%, rgba(55, 51, 45, 0.35) 0%, transparent 45%),
-        /* Base rich leather */
+        /* Cross-hatching for leather texture */
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            rgba(48, 44, 39, 0.2) 1px,
+            transparent 2px,
+            transparent 6px
+        ),
+        /* Worn leather spots - asymmetric */
+        radial-gradient(ellipse at 25% 40%, rgba(65, 60, 54, 0.5) 0%, transparent 45%),
+        radial-gradient(ellipse at 75% 60%, rgba(62, 57, 51, 0.45) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 80%, rgba(58, 54, 48, 0.4) 0%, transparent 35%),
+        /* Lighting gradient - top lighter (light source above) */
         linear-gradient(180deg, 
-            rgba(52, 48, 43, 0.7) 0%,
-            rgba(48, 44, 39, 0.8) 50%,
-            rgba(44, 40, 35, 0.75) 100%
+            rgba(62, 58, 52, 0.85) 0%,
+            rgba(52, 48, 43, 0.9) 30%,
+            rgba(48, 44, 39, 0.95) 70%,
+            rgba(44, 40, 35, 0.9) 100%
         );
     
     /* Minimal rounding - book spines are fairly squared */
-    border-radius: 4px;
+    border-radius: 3px;
     
-    /* TOP EDGE - light catching the top of spine */
-    border-top: 1px solid rgba(212, 165, 116, 0.3);
+    /* TOP EDGE - strong light catch (light from above) */
+    border-top: 2px solid rgba(240, 212, 168, 0.4);
     
-    /* BOTTOM EDGE - shadow underneath */
-    border-bottom: 2px solid rgba(20, 18, 15, 0.6);
+    /* BOTTOM EDGE - contact shadow with surface below */
+    border-bottom: 3px solid rgba(15, 13, 10, 0.8);
     
-    /* LEFT/RIGHT EDGES - spine edges */
-    border-left: 1px solid rgba(35, 32, 28, 0.4);
-    border-right: 1px solid rgba(35, 32, 28, 0.4);
+    /* LEFT/RIGHT EDGES - spine side edges */
+    border-left: 1px solid rgba(35, 32, 28, 0.5);
+    border-right: 1px solid rgba(35, 32, 28, 0.5);
     
-    /* DRAMATIC 3D DEPTH - multiple shadow layers */
+    /* DRAMATIC 3D DEPTH - stacked book realism */
     box-shadow: 
-        /* TOP LIGHT - highlight on upper edge */
-        inset 0 1px 0 rgba(240, 212, 168, 0.15),
-        inset 0 2px 4px rgba(255, 255, 255, 0.05),
+        /* TOP HIGHLIGHT - bright light catching edge */
+        inset 0 2px 0 rgba(255, 248, 224, 0.2),
+        inset 0 3px 6px rgba(255, 255, 255, 0.08),
         
-        /* INNER DEPTH - recessed spine surface */
-        inset 0 4px 12px rgba(0, 0, 0, 0.4),
-        inset 0 -2px 8px rgba(0, 0, 0, 0.3),
+        /* INNER VOLUME - recessed center of spine */
+        inset 0 6px 18px rgba(0, 0, 0, 0.5),
+        inset 0 -3px 12px rgba(0, 0, 0, 0.4),
+        inset 2px 0 8px rgba(0, 0, 0, 0.3),
+        inset -2px 0 8px rgba(0, 0, 0, 0.3),
         
-        /* BOTTOM SHADOW - spine sitting on surface below */
-        0 4px 0 rgba(30, 27, 23, 0.5),
-        0 6px 2px rgba(25, 22, 18, 0.4),
-        0 8px 4px rgba(20, 18, 15, 0.3),
-        0 12px 8px rgba(15, 13, 10, 0.25),
-        0 16px 12px rgba(10, 8, 5, 0.2),
+        /* STACKING SHADOWS - progressive depth layers */
+        0 3px 0 rgba(40, 37, 33, 0.6),
+        0 6px 1px rgba(35, 32, 28, 0.5),
+        0 9px 2px rgba(30, 27, 23, 0.45),
+        0 12px 3px rgba(25, 22, 18, 0.4),
+        0 16px 4px rgba(20, 18, 15, 0.35),
+        0 20px 6px rgba(15, 13, 10, 0.3),
+        0 25px 8px rgba(10, 8, 5, 0.25),
         
-        /* AMBIENT SHADOW - overall depth */
-        0 20px 25px rgba(0, 0, 0, 0.4);
+        /* AMBIENT OCCLUSION - overall depth */
+        0 30px 35px rgba(0, 0, 0, 0.5),
+        
+        /* SIDE CAST SHADOWS - 3D volume */
+        -2px 0 4px rgba(0, 0, 0, 0.3),
+        2px 0 4px rgba(0, 0, 0, 0.3);
     
     transition: all 0.3s ease;
     text-decoration: none;
@@ -634,32 +652,50 @@ header {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-start;
 }
 
-/* BRASS TITLE PLATE - embossed into spine */
+/* BRASS TITLE PLATE - embossed/stamped into spine */
 .lesson-item a::before {
     content: '';
     position: absolute;
-    left: 2rem;
-    right: 2rem;
+    left: 2.5rem;
+    right: 2.5rem;
     top: 50%;
     transform: translateY(-50%);
-    height: 60px; /* Increased from 45px */
+    height: 65px; /* Slightly taller */
     
-    /* Brass plate recessed into leather */
-    background: linear-gradient(180deg,
-        rgba(212, 165, 116, 0.15) 0%,
-        rgba(212, 165, 116, 0.08) 50%,
-        rgba(212, 165, 116, 0.12) 100%
-    );
+    /* Worn brass plate pressed into leather */
+    background: 
+        /* Brass texture */
+        repeating-linear-gradient(
+            45deg,
+            transparent 0px,
+            rgba(212, 165, 116, 0.05) 1px,
+            transparent 2px,
+            transparent 4px
+        ),
+        /* Brass patina gradient */
+        linear-gradient(180deg,
+            rgba(212, 165, 116, 0.18) 0%,
+            rgba(212, 165, 116, 0.12) 30%,
+            rgba(212, 165, 116, 0.08) 50%,
+            rgba(212, 165, 116, 0.15) 100%
+        );
     
-    border-radius: 3px;
-    border: 1px solid rgba(212, 165, 116, 0.25);
+    border-radius: 2px;
+    border: 1px solid rgba(212, 165, 116, 0.3);
     
-    /* Recessed effect */
+    /* DEEP RECESS - pressed into leather over time */
     box-shadow: 
-        inset 0 2px 4px rgba(0, 0, 0, 0.4),
-        inset 0 -1px 2px rgba(240, 212, 168, 0.1);
+        /* Deep depression */
+        inset 0 3px 8px rgba(0, 0, 0, 0.6),
+        inset 0 6px 12px rgba(0, 0, 0, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+        /* Brass rim highlight */
+        inset 0 -1px 0 rgba(240, 212, 168, 0.15),
+        /* Slight outer glow */
+        0 0 2px rgba(212, 165, 116, 0.1);
     
     z-index: 0;
 }
