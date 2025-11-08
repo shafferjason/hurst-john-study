@@ -179,7 +179,7 @@ header {
     color: #a8a49b; /* Slightly brighter */
     font-style: italic;
     margin-top: 0.75rem;
-    margin-bottom: 0.25rem; /* Reduced from 0.5rem - tighter */
+    margin-bottom: 0rem; /* Reduced from 0.25rem - very tight */
     font-weight: 300;
     text-align: center;
     letter-spacing: 0.03em;
@@ -570,7 +570,7 @@ header {
 .lesson-item a {
     display: block;
     /* SPINE PROPORTIONS - wider than tall, like looking at book spine */
-    padding: 1.75rem 3rem; /* Increased vertical padding */
+    padding: 1.75rem 4rem; /* Increased horizontal padding from 3rem to 4rem */
     min-height: 100px; /* Changed to min-height, increased from 90px */
     
     /* Rich leather spine texture - MORE REALISTIC */
@@ -659,8 +659,8 @@ header {
 .lesson-item a::before {
     content: '';
     position: absolute;
-    left: 2.5rem;
-    right: 2.5rem;
+    left: 3rem; /* Increased from 2.5rem */
+    right: 3rem; /* Increased from 2.5rem */
     top: 50%;
     transform: translateY(-50%);
     height: 65px; /* Slightly taller */
@@ -1316,10 +1316,33 @@ header {
     font-weight: 500;
     text-transform: none;
     letter-spacing: -0.01em;
-    margin-bottom: 2rem;
+    margin-bottom: 0.75rem; /* Reduced from 2rem - tighter with attribution below */
     color: #e8e4dc; /* Bright on dark leather */
     /* Johannine glow */
     text-shadow: 0 0 20px rgba(232, 228, 220, 0.15);
+}
+
+/* Song attribution with logo */
+.song-attribution {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.song-attribution p {
+    font-size: 0.9rem;
+    color: #a8a49b;
+    font-style: italic;
+    margin-bottom: 0.25rem;
+    font-weight: 300;
+}
+
+.song-logo {
+    max-width: 280px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    opacity: 0.85;
 }
 
 /* === Worn photograph on vellum === */
@@ -2298,13 +2321,13 @@ strong, b {
     border: 0;
     height: 1px;
     background: linear-gradient(to right, transparent, rgba(212, 165, 116, 0.3), transparent);
-    margin: 4.5rem 0 3.5rem 0; /* Increased top margin from 3.5rem to 4.5rem */
+    margin: 5rem 0 4rem 0; /* Increased top margin from 4.5rem to 5rem */
     position: relative;
 }
 
 /* When divider is inside an accordion (details element) */
 details .divider-ornate {
-    margin: 1.5rem 0 2rem 0; /* Tighter spacing inside accordion */
+    margin: 2rem 0 2.5rem 0; /* Increased spacing - was 1.5rem 0 2rem 0 */
 }
 
 .divider-ornate::after {
@@ -2445,3 +2468,4 @@ details .divider-ornate {
 /* ===================================
    END OF STYLESHEET
    =================================== */
+

@@ -84,6 +84,10 @@
 
                 <section class="song-section">
                     <h2>${currentLesson.song_title}</h2>
+                    <div class="song-attribution">
+                        <p>A song by</p>
+                        <img src="logo.svg" alt="The Tenth Hour" class="song-logo">
+                    </div>
                     ${currentLesson.image_url ? `<img src="${currentLesson.image_url}" alt="${currentLesson.song_title}" class="song-image">` : ''}
                     
                     ${currentLesson.audio_file ? `
