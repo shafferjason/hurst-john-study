@@ -175,18 +175,19 @@ header {
 
 /* "Presented by" text above logo */
 .subtitle-text {
-    font-size: 0.9rem;
-    color: #7a766d;
+    font-size: 1.1rem; /* Increased from 0.9rem */
+    color: #a8a49b; /* Slightly brighter */
     font-style: italic;
     margin-top: 0.75rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.25rem; /* Reduced from 0.5rem - tighter */
     font-weight: 300;
     text-align: center;
+    letter-spacing: 0.03em;
 }
 
 /* The Tenth Hour logo */
 .tenth-hour-logo {
-    max-width: 400px;
+    max-width: 320px; /* Reduced from 400px */
     width: 100%;
     height: auto;
     display: block;
@@ -569,8 +570,8 @@ header {
 .lesson-item a {
     display: block;
     /* SPINE PROPORTIONS - wider than tall, like looking at book spine */
-    padding: 1rem 3rem;
-    height: 70px; /* Fixed height for consistent spine thickness */
+    padding: 1.5rem 3rem; /* Increased vertical padding */
+    height: 90px; /* Increased from 70px for more room */
     
     /* Rich leather spine texture */
     background: 
@@ -643,7 +644,7 @@ header {
     right: 2rem;
     top: 50%;
     transform: translateY(-50%);
-    height: 45px;
+    height: 60px; /* Increased from 45px */
     
     /* Brass plate recessed into leather */
     background: linear-gradient(180deg,
@@ -736,10 +737,10 @@ header {
 .lesson-title {
     display: block;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.05rem; /* Reduced slightly for better fit */
+    font-size: 1.15rem; /* Increased from 1.05rem */
     font-weight: 600; /* Bold for spine readability */
     color: #e8e4dc;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.35rem; /* More spacing */
     line-height: 1.2;
     letter-spacing: 0.01em;
     /* Embossed into brass plate */
@@ -757,7 +758,7 @@ header {
 
 .lesson-scripture {
     display: block;
-    font-size: 0.8rem; /* Reduced slightly */
+    font-size: 0.9rem; /* Increased from 0.8rem */
     color: #b8b4a8;
     font-style: italic;
     /* Prevent wrapping */
