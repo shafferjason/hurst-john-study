@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=24">
+    <link rel="stylesheet" href="style.css?v=23">
 </head>
 <body>
 
@@ -45,6 +45,13 @@
             // Update page title
             document.title = currentLesson.title + ' - Hurst Class Study';
 
+            // Extract lyrics preview (first 4 lines)
+            let lyricsPreview = '';
+            if (currentLesson.song_lyrics) {
+                const lyricsLines = currentLesson.song_lyrics.split('\n');
+                lyricsPreview = lyricsLines.slice(0, 4).join('\n');
+            }
+
             // Build the lesson content
             const lessonContent = document.getElementById('lesson-content');
             
@@ -79,15 +86,27 @@
                     </details>
                 </section>
 
+                ${currentLesson.song_lyrics ? `
+                    <!-- Ornate divider before lyrics -->
+                    <div class="divider-ornate"></div>
+
+                    <section class="song-lyrics-section">
+                        <h3>${currentLesson.song_title}</h3>
+                        <p class="preview-text">${lyricsPreview}</p>
+                        <details class="accordion">
+                            <summary>Read the Full Lyrics</summary>
+                            <div class="accordion-content lyrics-content">
+                                <div class="lyrics-text">${currentLesson.song_lyrics}</div>
+                            </div>
+                        </details>
+                    </section>
+                ` : ''}
+
                 <!-- Ornate divider before song section -->
                 <div class="divider-ornate"></div>
 
                 <section class="song-section">
                     <h2>${currentLesson.song_title}</h2>
-                    <div class="song-attribution">
-                        <p>A song by</p>
-                        <img src="logo.svg" alt="The Tenth Hour" class="song-logo">
-                    </div>
                     ${currentLesson.image_url ? `<img src="${currentLesson.image_url}" alt="${currentLesson.song_title}" class="song-image">` : ''}
                     
                     ${currentLesson.audio_file ? `
@@ -103,16 +122,6 @@
                             <div id="duration" class="time-display">0:00</div>
                         </div>
                     ` : ''}
-                    
-                    ${currentLesson.song_lyrics ? `
-                        <details class="accordion lyrics-accordion">
-                            <summary>Read the lyrics...</summary>
-                            <div class="accordion-content lyrics-content">
-                                <div class="lyrics-text">${currentLesson.song_lyrics}</div>
-                            </div>
-                        </details>
-                    ` : ''}
-                    
                     ${currentLesson.suno_link ? `
                         <p class="suno-link">
                             Can't play? <a href="${currentLesson.suno_link}" target="_blank" rel="noopener">Listen on Suno →</a>
@@ -277,8 +286,8 @@
             });
         }, fadeObserverOptions);
         
-        // Observe all major sections (removed .song-lyrics-section)
-        document.querySelectorAll('.lesson-summary, .song-tie-in, .song-section').forEach(section => {
+        // Observe all major sections
+        document.querySelectorAll('.lesson-summary, .song-tie-in, .song-lyrics-section, .song-section').forEach(section => {
             section.classList.add('awaiting-light');
             fadeObserver.observe(section);
         });
@@ -297,6 +306,27 @@
                 const content = this.querySelector('.accordion-content');
                 
                 if (this.open) {
+                    // MOBILE ONLY: Auto-close other main accordions (not nested song lyrics)
+                    if (window.innerWidth <= 768) {
+                        const isMainAccordion = this.closest('.lesson-summary, .song-tie-in, .song-lyrics-section');
+                        
+                        if (isMainAccordion) {
+                            // Find all other main accordions
+                            const mainAccordions = document.querySelectorAll('.lesson-summary .accordion, .song-tie-in .accordion, .song-lyrics-section > .accordion');
+                            
+                            mainAccordions.forEach(otherAccordion => {
+                                if (otherAccordion !== this && otherAccordion.open) {
+                                    // Close it smoothly
+                                    otherAccordion.setAttribute('closing', '');
+                                    setTimeout(() => {
+                                        otherAccordion.removeAttribute('open');
+                                        otherAccordion.removeAttribute('closing');
+                                    }, 1600);
+                                }
+                            });
+                        }
+                    }
+                    
                     // OPENING: Force animation replay with cascading
                     if (content) {
                         // Remove closing state if present
@@ -326,6 +356,27 @@
                 }
             });
         });
+        
+        // === ADD CLOSE BUTTONS TO ACCORDION CONTENT (MOBILE ONLY) ===
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.lesson-summary .accordion-content, .song-tie-in .accordion-content, .song-lyrics-section > .accordion .accordion-content').forEach(content => {
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'accordion-close-btn';
+                closeBtn.textContent = 'Close';
+                closeBtn.onclick = function(e) {
+                    e.preventDefault();
+                    const accordion = this.closest('.accordion');
+                    if (accordion && accordion.open) {
+                        accordion.setAttribute('closing', '');
+                        setTimeout(() => {
+                            accordion.removeAttribute('open');
+                            accordion.removeAttribute('closing');
+                        }, 1600);
+                    }
+                };
+                content.appendChild(closeBtn);
+            });
+        }
         // === END ACCORDION REPLAY ===
     </script>
 
