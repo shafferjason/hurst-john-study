@@ -2129,6 +2129,13 @@ strong, b {
         font-size: 18px; /* Slightly smaller on mobile */
     }
     
+    /* Reduce leather panel padding on mobile for full bleed reading */
+    .lesson-summary,
+    .song-tie-in,
+    .song-lyrics-section {
+        padding: 2.5rem 0.5rem !important; /* Minimal side padding */
+    }
+    
     /* Reset stacking offset on mobile for easier tapping */
     .lesson-item,
     .lesson-item:nth-child(n) {
@@ -2191,13 +2198,21 @@ strong, b {
     }
 
     .accordion-content {
-        max-width: 100%;
-        font-size: 1.025rem;
-        /* MOBILE FIX: Ensure visibility with true off-white */
+        /* FULL BLEED READING MODE - edge-to-edge on mobile */
+        max-width: none !important;
+        width: calc(100vw - 10px) !important; /* Full viewport width minus small margin */
+        margin-left: calc(-50vw + 50%) !important; /* Break out of container */
+        margin-right: calc(-50vw + 50%) !important;
+        margin-top: 1.5rem !important;
+        margin-bottom: 2rem !important;
+        padding: 2rem 1.25rem 2.5rem 1.25rem !important; /* Good side padding for readability */
+        font-size: 1.05rem;
+        line-height: 1.7;
+        /* Keep vellum appearance */
+        border-radius: 0 !important; /* No rounding for edge-to-edge */
+        /* MOBILE FIX: Ensure visibility */
         display: block !important;
         opacity: 1 !important;
-        padding: 1.5rem 1rem !important;
-        margin-top: 1rem !important;
         /* PURE BLACK text on off-white for mobile */
         color: #000000 !important;
         /* Pure off-white background - simpler for mobile */
