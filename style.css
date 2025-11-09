@@ -179,7 +179,7 @@ header {
     color: #a8a49b; /* Slightly brighter */
     font-style: italic;
     margin-top: 0.75rem;
-    margin-bottom: 0rem; /* Reduced from 0.25rem - very tight */
+    margin-bottom: -0.5rem; /* Negative margin to overlap into logo space */
     font-weight: 300;
     text-align: center;
     letter-spacing: 0.03em;
@@ -1045,19 +1045,19 @@ header {
     right: 20px;
     height: auto;
     font-family: monospace;
-    font-size: 18px;
+    font-size: 20px; /* Increased from 18px */
     font-weight: bold;
-    color: rgba(45, 40, 35, 0.85);
+    color: rgba(45, 40, 35, 0.95); /* Much darker/more opaque */
     letter-spacing: 8px;
     line-height: 1;
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
-    z-index: 1;
+    z-index: 10; /* Much higher - was 1 */
     pointer-events: none;
     text-shadow: 
-        1px 1px 2px rgba(0, 0, 0, 0.3),
-        0 0 4px rgba(45, 40, 35, 0.2);
+        1px 1px 3px rgba(0, 0, 0, 0.5),
+        0 0 6px rgba(45, 40, 35, 0.3);
 }
 
 .lesson-summary::after,
@@ -1070,19 +1070,19 @@ header {
     right: 20px;
     height: auto;
     font-family: monospace;
-    font-size: 18px;
+    font-size: 20px; /* Increased from 18px */
     font-weight: bold;
-    color: rgba(45, 40, 35, 0.85);
+    color: rgba(45, 40, 35, 0.95); /* Much darker/more opaque */
     letter-spacing: 8px;
     line-height: 1;
     text-align: center;
     overflow: hidden;
     white-space: nowrap;
-    z-index: 1;
+    z-index: 10; /* Much higher - was 1 */
     pointer-events: none;
     text-shadow: 
-        1px 1px 2px rgba(0, 0, 0, 0.3),
-        0 0 4px rgba(45, 40, 35, 0.2);
+        1px 1px 3px rgba(0, 0, 0, 0.5),
+        0 0 6px rgba(45, 40, 35, 0.3);
 }
 
 /* Cross-stitch borders added above - no additional effects needed */
