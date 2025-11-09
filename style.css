@@ -1057,6 +1057,12 @@ header {
     pointer-events: none;
     text-shadow: 
         1px 1px 2px rgba(0, 0, 0, 0.5);
+    /* Brown leather band behind stitches */
+    background: rgba(42, 38, 33, 0.3);
+    padding: 4px 0;
+    /* Prevent wrapping */
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 .lesson-summary::after,
@@ -1080,6 +1086,12 @@ header {
     pointer-events: none;
     text-shadow: 
         1px 1px 2px rgba(0, 0, 0, 0.5);
+    /* Brown leather band behind stitches */
+    background: rgba(42, 38, 33, 0.3);
+    padding: 4px 0;
+    /* Prevent wrapping */
+    white-space: nowrap;
+    overflow: hidden;
 }
 
 /* Cross-stitch borders added above - no additional effects needed */
