@@ -994,6 +994,26 @@ header {
     margin-bottom: 4.5rem;
 }
 
+/* Song attribution with inline logo */
+.song-attribution {
+    text-align: center;
+    font-size: 1rem;
+    color: #c9a47a;
+    font-style: italic;
+    margin: 0.5rem 0 1.5rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.inline-logo {
+    height: 1.5rem;
+    width: auto;
+    vertical-align: middle;
+    filter: drop-shadow(0 0 8px rgba(201, 164, 122, 0.3));
+}
+
 /* All sections full brightness - no opacity reduction */
 .lesson-summary,
 .song-tie-in,
@@ -2131,16 +2151,14 @@ strong, b {
     
     /* Reduce leather panel padding on mobile for full bleed reading */
     .lesson-summary,
-    .song-tie-in,
-    .song-lyrics-section {
+    .song-tie-in {
         padding: 2.5rem 0.5rem !important; /* Minimal side padding when closed */
         transition: all 0.3s ease;
     }
     
     /* FULL EXPANSION: When accordion is open, expand entire journal panel edge-to-edge */
     .lesson-summary:has(.accordion[open]),
-    .song-tie-in:has(.accordion[open]),
-    .song-lyrics-section:has(.accordion[open]) {
+    .song-tie-in:has(.accordion:not(.lyrics-accordion)[open]) {
         width: calc(100vw - 20px) !important;
         margin-left: calc(-50vw + 50% + 10px) !important;
         margin-right: calc(-50vw + 50% + 10px) !important;

@@ -86,27 +86,17 @@
                     </details>
                 </section>
 
-                ${currentLesson.song_lyrics ? `
-                    <!-- Ornate divider before lyrics -->
-                    <div class="divider-ornate"></div>
-
-                    <section class="song-lyrics-section">
-                        <h3>${currentLesson.song_title}</h3>
-                        <p class="preview-text">${lyricsPreview}</p>
-                        <details class="accordion">
-                            <summary>Read the Full Lyrics</summary>
-                            <div class="accordion-content lyrics-content">
-                                <div class="lyrics-text">${currentLesson.song_lyrics}</div>
-                            </div>
-                        </details>
-                    </section>
-                ` : ''}
-
                 <!-- Ornate divider before song section -->
                 <div class="divider-ornate"></div>
 
                 <section class="song-section">
                     <h2>${currentLesson.song_title}</h2>
+                    
+                    <!-- "A song by The Tenth Hour" with logo -->
+                    <p class="song-attribution">
+                        A song by The <img src="tenth-hour-logo.svg" alt="Tenth Hour" class="inline-logo">
+                    </p>
+                    
                     ${currentLesson.image_url ? `<img src="${currentLesson.image_url}" alt="${currentLesson.song_title}" class="song-image">` : ''}
                     
                     ${currentLesson.audio_file ? `
@@ -126,6 +116,16 @@
                         <p class="suno-link">
                             Can't play? <a href="${currentLesson.suno_link}" target="_blank" rel="noopener">Listen on Suno →</a>
                         </p>
+                    ` : ''}
+                    
+                    ${currentLesson.song_lyrics ? `
+                        <!-- Lyrics accordion below player -->
+                        <details class="accordion lyrics-accordion">
+                            <summary>View Song Lyrics</summary>
+                            <div class="accordion-content lyrics-content">
+                                <div class="lyrics-text">${currentLesson.song_lyrics}</div>
+                            </div>
+                        </details>
                     ` : ''}
                 </section>
             `;
@@ -306,13 +306,13 @@
                 const content = this.querySelector('.accordion-content');
                 
                 if (this.open) {
-                    // MOBILE ONLY: Auto-close other main accordions (not nested song lyrics)
+                    // MOBILE ONLY: Auto-close other main accordions (not lyrics accordion)
                     if (window.innerWidth <= 768) {
-                        const isMainAccordion = this.closest('.lesson-summary, .song-tie-in, .song-lyrics-section');
+                        const isMainAccordion = this.closest('.lesson-summary, .song-tie-in') && !this.classList.contains('lyrics-accordion');
                         
                         if (isMainAccordion) {
-                            // Find all other main accordions
-                            const mainAccordions = document.querySelectorAll('.lesson-summary .accordion, .song-tie-in .accordion, .song-lyrics-section > .accordion');
+                            // Find all other main accordions (excluding lyrics)
+                            const mainAccordions = document.querySelectorAll('.lesson-summary .accordion, .song-tie-in .accordion:not(.lyrics-accordion)');
                             
                             mainAccordions.forEach(otherAccordion => {
                                 if (otherAccordion !== this && otherAccordion.open) {
@@ -359,12 +359,13 @@
         
         // === ADD CLOSE BUTTONS TO ACCORDION CONTENT (MOBILE ONLY) ===
         if (window.innerWidth <= 768) {
-            document.querySelectorAll('.lesson-summary .accordion-content, .song-tie-in .accordion-content, .song-lyrics-section > .accordion .accordion-content').forEach(content => {
+            document.querySelectorAll('.lesson-summary .accordion-content, .song-tie-in .accordion-content').forEach(content => {
                 const closeBtn = document.createElement('button');
                 closeBtn.className = 'accordion-close-btn';
                 closeBtn.textContent = 'Close';
                 closeBtn.onclick = function(e) {
                     e.preventDefault();
+                    e.stopPropagation();
                     const accordion = this.closest('.accordion');
                     if (accordion && accordion.open) {
                         accordion.setAttribute('closing', '');
@@ -373,6 +374,7 @@
                             accordion.removeAttribute('closing');
                         }, 1600);
                     }
+                    return false;
                 };
                 content.appendChild(closeBtn);
             });
