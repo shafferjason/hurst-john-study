@@ -244,60 +244,65 @@
             font-style: italic;
         }
         
-        /* Current song display - SMALLER */
+        /* Current song display - SIDE BY SIDE LAYOUT */
         .current-song-display {
             width: 100%;
-            max-width: 450px;
+            max-width: 700px;
             display: none;
-            padding-top: 2rem;
+            padding-top: 1.5rem;
         }
         
         .current-song-display.active {
-            display: block;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            grid-template-areas:
+                "image info"
+                "image player"
+                "image lyrics";
         }
         
         .album-art {
+            grid-area: image;
             width: 100%;
-            max-width: 280px;
-            margin: 0 auto;
-            display: block;
             border-radius: 12px;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-            margin-bottom: 1.25rem;
+            align-self: start;
         }
         
         .song-info {
-            text-align: center;
-            margin-bottom: 1.25rem;
+            grid-area: info;
+            text-align: left;
+            margin-bottom: 1rem;
         }
         
         .song-info h1 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             color: #e8e4dc;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
             font-family: Georgia, serif;
             font-weight: 400;
             line-height: 1.3;
         }
         
         .song-info .artist {
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: #d4a574;
             font-style: italic;
         }
         
-        /* Audio player - SMALLER */
+        /* Audio player on right side */
         .audio-player-main {
+            grid-area: player;
             width: 100%;
-            margin-bottom: 1.25rem;
         }
         
         .player-controls-main {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             gap: 1rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
         }
         
         .control-btn-main {
@@ -331,14 +336,14 @@
         }
         
         .control-btn-main svg {
-            width: 24px;
-            height: 24px;
+            width: 20px;
+            height: 20px;
             fill: currentColor;
         }
         
         .control-btn-main.play-btn svg {
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
         }
         
         .control-btn-main.repeat-active {
@@ -367,10 +372,11 @@
             flex: 1;
         }
         
-        /* Lyrics section - COMPACT */
+        /* Lyrics section on right side */
         .lyrics-section {
+            grid-area: lyrics;
             width: 100%;
-            margin-top: 1rem;
+            margin-top: 0.5rem;
         }
         
         .lyrics-section details {
@@ -397,7 +403,7 @@
             font-family: Georgia, serif;
             white-space: pre-line;
             font-size: 0.95rem;
-            max-height: 200px;
+            max-height: 250px;
             overflow-y: auto;
             padding-right: 0.5rem;
         }
@@ -448,6 +454,29 @@
             
             .song-list-compact {
                 max-height: 300px;
+            }
+            
+            /* Stack vertically on mobile */
+            .current-song-display.active {
+                grid-template-columns: 1fr;
+                grid-template-areas:
+                    "image"
+                    "info"
+                    "player"
+                    "lyrics";
+                gap: 1rem;
+            }
+            
+            .album-art {
+                max-width: 100%;
+            }
+            
+            .song-info {
+                text-align: center;
+            }
+            
+            .player-controls-main {
+                justify-content: center;
             }
         }
     </style>
