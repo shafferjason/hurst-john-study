@@ -1008,7 +1008,7 @@ header {
 }
 
 .inline-logo {
-    height: 2.5rem; /* Increased from 1.5rem */
+    height: 3.5rem; /* Increased from 2.5rem for better desktop visibility */
     width: auto;
     vertical-align: middle;
     filter: drop-shadow(0 0 8px rgba(201, 164, 122, 0.3));
@@ -1560,17 +1560,8 @@ header {
     /* Rectangular book/journal shape with softened corners */
     border-radius: 12px; /* Changed from 8px to match other leather panels */
     
-    /* Brass corner reinforcements - like old book bindings */
-    border: 2px solid transparent;
-    border-image: linear-gradient(
-        135deg,
-        rgba(184, 147, 95, 0.6) 0%,
-        rgba(201, 164, 122, 0.4) 25%,
-        transparent 25%,
-        transparent 75%,
-        rgba(201, 164, 122, 0.4) 75%,
-        rgba(184, 147, 95, 0.6) 100%
-    ) 1;
+    /* Brass corner reinforcements - simple border that preserves rounded corners */
+    border: 2px solid rgba(201, 164, 122, 0.35);
     
     /* Deep recessed into leather - tactile depth with enhanced presence */
     box-shadow: 
@@ -2134,6 +2125,13 @@ strong, b {
         min-height: 48px;
     }
     
+    /* Expand brass plate on mobile to contain titles */
+    .lesson-item a::before {
+        left: 1rem !important; /* Reduced from 2.5rem */
+        right: 1rem !important; /* Reduced from 2.5rem */
+        height: 90px !important; /* Increased from 75px */
+    }
+    
     /* Mobile stitching adjustments */
     .lesson-summary::before,
     .song-tie-in::before,
@@ -2158,7 +2156,8 @@ strong, b {
     
     /* FULL EXPANSION: When accordion is open, expand entire journal panel edge-to-edge */
     .lesson-summary:has(.accordion[open]),
-    .song-tie-in:has(.accordion:not(.lyrics-accordion)[open]) {
+    .song-tie-in:has(.accordion:not(.lyrics-accordion)[open]),
+    .song-section:has(.lyrics-accordion[open]) {
         width: 100vw !important;
         margin-left: calc(-50vw + 50%) !important;
         margin-right: calc(-50vw + 50%) !important;
