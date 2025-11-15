@@ -1032,205 +1032,64 @@ a:has(.inline-logo):hover .inline-logo {
     opacity: 1;
 }
 
-/* Leather panel treatment for lesson sections - ENHANCED 3D JOURNAL */
+/* Leather panel treatment for lesson sections - LIGHT JOURNAL */
 .lesson-summary,
 .song-tie-in,
 .song-lyrics-section {
-    /* Light worn leather texture - like journal pages */
-    background: 
-        /* Fine leather grain */
-        repeating-linear-gradient(
-            90deg,
-            rgba(42, 38, 33, 0.15) 0px,
-            rgba(35, 32, 28, 0.1) 0.5px,
-            transparent 1px,
-            transparent 3px
-        ),
-        /* Subtle wear and highlights */
-        radial-gradient(ellipse at 30% 30%, rgba(50, 45, 40, 0.3) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 60%, rgba(45, 40, 35, 0.25) 0%, transparent 45%),
-        /* Base leather panel color */
-        rgba(42, 38, 33, 0.5);
+    /* Subtle background - no heavy texture */
+    background: rgba(42, 38, 33, 0.4);
     
     /* Organic rounded corners */
     border-radius: 12px;
     
-    /* Padding for breathing room - extra top/bottom for cross-stitch borders */
-    padding: 10rem 2rem; /* Very tall vertical padding for portrait-style desktop panels */
-    min-height: 400px; /* Force minimum height for tall portrait panels */
+    /* Reduced padding for cleaner look */
+    padding: 2.5rem 2rem;
     
-    /* ENHANCED 3D: Maximum stacked journal depth with light catch */
+    /* Simplified shadow - still has depth but lighter */
     box-shadow: 
-        /* Light catch on top-left (embossed) */
-        inset 1px 1px 0 rgba(212, 165, 116, 0.15),
-        inset 0 2px 3px rgba(240, 212, 168, 0.08),
-        /* Deep inset shadows for recessed leather */
-        inset 0 3px 10px rgba(0, 0, 0, 0.5),
-        inset 0 1px 3px rgba(0, 0, 0, 0.6),
-        /* Darker left edge (spine side) */
-        inset 4px 0 12px rgba(0, 0, 0, 0.4),
-        /* Stacked page layers - 7 layers for maximum depth */
-        0 2px 4px rgba(0, 0, 0, 0.35),
-        0 4px 8px rgba(0, 0, 0, 0.3),
-        0 6px 12px rgba(0, 0, 0, 0.28),
-        0 10px 20px rgba(0, 0, 0, 0.25),
-        0 15px 30px rgba(0, 0, 0, 0.2),
-        0 20px 40px rgba(0, 0, 0, 0.15),
-        0 30px 60px rgba(0, 0, 0, 0.1);
+        inset 0 1px 2px rgba(212, 165, 116, 0.1),
+        inset 0 2px 6px rgba(0, 0, 0, 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.4),
+        0 8px 24px rgba(0, 0, 0, 0.2);
     
-    /* Gentle candlelight glow animation - slowed down */
-    animation: leatherGlow 5s ease-in-out infinite; /* Slower: 3s → 5s */
-    
-    /* Brass corner accents */
-    position: relative;
-    
-    /* DISTINCTIVE BRASS STITCHING on left (spine) edge - using pseudo-element */
+    /* Brass border - simple and clean */
     border-left: 2px solid rgba(212, 165, 116, 0.4);
     
-    /* Page edge effect on right side - shows book thickness */
-    border-right: 3px solid rgba(35, 32, 28, 0.3);
-    box-shadow: 
-        /* Light catch on top-left (embossed) */
-        inset 1px 1px 0 rgba(212, 165, 116, 0.15),
-        inset 0 2px 3px rgba(240, 212, 168, 0.08),
-        /* Deep inset shadows for recessed leather */
-        inset 0 3px 10px rgba(0, 0, 0, 0.5),
-        inset 0 1px 3px rgba(0, 0, 0, 0.6),
-        /* Darker left edge (spine side) */
-        inset 4px 0 12px rgba(0, 0, 0, 0.4),
-        /* Stacked page layers - 7 layers for maximum depth */
-        0 2px 4px rgba(0, 0, 0, 0.35),
-        0 4px 8px rgba(0, 0, 0, 0.3),
-        0 6px 12px rgba(0, 0, 0, 0.28),
-        0 10px 20px rgba(0, 0, 0, 0.25),
-        0 15px 30px rgba(0, 0, 0, 0.2),
-        0 20px 40px rgba(0, 0, 0, 0.15),
-        0 30px 60px rgba(0, 0, 0, 0.1),
-        /* Page edge effect on right */
+    position: relative;
+    
+    /* Subtle glow animation */
+    animation: subtleGlow 5s ease-in-out infinite;
+}
+
+/* Subtle glow animation - lighter than before */
+@keyframes subtleGlow {
+    0%, 100% {
+        box-shadow: 
+            inset 0 1px 2px rgba(212, 165, 116, 0.1),
+            inset 0 2px 6px rgba(0, 0, 0, 0.3),
+            0 4px 12px rgba(0, 0, 0, 0.4),
+            0 8px 24px rgba(0, 0, 0, 0.2);
+    }
+    50% {
+        box-shadow: 
+            inset 0 1px 2px rgba(212, 165, 116, 0.15),
+            inset 0 2px 6px rgba(0, 0, 0, 0.25),
+            0 4px 12px rgba(0, 0, 0, 0.35),
+            0 8px 24px rgba(0, 0, 0, 0.15),
+            0 0 20px rgba(212, 165, 116, 0.05);
+    }
+}
         2px 0 2px rgba(40, 37, 33, 0.4),
         3px 0 4px rgba(35, 32, 28, 0.3),
         4px 0 6px rgba(30, 27, 23, 0.2);
 }
 
 /* Contemplative pulsing candlelight on leather panels */
-@keyframes leatherGlow {
-    0%, 100% {
-        box-shadow: 
-            inset 1px 1px 0 rgba(212, 165, 116, 0.15),
-            inset 0 2px 3px rgba(240, 212, 168, 0.08),
-            inset 0 3px 10px rgba(0, 0, 0, 0.5),
-            inset 0 1px 3px rgba(0, 0, 0, 0.6),
-            inset 4px 0 12px rgba(0, 0, 0, 0.4),
-            0 2px 4px rgba(0, 0, 0, 0.35),
-            0 4px 8px rgba(0, 0, 0, 0.3),
-            0 6px 12px rgba(0, 0, 0, 0.28),
-            0 10px 20px rgba(0, 0, 0, 0.25),
-            0 15px 30px rgba(0, 0, 0, 0.2),
-            0 20px 40px rgba(0, 0, 0, 0.15),
-            0 30px 60px rgba(0, 0, 0, 0.1),
-            /* Page edge effect on right */
-            2px 0 2px rgba(40, 37, 33, 0.4),
-            3px 0 4px rgba(35, 32, 28, 0.3),
-            4px 0 6px rgba(30, 27, 23, 0.2);
-    }
-    50% {
-        box-shadow: 
-            /* Brighter light catch at peak - but not excessive */
-            inset 1px 1px 0 rgba(255, 240, 200, 0.3),
-            inset 0 2px 3px rgba(240, 212, 168, 0.18),
-            inset 0 3px 10px rgba(0, 0, 0, 0.45),
-            inset 0 1px 3px rgba(0, 0, 0, 0.55),
-            inset 4px 0 12px rgba(0, 0, 0, 0.35),
-            /* Slightly lifted at glow peak */
-            0 3px 6px rgba(0, 0, 0, 0.3),
-            0 5px 10px rgba(0, 0, 0, 0.25),
-            0 8px 16px rgba(0, 0, 0, 0.22),
-            0 12px 24px rgba(0, 0, 0, 0.18),
-            0 18px 35px rgba(0, 0, 0, 0.14),
-            0 25px 45px rgba(0, 0, 0, 0.1),
-            0 35px 60px rgba(0, 0, 0, 0.06),
-            /* Page edge slightly more visible at glow */
-            2px 0 2px rgba(45, 42, 38, 0.45),
-            3px 0 4px rgba(40, 37, 33, 0.35),
-            4px 0 6px rgba(35, 32, 28, 0.25),
-            /* Focused golden glow - tighter spread */
-            0 0 35px rgba(240, 212, 168, 0.25),
-            0 0 50px rgba(212, 165, 116, 0.15);
-    }
-}
-
-/* Brass corner tabs - TOP-RIGHT and BOTTOM-RIGHT (journal opens from left) */
-.lesson-summary::before,
-.song-tie-in::before,
-.song-lyrics-section::before {
-    content: 'X        X        X        X        X        X        X        X        X        X        X        X        X        X        X        X';
-    display: block;
-    position: absolute;
-    top: 15px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    font-family: Arial, sans-serif;
-    font-size: 22px;
-    font-weight: 900;
-    color: #1a1612; /* Very dark brown/black - like worn thread */
-    letter-spacing: 8px; /* Much more spacing */
-    line-height: 1;
-    text-align: center;
-    z-index: 999;
-    pointer-events: none;
-    text-shadow: 
-        1px 1px 2px rgba(0, 0, 0, 0.5);
-    /* Earthy warm brown leather binding strip behind stitches */
-    background: rgba(62, 50, 38, 0.75); /* Warmer, more earthy brown */
-    padding: 6px 0;
-    box-shadow: 
-        inset 0 2px 4px rgba(0, 0, 0, 0.5),
-        0 2px 4px rgba(0, 0, 0, 0.4);
-    /* Prevent wrapping */
-    white-space: nowrap;
-    overflow: hidden;
-    /* Slight offset for hand-stitched irregularity */
-    transform: translateY(1px);
-}
-
-.lesson-summary::after,
-.song-tie-in::after,
-.song-lyrics-section::after {
-    content: 'X        X        X        X        X        X        X        X        X        X        X        X        X        X        X        X';
-    display: block;
-    position: absolute;
-    bottom: 15px;
-    left: 0;
-    right: 0;
-    width: 100%;
-    font-family: Arial, sans-serif;
-    font-size: 22px;
-    font-weight: 900;
-    color: #1a1612; /* Very dark brown/black - like worn thread */
-    letter-spacing: 8px; /* Much more spacing */
-    line-height: 1;
-    text-align: center;
-    z-index: 999;
-    pointer-events: none;
-    text-shadow: 
-        1px 1px 2px rgba(0, 0, 0, 0.5);
-    /* Earthy warm brown leather binding strip behind stitches */
-    background: rgba(62, 50, 38, 0.75); /* Warmer, more earthy brown */
-    padding: 6px 0;
-    box-shadow: 
-        inset 0 2px 4px rgba(0, 0, 0, 0.5),
-        0 2px 4px rgba(0, 0, 0, 0.4);
-    /* Prevent wrapping */
-    white-space: nowrap;
-    overflow: hidden;
-    /* Slight offset opposite direction for variation */
-    transform: translateY(-1px);
-}
-
-/* Cross-stitch borders added above - no additional effects needed */
+/* Brass corner tabs removed for cleaner look */
+/* Brass corner tabs removed for cleaner look */
 
 /* Section hover effects removed for performance */
+
 
 /* Section headers for lesson content */
 .lesson-summary h2,
@@ -1248,120 +1107,92 @@ a:has(.inline-logo):hover .inline-logo {
    =================================== */
 
 .song-section {
-    text-align: center;
-    margin-bottom: 4.5rem;
+    margin-bottom: 3rem;
     
-    /* Full leather journal panel - matches other sections */
-    background: 
-        /* Fine leather grain */
-        repeating-linear-gradient(
-            90deg,
-            rgba(42, 38, 33, 0.15) 0px,
-            rgba(35, 32, 28, 0.1) 0.5px,
-            transparent 1px,
-            transparent 3px
-        ),
-        /* Subtle wear and highlights */
-        radial-gradient(ellipse at 30% 30%, rgba(50, 45, 40, 0.3) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 60%, rgba(45, 40, 35, 0.25) 0%, transparent 45%),
-        /* Base leather panel color */
-        rgba(42, 38, 33, 0.5);
-    
-    /* Organic rounded corners */
+    /* Light journal panel - cleaner */
+    background: rgba(42, 38, 33, 0.4);
     border-radius: 12px;
+    padding: 2.5rem 2rem;
     
-    /* Padding for breathing room */
-    padding: 1rem 2rem 3rem 2rem; /* Reduced top padding to 1rem */
-    
-    /* ENHANCED 3D: Same stacked journal depth as other panels */
+    /* Simplified shadow */
     box-shadow: 
-        /* Light catch on top-left (embossed) */
-        inset 1px 1px 0 rgba(212, 165, 116, 0.15),
-        inset 0 2px 3px rgba(240, 212, 168, 0.08),
-        /* Deep inset shadows for recessed leather */
-        inset 0 3px 10px rgba(0, 0, 0, 0.5),
-        inset 0 1px 3px rgba(0, 0, 0, 0.6),
-        /* Darker left edge (spine side) */
-        inset 4px 0 12px rgba(0, 0, 0, 0.4),
-        /* Stacked page layers - 7 layers for maximum depth */
-        0 2px 4px rgba(0, 0, 0, 0.35),
-        0 4px 8px rgba(0, 0, 0, 0.3),
-        0 6px 12px rgba(0, 0, 0, 0.28),
-        0 10px 20px rgba(0, 0, 0, 0.25),
-        0 15px 30px rgba(0, 0, 0, 0.2),
-        0 20px 40px rgba(0, 0, 0, 0.15),
-        0 30px 60px rgba(0, 0, 0, 0.1),
-        /* Page edge effect on right */
-        2px 0 2px rgba(40, 37, 33, 0.4),
-        3px 0 4px rgba(35, 32, 28, 0.3),
-        4px 0 6px rgba(30, 27, 23, 0.2);
+        inset 0 1px 2px rgba(212, 165, 116, 0.1),
+        inset 0 2px 6px rgba(0, 0, 0, 0.3),
+        0 4px 12px rgba(0, 0, 0, 0.4),
+        0 8px 24px rgba(0, 0, 0, 0.2);
     
-    /* Gentle candlelight glow animation - same as other sections */
-    animation: leatherGlow 5s ease-in-out infinite;
-    
-    /* Brass corner accents */
+    /* Brass border */
+    border-left: 2px solid rgba(212, 165, 116, 0.4);
     position: relative;
     
-    /* Spine stitching on left */
-    border-left: 2px dotted rgba(212, 165, 116, 0.15);
+    /* Subtle glow animation */
+    animation: subtleGlow 5s ease-in-out infinite;
     
-    /* Page edges visible on right */
-    border-right: 3px solid rgba(35, 32, 28, 0.3);
+    /* Side-by-side layout for desktop */
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2rem;
+    grid-template-areas:
+        "image title"
+        "image attribution"
+        "image player"
+        "image suno"
+        "lyrics lyrics";
+    align-items: start;
 }
 
-/* Brass corner tabs - TOP-RIGHT and BOTTOM-RIGHT */
-.song-section::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 24px;
-    height: 24px;
-    border-top: 2.5px solid rgba(212, 165, 116, 0.5);
-    border-right: 2.5px solid rgba(212, 165, 116, 0.5);
-    border-top-right-radius: 12px;
-    box-shadow: 
-        0 0 8px rgba(212, 165, 116, 0.2),
-        inset -1px 1px 2px rgba(240, 212, 168, 0.15);
+/* Song section child elements */
+.song-section h2 {
+    grid-area: title;
+    text-align: left;
+    margin-top: 0;
 }
 
+.song-section .song-attribution {
+    grid-area: attribution;
+}
+
+.song-section .song-image {
+    grid-area: image;
+    width: 100%;
+    max-width: 280px;
+    margin: 0;
+}
+
+.song-section .custom-audio-player {
+    grid-area: player;
+}
+
+.song-section .suno-link {
+    grid-area: suno;
+}
+
+/* Brass corner tabs removed */
+.song-section::before,
 .song-section::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    width: 24px;
-    height: 24px;
-    border-bottom: 2.5px solid rgba(212, 165, 116, 0.5);
-    border-right: 2.5px solid rgba(212, 165, 116, 0.5);
-    border-bottom-right-radius: 12px;
-    box-shadow: 
-        0 0 8px rgba(212, 165, 116, 0.2),
-        inset -1px -1px 2px rgba(240, 212, 168, 0.15);
+    display: none;
 }
 
 /* Lyrics accordion within song section */
 .song-section .lyrics-accordion {
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
+    grid-area: lyrics;
+    margin-top: 1.5rem;
+    margin-bottom: 0;
 }
 
 /* Ensure lyrics content maintains proper styling */
 .song-section .lyrics-content {
-    /* Center the lyrics container */
-    display: flex;
-    justify-content: center;
+    display: block;
 }
 
 .song-section .lyrics-text {
-    /* Poetic, centered formatting on vellum */
-    text-align: center;
+    /* Poetic formatting */
+    text-align: left;
     font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.1rem;
-    line-height: 1.9;
-    color: #000000 !important; /* Pure black on vellum */
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #e0ddd5;
     font-style: italic;
-    max-width: 32rem; /* Narrower for poetic feel */
     
     /* Preserve line breaks from data */
     white-space: pre-line;
@@ -2143,26 +1974,38 @@ strong, b {
         height: 110px !important; /* Increased from 90px to fit 4 lines */
     }
     
-    /* Mobile stitching adjustments */
-    .lesson-summary::before,
-    .song-tie-in::before,
-    .song-lyrics-section::before {
-        top: 12px; /* Closer to top on mobile */
-        font-size: 18px; /* Slightly smaller on mobile */
-    }
-    
-    .lesson-summary::after,
-    .song-tie-in::after,
-    .song-lyrics-section::after {
-        bottom: 12px; /* Closer to bottom on mobile */
-        font-size: 18px; /* Slightly smaller on mobile */
-    }
-    
     /* Reduce leather panel padding on mobile for full bleed reading */
     .lesson-summary,
     .song-tie-in {
         padding: 2.5rem 0.5rem !important; /* Minimal side padding when closed */
         transition: all 0.3s ease;
+    }
+    
+    /* Song section - stack vertically on mobile */
+    .song-section {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "title"
+            "attribution"
+            "image"
+            "player"
+            "suno"
+            "lyrics";
+        gap: 1rem;
+        padding: 1.5rem 1rem;
+    }
+    
+    .song-section h2 {
+        text-align: center;
+    }
+    
+    .song-section .song-attribution {
+        text-align: center;
+    }
+    
+    .song-section .song-image {
+        max-width: 100%;
+        margin: 0 auto;
     }
     
     /* FULL EXPANSION: When accordion is open, expand entire journal panel edge-to-edge */
@@ -2552,107 +2395,35 @@ strong, b {
 .divider-ornate {
     border: 0;
     height: 1px;
-    background: linear-gradient(to right, transparent, rgba(212, 165, 116, 0.3), transparent);
-    margin: 3.5rem 0; /* Reverted to original */
+    background: linear-gradient(to right, transparent, rgba(212, 165, 116, 0.5), transparent);
+    margin: 2rem 0;
     position: relative;
 }
 
 /* When divider is inside an accordion (details element) */
 details .divider-ornate {
-    margin: 1.5rem 0 2rem 0; /* Reverted to original */
+    margin: 1.5rem 0;
 }
 
+/* Simple brass center accent */
 .divider-ornate::after {
     content: '';
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    /* ROUNDED SQUARE BRASS SEAL/PLATE - elongated for cross */
-    width: 55px;
-    height: 70px; /* Taller to match cross proportions */
-    border-radius: 15px; /* Softer rounded corners */
-    /* Brass plate with subtle frame */
-    background: 
-        /* Thin outer frame border */
-        linear-gradient(to right, 
-            rgba(212, 165, 116, 0.5) 0%,
-            rgba(212, 165, 116, 0.5) 1.5px,
-            transparent 1.5px,
-            transparent calc(100% - 1.5px),
-            rgba(212, 165, 116, 0.5) calc(100% - 1.5px)
-        ),
-        linear-gradient(to bottom,
-            rgba(212, 165, 116, 0.5) 0%,
-            rgba(212, 165, 116, 0.5) 1.5px,
-            transparent 1.5px,
-            transparent calc(100% - 1.5px),
-            rgba(212, 165, 116, 0.5) calc(100% - 1.5px)
-        ),
-        /* Thin inner frame */
-        linear-gradient(to right,
-            rgba(212, 165, 116, 0.3) 0%,
-            rgba(212, 165, 116, 0.3) 6px,
-            transparent 6px,
-            transparent calc(100% - 6px),
-            rgba(212, 165, 116, 0.3) calc(100% - 6px)
-        ),
-        linear-gradient(to bottom,
-            rgba(212, 165, 116, 0.3) 0%,
-            rgba(212, 165, 116, 0.3) 6px,
-            transparent 6px,
-            transparent calc(100% - 6px),
-            rgba(212, 165, 116, 0.3) calc(100% - 6px)
-        ),
-        /* Dark background */
-        radial-gradient(ellipse at center, rgba(21, 21, 21, 0.98) 0%, rgba(21, 21, 21, 1) 100%);
-    /* Embossed brass plate effect */
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(212, 165, 116, 0.6);
     box-shadow: 
-        /* Outer glow */
-        0 0 15px rgba(212, 165, 116, 0.2),
-        0 0 30px rgba(240, 212, 168, 0.1),
-        /* Recessed depth */
-        inset 0 2px 4px rgba(0, 0, 0, 0.6),
-        inset 0 -1px 2px rgba(240, 212, 168, 0.2);
+        0 0 10px rgba(212, 165, 116, 0.3),
+        inset 0 1px 1px rgba(240, 212, 168, 0.4);
 }
 
-/* Cross icon smaller to fit in seal */
+/* Remove cross icon */
 .divider-ornate::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 45px; /* Reduced from 70px */
-    height: 45px; /* Reduced from 70px */
-    background: url('cross-icon.svg') center center no-repeat;
-    background-size: contain;
-    z-index: 1;
-    pointer-events: none;
-}
-
-/* Desktop fire: Subtle candlelight flicker on ornate dividers */
-@keyframes candleFlicker {
-    0%, 100% {
-        opacity: 0.85;
-        text-shadow: 0 0 10px rgba(212, 165, 116, 0.4);
-    }
-    25% {
-        opacity: 0.95;
-        text-shadow: 0 0 15px rgba(212, 165, 116, 0.5);
-    }
-    50% {
-        opacity: 1;
-        text-shadow: 0 0 18px rgba(212, 165, 116, 0.6);
-    }
-    75% {
-        opacity: 0.9;
-        text-shadow: 0 0 12px rgba(212, 165, 116, 0.45);
-    }
-}
-
-.divider-ornate::after {
-    animation: candleFlicker 4s ease-in-out infinite;
+    display: none;
 }
 
 .small-caps {
