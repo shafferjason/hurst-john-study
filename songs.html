@@ -30,6 +30,16 @@
         .top-nav .lesson-header h1 {
             font-size: 2rem;
             margin-bottom: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .header-logo {
+            height: 2.5rem;
+            width: auto;
+            filter: drop-shadow(0 0 8px rgba(201, 164, 122, 0.3));
         }
         
         .top-nav .scripture-reference {
@@ -40,7 +50,7 @@
         /* Two-column layout - Apple Music style */
         .music-container {
             display: grid;
-            grid-template-columns: 350px 1fr;
+            grid-template-columns: 400px 1fr;
             gap: 2rem;
             max-width: 1400px;
             margin: 0 auto;
@@ -517,7 +527,10 @@
         </div>
         
         <header class="lesson-header">
-            <h1>THE MUSIC</h1>
+            <h1>
+                THE MUSIC
+                <img src="logo.svg" alt="The Tenth Hour" class="header-logo">
+            </h1>
             <p class="scripture-reference">Songs from The Tenth Hour</p>
         </header>
     </div>
