@@ -1008,7 +1008,7 @@ header {
 }
 
 .inline-logo {
-    height: 3.5rem; /* Increased from 2.5rem for better desktop visibility */
+    height: 4rem; /* Increased for better desktop visibility */
     width: auto;
     vertical-align: middle;
     filter: drop-shadow(0 0 8px rgba(201, 164, 122, 0.3));
@@ -2129,7 +2129,7 @@ strong, b {
     .lesson-item a::before {
         left: 1rem !important; /* Reduced from 2.5rem */
         right: 1rem !important; /* Reduced from 2.5rem */
-        height: 90px !important; /* Increased from 75px */
+        height: 110px !important; /* Increased from 90px to fit 4 lines */
     }
     
     /* Mobile stitching adjustments */
@@ -2220,7 +2220,7 @@ strong, b {
 
     /* Image balanced on mobile - reduced to match desktop proportion */
     .song-image {
-        max-width: 65%; /* Reduced from 75% for better balance */
+        max-width: 85%; /* Increased from 65% for better visibility on mobile */
     }
     
     .custom-audio-player {
@@ -2247,11 +2247,21 @@ strong, b {
     .divider-ornate::before {
         width: 50px; /* Larger on mobile */
         height: 50px; /* Larger on mobile */
+        opacity: 1 !important; /* Force full visibility */
+        z-index: 100 !important; /* Force above other content */
     }
     
     .divider-ornate::after {
         width: 60px; /* Larger brass seal on mobile */
         height: 75px; /* Larger brass seal on mobile */
+        opacity: 1 !important; /* Force full visibility */
+        z-index: 99 !important; /* Force above other content but below cross */
+        /* Stronger glow for mobile visibility */
+        box-shadow: 
+            0 0 20px rgba(212, 165, 116, 0.4),
+            0 0 35px rgba(240, 212, 168, 0.25),
+            inset 0 2px 4px rgba(0, 0, 0, 0.6),
+            inset 0 -1px 2px rgba(240, 212, 168, 0.3) !important;
     }
 
     /* Mobile navigation improvements */
