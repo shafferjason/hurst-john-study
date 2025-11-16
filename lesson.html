@@ -97,37 +97,48 @@
                         A song by The <a href="songs.html?from=${currentLesson.id}" title="View all songs"><img src="logo.svg" alt="Tenth Hour" class="inline-logo"></a>
                     </p>
                     
-                    <!-- Two-column grid: image left, player + lyrics right -->
+                    <!-- Grid layout matching songs page exactly -->
                     <div class="song-content-grid">
+                        <!-- Image - left side, spans all rows -->
                         ${currentLesson.image_url ? `
                             <img src="${currentLesson.image_url}" alt="${currentLesson.song_title}" class="song-image">
                         ` : ''}
                         
-                        <div class="song-lyrics-wrapper">
+                        <!-- Song Info - top right -->
+                        <div class="song-info-section">
+                            <h3 class="song-title-display">${currentLesson.song_title}</h3>
+                            <span class="artist-name">The Tenth Hour</span>
+                        </div>
+                        
+                        <!-- Audio Player - middle right -->
+                        <div class="song-player-section">
                             ${currentLesson.audio_file ? `
-                                <!-- Simple audio player -->
                                 <div class="simple-audio-player">
                                     <audio id="lesson-audio" src="${currentLesson.audio_file}"></audio>
                                     
-                                    <button id="play-pause-btn" class="simple-player-btn" aria-label="Play/Pause">
-                                        <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                            <path d="M8 5v14l11-7z"/>
-                                        </svg>
-                                        <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
-                                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                                        </svg>
-                                    </button>
-                                    
-                                    <div class="simple-progress-wrapper">
-                                        <div id="current-time" class="simple-time-display">0:00</div>
-                                        <input type="range" id="seek-bar" class="simple-seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
-                                        <div id="duration" class="simple-time-display">0:00</div>
+                                    <div class="simple-player-controls">
+                                        <button id="play-pause-btn" class="simple-player-btn" aria-label="Play/Pause">
+                                            <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                            <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
+                                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                            </svg>
+                                        </button>
+                                        
+                                        <div class="simple-progress-wrapper">
+                                            <div id="current-time" class="simple-time-display">0:00</div>
+                                            <input type="range" id="seek-bar" class="simple-seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
+                                            <div id="duration" class="simple-time-display">0:00</div>
+                                        </div>
                                     </div>
                                 </div>
                             ` : ''}
-                            
+                        </div>
+                        
+                        <!-- Lyrics - bottom right -->
+                        <div class="song-lyrics-section-grid">
                             ${currentLesson.song_lyrics ? `
-                                <!-- Lyrics accordion -->
                                 <details class="accordion lyrics-accordion">
                                     <summary>View Song Lyrics</summary>
                                     <div class="accordion-content">

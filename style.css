@@ -1383,7 +1383,7 @@ a:has(.inline-logo):hover .inline-logo {
 
 /* ===================================
    SONG SECTION - TWO COLUMN LAYOUT
-   (Matches songs.html design)
+   (Matches songs.html design EXACTLY)
    =================================== */
 
 .song-section {
@@ -1417,100 +1417,192 @@ a:has(.inline-logo):hover .inline-logo {
     font-weight: 300;
 }
 
-/* Two-column grid layout matching songs page */
+/* Two-column grid layout - EXACT match to songs page */
 .song-content-grid {
     display: grid;
     grid-template-columns: 280px 1fr;
     gap: 2rem;
-    margin-top: 2rem;
-    align-items: start;
+    max-width: 700px;
+    margin: 0 auto;
+    grid-template-areas:
+        "image info"
+        "image player"
+        "image lyrics";
 }
 
-/* Song image - left column */
+/* Song image - left column, CLEAN like songs page */
 .song-image {
+    grid-area: image;
     width: 100%;
     height: auto;
-    display: block;
-    position: relative;
-    
-    /* Rough, irregular edges - not perfectly rounded */
-    border-radius: 2% 3% 2% 4% / 3% 2% 4% 2%;
-
-    /* Slightly more faded for deeper vintage feel */
-    opacity: 0.85;
-    
-    /* Heavier sepia tone for vintage photograph feel */
-    filter: 
-        contrast(0.95)
-        brightness(0.98)
-        saturate(0.8)
-        sepia(0.5);
-    
-    /* MUCH heavier edge bleeding - very prominent dark edges */
-    box-shadow: 
-        /* INNER - Very heavy darkening at edges */
-        inset 0 0 140px rgba(42, 38, 33, 0.95),
-        inset 0 0 100px rgba(35, 32, 28, 0.85),
-        inset 0 0 70px rgba(30, 27, 23, 0.75),
-        inset 0 0 40px rgba(25, 22, 18, 0.65),
-        inset 0 0 20px rgba(20, 17, 13, 0.55),
-        /* OUTER - Strong bleeding into leather surface */
-        0 0 50px rgba(42, 38, 33, 0.8),
-        0 0 30px rgba(35, 32, 28, 0.7),
-        0 0 15px rgba(30, 27, 23, 0.6),
-        0 8px 25px rgba(0, 0, 0, 0.5);
-    
-    /* Heavier rough edge texture */
-    border: 2px solid rgba(42, 38, 33, 0.6);
-    outline: 4px solid rgba(35, 32, 28, 0.5);
-    outline-offset: -4px;
-    
-    /* Blend with leather - multiply makes edges darker where they meet leather */
-    mix-blend-mode: multiply;
-    isolation: isolate;
-    
-    /* Slightly uneven positioning */
-    transform: rotate(-0.5deg);
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+    align-self: start;
 }
 
-/* Lyrics section - right column */
-.song-lyrics-wrapper {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
+/* Song info section - top right */
+.song-info-section {
+    grid-area: info;
+    text-align: left;
+    margin-bottom: 1rem;
 }
 
-/* Link to full songs page */
-.songs-page-link {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    color: #d4a574;
-    text-decoration: none;
-    font-size: 0.9rem;
-    padding: 0.5rem 1rem;
-    background: rgba(212, 165, 116, 0.1);
-    border: 1px solid rgba(212, 165, 116, 0.3);
-    border-radius: 6px;
-    transition: all 0.3s ease;
-    align-self: flex-start;
+.song-info-section .song-title-display {
+    font-size: 1.6rem;
+    color: #e8e4dc;
     margin-bottom: 0.5rem;
+    font-family: Georgia, serif;
+    font-weight: 400;
+    line-height: 1.3;
 }
 
-.songs-page-link:hover {
-    background: rgba(212, 165, 116, 0.2);
-    border-color: rgba(212, 165, 116, 0.5);
-    transform: translateX(-2px);
-    box-shadow: 0 2px 8px rgba(212, 165, 116, 0.2);
+.song-info-section .artist-name {
+    font-size: 1rem;
+    color: #d4a574;
+    font-style: italic;
+    display: block;
+    margin-bottom: 0.75rem;
 }
 
-.songs-page-link svg {
+/* Player section - middle right */
+.song-player-section {
+    grid-area: player;
+    width: 100%;
+}
+
+/* Lyrics section - bottom right */
+.song-lyrics-section-grid {
+    grid-area: lyrics;
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+/* Simplified audio player - matches songs page */
+.simple-audio-player {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    width: 100%;
+    margin-bottom: 1.25rem;
+}
+
+.simple-player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 1rem;
+    flex: 1;
+}
+
+/* Play/Pause button */
+.simple-player-btn {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    background: linear-gradient(135deg, rgba(42, 38, 33, 0.9) 0%, rgba(30, 28, 25, 0.95) 100%);
+    border: 1px solid rgba(212, 165, 116, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    padding: 0;
+}
+
+.simple-player-btn:hover {
+    border-color: rgba(212, 165, 116, 0.6);
+    background: linear-gradient(135deg, rgba(50, 45, 40, 0.95) 0%, rgba(35, 32, 28, 1) 100%);
+    box-shadow: 0 0 15px rgba(212, 165, 116, 0.3);
+    transform: scale(1.05);
+}
+
+.simple-player-btn:active {
+    transform: scale(0.95);
+}
+
+.simple-player-btn svg {
+    width: 22px;
+    height: 22px;
+    fill: #d4a574;
+}
+
+/* Fire effect when playing */
+.simple-audio-player.playing .simple-player-btn {
+    animation: buttonFire 3s ease-in-out infinite;
+}
+
+@keyframes buttonFire {
+    0%, 100% {
+        border-color: rgba(212, 165, 116, 0.4);
+        box-shadow: 0 0 20px rgba(212, 165, 116, 0.2);
+    }
+    50% {
+        border-color: rgba(240, 212, 168, 0.7);
+        box-shadow: 0 0 40px rgba(240, 212, 168, 0.5);
+    }
+}
+
+/* Progress section */
+.simple-progress-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.simple-time-display {
+    font-size: 0.85rem;
+    color: #a8a49b;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    min-width: 38px;
+    text-align: center;
+}
+
+.simple-seek-bar {
+    flex: 1;
+    height: 4px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.simple-seek-bar::-webkit-slider-thumb {
+    -webkit-appearance: none;
     width: 14px;
     height: 14px;
-    fill: currentColor;
+    background: #d4a574;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-/* Lyrics accordion in right column */
+.simple-seek-bar::-webkit-slider-thumb:hover {
+    background: #f0d4a8;
+    box-shadow: 0 0 8px rgba(212, 165, 116, 0.5);
+    transform: scale(1.2);
+}
+
+.simple-seek-bar::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: #d4a574;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.simple-seek-bar::-moz-range-thumb:hover {
+    background: #f0d4a8;
+    box-shadow: 0 0 8px rgba(212, 165, 116, 0.5);
+}
+
+/* Lyrics accordion - matches songs page */
 .song-section .lyrics-accordion {
     background: rgba(0, 0, 0, 0.3);
     border-radius: 8px;
@@ -1562,7 +1654,7 @@ a:has(.inline-logo):hover .inline-logo {
     font-size: 0.95rem;
     text-align: left;
     font-style: normal;
-    max-height: 300px;
+    max-height: 250px;
     overflow-y: auto;
     padding-right: 0.5rem;
     margin: 0;
@@ -1584,174 +1676,28 @@ a:has(.inline-logo):hover .inline-logo {
     border-radius: 3px;
 }
 
-/* Hide audio player on lesson pages */
-.song-section .custom-audio-player {
-    display: none;
-}
-
 /* Mobile responsive - stack vertically */
 @media (max-width: 768px) {
     .song-content-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+        grid-template-areas:
+            "image"
+            "info"
+            "player"
+            "lyrics";
     }
     
     .song-image {
-        max-width: 80%;
+        max-width: 100%;
         margin: 0 auto;
     }
-}
-
-/* ===================================
-   SIMPLIFIED AUDIO PLAYER FOR LESSONS
-   (Matches songs.html design)
-   =================================== */
-
-.simple-audio-player {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1rem;
-    width: 100%;
-    padding: 1rem;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
-    border: 1px solid rgba(212, 165, 116, 0.3);
-    margin-bottom: 1rem;
-    transition: all 0.4s ease;
-}
-
-/* Fire effect when playing */
-.simple-audio-player.playing {
-    border-color: rgba(212, 165, 116, 0.5);
-    box-shadow: 
-        0 0 30px rgba(212, 165, 116, 0.3),
-        inset 0 0 20px rgba(212, 165, 116, 0.1);
-    animation: simpleFire 3s ease-in-out infinite;
-}
-
-@keyframes simpleFire {
-    0%, 100% {
-        box-shadow: 
-            0 0 30px rgba(212, 165, 116, 0.3),
-            inset 0 0 20px rgba(212, 165, 116, 0.1);
-    }
-    50% {
-        box-shadow: 
-            0 0 50px rgba(240, 212, 168, 0.5),
-            inset 0 0 30px rgba(212, 165, 116, 0.15);
-    }
-}
-
-/* Play/Pause button */
-.simple-player-btn {
-    width: 44px;
-    height: 44px;
-    min-width: 44px;
-    background: linear-gradient(135deg, rgba(42, 38, 33, 0.9) 0%, rgba(30, 28, 25, 0.95) 100%);
-    border: 1px solid rgba(212, 165, 116, 0.4);
-    border-radius: 50%;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.3s ease;
-    padding: 0;
-}
-
-.simple-player-btn:hover {
-    border-color: rgba(212, 165, 116, 0.6);
-    background: linear-gradient(135deg, rgba(50, 45, 40, 0.95) 0%, rgba(35, 32, 28, 1) 100%);
-    box-shadow: 0 0 15px rgba(212, 165, 116, 0.3);
-}
-
-.simple-player-btn svg {
-    width: 20px;
-    height: 20px;
-    fill: #d4a574;
-}
-
-/* Progress section */
-.simple-progress-wrapper {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.simple-time-display {
-    font-size: 0.85rem;
-    color: #a8a49b;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    min-width: 38px;
-    text-align: center;
-}
-
-.simple-seek-bar {
-    flex: 1;
-    height: 4px;
-    background: rgba(0, 0, 0, 0.5);
-    border-radius: 2px;
-    outline: none;
-    cursor: pointer;
-    -webkit-appearance: none;
-    appearance: none;
-}
-
-.simple-seek-bar::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 12px;
-    height: 12px;
-    background: #d4a574;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.simple-seek-bar::-webkit-slider-thumb:hover {
-    background: #f0d4a8;
-    box-shadow: 0 0 8px rgba(212, 165, 116, 0.5);
-}
-
-.simple-seek-bar::-moz-range-thumb {
-    width: 12px;
-    height: 12px;
-    background: #d4a574;
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.simple-seek-bar::-moz-range-thumb:hover {
-    background: #f0d4a8;
-    box-shadow: 0 0 8px rgba(212, 165, 116, 0.5);
-}
-
-/* Mobile adjustments */
-@media (max-width: 768px) {
-    .simple-audio-player {
-        gap: 0.75rem;
-        padding: 0.75rem;
-    }
     
-    .simple-player-btn {
-        width: 40px;
-        height: 40px;
-        min-width: 40px;
-    }
-    
-    .simple-player-btn svg {
-        width: 18px;
-        height: 18px;
-    }
-    
-    .simple-time-display {
-        font-size: 0.8rem;
-        min-width: 35px;
+    .song-info-section {
+        text-align: center;
     }
 }
-/* ===================================
+
    NAVIGATION
    =================================== */
 
