@@ -1419,21 +1419,18 @@ a:has(.inline-logo):hover .inline-logo {
     filter: drop-shadow(0 0 8px rgba(201, 164, 122, 0.3));
 }
 
-/* Two-column grid layout - simplified: image left, player+lyrics right */
+/* Two-column grid layout - image left, content right (stacks naturally) */
 .song-content-grid {
     display: grid;
     grid-template-columns: 280px 1fr;
     gap: 2rem;
     max-width: 700px;
     margin: 0 auto;
-    grid-template-areas:
-        "image player"
-        "image lyrics";
+    align-items: start;
 }
 
-/* Song image - left column, CLEAN like songs page */
+/* Song image - left column */
 .song-image {
-    grid-area: image;
     width: 100%;
     height: auto;
     border-radius: 12px;
@@ -1441,18 +1438,7 @@ a:has(.inline-logo):hover .inline-logo {
     align-self: start;
 }
 
-/* Player section - top right */
-.song-player-section {
-    grid-area: player;
-    width: 100%;
-}
-
-/* Lyrics section - bottom right */
-.song-lyrics-section-grid {
-    grid-area: lyrics;
-    width: 100%;
-    margin-top: 0.5rem;
-}
+/* Player and lyrics stack naturally in right column */
 
 /* Simplified audio player - matches songs page */
 .simple-audio-player {
@@ -1675,10 +1661,6 @@ a:has(.inline-logo):hover .inline-logo {
     .song-content-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
-        grid-template-areas:
-            "image"
-            "player"
-            "lyrics";
     }
     
     .song-image {
