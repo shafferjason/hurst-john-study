@@ -92,10 +92,10 @@
                 <section class="song-section">
                     <h2>${currentLesson.song_title}</h2>
                     
-                    <!-- "A song by The Tenth Hour" with logo -->
-                    <p class="song-attribution">
-                        A song by The <a href="songs.html?from=${currentLesson.id}" title="View all songs"><img src="logo.svg" alt="Tenth Hour" class="inline-logo"></a>
-                    </p>
+                    <!-- Just The Tenth Hour logo -->
+                    <div class="song-attribution">
+                        <img src="logo.svg" alt="The Tenth Hour" class="song-logo">
+                    </div>
                     
                     <!-- Grid layout matching songs page exactly -->
                     <div class="song-content-grid">
@@ -104,13 +104,7 @@
                             <img src="${currentLesson.image_url}" alt="${currentLesson.song_title}" class="song-image">
                         ` : ''}
                         
-                        <!-- Song Info - top right -->
-                        <div class="song-info-section">
-                            <h3 class="song-title-display">${currentLesson.song_title}</h3>
-                            <span class="artist-name">The Tenth Hour</span>
-                        </div>
-                        
-                        <!-- Audio Player - middle right -->
+                        <!-- Audio Player - takes full right side -->
                         <div class="song-player-section">
                             ${currentLesson.audio_file ? `
                                 <div class="simple-audio-player">
