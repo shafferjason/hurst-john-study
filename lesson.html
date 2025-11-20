@@ -92,51 +92,56 @@
                 <section class="song-section">
                     <h2>${currentLesson.song_title}</h2>
                     
-                    <!-- Just The Tenth Hour logo - OUTSIDE the grid -->
+                    <!-- The Tenth Hour logo - links to songs page -->
                     <div class="song-attribution">
-                        <img src="logo.svg" alt="The Tenth Hour" class="song-logo">
+                        <a href="songs.html?from=${currentLesson.id}" title="View all songs">
+                            <img src="logo.svg" alt="The Tenth Hour" class="song-logo">
+                        </a>
                     </div>
                     
-                    <!-- Grid layout: image left, player+lyrics right -->
+                    <!-- Grid layout: image left, content right -->
                     <div class="song-content-grid">
-                        <!-- Image - left side, spans both rows -->
+                        <!-- Image - left column -->
                         ${currentLesson.image_url ? `
                             <img src="${currentLesson.image_url}" alt="${currentLesson.song_title}" class="song-image">
                         ` : ''}
                         
-                        <!-- Audio Player - top right -->
-                        ${currentLesson.audio_file ? `
-                            <div class="simple-audio-player">
-                                <audio id="lesson-audio" src="${currentLesson.audio_file}"></audio>
-                                
-                                <div class="simple-player-controls">
-                                    <button id="play-pause-btn" class="simple-player-btn" aria-label="Play/Pause">
-                                        <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                            <path d="M8 5v14l11-7z"/>
-                                        </svg>
-                                        <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
-                                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                                        </svg>
-                                    </button>
+                        <!-- Right column: player + lyrics wrapped together -->
+                        <div class="song-right-column">
+                            ${currentLesson.audio_file ? `
+                                <!-- Audio Player -->
+                                <div class="simple-audio-player">
+                                    <audio id="lesson-audio" src="${currentLesson.audio_file}"></audio>
                                     
-                                    <div class="simple-progress-wrapper">
-                                        <div id="current-time" class="simple-time-display">0:00</div>
-                                        <input type="range" id="seek-bar" class="simple-seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
-                                        <div id="duration" class="simple-time-display">0:00</div>
+                                    <div class="simple-player-controls">
+                                        <button id="play-pause-btn" class="simple-player-btn" aria-label="Play/Pause">
+                                            <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                            <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
+                                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                            </svg>
+                                        </button>
+                                        
+                                        <div class="simple-progress-wrapper">
+                                            <div id="current-time" class="simple-time-display">0:00</div>
+                                            <input type="range" id="seek-bar" class="simple-seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
+                                            <div id="duration" class="simple-time-display">0:00</div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ` : ''}
-                        
-                        <!-- Lyrics - bottom right -->
-                        ${currentLesson.song_lyrics ? `
-                            <details class="accordion lyrics-accordion">
-                                <summary>View Song Lyrics</summary>
-                                <div class="accordion-content">
-                                    <div class="lyrics-text">${currentLesson.song_lyrics}</div>
-                                </div>
-                            </details>
-                        ` : ''}
+                            ` : ''}
+                            
+                            ${currentLesson.song_lyrics ? `
+                                <!-- Lyrics -->
+                                <details class="accordion lyrics-accordion">
+                                    <summary>View Song Lyrics</summary>
+                                    <div class="accordion-content">
+                                        <div class="lyrics-text">${currentLesson.song_lyrics}</div>
+                                    </div>
+                                </details>
+                            ` : ''}
+                        </div>
                     </div>
                 </section>
             `;

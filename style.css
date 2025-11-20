@@ -1409,6 +1409,15 @@ a:has(.inline-logo):hover .inline-logo {
     margin-bottom: 2.5rem;
 }
 
+.song-attribution a {
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.song-attribution a:hover {
+    transform: translateY(-2px);
+}
+
 .song-logo {
     max-width: 240px;
     width: 100%;
@@ -1417,6 +1426,12 @@ a:has(.inline-logo):hover .inline-logo {
     margin: 0 auto;
     opacity: 0.85;
     filter: drop-shadow(0 0 8px rgba(201, 164, 122, 0.3));
+    transition: all 0.3s ease;
+}
+
+.song-attribution a:hover .song-logo {
+    opacity: 1;
+    filter: drop-shadow(0 0 15px rgba(212, 165, 116, 0.5));
 }
 
 /* Two-column grid layout - image left, content right (stacks naturally) */
@@ -1436,6 +1451,13 @@ a:has(.inline-logo):hover .inline-logo {
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
     align-self: start;
+}
+
+/* Right column wrapper - contains player and lyrics */
+.song-right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 /* Player and lyrics stack naturally in right column */
