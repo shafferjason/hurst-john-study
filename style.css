@@ -1,5 +1,5 @@
 /* ===================================
-   RESET & BASE STLES
+   RESET & BASE STYLES
    =================================== */
 
 * {
@@ -2245,18 +2245,6 @@ strong, b {
    UTILITY CLASSES
    =================================== */
 
-.text-center {
-    text-align: center;
-}
-
-/* Subtle divider with warm tone */
-.divider {
-    border: 0;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #3a3630, transparent);
-    margin: 3.5rem 0;
-}
-
 /* Johannine eagle feather ornament divider */
 .divider-ornate {
     border: 0;
@@ -2290,11 +2278,6 @@ details .divider-ornate {
 /* Remove cross icon */
 .divider-ornate::before {
     display: none;
-}
-
-.small-caps {
-    font-variant: small-caps;
-    letter-spacing: 0.08em;
 }
 
 /* ===================================
@@ -2393,4 +2376,3 @@ details .divider-ornate {
 /* ===================================
    END OF STYLESHEET
    =================================== */
-
