@@ -1,6 +1,6 @@
 // ===================================
 // UX ENHANCEMENTS JAVASCRIPT
-// Back to Top Button & Reading Progress Bar
+// Back to Top Button
 // ===================================
 
 (function() {
@@ -14,38 +14,8 @@
     }
     
     function init() {
-        createProgressBar();
         createBackToTopButton();
-        setupScrollHandlers();
-    }
-    
-    // ===================================
-    // READING PROGRESS BAR
-    // ===================================
-    function createProgressBar() {
-        const progressBar = document.createElement('div');
-        progressBar.className = 'reading-progress';
-        progressBar.setAttribute('role', 'progressbar');
-        progressBar.setAttribute('aria-label', 'Reading progress');
-        progressBar.setAttribute('aria-valuemin', '0');
-        progressBar.setAttribute('aria-valuemax', '100');
-        progressBar.setAttribute('aria-valuenow', '0');
-        document.body.insertBefore(progressBar, document.body.firstChild);
-        
-        return progressBar;
-    }
-    
-    function updateProgressBar() {
-        const progressBar = document.querySelector('.reading-progress');
-        if (!progressBar) return;
-        
-        const windowHeight = window.innerHeight;
-        const documentHeight = document.documentElement.scrollHeight - windowHeight;
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const progress = (scrollTop / documentHeight) * 100;
-        
-        progressBar.style.width = progress + '%';
-        progressBar.setAttribute('aria-valuenow', Math.round(progress));
+        setupScrollHandler();
     }
     
     // ===================================
@@ -85,15 +55,14 @@
     }
     
     // ===================================
-    // SCROLL EVENT HANDLERS
+    // SCROLL EVENT HANDLER
     // ===================================
-    function setupScrollHandlers() {
+    function setupScrollHandler() {
         let ticking = false;
         
         window.addEventListener('scroll', function() {
             if (!ticking) {
                 window.requestAnimationFrame(function() {
-                    updateProgressBar();
                     toggleBackToTopButton();
                     ticking = false;
                 });
@@ -102,7 +71,6 @@
         });
         
         // Initial check
-        updateProgressBar();
         toggleBackToTopButton();
     }
     
