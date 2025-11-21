@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=39">
+    <link rel="stylesheet" href="style.css?v=40">
 </head>
 <body>
 
@@ -29,9 +29,11 @@
         <article id="lesson-content">
         </article>
 
-        <nav class="lesson-navigation">
-        </nav>
     </div>
+
+    <!-- Sticky Bottom Navigation -->
+    <nav class="lesson-navigation">
+    </nav>
 
     <!-- Back-to-top button will be auto-injected here by JavaScript -->
 
@@ -177,15 +179,17 @@
             const currentIndex = lessonData.findIndex(lesson => lesson.id === lessonId);
             const navSection = document.querySelector('.lesson-navigation');
             
-            let navHTML = '<div class="nav-links">';
+            let navHTML = '<div class="nav-container">';
             
             if (currentIndex > 0) {
                 const prevLesson = lessonData[currentIndex - 1];
                 navHTML += `
-                    <a href="lesson.html?id=${prevLesson.id}" class="nav-link prev-link">
-                        <span class="nav-arrow">&larr;</span>
-                        <span class="nav-label">Previous Lesson</span>
-                        <span class="nav-title">${prevLesson.title}</span>
+                    <a href="lesson.html?id=${prevLesson.id}" class="nav-button prev-button">
+                        <span class="nav-arrow">←</span>
+                        <span class="nav-text">
+                            <span class="nav-label">Previous</span>
+                            <span class="nav-title">${prevLesson.title}</span>
+                        </span>
                     </a>
                 `;
             } else {
@@ -195,10 +199,12 @@
             if (currentIndex < lessonData.length - 1) {
                 const nextLesson = lessonData[currentIndex + 1];
                 navHTML += `
-                    <a href="lesson.html?id=${nextLesson.id}" class="nav-link next-link">
-                        <span class="nav-arrow">&rarr;</span>
-                        <span class="nav-label">Next Lesson</span>
-                        <span class="nav-title">${nextLesson.title}</span>
+                    <a href="lesson.html?id=${nextLesson.id}" class="nav-button next-button">
+                        <span class="nav-text">
+                            <span class="nav-label">Next</span>
+                            <span class="nav-title">${nextLesson.title}</span>
+                        </span>
+                        <span class="nav-arrow">→</span>
                     </a>
                 `;
             } else {
