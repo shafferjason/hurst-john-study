@@ -1167,15 +1167,6 @@ a:has(.inline-logo):hover .inline-logo {
     font-style: italic;
 }
 
-/* Song image */
-.song-section .song-image {
-    grid-area: image;
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
-    margin: 0;
-}
-
 /* Audio player - match songs page */
 .song-section .custom-audio-player {
     grid-area: player;
@@ -1444,9 +1435,6 @@ a:has(.inline-logo):hover .inline-logo {
     align-items: start;
     position: relative;
     z-index: 1;
-    /* DEBUG: Add visible border to see grid boundaries */
-    border: 2px solid rgba(255, 0, 0, 0.3);
-    padding: 1rem;
 }
 
 /* Ensure grid children render properly */
