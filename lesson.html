@@ -55,16 +55,6 @@
             // Build the lesson content
             const lessonContent = document.getElementById('lesson-content');
             
-            // Debug: Log the lesson data
-            console.log('Current lesson data:', {
-                id: currentLesson.id,
-                title: currentLesson.title,
-                song_title: currentLesson.song_title,
-                image_url: currentLesson.image_url,
-                audio_file: currentLesson.audio_file,
-                has_lyrics: !!currentLesson.song_lyrics
-            });
-            
             lessonContent.innerHTML = `
                 <header class="lesson-header">
                     <h1>${currentLesson.title}</h1>
@@ -115,10 +105,7 @@
                         <img 
                             src="${currentLesson.image_url || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23333%22/%3E%3C/svg%3E'}" 
                             alt="${currentLesson.song_title}" 
-                            class="song-image"
-                            style="display: block; position: relative; z-index: 1;"
-                            onload="console.log('Image loaded:', this.src)"
-                            onerror="console.error('Image failed to load:', this.src)">
+                            class="song-image">
                         
                         <!-- Right column: player + lyrics wrapped together -->
                         <div class="song-right-column">
