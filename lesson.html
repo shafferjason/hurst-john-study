@@ -5,35 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=41">
+    <link rel="stylesheet" href="style.css?v=43">
 </head>
 <body>
 
-    <!-- Sticky Breadcrumb Navigation -->
-    <nav class="breadcrumb-nav">
-        <div class="breadcrumb-container">
-            <div class="breadcrumb">
-                <a href="index.html">Home</a>
-                <span class="separator">›</span>
-                <span class="current" id="breadcrumb-current">Lesson</span>
-            </div>
-            <a href="index.html" class="back-button">
-                <span class="back-arrow">←</span>
-                <span class="back-text">Back to All Lessons</span>
-            </a>
-        </div>
-    </nav>
-
     <div class="container">
+        <div class="back-link">
+            <a href="index.html">&larr; Back to All Lessons</a>
+        </div>
 
         <article id="lesson-content">
         </article>
 
+        <nav class="lesson-navigation">
+        </nav>
     </div>
-
-    <!-- Sticky Bottom Navigation -->
-    <nav class="lesson-navigation">
-    </nav>
 
     <!-- Back-to-top button will be auto-injected here by JavaScript -->
 
@@ -58,12 +44,6 @@
         } else {
             // Update page title
             document.title = currentLesson.title + ' - Hurst Class Study';
-            
-            // Update breadcrumb
-            const breadcrumbCurrent = document.getElementById('breadcrumb-current');
-            if (breadcrumbCurrent) {
-                breadcrumbCurrent.textContent = currentLesson.title;
-            }
 
             // Extract lyrics preview (first 4 lines)
             let lyricsPreview = '';
@@ -74,6 +54,16 @@
 
             // Build the lesson content
             const lessonContent = document.getElementById('lesson-content');
+            
+            // Debug: Log the lesson data
+            console.log('Current lesson data:', {
+                id: currentLesson.id,
+                title: currentLesson.title,
+                song_title: currentLesson.song_title,
+                image_url: currentLesson.image_url,
+                audio_file: currentLesson.audio_file,
+                has_lyrics: !!currentLesson.song_lyrics
+            });
             
             lessonContent.innerHTML = `
                 <header class="lesson-header">
@@ -125,44 +115,32 @@
                         <img 
                             src="${currentLesson.image_url || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23333%22/%3E%3C/svg%3E'}" 
                             alt="${currentLesson.song_title}" 
-                            class="song-image">
+                            class="song-image"
+                            style="display: block; position: relative; z-index: 1;"
+                            onload="console.log('Image loaded:', this.src)"
+                            onerror="console.error('Image failed to load:', this.src)">
                         
                         <!-- Right column: player + lyrics wrapped together -->
                         <div class="song-right-column">
                             ${currentLesson.audio_file ? `
-                                <!-- Card-Style Audio Player -->
-                                <div class="card-audio-player" id="audio-player-card">
+                                <!-- Audio Player -->
+                                <div class="simple-audio-player">
                                     <audio id="lesson-audio" src="${currentLesson.audio_file}"></audio>
                                     
-                                    <div class="card-player-layout">
-                                        <!-- Album Art -->
-                                        <img 
-                                            src="${currentLesson.image_url || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23333%22/%3E%3C/svg%3E'}" 
-                                            alt="${currentLesson.song_title}"
-                                            class="card-player-album-art">
+                                    <div class="simple-player-controls">
+                                        <button id="play-pause-btn" class="simple-player-btn" aria-label="Play/Pause">
+                                            <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                <path d="M8 5v14l11-7z"/>
+                                            </svg>
+                                            <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
+                                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                            </svg>
+                                        </button>
                                         
-                                        <!-- Controls Column -->
-                                        <div class="card-player-controls">
-                                            <!-- Main controls: play button + progress -->
-                                            <div class="card-player-main-controls">
-                                                <button id="play-pause-btn" class="card-player-btn" aria-label="Play/Pause">
-                                                    <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                        <path d="M8 5v14l11-7z"/>
-                                                    </svg>
-                                                    <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
-                                                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                                                    </svg>
-                                                </button>
-                                                
-                                                <!-- Progress wrapper -->
-                                                <div class="card-progress-wrapper">
-                                                    <div class="card-progress-bar-container">
-                                                        <div id="current-time" class="card-time-display">0:00</div>
-                                                        <input type="range" id="seek-bar" class="card-seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
-                                                        <div id="duration" class="card-time-display">0:00</div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="simple-progress-wrapper">
+                                            <div id="current-time" class="simple-time-display">0:00</div>
+                                            <input type="range" id="seek-bar" class="simple-seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
+                                            <div id="duration" class="simple-time-display">0:00</div>
                                         </div>
                                     </div>
                                 </div>
@@ -188,48 +166,42 @@
                     ` : ''}
                 </section>
             `;
-            
-            // === LESSON NAVIGATION ===
-            // Build prev/next navigation
+
+            // Build navigation links
             const currentIndex = lessonData.findIndex(lesson => lesson.id === lessonId);
             const navSection = document.querySelector('.lesson-navigation');
             
-            let navHTML = '<div class="nav-container">';
+            let navHTML = '<div class="nav-links">';
             
+            // Previous lesson link
             if (currentIndex > 0) {
                 const prevLesson = lessonData[currentIndex - 1];
                 navHTML += `
-                    <a href="lesson.html?id=${prevLesson.id}" class="nav-button prev-button">
-                        <span class="nav-arrow">←</span>
-                        <span class="nav-text">
-                            <span class="nav-label">Previous</span>
-                            <span class="nav-title">${prevLesson.title}</span>
-                        </span>
+                    <a href="lesson.html?id=${prevLesson.id}" class="nav-link prev-link">
+                        ← Previous Lesson: ${prevLesson.title}
                     </a>
                 `;
             } else {
-                navHTML += '<div class="nav-spacer"></div>';
+                navHTML += '<span class="nav-link-placeholder"></span>';
             }
             
+            // Next lesson link
             if (currentIndex < lessonData.length - 1) {
                 const nextLesson = lessonData[currentIndex + 1];
                 navHTML += `
-                    <a href="lesson.html?id=${nextLesson.id}" class="nav-button next-button">
-                        <span class="nav-text">
-                            <span class="nav-label">Next</span>
-                            <span class="nav-title">${nextLesson.title}</span>
-                        </span>
-                        <span class="nav-arrow">→</span>
+                    <a href="lesson.html?id=${nextLesson.id}" class="nav-link next-link">
+                        Next Lesson: ${nextLesson.title} →
                     </a>
                 `;
             } else {
-                navHTML += '<div class="nav-spacer"></div>';
+                navHTML += '<span class="nav-link-placeholder"></span>';
             }
             
             navHTML += '</div>';
             navSection.innerHTML = navHTML;
-            
+
             // === AUDIO PLAYER JAVASCRIPT ===
+            // This code must run *after* the innerHTML is set
             if (currentLesson.audio_file) {
                 const audio = document.getElementById('lesson-audio');
                 const playPauseBtn = document.getElementById('play-pause-btn');
@@ -238,17 +210,16 @@
                 const seekBar = document.getElementById('seek-bar');
                 const currentTimeEl = document.getElementById('current-time');
                 const durationEl = document.getElementById('duration');
-                const audioPlayer = document.querySelector('.card-audio-player');
-                
-                // Format time helper
+                const audioPlayer = document.querySelector('.simple-audio-player');
+
+                // Helper function to format time in 0:00
                 function formatTime(seconds) {
-                    if (isNaN(seconds)) return '0:00';
-                    const mins = Math.floor(seconds / 60);
+                    const minutes = Math.floor(seconds / 60);
                     const secs = Math.floor(seconds % 60);
-                    return `${mins}:${secs.toString().padStart(2, '0')}`;
+                    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
                 }
-                
-                // Play/Pause button
+
+                // Play/Pause functionality
                 playPauseBtn.addEventListener('click', () => {
                     if (audio.paused) {
                         audio.play();
@@ -262,30 +233,30 @@
                         audioPlayer.classList.remove('playing'); // Remove fire effect
                     }
                 });
-                
-                // Update seek bar and time display
+
+                // Update seek bar and time as audio plays
                 audio.addEventListener('timeupdate', () => {
-                    if (audio.duration) {
-                        seekBar.value = (audio.currentTime / audio.duration) * 100;
-                        currentTimeEl.textContent = formatTime(audio.currentTime);
-                    }
+                    seekBar.value = audio.currentTime; 
+                    currentTimeEl.textContent = formatTime(audio.currentTime);
                 });
-                
-                // Set duration when metadata loads
+
+                // Set total duration when audio loads
                 audio.addEventListener('loadedmetadata', () => {
                     durationEl.textContent = formatTime(audio.duration);
+                    seekBar.max = audio.duration; 
                     
-                    // Media Session API for lock screen controls
+                    // Set up Media Session API for lock screen/control center display
                     if ('mediaSession' in navigator) {
                         navigator.mediaSession.metadata = new MediaMetadata({
                             title: currentLesson.song_title,
                             artist: 'The Tenth Hour',
                             album: 'Hurst Class Study: Book of John',
-                            artwork: currentLesson.image_url ? [
+                            artwork: [
                                 { src: currentLesson.image_url, sizes: '512x512', type: 'image/jpeg' }
-                            ] : []
+                            ]
                         });
                         
+                        // Set up action handlers for media controls
                         navigator.mediaSession.setActionHandler('play', () => {
                             audio.play();
                             playIcon.style.display = 'none';
