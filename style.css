@@ -153,6 +153,33 @@ a:active {
 }
 
 /* ===================================
+   FOCUS INDICATORS (Accessibility)
+   =================================== */
+
+/* Visible focus states for keyboard navigation */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+details:focus-visible {
+    outline: 2px solid #d4a574;
+    outline-offset: 3px;
+    border-radius: 2px;
+    box-shadow: 
+        0 0 0 4px rgba(212, 165, 116, 0.2),
+        0 0 12px rgba(240, 212, 168, 0.4);
+}
+
+/* Special focus for back-to-top button */
+.back-to-top:focus-visible {
+    outline: 2px solid #f0d4a8;
+    outline-offset: 2px;
+    box-shadow: 
+        0 0 0 4px rgba(240, 212, 168, 0.3),
+        0 0 20px rgba(240, 212, 168, 0.5);
+}
+
+/* ===================================
    HEADER
    =================================== */
 
