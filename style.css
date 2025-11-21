@@ -16,7 +16,7 @@ body {
     /* Warm, readable serif for that analog, testimonial feel */
     font-family: 'Georgia', 'Iowan Old Style', 'Times New Roman', serif;
     background-color: #0f0f0f; /* Darkened from #151515 for even deeper leather */
-    color: #d4d0c8;
+    color: #e0ddd5; /* Improved from #d4d0c8 for better contrast */
     line-height: 1.75;
     padding: 20px;
     font-size: 18px;
@@ -110,7 +110,7 @@ h3 {
 
 p {
     margin-bottom: 1.5rem;
-    color: #d4d0c8;
+    color: #e0ddd5; /* Match body text for better contrast */
     font-size: 1.05rem;
     line-height: 1.75;
 }
