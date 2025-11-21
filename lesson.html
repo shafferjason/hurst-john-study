@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=34">
+    <link rel="stylesheet" href="style.css?v=35">
 </head>
 <body>
 
@@ -166,42 +166,44 @@
                     ` : ''}
                 </section>
             `;
-
-            // Build navigation links
+            
+            // === LESSON NAVIGATION ===
+            // Build prev/next navigation
             const currentIndex = lessonData.findIndex(lesson => lesson.id === lessonId);
             const navSection = document.querySelector('.lesson-navigation');
             
             let navHTML = '<div class="nav-links">';
             
-            // Previous lesson link
             if (currentIndex > 0) {
                 const prevLesson = lessonData[currentIndex - 1];
                 navHTML += `
                     <a href="lesson.html?id=${prevLesson.id}" class="nav-link prev-link">
-                        ← Previous Lesson: ${prevLesson.title}
+                        <span class="nav-arrow">&larr;</span>
+                        <span class="nav-label">Previous Lesson</span>
+                        <span class="nav-title">${prevLesson.title}</span>
                     </a>
                 `;
             } else {
-                navHTML += '<span class="nav-link-placeholder"></span>';
+                navHTML += '<div class="nav-spacer"></div>';
             }
             
-            // Next lesson link
             if (currentIndex < lessonData.length - 1) {
                 const nextLesson = lessonData[currentIndex + 1];
                 navHTML += `
                     <a href="lesson.html?id=${nextLesson.id}" class="nav-link next-link">
-                        Next Lesson: ${nextLesson.title} →
+                        <span class="nav-arrow">&rarr;</span>
+                        <span class="nav-label">Next Lesson</span>
+                        <span class="nav-title">${nextLesson.title}</span>
                     </a>
                 `;
             } else {
-                navHTML += '<span class="nav-link-placeholder"></span>';
+                navHTML += '<div class="nav-spacer"></div>';
             }
             
             navHTML += '</div>';
             navSection.innerHTML = navHTML;
-
+            
             // === AUDIO PLAYER JAVASCRIPT ===
-            // This code must run *after* the innerHTML is set
             if (currentLesson.audio_file) {
                 const audio = document.getElementById('lesson-audio');
                 const playPauseBtn = document.getElementById('play-pause-btn');
@@ -211,15 +213,16 @@
                 const currentTimeEl = document.getElementById('current-time');
                 const durationEl = document.getElementById('duration');
                 const audioPlayer = document.querySelector('.simple-audio-player');
-
-                // Helper function to format time in 0:00
+                
+                // Format time helper
                 function formatTime(seconds) {
-                    const minutes = Math.floor(seconds / 60);
+                    if (isNaN(seconds)) return '0:00';
+                    const mins = Math.floor(seconds / 60);
                     const secs = Math.floor(seconds % 60);
-                    return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+                    return `${mins}:${secs.toString().padStart(2, '0')}`;
                 }
-
-                // Play/Pause functionality
+                
+                // Play/Pause button
                 playPauseBtn.addEventListener('click', () => {
                     if (audio.paused) {
                         audio.play();
@@ -233,30 +236,30 @@
                         audioPlayer.classList.remove('playing'); // Remove fire effect
                     }
                 });
-
-                // Update seek bar and time as audio plays
+                
+                // Update seek bar and time display
                 audio.addEventListener('timeupdate', () => {
-                    seekBar.value = audio.currentTime; 
-                    currentTimeEl.textContent = formatTime(audio.currentTime);
+                    if (audio.duration) {
+                        seekBar.value = (audio.currentTime / audio.duration) * 100;
+                        currentTimeEl.textContent = formatTime(audio.currentTime);
+                    }
                 });
-
-                // Set total duration when audio loads
+                
+                // Set duration when metadata loads
                 audio.addEventListener('loadedmetadata', () => {
                     durationEl.textContent = formatTime(audio.duration);
-                    seekBar.max = audio.duration; 
                     
-                    // Set up Media Session API for lock screen/control center display
+                    // Media Session API for lock screen controls
                     if ('mediaSession' in navigator) {
                         navigator.mediaSession.metadata = new MediaMetadata({
                             title: currentLesson.song_title,
                             artist: 'The Tenth Hour',
                             album: 'Hurst Class Study: Book of John',
-                            artwork: [
+                            artwork: currentLesson.image_url ? [
                                 { src: currentLesson.image_url, sizes: '512x512', type: 'image/jpeg' }
-                            ]
+                            ] : []
                         });
                         
-                        // Set up action handlers for media controls
                         navigator.mediaSession.setActionHandler('play', () => {
                             audio.play();
                             playIcon.style.display = 'none';
