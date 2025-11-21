@@ -1127,25 +1127,12 @@ a:has(.inline-logo):hover .inline-logo {
     
     /* Subtle glow animation */
     animation: subtleGlow 5s ease-in-out infinite;
-    
-    /* Side-by-side layout matching songs page exactly */
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    gap: 2rem;
-    grid-template-areas:
-        "image title"
-        "image attribution"
-        "image player"
-        "image suno"
-        "lyrics lyrics";
-    align-items: start;
 }
 
-/* Song title - match songs page h1 style */
+/* Song title - centered */
 .song-section h2 {
-    grid-area: title;
-    text-align: left;
-    margin: 0 0 0.5rem 0;
+    text-align: center;
+    margin: 0 0 1.5rem 0;
     font-size: 1.6rem;
     color: #e8e4dc;
     font-family: Georgia, serif;
@@ -1158,18 +1145,8 @@ a:has(.inline-logo):hover .inline-logo {
 }
 
 /* Song attribution */
-.song-section .song-attribution {
-    grid-area: attribution;
-    text-align: left;
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    color: #d4a574;
-    font-style: italic;
-}
-
 /* Audio player - match songs page */
 .song-section .custom-audio-player {
-    grid-area: player;
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
@@ -1238,7 +1215,6 @@ a:has(.inline-logo):hover .inline-logo {
 
 /* Suno link */
 .song-section .suno-link {
-    grid-area: suno;
     text-align: left;
     margin: 0;
     font-size: 0.95rem;
@@ -1264,7 +1240,6 @@ a:has(.inline-logo):hover .inline-logo {
 
 /* Lyrics accordion within song section */
 .song-section .lyrics-accordion {
-    grid-area: lyrics;
     margin-top: 1.5rem;
     margin-bottom: 0;
 }
@@ -1884,20 +1859,6 @@ strong, b {
     .song-tie-in {
         padding: 2.5rem 0.5rem !important; /* Minimal side padding when closed */
         transition: all 0.3s ease;
-    }
-    
-    /* Song section - stack vertically on mobile */
-    .song-section {
-        grid-template-columns: 1fr;
-        grid-template-areas:
-            "title"
-            "attribution"
-            "image"
-            "player"
-            "suno"
-            "lyrics";
-        gap: 1rem;
-        padding: 1.5rem 1rem;
     }
     
     .song-section h2 {
