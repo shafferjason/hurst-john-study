@@ -1920,6 +1920,21 @@ strong, b {
         margin-left: 0 !important;
     }
     
+    /* MOBILE CLEANUP: Remove rotations and offsets for clean vertical stacking */
+    .lesson-item:nth-child(1),
+    .lesson-item:nth-child(2),
+    .lesson-item:nth-child(3),
+    .lesson-item:nth-child(4),
+    .lesson-item:nth-child(5),
+    .lesson-item:nth-child(n+6) {
+        transform: none !important; /* Remove all rotations and offsets */
+    }
+    
+    /* Tighter spacing between cards on mobile */
+    .lesson-item {
+        margin-bottom: 0.75rem;
+    }
+    
     /* Subtle pulse on mobile spine stitching */
     @keyframes mobilePulse {
         0%, 100% {
