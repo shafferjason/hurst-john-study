@@ -101,10 +101,8 @@
                     
                     <!-- Grid layout: image left, content right -->
                     <div class="song-content-grid">
-                        <!-- Image - left column -->
-                        ${currentLesson.image_url ? `
-                            <img src="${currentLesson.image_url}" alt="${currentLesson.song_title}" class="song-image">
-                        ` : ''}
+                        <!-- Image - left column (always present for grid layout) -->
+                        <img src="${currentLesson.image_url || ''}" alt="${currentLesson.song_title}" class="song-image" onerror="this.style.display='block'">
                         
                         <!-- Right column: player + lyrics wrapped together -->
                         <div class="song-right-column">

@@ -1448,9 +1448,19 @@ a:has(.inline-logo):hover .inline-logo {
 .song-image {
     width: 100%;
     height: auto;
+    min-height: 280px; /* Prevent collapse if image doesn't load */
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
     align-self: start;
+    background: rgba(0, 0, 0, 0.3); /* Fallback background if image missing */
+}
+
+/* If image doesn't load, show a placeholder */
+.song-image:not([src]),
+.song-image[src=""] {
+    display: block;
+    background: linear-gradient(135deg, rgba(42, 38, 33, 0.5) 0%, rgba(30, 28, 25, 0.5) 100%);
+    border: 1px solid rgba(212, 165, 116, 0.3);
 }
 
 /* Right column wrapper - contains player and lyrics */
