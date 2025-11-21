@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Music - Hurst Class Study</title>
-    <link rel="stylesheet" href="style.css?v=40">
+    <link rel="stylesheet" href="style.css?v=41">
     <style>
         /* Override container for two-column layout */
         body {
@@ -17,10 +17,6 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 10px 20px 5px 20px;
-        }
-        
-        .top-nav .back-link {
-            margin-bottom: 0.5rem;
         }
         
         .top-nav .lesson-header {
@@ -522,10 +518,22 @@
     </style>
 </head>
 <body>
-    <div class="top-nav">
-        <div class="back-link">
-            <a href="index.html">&larr; Back to All Lessons</a>
+    <!-- Sticky Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <div class="breadcrumb-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="separator">›</span>
+                <span class="current">The Music</span>
+            </div>
+            <a href="index.html" class="back-button">
+                <span class="back-arrow">←</span>
+                <span class="back-text">Back to All Lessons</span>
+            </a>
         </div>
+    </nav>
+
+    <div class="top-nav">
         
         <header class="lesson-header">
             <h1>THE MUSIC</h1>
@@ -569,42 +577,63 @@
                     </a>
                 </div>
                 
-                <div class="audio-player-main">
+                <!-- Card-Style Audio Player -->
+                <div class="card-audio-player" id="audio-player-card">
                     <audio id="main-audio"></audio>
                     
-                    <div class="player-controls-main">
-                        <button id="prev-btn" class="control-btn-main" aria-label="Previous Song">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
-                            </svg>
-                        </button>
+                    <div class="card-player-layout">
+                        <!-- Album Art -->
+                        <img 
+                            id="player-album-art"
+                            src="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23333%22/%3E%3C/svg%3E"
+                            alt="Album Art"
+                            class="card-player-album-art">
                         
-                        <button id="play-pause-btn" class="control-btn-main play-btn" aria-label="Play/Pause">
-                            <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                            <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
-                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                            </svg>
-                        </button>
-                        
-                        <button id="next-btn" class="control-btn-main" aria-label="Next Song">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
-                            </svg>
-                        </button>
-                        
-                        <button id="repeat-btn" class="control-btn-main" aria-label="Repeat All">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    
-                    <div class="progress-bar-container">
-                        <div id="current-time" class="time-display">0:00</div>
-                        <input type="range" id="seek-bar" class="seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
-                        <div id="duration" class="time-display">0:00</div>
+                        <!-- Controls Column -->
+                        <div class="card-player-controls">
+                            <!-- Song title -->
+                            <div class="card-player-song-title" id="player-song-title">Select a song</div>
+                            
+                            <!-- Main controls: prev/play/next/repeat + progress -->
+                            <div class="card-player-main-controls">
+                                <!-- Transport buttons -->
+                                <button id="prev-btn" class="card-player-btn" aria-label="Previous Song" style="width: 44px; height: 44px; min-width: 44px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                                    </svg>
+                                </button>
+                                
+                                <button id="play-pause-btn" class="card-player-btn" aria-label="Play/Pause">
+                                    <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
+                                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                    </svg>
+                                </button>
+                                
+                                <button id="next-btn" class="card-player-btn" aria-label="Next Song" style="width: 44px; height: 44px; min-width: 44px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                                    </svg>
+                                </button>
+                                
+                                <button id="repeat-btn" class="card-player-btn" aria-label="Repeat All" style="width: 44px; height: 44px; min-width: 44px;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                                        <path d="M7 7h10v3l4-4-4-4v3H5v6h2V7zm10 10H7v-3l-4 4 4 4v-3h12v-6h-2v4z"/>
+                                    </svg>
+                                </button>
+                                
+                                <!-- Progress wrapper -->
+                                <div class="card-progress-wrapper">
+                                    <div class="card-progress-bar-container">
+                                        <div id="current-time" class="card-time-display">0:00</div>
+                                        <input type="range" id="seek-bar" class="card-seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
+                                        <div id="duration" class="card-time-display">0:00</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -702,6 +731,17 @@
             songTitle.textContent = lesson.song_title;
             audio.src = lesson.audio_file;
             
+            // Update card player elements
+            const playerAlbumArt = document.getElementById('player-album-art');
+            const playerSongTitle = document.getElementById('player-song-title');
+            if (playerAlbumArt && lesson.image_url) {
+                playerAlbumArt.src = lesson.image_url;
+                playerAlbumArt.alt = lesson.song_title;
+            }
+            if (playerSongTitle) {
+                playerSongTitle.textContent = lesson.song_title;
+            }
+            
             // Set lesson link
             lessonLink.href = `lesson.html?id=${lesson.id}`;
             lessonLink.style.display = 'inline-flex';
@@ -735,6 +775,10 @@
             audio.play();
             playIcon.style.display = 'none';
             pauseIcon.style.display = 'inline-block';
+            
+            // Add playing class to card player
+            const playerCard = document.getElementById('audio-player-card');
+            if (playerCard) playerCard.classList.add('playing');
         }
         
         // Auto-load song if coming from a lesson page
@@ -748,14 +792,18 @@
         playPauseBtn.addEventListener('click', () => {
             if (currentSongIndex === -1) return;
             
+            const playerCard = document.getElementById('audio-player-card');
+            
             if (audio.paused) {
                 audio.play();
                 playIcon.style.display = 'none';
                 pauseIcon.style.display = 'inline-block';
+                if (playerCard) playerCard.classList.add('playing');
             } else {
                 audio.pause();
                 playIcon.style.display = 'inline-block';
                 pauseIcon.style.display = 'none';
+                if (playerCard) playerCard.classList.remove('playing');
             }
         });
         

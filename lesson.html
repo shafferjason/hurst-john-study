@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=40">
+    <link rel="stylesheet" href="style.css?v=41">
 </head>
 <body>
 
@@ -130,24 +130,39 @@
                         <!-- Right column: player + lyrics wrapped together -->
                         <div class="song-right-column">
                             ${currentLesson.audio_file ? `
-                                <!-- Audio Player -->
-                                <div class="simple-audio-player">
+                                <!-- Card-Style Audio Player -->
+                                <div class="card-audio-player" id="audio-player-card">
                                     <audio id="lesson-audio" src="${currentLesson.audio_file}"></audio>
                                     
-                                    <div class="simple-player-controls">
-                                        <button id="play-pause-btn" class="simple-player-btn" aria-label="Play/Pause">
-                                            <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                                                <path d="M8 5v14l11-7z"/>
-                                            </svg>
-                                            <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
-                                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                                            </svg>
-                                        </button>
+                                    <div class="card-player-layout">
+                                        <!-- Album Art -->
+                                        <img 
+                                            src="${currentLesson.image_url || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22120%22 height=%22120%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23333%22/%3E%3C/svg%3E'}" 
+                                            alt="${currentLesson.song_title}"
+                                            class="card-player-album-art">
                                         
-                                        <div class="simple-progress-wrapper">
-                                            <div id="current-time" class="simple-time-display">0:00</div>
-                                            <input type="range" id="seek-bar" class="simple-seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
-                                            <div id="duration" class="simple-time-display">0:00</div>
+                                        <!-- Controls Column -->
+                                        <div class="card-player-controls">
+                                            <!-- Main controls: play button + progress -->
+                                            <div class="card-player-main-controls">
+                                                <button id="play-pause-btn" class="card-player-btn" aria-label="Play/Pause">
+                                                    <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                                        <path d="M8 5v14l11-7z"/>
+                                                    </svg>
+                                                    <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
+                                                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                                    </svg>
+                                                </button>
+                                                
+                                                <!-- Progress wrapper -->
+                                                <div class="card-progress-wrapper">
+                                                    <div class="card-progress-bar-container">
+                                                        <div id="current-time" class="card-time-display">0:00</div>
+                                                        <input type="range" id="seek-bar" class="card-seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
+                                                        <div id="duration" class="card-time-display">0:00</div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -223,7 +238,7 @@
                 const seekBar = document.getElementById('seek-bar');
                 const currentTimeEl = document.getElementById('current-time');
                 const durationEl = document.getElementById('duration');
-                const audioPlayer = document.querySelector('.simple-audio-player');
+                const audioPlayer = document.querySelector('.card-audio-player');
                 
                 // Format time helper
                 function formatTime(seconds) {
