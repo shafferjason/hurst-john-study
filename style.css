@@ -1444,6 +1444,9 @@ a:has(.inline-logo):hover .inline-logo {
     align-items: start;
     position: relative;
     z-index: 1;
+    /* DEBUG: Add visible border to see grid boundaries */
+    border: 2px solid rgba(255, 0, 0, 0.3);
+    padding: 1rem;
 }
 
 /* Ensure grid children render properly */
@@ -1453,19 +1456,24 @@ a:has(.inline-logo):hover .inline-logo {
 
 /* Song image - left column */
 .song-image {
-    width: 100%;
-    height: auto;
-    min-height: 280px; /* Prevent collapse if image doesn't load */
+    width: 100% !important;
+    height: auto !important;
+    min-height: 280px !important; /* Prevent collapse if image doesn't load */
     border-radius: 12px;
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
     align-self: start;
     background: rgba(0, 0, 0, 0.3); /* Fallback background if image missing */
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    position: relative !important;
+    z-index: 10 !important;
 }
 
 /* If image doesn't load, show a placeholder */
 .song-image:not([src]),
 .song-image[src=""] {
-    display: block;
+    display: block !important;
     background: linear-gradient(135deg, rgba(42, 38, 33, 0.5) 0%, rgba(30, 28, 25, 0.5) 100%);
     border: 1px solid rgba(212, 165, 116, 0.3);
 }
@@ -2436,4 +2444,3 @@ details .divider-ornate {
 /* ===================================
    END OF STYLESHEET
    =================================== */
-
