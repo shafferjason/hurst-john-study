@@ -1442,6 +1442,13 @@ a:has(.inline-logo):hover .inline-logo {
     max-width: 700px;
     margin: 0 auto;
     align-items: start;
+    position: relative;
+    z-index: 1;
+}
+
+/* Ensure grid children render properly */
+.song-content-grid > * {
+    min-width: 0; /* Prevent overflow issues */
 }
 
 /* Song image - left column */

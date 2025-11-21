@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Test</title>
+    <style>
+        body {
+            background: #0f0f0f;
+            color: #d4d0c8;
+            padding: 20px;
+            font-family: Georgia, serif;
+        }
+        .test-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            max-width: 700px;
+            margin: 2rem auto;
+            background: rgba(255,0,0,0.1);
+            padding: 1rem;
+        }
+        .test-image {
+            width: 100%;
+            height: auto;
+            border: 2px solid lime;
+            background: rgba(0,255,0,0.1);
+        }
+        .test-content {
+            border: 2px solid cyan;
+            padding: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <h1>Image Path Test</h1>
+    
+    <h2>Test 1: Direct image paths from data.js</h2>
+    <div class="test-grid">
+        <img src="images/lesson-1.png" alt="Lesson 1" class="test-image">
+        <div class="test-content">If you see an image on the left, the path is correct!</div>
+    </div>
+
+    <div class="test-grid">
+        <img src="images/lesson-2.png" alt="Lesson 2" class="test-image">
+        <div class="test-content">Lesson 2 image test</div>
+    </div>
+
+    <h2>Test 2: Check if image loads at all</h2>
+    <img src="images/lesson-1.png" alt="Direct test" style="max-width: 280px; border: 2px solid yellow;">
+
+    <h2>Debug Info</h2>
+    <p>Current page URL: <span id="url"></span></p>
+    <p>Image path would resolve to: <span id="resolved"></span></p>
+
+    <script>
+        document.getElementById('url').textContent = window.location.href;
+        const img = document.createElement('a');
+        img.href = 'images/lesson-1.png';
+        document.getElementById('resolved').textContent = img.href;
+
+        // Check all images
+        document.querySelectorAll('img').forEach((img, i) => {
+            img.addEventListener('load', () => {
+                console.log(`Image ${i+1} loaded successfully:`, img.src);
+            });
+            img.addEventListener('error', () => {
+                console.error(`Image ${i+1} FAILED to load:`, img.src);
+            });
+        });
+    </script>
+</body>
+</html>
