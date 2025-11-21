@@ -968,32 +968,135 @@ header {
    LESSON PAGE
    =================================== */
 
-.back-link {
-    margin-bottom: 2.5rem;
+/* ===================================
+   STICKY BREADCRUMB NAVIGATION
+   =================================== */
+
+.breadcrumb-nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background: linear-gradient(180deg, 
+        rgba(15, 15, 15, 0.98) 0%,
+        rgba(15, 15, 15, 0.95) 85%,
+        rgba(15, 15, 15, 0) 100%
+    );
+    backdrop-filter: blur(8px);
+    padding: 1rem 0 1.5rem 0;
+    border-bottom: 1px solid rgba(212, 165, 116, 0.15);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
 }
 
-.back-link a {
-    display: inline-block;
-    padding: 0.5rem 0;
-    color: #8a8577;
+.breadcrumb-container {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.85rem;
+    color: #a8a49b;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.breadcrumb a {
+    color: #c9a47a;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid transparent;
+    text-shadow: 0 0 6px rgba(201, 164, 122, 0.2);
+}
+
+.breadcrumb a:hover {
+    color: #f0d4a8;
+    border-bottom-color: #c9a47a;
+    text-shadow: 0 0 10px rgba(240, 212, 168, 0.4);
+}
+
+.breadcrumb .separator {
+    opacity: 0.5;
+    margin: 0 0.25rem;
+}
+
+.breadcrumb .current {
+    color: #e0ddd5;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+}
+
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background: linear-gradient(135deg, rgba(42, 38, 33, 0.8) 0%, rgba(30, 28, 25, 0.85) 100%);
+    border: 1px solid rgba(212, 165, 116, 0.3);
+    border-radius: 6px;
+    color: #c9a47a;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-weight: 500;
     font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 0.08em;
-    border-bottom: 1px solid transparent;
-    transition: all 0.25s ease;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 2px 6px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
 }
 
-.back-link a:hover {
-    color: #c9a47a; /* Warm amber/gold */
-    border-bottom-color: #c9a47a;
-    transform: translateX(-4px);
+.back-button:hover {
+    background: linear-gradient(135deg, rgba(52, 48, 43, 0.9) 0%, rgba(40, 38, 35, 0.95) 100%);
+    border-color: rgba(240, 212, 168, 0.5);
+    color: #f0d4a8;
+    transform: translateX(-3px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 4px 12px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(212, 165, 116, 0.2);
 }
 
-.back-link a::before {
-    content: "←  ";
-    margin-right: 0.4rem;
+.back-arrow {
+    font-size: 1.1rem;
+    line-height: 1;
+}
+
+.back-text {
+    line-height: 1;
+}
+
+/* Mobile: Hide button text, show only arrow */
+@media (max-width: 600px) {
+    .breadcrumb .current {
+        max-width: 150px;
+    }
+    
+    .back-text {
+        display: none;
+    }
+    
+    .back-button {
+        padding: 0.5rem 0.75rem;
+        min-width: 44px;
+        justify-content: center;
+    }
+    
+    .back-arrow {
+        margin: 0;
+    }
 }
 
 .lesson-header {

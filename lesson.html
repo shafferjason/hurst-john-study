@@ -5,14 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=38">
+    <link rel="stylesheet" href="style.css?v=39">
 </head>
 <body>
 
-    <div class="container">
-        <div class="back-link">
-            <a href="index.html">&larr; Back to All Lessons</a>
+    <!-- Sticky Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <div class="breadcrumb-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="separator">›</span>
+                <span class="current" id="breadcrumb-current">Lesson</span>
+            </div>
+            <a href="index.html" class="back-button">
+                <span class="back-arrow">←</span>
+                <span class="back-text">Back to All Lessons</span>
+            </a>
         </div>
+    </nav>
+
+    <div class="container">
 
         <article id="lesson-content">
         </article>
@@ -44,6 +56,12 @@
         } else {
             // Update page title
             document.title = currentLesson.title + ' - Hurst Class Study';
+            
+            // Update breadcrumb
+            const breadcrumbCurrent = document.getElementById('breadcrumb-current');
+            if (breadcrumbCurrent) {
+                breadcrumbCurrent.textContent = currentLesson.title;
+            }
 
             // Extract lyrics preview (first 4 lines)
             let lyricsPreview = '';
