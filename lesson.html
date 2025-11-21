@@ -157,6 +157,13 @@
                             ` : ''}
                         </div>
                     </div>
+                    
+                    <!-- Suno link - centered below grid -->
+                    ${currentLesson.suno_link ? `
+                        <p class="suno-link">
+                            Can't play? <a href="${currentLesson.suno_link}" target="_blank" rel="noopener noreferrer">Listen on Suno →</a>
+                        </p>
+                    ` : ''}
                 </section>
             `;
 

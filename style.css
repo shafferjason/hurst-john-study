@@ -1215,8 +1215,8 @@ a:has(.inline-logo):hover .inline-logo {
 
 /* Suno link */
 .song-section .suno-link {
-    text-align: left;
-    margin: 0;
+    text-align: center;
+    margin: 2rem 0 0 0;
     font-size: 0.95rem;
     color: #a8a49b;
 }
@@ -1385,7 +1385,7 @@ a:has(.inline-logo):hover .inline-logo {
 }
 
 .song-logo {
-    max-width: 240px;
+    max-width: 180px;
     width: 100%;
     height: auto;
     display: block;
@@ -2393,3 +2393,4 @@ details .divider-ornate {
 /* ===================================
    END OF STYLESHEET
    =================================== */
+
