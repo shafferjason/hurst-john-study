@@ -2905,6 +2905,34 @@ details .divider-ornate {
         0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
+/* Brass progress fill */
+.simple-seek-bar::-webkit-slider-runnable-track {
+    background: 
+        linear-gradient(90deg,
+            rgba(212, 165, 116, 0.5) 0%,
+            rgba(180, 140, 95, 0.4) 50%,
+            rgba(140, 110, 75, 0.3) 100%
+        );
+}
+
+.simple-seek-bar::-moz-range-track {
+    background: 
+        linear-gradient(90deg,
+            rgba(212, 165, 116, 0.5) 0%,
+            rgba(180, 140, 95, 0.4) 50%,
+            rgba(140, 110, 75, 0.3) 100%
+        );
+}
+
+/* Progress wrapper - HORIZONTAL layout */
+.simple-progress-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.75rem;
+}
+
 /* Brass slider thumb - polished knob */
 .simple-seek-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
@@ -3155,6 +3183,25 @@ details .divider-ornate {
         inset 0 2px 6px rgba(0, 0, 0, 0.6),
         inset 0 1px 3px rgba(0, 0, 0, 0.8),
         0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Brass progress fill for songs player */
+.seek-bar::-webkit-slider-runnable-track {
+    background: 
+        linear-gradient(90deg,
+            rgba(212, 165, 116, 0.5) 0%,
+            rgba(180, 140, 95, 0.4) 50%,
+            rgba(140, 110, 75, 0.3) 100%
+        );
+}
+
+.seek-bar::-moz-range-track {
+    background: 
+        linear-gradient(90deg,
+            rgba(212, 165, 116, 0.5) 0%,
+            rgba(180, 140, 95, 0.4) 50%,
+            rgba(140, 110, 75, 0.3) 100%
+        );
 }
 
 .seek-bar::-webkit-slider-thumb {
