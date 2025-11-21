@@ -2698,267 +2698,555 @@ details .divider-ornate {
 }
 
 /* ===================================
-   THEMED AUDIO PLAYERS (Leather Journal Aesthetic)
+   THEATRICAL VINTAGE BRASS AUDIO PLAYERS
    =================================== */
 
-/* Simple player - Lesson pages */
+/* Simple player - Lesson pages - Vintage brass equipment */
 .simple-audio-player {
     background: 
+        /* Brass plate texture */
         repeating-linear-gradient(
             90deg,
-            rgba(42, 38, 33, 0.4) 0px,
-            rgba(35, 32, 28, 0.3) 0.5px,
+            rgba(42, 38, 33, 0.5) 0px,
+            rgba(35, 32, 28, 0.4) 0.5px,
             transparent 1px,
-            transparent 3px
+            transparent 2px
         ),
-        linear-gradient(135deg, rgba(42, 38, 33, 0.7) 0%, rgba(30, 28, 25, 0.8) 100%);
-    border: 1px solid rgba(212, 165, 116, 0.4);
-    border-left: 3px solid rgba(212, 165, 116, 0.5);
-    border-radius: 8px;
-    padding: 1rem 1.25rem;
+        repeating-linear-gradient(
+            0deg,
+            rgba(42, 38, 33, 0.3) 0px,
+            rgba(35, 32, 28, 0.2) 0.5px,
+            transparent 1px,
+            transparent 2px
+        ),
+        /* Rich brass gradient */
+        radial-gradient(ellipse at 30% 30%, rgba(180, 140, 95, 0.15) 0%, transparent 50%),
+        linear-gradient(145deg, rgba(60, 52, 42, 0.9) 0%, rgba(35, 30, 25, 0.95) 100%);
+    
+    border: 3px solid;
+    border-color: 
+        rgba(140, 110, 75, 0.6) 
+        rgba(100, 80, 55, 0.5) 
+        rgba(80, 65, 45, 0.4) 
+        rgba(120, 95, 65, 0.55);
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.05),
-        inset 3px 0 8px rgba(0, 0, 0, 0.3),
-        0 3px 10px rgba(0, 0, 0, 0.4);
+        /* Outer glow */
+        0 8px 32px rgba(0, 0, 0, 0.6),
+        0 4px 16px rgba(0, 0, 0, 0.5),
+        /* Brass highlights */
+        inset 0 2px 4px rgba(212, 165, 116, 0.15),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+        /* Top highlight */
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
     position: relative;
 }
 
-.simple-audio-player::before {
+/* Ornate corner brackets */
+.simple-audio-player::before,
+.simple-audio-player::after {
     content: '';
     position: absolute;
-    top: 8px;
-    left: 8px;
-    right: 8px;
-    bottom: 8px;
-    border: 1px solid rgba(212, 165, 116, 0.15);
-    border-radius: 6px;
-    pointer-events: none;
+    width: 40px;
+    height: 40px;
+    border: 2px solid rgba(212, 165, 116, 0.4);
+}
+
+.simple-audio-player::before {
+    top: 12px;
+    left: 12px;
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+}
+
+.simple-audio-player::after {
+    bottom: 12px;
+    right: 12px;
+    border-left: none;
+    border-top: none;
+    border-bottom-right-radius: 8px;
 }
 
 .simple-audio-player.playing {
-    border-left-color: rgba(240, 212, 168, 0.7);
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.08),
-        inset 3px 0 12px rgba(0, 0, 0, 0.4),
-        0 3px 10px rgba(0, 0, 0, 0.4),
-        0 0 25px rgba(212, 165, 116, 0.25);
-    animation: gentleGlow 4s ease-in-out infinite;
+        0 8px 32px rgba(0, 0, 0, 0.6),
+        0 4px 16px rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px rgba(240, 212, 168, 0.25),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.15),
+        /* Golden glow */
+        0 0 40px rgba(212, 165, 116, 0.3),
+        inset 0 0 30px rgba(240, 212, 168, 0.1);
+    
+    animation: brassGlow 4s ease-in-out infinite;
 }
 
-@keyframes gentleGlow {
+@keyframes brassGlow {
     0%, 100% {
-        border-left-color: rgba(212, 165, 116, 0.5);
-        box-shadow: 
-            inset 0 1px 0 rgba(255, 255, 255, 0.05),
-            inset 3px 0 8px rgba(0, 0, 0, 0.3),
-            0 3px 10px rgba(0, 0, 0, 0.4),
-            0 0 20px rgba(212, 165, 116, 0.2);
+        border-color: 
+            rgba(140, 110, 75, 0.6) 
+            rgba(100, 80, 55, 0.5) 
+            rgba(80, 65, 45, 0.4) 
+            rgba(120, 95, 65, 0.55);
     }
     50% {
-        border-left-color: rgba(240, 212, 168, 0.7);
-        box-shadow: 
-            inset 0 1px 0 rgba(255, 255, 255, 0.08),
-            inset 3px 0 12px rgba(0, 0, 0, 0.4),
-            0 3px 10px rgba(0, 0, 0, 0.4),
-            0 0 30px rgba(240, 212, 168, 0.35);
+        border-color: 
+            rgba(180, 145, 100, 0.75) 
+            rgba(140, 110, 75, 0.65) 
+            rgba(120, 95, 65, 0.55) 
+            rgba(160, 130, 90, 0.7);
     }
 }
 
+/* Vintage brass play button */
 .simple-player-btn {
-    width: 52px;
-    height: 52px;
-    background: linear-gradient(135deg, rgba(212, 165, 116, 0.15) 0%, rgba(180, 140, 95, 0.1) 100%);
-    border: 2px solid rgba(212, 165, 116, 0.5);
+    width: 64px;
+    height: 64px;
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(240, 212, 168, 0.3) 0%, rgba(180, 140, 95, 0.2) 50%, rgba(120, 90, 60, 0.1) 100%),
+        linear-gradient(145deg, rgba(212, 165, 116, 0.4) 0%, rgba(160, 125, 85, 0.3) 100%);
+    
+    border: 3px solid;
+    border-color: 
+        rgba(240, 212, 168, 0.6) 
+        rgba(180, 140, 95, 0.5) 
+        rgba(140, 110, 75, 0.4) 
+        rgba(200, 160, 110, 0.55);
+    
+    border-radius: 50%;
+    
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 2px 6px rgba(0, 0, 0, 0.4);
+        /* Raised effect */
+        0 6px 16px rgba(0, 0, 0, 0.6),
+        0 3px 8px rgba(0, 0, 0, 0.4),
+        /* Inner brass glow */
+        inset 0 2px 4px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.simple-player-btn::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 .simple-player-btn:hover {
-    border-color: rgba(240, 212, 168, 0.7);
-    background: linear-gradient(135deg, rgba(212, 165, 116, 0.25) 0%, rgba(180, 140, 95, 0.2) 100%);
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(240, 212, 168, 0.4) 0%, rgba(180, 140, 95, 0.3) 50%, rgba(120, 90, 60, 0.2) 100%),
+        linear-gradient(145deg, rgba(240, 212, 168, 0.5) 0%, rgba(180, 140, 95, 0.4) 100%);
+    
+    border-color: 
+        rgba(255, 230, 190, 0.75) 
+        rgba(220, 180, 130, 0.65) 
+        rgba(180, 140, 95, 0.55) 
+        rgba(240, 200, 140, 0.7);
+    
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.15),
-        0 2px 8px rgba(0, 0, 0, 0.5),
-        0 0 20px rgba(212, 165, 116, 0.3);
-    transform: scale(1.05);
+        0 8px 20px rgba(0, 0, 0, 0.7),
+        0 4px 12px rgba(0, 0, 0, 0.5),
+        inset 0 2px 6px rgba(255, 255, 255, 0.25),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(240, 212, 168, 0.4);
+    
+    transform: translateY(-2px);
+}
+
+.simple-player-btn:active {
+    transform: translateY(0px) scale(0.97);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.6),
+        0 2px 6px rgba(0, 0, 0, 0.4),
+        inset 0 1px 3px rgba(0, 0, 0, 0.4),
+        inset 0 -1px 2px rgba(255, 255, 255, 0.15);
 }
 
 .simple-player-btn svg {
-    width: 24px;
-    height: 24px;
-    fill: #f0d4a8;
-    filter: drop-shadow(0 0 4px rgba(240, 212, 168, 0.3));
+    width: 28px;
+    height: 28px;
+    fill: #fff5e6;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
+/* Vintage brass slider track */
 .simple-seek-bar {
-    height: 5px;
+    height: 8px;
     background: 
-        linear-gradient(90deg, 
-            rgba(212, 165, 116, 0.2) 0%, 
-            rgba(0, 0, 0, 0.6) 100%
+        linear-gradient(180deg, 
+            rgba(40, 35, 28, 0.8) 0%,
+            rgba(25, 22, 18, 0.9) 50%,
+            rgba(40, 35, 28, 0.8) 100%
         );
-    border: 1px solid rgba(212, 165, 116, 0.2);
+    
+    border: 2px solid;
+    border-color: 
+        rgba(100, 80, 55, 0.6)
+        rgba(80, 65, 45, 0.5)
+        rgba(60, 50, 35, 0.4)
+        rgba(90, 70, 50, 0.55);
+    
+    border-radius: 4px;
+    
+    box-shadow: 
+        inset 0 2px 6px rgba(0, 0, 0, 0.6),
+        inset 0 1px 3px rgba(0, 0, 0, 0.8),
+        0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
+/* Brass slider thumb - polished knob */
 .simple-seek-bar::-webkit-slider-thumb {
-    width: 16px;
-    height: 16px;
-    background: linear-gradient(135deg, #f0d4a8 0%, #d4a574 100%);
-    border: 2px solid rgba(42, 38, 33, 0.6);
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    
+    background: 
+        radial-gradient(circle at 35% 35%, rgba(255, 240, 210, 0.9) 0%, rgba(212, 165, 116, 0.9) 45%, rgba(160, 125, 85, 0.85) 100%);
+    
+    border: 3px solid;
+    border-color: 
+        rgba(255, 240, 210, 0.8)
+        rgba(200, 160, 110, 0.6)
+        rgba(140, 110, 75, 0.5)
+        rgba(220, 180, 130, 0.7);
+    
+    border-radius: 50%;
+    cursor: pointer;
+    
     box-shadow: 
+        /* Raised knob */
+        0 4px 12px rgba(0, 0, 0, 0.7),
         0 2px 6px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        /* Polished brass highlight */
+        inset 0 2px 4px rgba(255, 255, 255, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+        /* Inner ring detail */
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    
+    transition: all 0.2s ease;
 }
 
 .simple-seek-bar::-webkit-slider-thumb:hover {
-    background: #f0d4a8;
+    background: 
+        radial-gradient(circle at 35% 35%, rgba(255, 250, 220, 1) 0%, rgba(240, 212, 168, 1) 45%, rgba(200, 160, 110, 0.95) 100%);
+    
     box-shadow: 
-        0 2px 8px rgba(0, 0, 0, 0.6),
-        0 0 12px rgba(240, 212, 168, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        0 6px 16px rgba(0, 0, 0, 0.8),
+        0 3px 8px rgba(0, 0, 0, 0.6),
+        inset 0 2px 6px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(240, 212, 168, 0.6);
+    
     transform: scale(1.15);
 }
 
 .simple-seek-bar::-moz-range-thumb {
-    width: 16px;
-    height: 16px;
-    background: linear-gradient(135deg, #f0d4a8 0%, #d4a574 100%);
-    border: 2px solid rgba(42, 38, 33, 0.6);
+    width: 22px;
+    height: 22px;
+    
+    background: 
+        radial-gradient(circle at 35% 35%, rgba(255, 240, 210, 0.9) 0%, rgba(212, 165, 116, 0.9) 45%, rgba(160, 125, 85, 0.85) 100%);
+    
+    border: 3px solid;
+    border-color: 
+        rgba(255, 240, 210, 0.8)
+        rgba(200, 160, 110, 0.6)
+        rgba(140, 110, 75, 0.5)
+        rgba(220, 180, 130, 0.7);
+    
+    border-radius: 50%;
+    cursor: pointer;
+    
     box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.7),
         0 2px 6px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        inset 0 2px 4px rgba(255, 255, 255, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    
+    transition: all 0.2s ease;
 }
 
 .simple-seek-bar::-moz-range-thumb:hover {
-    background: #f0d4a8;
+    background: 
+        radial-gradient(circle at 35% 35%, rgba(255, 250, 220, 1) 0%, rgba(240, 212, 168, 1) 45%, rgba(200, 160, 110, 0.95) 100%);
+    
     box-shadow: 
-        0 2px 8px rgba(0, 0, 0, 0.6),
-        0 0 12px rgba(240, 212, 168, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        0 6px 16px rgba(0, 0, 0, 0.8),
+        0 3px 8px rgba(0, 0, 0, 0.6),
+        inset 0 2px 6px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(240, 212, 168, 0.6);
 }
 
+/* Vintage brass time displays */
 .simple-time-display {
-    color: #c9a47a;
-    text-shadow: 0 0 8px rgba(201, 164, 122, 0.3);
-    font-weight: 500;
+    color: #f0d4a8;
+    font-family: 'Courier New', 'Courier', monospace;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-shadow: 
+        0 2px 6px rgba(0, 0, 0, 0.8),
+        0 0 12px rgba(240, 212, 168, 0.4),
+        0 1px 0 rgba(0, 0, 0, 0.9);
+    letter-spacing: 0.1em;
 }
 
-/* Songs page player - Enhanced leather journal style */
+/* Songs page player - Same theatrical brass treatment */
 .audio-player-main {
     background: 
         repeating-linear-gradient(
             90deg,
-            rgba(42, 38, 33, 0.4) 0px,
-            rgba(35, 32, 28, 0.3) 0.5px,
+            rgba(42, 38, 33, 0.5) 0px,
+            rgba(35, 32, 28, 0.4) 0.5px,
             transparent 1px,
-            transparent 3px
+            transparent 2px
         ),
-        linear-gradient(135deg, rgba(42, 38, 33, 0.7) 0%, rgba(30, 28, 25, 0.8) 100%);
-    border: 1px solid rgba(212, 165, 116, 0.4);
-    border-left: 3px solid rgba(212, 165, 116, 0.5);
-    border-radius: 10px;
-    padding: 1.5rem;
+        repeating-linear-gradient(
+            0deg,
+            rgba(42, 38, 33, 0.3) 0px,
+            rgba(35, 32, 28, 0.2) 0.5px,
+            transparent 1px,
+            transparent 2px
+        ),
+        radial-gradient(ellipse at 30% 30%, rgba(180, 140, 95, 0.15) 0%, transparent 50%),
+        linear-gradient(145deg, rgba(60, 52, 42, 0.9) 0%, rgba(35, 30, 25, 0.95) 100%);
+    
+    border: 3px solid;
+    border-color: 
+        rgba(140, 110, 75, 0.6) 
+        rgba(100, 80, 55, 0.5) 
+        rgba(80, 65, 45, 0.4) 
+        rgba(120, 95, 65, 0.55);
+    border-radius: 16px;
+    padding: 2rem 2.25rem;
+    
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.05),
-        inset 3px 0 10px rgba(0, 0, 0, 0.3),
-        0 4px 12px rgba(0, 0, 0, 0.4);
+        0 8px 32px rgba(0, 0, 0, 0.6),
+        0 4px 16px rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px rgba(212, 165, 116, 0.15),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    
     position: relative;
 }
 
-.audio-player-main::before {
+.audio-player-main::before,
+.audio-player-main::after {
     content: '';
     position: absolute;
-    top: 10px;
-    left: 10px;
-    right: 10px;
-    bottom: 10px;
-    border: 1px solid rgba(212, 165, 116, 0.15);
-    border-radius: 8px;
-    pointer-events: none;
+    width: 45px;
+    height: 45px;
+    border: 2px solid rgba(212, 165, 116, 0.4);
+}
+
+.audio-player-main::before {
+    top: 14px;
+    left: 14px;
+    border-right: none;
+    border-bottom: none;
+    border-top-left-radius: 8px;
+}
+
+.audio-player-main::after {
+    bottom: 14px;
+    right: 14px;
+    border-left: none;
+    border-top: none;
+    border-bottom-right-radius: 8px;
 }
 
 .control-btn-main {
-    background: linear-gradient(135deg, rgba(212, 165, 116, 0.15) 0%, rgba(180, 140, 95, 0.1) 100%);
-    border: 2px solid rgba(212, 165, 116, 0.5);
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(240, 212, 168, 0.3) 0%, rgba(180, 140, 95, 0.2) 50%, rgba(120, 90, 60, 0.1) 100%),
+        linear-gradient(145deg, rgba(212, 165, 116, 0.4) 0%, rgba(160, 125, 85, 0.3) 100%);
+    
+    border: 3px solid;
+    border-color: 
+        rgba(240, 212, 168, 0.6) 
+        rgba(180, 140, 95, 0.5) 
+        rgba(140, 110, 75, 0.4) 
+        rgba(200, 160, 110, 0.55);
+    
+    border-radius: 50%;
+    
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.1),
-        0 2px 6px rgba(0, 0, 0, 0.4);
+        0 6px 16px rgba(0, 0, 0, 0.6),
+        0 3px 8px rgba(0, 0, 0, 0.4),
+        inset 0 2px 4px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    
+    position: relative;
+}
+
+.control-btn-main::before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    pointer-events: none;
 }
 
 .control-btn-main:hover {
-    border-color: rgba(240, 212, 168, 0.7);
-    background: linear-gradient(135deg, rgba(212, 165, 116, 0.25) 0%, rgba(180, 140, 95, 0.2) 100%);
+    background: 
+        radial-gradient(circle at 30% 30%, rgba(240, 212, 168, 0.4) 0%, rgba(180, 140, 95, 0.3) 50%, rgba(120, 90, 60, 0.2) 100%),
+        linear-gradient(145deg, rgba(240, 212, 168, 0.5) 0%, rgba(180, 140, 95, 0.4) 100%);
+    
+    border-color: 
+        rgba(255, 230, 190, 0.75) 
+        rgba(220, 180, 130, 0.65) 
+        rgba(180, 140, 95, 0.55) 
+        rgba(240, 200, 140, 0.7);
+    
     box-shadow: 
-        inset 0 1px 0 rgba(255, 255, 255, 0.15),
-        0 2px 8px rgba(0, 0, 0, 0.5),
-        0 0 20px rgba(212, 165, 116, 0.3);
-    transform: scale(1.05);
+        0 8px 20px rgba(0, 0, 0, 0.7),
+        0 4px 12px rgba(0, 0, 0, 0.5),
+        inset 0 2px 6px rgba(255, 255, 255, 0.25),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.3),
+        0 0 30px rgba(240, 212, 168, 0.4);
+    
+    transform: translateY(-2px);
 }
 
 .control-btn-main.play-btn {
-    width: 68px;
-    height: 68px;
-    border-width: 3px;
+    width: 76px;
+    height: 76px;
+    border-width: 4px;
 }
 
 .control-btn-main svg {
-    fill: #f0d4a8;
-    filter: drop-shadow(0 0 4px rgba(240, 212, 168, 0.3));
+    fill: #fff5e6;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.5));
 }
 
 .seek-bar {
-    height: 6px;
+    height: 8px;
     background: 
-        linear-gradient(90deg, 
-            rgba(212, 165, 116, 0.3) 0%, 
-            rgba(0, 0, 0, 0.6) 100%
+        linear-gradient(180deg, 
+            rgba(40, 35, 28, 0.8) 0%,
+            rgba(25, 22, 18, 0.9) 50%,
+            rgba(40, 35, 28, 0.8) 100%
         );
-    border: 1px solid rgba(212, 165, 116, 0.25);
-    border-radius: 3px;
+    
+    border: 2px solid;
+    border-color: 
+        rgba(100, 80, 55, 0.6)
+        rgba(80, 65, 45, 0.5)
+        rgba(60, 50, 35, 0.4)
+        rgba(90, 70, 50, 0.55);
+    
+    border-radius: 4px;
+    
+    box-shadow: 
+        inset 0 2px 6px rgba(0, 0, 0, 0.6),
+        inset 0 1px 3px rgba(0, 0, 0, 0.8),
+        0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .seek-bar::-webkit-slider-thumb {
-    width: 18px;
-    height: 18px;
-    background: linear-gradient(135deg, #f0d4a8 0%, #d4a574 100%);
-    border: 2px solid rgba(42, 38, 33, 0.6);
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    
+    background: 
+        radial-gradient(circle at 35% 35%, rgba(255, 240, 210, 0.9) 0%, rgba(212, 165, 116, 0.9) 45%, rgba(160, 125, 85, 0.85) 100%);
+    
+    border: 3px solid;
+    border-color: 
+        rgba(255, 240, 210, 0.8)
+        rgba(200, 160, 110, 0.6)
+        rgba(140, 110, 75, 0.5)
+        rgba(220, 180, 130, 0.7);
+    
+    border-radius: 50%;
+    cursor: pointer;
+    
     box-shadow: 
-        0 2px 8px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        0 4px 12px rgba(0, 0, 0, 0.7),
+        0 2px 6px rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px rgba(255, 255, 255, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    
+    transition: all 0.2s ease;
 }
 
 .seek-bar::-webkit-slider-thumb:hover {
-    background: #f0d4a8;
+    background: 
+        radial-gradient(circle at 35% 35%, rgba(255, 250, 220, 1) 0%, rgba(240, 212, 168, 1) 45%, rgba(200, 160, 110, 0.95) 100%);
+    
     box-shadow: 
-        0 3px 10px rgba(0, 0, 0, 0.6),
-        0 0 15px rgba(240, 212, 168, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
-    transform: scale(1.2);
+        0 6px 16px rgba(0, 0, 0, 0.8),
+        0 3px 8px rgba(0, 0, 0, 0.6),
+        inset 0 2px 6px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(240, 212, 168, 0.6);
+    
+    transform: scale(1.15);
 }
 
 .seek-bar::-moz-range-thumb {
-    width: 18px;
-    height: 18px;
-    background: linear-gradient(135deg, #f0d4a8 0%, #d4a574 100%);
-    border: 2px solid rgba(42, 38, 33, 0.6);
+    width: 24px;
+    height: 24px;
+    
+    background: 
+        radial-gradient(circle at 35% 35%, rgba(255, 240, 210, 0.9) 0%, rgba(212, 165, 116, 0.9) 45%, rgba(160, 125, 85, 0.85) 100%);
+    
+    border: 3px solid;
+    border-color: 
+        rgba(255, 240, 210, 0.8)
+        rgba(200, 160, 110, 0.6)
+        rgba(140, 110, 75, 0.5)
+        rgba(220, 180, 130, 0.7);
+    
+    border-radius: 50%;
+    cursor: pointer;
+    
     box-shadow: 
-        0 2px 8px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        0 4px 12px rgba(0, 0, 0, 0.7),
+        0 2px 6px rgba(0, 0, 0, 0.5),
+        inset 0 2px 4px rgba(255, 255, 255, 0.4),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+    
+    transition: all 0.2s ease;
 }
 
 .seek-bar::-moz-range-thumb:hover {
-    background: #f0d4a8;
+    background: 
+        radial-gradient(circle at 35% 35%, rgba(255, 250, 220, 1) 0%, rgba(240, 212, 168, 1) 45%, rgba(200, 160, 110, 0.95) 100%);
+    
     box-shadow: 
-        0 3px 10px rgba(0, 0, 0, 0.6),
-        0 0 15px rgba(240, 212, 168, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+        0 6px 16px rgba(0, 0, 0, 0.8),
+        0 3px 8px rgba(0, 0, 0, 0.6),
+        inset 0 2px 6px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 6px rgba(0, 0, 0, 0.3),
+        0 0 20px rgba(240, 212, 168, 0.6);
 }
 
 .time-display {
-    color: #c9a47a;
-    text-shadow: 0 0 8px rgba(201, 164, 122, 0.3);
-    font-weight: 500;
+    color: #f0d4a8;
+    font-family: 'Courier New', 'Courier', monospace;
+    font-size: 1.05rem;
+    font-weight: 600;
+    text-shadow: 
+        0 2px 6px rgba(0, 0, 0, 0.8),
+        0 0 12px rgba(240, 212, 168, 0.4),
+        0 1px 0 rgba(0, 0, 0, 0.9);
+    letter-spacing: 0.1em;
 }
 
 /* ===================================
