@@ -581,28 +581,28 @@ header {
 }
 
 .lesson-item {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; /* Slightly more spacing for visible stacking */
     position: relative;
 }
 
-/* SUBTLE NATURAL STACKING - minimal offsets like stacked books */
+/* BOLD IRREGULAR STACKING - each journal randomly offset and rotated */
 .lesson-item:nth-child(1) { 
-    transform: translateX(-2px) rotate(-0.2deg);
+    transform: translateX(-8px) rotate(-0.8deg);
 }
 .lesson-item:nth-child(2) { 
-    transform: translateX(3px) rotate(0.15deg);
+    transform: translateX(12px) rotate(0.6deg);
 }
 .lesson-item:nth-child(3) { 
-    transform: translateX(-1px) rotate(-0.1deg);
+    transform: translateX(-5px) rotate(-0.4deg);
 }
 .lesson-item:nth-child(4) { 
-    transform: translateX(4px) rotate(0.2deg);
+    transform: translateX(15px) rotate(0.9deg);
 }
 .lesson-item:nth-child(5) { 
-    transform: translateX(-3px) rotate(-0.15deg);
+    transform: translateX(-10px) rotate(-0.7deg);
 }
 .lesson-item:nth-child(n+6) { 
-    transform: translateX(2px) rotate(0.1deg);
+    transform: translateX(8px) rotate(0.5deg);
 }
 
 .lesson-item a {
@@ -611,49 +611,116 @@ header {
     padding: 1.75rem 4rem;
     min-height: 120px;
     
-    /* SMOOTH MATTE LEATHER - aged Bible cover aesthetic */
+    /* Rich TEXTURED leather spine - BOLD VISIBLE GRAIN */
     background: 
-        /* Subtle aged patina - barely visible wear */
-        radial-gradient(ellipse at 30% 40%, rgba(62, 56, 48, 0.15) 0%, transparent 45%),
-        radial-gradient(ellipse at 75% 65%, rgba(58, 52, 44, 0.12) 0%, transparent 40%),
-        /* Very subtle grain texture */
+        /* VERY BOLD vertical grain - highly visible leather texture */
         repeating-linear-gradient(
             0deg,
-            transparent 0px,
-            rgba(50, 45, 40, 0.08) 1px,
-            transparent 2px,
-            transparent 8px
+            rgba(80, 72, 62, 0.8) 0px,
+            rgba(70, 65, 58, 0.6) 1px,
+            rgba(60, 55, 50, 0.5) 2px,
+            transparent 3px,
+            transparent 4px
         ),
-        /* Smooth natural lighting - lighter at edges, darker in center */
-        radial-gradient(ellipse at 50% 0%, rgba(68, 61, 52, 1) 0%, rgba(52, 47, 41, 1) 60%),
-        /* Base leather color */
+        /* Strong horizontal cross-grain - prominent basket weave */
+        repeating-linear-gradient(
+            90deg,
+            transparent 0px,
+            rgba(70, 62, 54, 0.5) 1px,
+            rgba(62, 56, 48, 0.4) 2px,
+            transparent 3px,
+            transparent 5px
+        ),
+        /* Visible pebbled leather bumps */
+        repeating-radial-gradient(
+            circle at 0 0,
+            transparent 0px,
+            rgba(75, 68, 58, 0.35) 2px,
+            transparent 3px,
+            transparent 6px
+        ),
+        /* VERY BOLD worn spots - highly visible use areas */
+        radial-gradient(ellipse at 20% 30%, rgba(90, 80, 68, 0.9) 0%, rgba(75, 68, 60, 0.4) 35%, transparent 50%),
+        radial-gradient(ellipse at 80% 70%, rgba(85, 75, 65, 0.85) 0%, rgba(72, 65, 57, 0.35) 32%, transparent 45%),
+        radial-gradient(ellipse at 50% 85%, rgba(82, 72, 62, 0.8) 0%, rgba(70, 63, 55, 0.3) 30%, transparent 40%),
+        radial-gradient(ellipse at 15% 65%, rgba(80, 70, 60, 0.75) 0%, rgba(68, 61, 53, 0.25) 28%, transparent 35%),
+        /* PROMINENT scuff marks and scratches */
+        linear-gradient(
+            95deg,
+            transparent 28%,
+            rgba(90, 82, 70, 0.6) 32%,
+            rgba(85, 78, 68, 0.5) 35%,
+            transparent 40%
+        ),
+        linear-gradient(
+            88deg,
+            transparent 58%,
+            rgba(88, 80, 68, 0.55) 61%,
+            rgba(82, 75, 65, 0.45) 64%,
+            transparent 68%
+        ),
+        /* Additional texture - leather creases */
+        linear-gradient(
+            92deg,
+            transparent 0%,
+            transparent 45%,
+            rgba(75, 68, 58, 0.3) 48%,
+            transparent 52%,
+            transparent 100%
+        ),
+        /* Strong lighting gradient - dramatic contrast */
         linear-gradient(180deg, 
-            rgba(58, 52, 45, 1) 0%,
-            rgba(48, 43, 37, 1) 100%
+            rgba(78, 70, 62, 1) 0%,
+            rgba(65, 58, 50, 1) 20%,
+            rgba(55, 50, 45, 1) 40%,
+            rgba(50, 46, 41, 1) 60%,
+            rgba(45, 41, 36, 1) 80%,
+            rgba(40, 36, 31, 1) 100%
         );
     
-    /* Soft rounded corners - well-loved book */
-    border-radius: 6px;
+    /* WORN ROUNDED CORNERS - like old books */
+    border-radius: 8px;
     
-    /* Subtle edge definition */
-    border-top: 1px solid rgba(180, 160, 130, 0.2);
-    border-bottom: 2px solid rgba(20, 18, 15, 0.6);
-    border-left: 1px solid rgba(30, 27, 23, 0.4);
-    border-right: 1px solid rgba(30, 27, 23, 0.4);
+    /* TOP EDGE - stronger light catch */
+    border-top: 3px solid rgba(240, 212, 168, 0.5);
     
-    /* REALISTIC STACKED DEPTH - elegant shadows */
+    /* BOTTOM EDGE - heavier contact shadow */
+    border-bottom: 4px solid rgba(12, 10, 8, 0.9);
+    
+    /* SIDE EDGES */
+    border-left: 1px solid rgba(35, 32, 28, 0.6);
+    border-right: 1px solid rgba(35, 32, 28, 0.6);
+    
+    /* MASSIVE 3D DEPTH - true stacked realism */
     box-shadow: 
-        /* Subtle top highlight */
-        inset 0 1px 0 rgba(200, 180, 150, 0.1),
-        /* Natural inner shadow */
-        inset 0 3px 8px rgba(0, 0, 0, 0.25),
-        inset 0 -2px 6px rgba(0, 0, 0, 0.2),
-        /* Stacking shadows - 3 layers only */
-        0 3px 0 rgba(40, 36, 31, 0.5),
-        0 6px 2px rgba(30, 27, 23, 0.4),
-        0 10px 8px rgba(20, 18, 15, 0.3),
-        /* Ambient shadow */
-        0 18px 25px rgba(0, 0, 0, 0.4);
+        /* TOP HIGHLIGHT - bright light */
+        inset 0 3px 0 rgba(255, 250, 230, 0.3),
+        inset 0 5px 8px rgba(255, 255, 255, 0.12),
+        
+        /* INNER VOLUME - deep recess */
+        inset 0 8px 20px rgba(0, 0, 0, 0.6),
+        inset 0 -4px 15px rgba(0, 0, 0, 0.5),
+        inset 3px 0 10px rgba(0, 0, 0, 0.4),
+        inset -3px 0 10px rgba(0, 0, 0, 0.4),
+        
+        /* MASSIVE STACKING SHADOWS - 10 layers for dramatic depth */
+        0 4px 0 rgba(45, 42, 38, 0.7),
+        0 8px 2px rgba(40, 37, 33, 0.65),
+        0 12px 3px rgba(35, 32, 28, 0.6),
+        0 16px 4px rgba(30, 27, 23, 0.55),
+        0 20px 6px rgba(25, 22, 18, 0.5),
+        0 25px 8px rgba(20, 18, 15, 0.45),
+        0 30px 10px rgba(15, 13, 10, 0.4),
+        0 36px 14px rgba(12, 10, 8, 0.35),
+        0 42px 18px rgba(8, 7, 5, 0.3),
+        0 50px 25px rgba(5, 4, 3, 0.25),
+        
+        /* AMBIENT OCCLUSION - deep darkness */
+        0 60px 50px rgba(0, 0, 0, 0.6),
+        
+        /* BOLD SIDE SHADOWS - strong 3D volume */
+        -4px 0 8px rgba(0, 0, 0, 0.4),
+        4px 0 8px rgba(0, 0, 0, 0.4);
     
     transition: all 0.3s ease;
     text-decoration: none;
