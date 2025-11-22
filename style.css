@@ -426,7 +426,6 @@ header {
     transform: rotate(90deg);
 }
 
-/* === SYNTAX ERROR FIXED HERE === */
 .accordion-content {
     /* TRUE OFF-WHITE aged vellum with MORE VISIBLE texture */
     background: 
@@ -549,8 +548,6 @@ header {
 .no-animate > * {
     animation: none !important;
 }
-/* === END FIX === */
-
 
 @keyframes fadeIn {
     from {
@@ -605,124 +602,61 @@ header {
     transform: translateX(8px) rotate(0.5deg);
 }
 
+/* HIGH-FIDELITY LEATHER SPINE - UPDATED V49 */
 .lesson-item a {
     display: block;
-    /* SPINE PROPORTIONS - wider than tall, like looking at book spine */
     padding: 1.75rem 4rem;
     min-height: 120px;
     
-    /* Rich TEXTURED leather spine - BOLD VISIBLE GRAIN */
-    background: 
-        /* VERY BOLD vertical grain - highly visible leather texture */
-        repeating-linear-gradient(
-            0deg,
-            rgba(80, 72, 62, 0.8) 0px,
-            rgba(70, 65, 58, 0.6) 1px,
-            rgba(60, 55, 50, 0.5) 2px,
-            transparent 3px,
+    /* BASE COLOR: Deep, rich brown */
+    background-color: #2a241d;
+    
+    /* COMPLEX LEATHER TEXTURE STACK */
+    background-image: 
+        /* 1. SPINAL CURVATURE (Lighting) - Gives it the round 3D shape */
+        linear-gradient(90deg, 
+            rgba(0,0,0, 0.8) 0%,      /* Deep hinge shadow */
+            rgba(255,255,255, 0.05) 15%, /* Subtle highlight on the curve */
+            rgba(255,255,255, 0.02) 25%,
+            transparent 40%,
+            rgba(0,0,0, 0.2) 100%     /* Shadow on edge */
+        ),
+        
+        /* 2. PEBBLED GRAIN TEXTURE - The "Bump Map" */
+        repeating-radial-gradient(
+            circle at 50% 50%, 
+            transparent 0, 
+            transparent 2px, 
+            rgba(0,0,0,0.2) 3px, 
             transparent 4px
         ),
-        /* Strong horizontal cross-grain - prominent basket weave */
-        repeating-linear-gradient(
-            90deg,
-            transparent 0px,
-            rgba(70, 62, 54, 0.5) 1px,
-            rgba(62, 56, 48, 0.4) 2px,
-            transparent 3px,
-            transparent 5px
-        ),
-        /* Visible pebbled leather bumps */
-        repeating-radial-gradient(
-            circle at 0 0,
-            transparent 0px,
-            rgba(75, 68, 58, 0.35) 2px,
-            transparent 3px,
-            transparent 6px
-        ),
-        /* VERY BOLD worn spots - highly visible use areas */
-        radial-gradient(ellipse at 20% 30%, rgba(90, 80, 68, 0.9) 0%, rgba(75, 68, 60, 0.4) 35%, transparent 50%),
-        radial-gradient(ellipse at 80% 70%, rgba(85, 75, 65, 0.85) 0%, rgba(72, 65, 57, 0.35) 32%, transparent 45%),
-        radial-gradient(ellipse at 50% 85%, rgba(82, 72, 62, 0.8) 0%, rgba(70, 63, 55, 0.3) 30%, transparent 40%),
-        radial-gradient(ellipse at 15% 65%, rgba(80, 70, 60, 0.75) 0%, rgba(68, 61, 53, 0.25) 28%, transparent 35%),
-        /* PROMINENT scuff marks and scratches */
-        linear-gradient(
-            95deg,
-            transparent 28%,
-            rgba(90, 82, 70, 0.6) 32%,
-            rgba(85, 78, 68, 0.5) 35%,
-            transparent 40%
-        ),
-        linear-gradient(
-            88deg,
-            transparent 58%,
-            rgba(88, 80, 68, 0.55) 61%,
-            rgba(82, 75, 65, 0.45) 64%,
-            transparent 68%
-        ),
-        /* Additional texture - leather creases */
-        linear-gradient(
-            92deg,
-            transparent 0%,
-            transparent 45%,
-            rgba(75, 68, 58, 0.3) 48%,
-            transparent 52%,
-            transparent 100%
-        ),
-        /* Strong lighting gradient - dramatic contrast */
-        linear-gradient(180deg, 
-            rgba(78, 70, 62, 1) 0%,
-            rgba(65, 58, 50, 1) 20%,
-            rgba(55, 50, 45, 1) 40%,
-            rgba(50, 46, 41, 1) 60%,
-            rgba(45, 41, 36, 1) 80%,
-            rgba(40, 36, 31, 1) 100%
-        );
+        
+        /* 3. FINE NOISE - Removes the "plastic" look */
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E"),
+        
+        /* 4. SCUFFS & WEAR - Organic color variation */
+        radial-gradient(circle at 80% 20%, rgba(212, 165, 116, 0.08) 0%, transparent 20%),
+        radial-gradient(circle at 20% 80%, rgba(212, 165, 116, 0.05) 0%, transparent 20%);
+
+    /* PHYSICAL PROPERTIES */
+    border-radius: 4px 8px 8px 4px; /* Sharper left (binding), rounder right (page edge) */
     
-    /* WORN ROUNDED CORNERS - like old books */
-    border-radius: 8px;
+    /* EDGING */
+    border-top: 1px solid rgba(255,255,255,0.15); /* Top highlight */
+    border-bottom: 1px solid rgba(0,0,0,0.8);     /* Bottom shadow */
+    border-left: 4px solid rgba(20, 15, 10, 0.8); /* The "binding" area */
     
-    /* TOP EDGE - stronger light catch */
-    border-top: 3px solid rgba(240, 212, 168, 0.5);
-    
-    /* BOTTOM EDGE - heavier contact shadow */
-    border-bottom: 4px solid rgba(12, 10, 8, 0.9);
-    
-    /* SIDE EDGES */
-    border-left: 1px solid rgba(35, 32, 28, 0.6);
-    border-right: 1px solid rgba(35, 32, 28, 0.6);
-    
-    /* MASSIVE 3D DEPTH - true stacked realism */
+    /* REALISTIC SHADOWING */
     box-shadow: 
-        /* TOP HIGHLIGHT - bright light */
-        inset 0 3px 0 rgba(255, 250, 230, 0.3),
-        inset 0 5px 8px rgba(255, 255, 255, 0.12),
+        /* Inner Bevel */
+        inset 2px 0 5px rgba(255,255,255,0.05),
+        inset -2px 0 5px rgba(0,0,0,0.5),
         
-        /* INNER VOLUME - deep recess */
-        inset 0 8px 20px rgba(0, 0, 0, 0.6),
-        inset 0 -4px 15px rgba(0, 0, 0, 0.5),
-        inset 3px 0 10px rgba(0, 0, 0, 0.4),
-        inset -3px 0 10px rgba(0, 0, 0, 0.4),
-        
-        /* MASSIVE STACKING SHADOWS - 10 layers for dramatic depth */
-        0 4px 0 rgba(45, 42, 38, 0.7),
-        0 8px 2px rgba(40, 37, 33, 0.65),
-        0 12px 3px rgba(35, 32, 28, 0.6),
-        0 16px 4px rgba(30, 27, 23, 0.55),
-        0 20px 6px rgba(25, 22, 18, 0.5),
-        0 25px 8px rgba(20, 18, 15, 0.45),
-        0 30px 10px rgba(15, 13, 10, 0.4),
-        0 36px 14px rgba(12, 10, 8, 0.35),
-        0 42px 18px rgba(8, 7, 5, 0.3),
-        0 50px 25px rgba(5, 4, 3, 0.25),
-        
-        /* AMBIENT OCCLUSION - deep darkness */
-        0 60px 50px rgba(0, 0, 0, 0.6),
-        
-        /* BOLD SIDE SHADOWS - strong 3D volume */
-        -4px 0 8px rgba(0, 0, 0, 0.4),
-        4px 0 8px rgba(0, 0, 0, 0.4);
-    
-    transition: all 0.3s ease;
+        /* Deep Ambient Occlusion (The gap between books) */
+        0 10px 20px -5px rgba(0,0,0,0.6),
+        0 2px 4px -1px rgba(0,0,0,0.4);
+            
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     text-decoration: none;
     position: relative;
     
@@ -747,7 +681,7 @@ header {
     box-sizing: border-box;
 }
 
-/* BRASS TITLE PLATE - embossed/stamped into spine */
+/* PHOTOREALISTIC BRASS INLAY - UPDATED V49 */
 .lesson-item a::before {
     content: '';
     position: absolute;
@@ -757,66 +691,44 @@ header {
     transform: translateY(-50%);
     height: 75px;
     
-    /* TEXTURED worn brass plate pressed into leather */
+    /* METALLIC BRASS GRADIENT - Not just yellow */
     background: 
-        /* Fine brass scratches - horizontal wear marks */
-        repeating-linear-gradient(
-            90deg,
-            transparent 0px,
-            rgba(180, 140, 95, 0.15) 1px,
-            transparent 2px,
-            transparent 8px
+        /* Tarnish/Patina spots */
+        radial-gradient(circle at 70% 20%, rgba(80, 60, 40, 0.4) 0%, transparent 30%),
+        radial-gradient(circle at 20% 80%, rgba(80, 60, 40, 0.4) 0%, transparent 30%),
+        
+        /* Vertical scratches/brushing */
+        repeating-linear-gradient(90deg, 
+            transparent 0, 
+            transparent 2px, 
+            rgba(0,0,0,0.1) 3px, 
+            transparent 4px
         ),
-        /* Diagonal brush marks */
-        repeating-linear-gradient(
-            45deg,
-            transparent 0px,
-            rgba(212, 165, 116, 0.08) 1px,
-            transparent 2px,
-            transparent 5px
-        ),
-        /* Tarnish spots */
-        radial-gradient(ellipse at 30% 35%, rgba(180, 145, 110, 0.2) 0%, transparent 40%),
-        radial-gradient(ellipse at 70% 65%, rgba(190, 150, 115, 0.15) 0%, transparent 35%),
-        /* Brass patina gradient with texture */
-        linear-gradient(180deg,
-            rgba(212, 165, 116, 0.22) 0%,
-            rgba(200, 155, 108, 0.15) 30%,
-            rgba(190, 148, 102, 0.12) 50%,
-            rgba(205, 160, 112, 0.18) 100%
+        
+        /* Base Gold/Brass Gradient */
+        linear-gradient(180deg, 
+            #8a6e4b 0%, 
+            #d4a574 30%, 
+            #f0d4a8 45%, /* Specular Shine */
+            #8a6e4b 55%, 
+            #5c4632 100%
         );
-    
-    border-radius: 2px;
-    border: 1px solid rgba(180, 140, 95, 0.4);
-    
-    /* DEEP RECESS with texture */
+        
+    /* INSET EFFECT - Makes it look pressed into the leather */
     box-shadow: 
-        /* Deep depression */
-        inset 0 4px 10px rgba(0, 0, 0, 0.7),
-        inset 0 7px 15px rgba(0, 0, 0, 0.5),
-        inset 0 -3px 6px rgba(0, 0, 0, 0.4),
-        /* Brass rim highlight */
-        inset 0 -1px 0 rgba(240, 212, 168, 0.2),
-        inset 1px 1px 0 rgba(220, 180, 130, 0.15),
-        /* Outer glow */
-        0 0 3px rgba(212, 165, 116, 0.15);
-    
+        /* The depression in the leather */
+        inset 0 3px 8px rgba(0,0,0,0.8), 
+        inset 0 1px 2px rgba(0,0,0,1),
+        
+        /* The bottom lip catching light */
+        0 1px 0 rgba(255,255,255,0.1);
+        
+    border-radius: 2px;
+    opacity: 0.9; /* Allows a tiny bit of leather texture to bleed through */
     z-index: 0;
-}
-
-/* WORN CORNERS - darker aged edges on each spine */
-.lesson-item:nth-child(odd) a::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 8px;
-    background: 
-        radial-gradient(circle at 0% 0%, rgba(25, 22, 18, 0.3) 0%, transparent 20%),
-        radial-gradient(circle at 100% 0%, rgba(25, 22, 18, 0.25) 0%, transparent 20%),
-        radial-gradient(circle at 0% 100%, rgba(25, 22, 18, 0.35) 0%, transparent 20%),
-        radial-gradient(circle at 100% 100%, rgba(25, 22, 18, 0.3) 0%, transparent 20%);
-    pointer-events: none;
-    z-index: 2;
+    
+    /* Subtle metal texture overlay */
+    filter: contrast(1.1) sepia(0.2);
 }
 
 /* SUBTLE COLOR VARIATION - each spine slightly different leather tone */
@@ -836,43 +748,15 @@ header {
     filter: brightness(1.03) saturate(1.08);
 }
 
-/* Fire glow on hover */
+/* HOVER STATE - Realistic Lighting Shift - UPDATED V49 */
 .lesson-item a:hover {
-    /* Brighter leather */
-    background: 
-        repeating-linear-gradient(
-            0deg,
-            rgba(58, 54, 48, 0.35) 0px,
-            rgba(52, 48, 43, 0.25) 0.5px,
-            transparent 1px,
-            transparent 2px
-        ),
-        radial-gradient(ellipse at 30% 50%, rgba(65, 60, 54, 0.5) 0%, transparent 50%),
-        radial-gradient(ellipse at 70% 50%, rgba(62, 57, 51, 0.45) 0%, transparent 45%),
-        linear-gradient(180deg, 
-            rgba(58, 54, 48, 0.8) 0%,
-            rgba(54, 50, 45, 0.9) 50%,
-            rgba(50, 46, 41, 0.85) 100%
-        );
-    
-    /* Glowing edges */
-    border-top-color: rgba(240, 212, 168, 0.5);
-    
-    /* Enhanced shadow + golden glow */
+    transform: translateY(-3px) scale(1.01);
+    filter: brightness(1.05);
     box-shadow: 
-        inset 0 1px 0 rgba(240, 212, 168, 0.25),
-        inset 0 2px 4px rgba(255, 255, 255, 0.08),
-        inset 0 4px 12px rgba(0, 0, 0, 0.35),
-        inset 0 -2px 8px rgba(0, 0, 0, 0.25),
-        0 4px 0 rgba(35, 32, 28, 0.6),
-        0 6px 2px rgba(30, 27, 23, 0.5),
-        0 8px 4px rgba(25, 22, 18, 0.4),
-        0 12px 8px rgba(20, 18, 15, 0.35),
-        0 16px 12px rgba(15, 13, 10, 0.3),
-        0 20px 30px rgba(0, 0, 0, 0.5),
-        /* GOLDEN FIRE GLOW */
-        0 0 20px rgba(212, 165, 116, 0.3),
-        0 0 40px rgba(240, 212, 168, 0.15);
+        0 15px 30px -5px rgba(0,0,0,0.7),
+        0 5px 10px -2px rgba(0,0,0,0.5),
+        /* Glow */
+        0 0 20px rgba(212, 165, 116, 0.1);
 }
 
 /* Brass plate glows on hover */
@@ -948,12 +832,6 @@ header {
     -webkit-line-clamp: 1; /* Max 1 line */
     -webkit-box-orient: vertical;
     line-clamp: 1;
-}
-    font-style: italic;
-    font-weight: 300;
-    letter-spacing: 0.01em;
-    /* Subtle glow */
-    text-shadow: 0 0 8px rgba(168, 164, 155, 0.1);
 }
 
 .no-lessons {
@@ -1209,17 +1087,6 @@ a:has(.inline-logo):hover .inline-logo {
             0 0 20px rgba(212, 165, 116, 0.05);
     }
 }
-        2px 0 2px rgba(40, 37, 33, 0.4),
-        3px 0 4px rgba(35, 32, 28, 0.3),
-        4px 0 6px rgba(30, 27, 23, 0.2);
-}
-
-/* Contemplative pulsing candlelight on leather panels */
-/* Brass corner tabs removed for cleaner look */
-/* Brass corner tabs removed for cleaner look */
-
-/* Section hover effects removed for performance */
-
 
 /* Section headers for lesson content */
 .lesson-summary h2,
@@ -1921,6 +1788,7 @@ a:has(.inline-logo):hover .inline-logo {
     }
 }
 
+/* ===================================
    NAVIGATION
    =================================== */
 
@@ -3422,4 +3290,3 @@ details .divider-ornate {
 /* ===================================
    END OF STYLESHEET
    =================================== */
-
