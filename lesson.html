@@ -8,12 +8,22 @@
     <link rel="stylesheet" href="style.css?v=48">
 </head>
 <body>
+    <!-- Sticky Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <div class="breadcrumb-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="separator">›</span>
+                <span class="current" id="breadcrumb-title">Lesson</span>
+            </div>
+            <a href="index.html" class="back-button">
+                <span class="back-arrow">←</span>
+                <span class="back-text">Back to All Lessons</span>
+            </a>
+        </div>
+    </nav>
 
     <div class="container">
-        <div class="back-link">
-            <a href="index.html">&larr; Back to All Lessons</a>
-        </div>
-
         <article id="lesson-content">
         </article>
 
@@ -42,8 +52,9 @@
                 </div>
             `;
         } else {
-            // Update page title
+            // Update page title and breadcrumb
             document.title = currentLesson.title + ' - Hurst Class Study';
+            document.getElementById('breadcrumb-title').textContent = currentLesson.title;
 
             // Extract lyrics preview (first 4 lines)
             let lyricsPreview = '';
