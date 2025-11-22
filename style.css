@@ -3031,13 +3031,13 @@ details .divider-ornate {
 /* Brass slider thumb - polished knob */
 .simple-seek-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 22px;
-    height: 22px;
+    width: 16px;
+    height: 16px;
     
     background: 
         radial-gradient(circle at 35% 35%, rgba(255, 240, 210, 0.9) 0%, rgba(212, 165, 116, 0.9) 45%, rgba(160, 125, 85, 0.85) 100%);
     
-    border: 3px solid;
+    border: 2px solid;
     border-color: 
         rgba(255, 240, 210, 0.8)
         rgba(200, 160, 110, 0.6)
@@ -3049,11 +3049,11 @@ details .divider-ornate {
     
     box-shadow: 
         /* Raised knob */
-        0 4px 12px rgba(0, 0, 0, 0.7),
-        0 2px 6px rgba(0, 0, 0, 0.5),
+        0 3px 8px rgba(0, 0, 0, 0.7),
+        0 1px 4px rgba(0, 0, 0, 0.5),
         /* Polished brass highlight */
-        inset 0 2px 4px rgba(255, 255, 255, 0.4),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+        inset 0 1px 2px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.3),
         /* Inner ring detail */
         inset 0 0 0 1px rgba(255, 255, 255, 0.2);
     
@@ -3065,23 +3065,23 @@ details .divider-ornate {
         radial-gradient(circle at 35% 35%, rgba(255, 250, 220, 1) 0%, rgba(240, 212, 168, 1) 45%, rgba(200, 160, 110, 0.95) 100%);
     
     box-shadow: 
-        0 6px 16px rgba(0, 0, 0, 0.8),
-        0 3px 8px rgba(0, 0, 0, 0.6),
-        inset 0 2px 6px rgba(255, 255, 255, 0.5),
-        inset 0 -2px 6px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(240, 212, 168, 0.6);
+        0 4px 10px rgba(0, 0, 0, 0.8),
+        0 2px 5px rgba(0, 0, 0, 0.6),
+        inset 0 1px 3px rgba(255, 255, 255, 0.5),
+        inset 0 -1px 3px rgba(0, 0, 0, 0.3),
+        0 0 16px rgba(240, 212, 168, 0.6);
     
     transform: scale(1.15);
 }
 
 .simple-seek-bar::-moz-range-thumb {
-    width: 22px;
-    height: 22px;
+    width: 16px;
+    height: 16px;
     
     background: 
         radial-gradient(circle at 35% 35%, rgba(255, 240, 210, 0.9) 0%, rgba(212, 165, 116, 0.9) 45%, rgba(160, 125, 85, 0.85) 100%);
     
-    border: 3px solid;
+    border: 2px solid;
     border-color: 
         rgba(255, 240, 210, 0.8)
         rgba(200, 160, 110, 0.6)
@@ -3092,10 +3092,10 @@ details .divider-ornate {
     cursor: pointer;
     
     box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.7),
-        0 2px 6px rgba(0, 0, 0, 0.5),
-        inset 0 2px 4px rgba(255, 255, 255, 0.4),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        0 3px 8px rgba(0, 0, 0, 0.7),
+        0 1px 4px rgba(0, 0, 0, 0.5),
+        inset 0 1px 2px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 2px rgba(0, 0, 0, 0.3);
     
     transition: all 0.2s ease;
 }
@@ -3105,11 +3105,11 @@ details .divider-ornate {
         radial-gradient(circle at 35% 35%, rgba(255, 250, 220, 1) 0%, rgba(240, 212, 168, 1) 45%, rgba(200, 160, 110, 0.95) 100%);
     
     box-shadow: 
-        0 6px 16px rgba(0, 0, 0, 0.8),
-        0 3px 8px rgba(0, 0, 0, 0.6),
-        inset 0 2px 6px rgba(255, 255, 255, 0.5),
-        inset 0 -2px 6px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(240, 212, 168, 0.6);
+        0 4px 10px rgba(0, 0, 0, 0.8),
+        0 2px 5px rgba(0, 0, 0, 0.6),
+        inset 0 1px 3px rgba(255, 255, 255, 0.5),
+        inset 0 -1px 3px rgba(0, 0, 0, 0.3),
+        0 0 16px rgba(240, 212, 168, 0.6);
 }
 
 /* Vintage brass time displays */
@@ -3329,13 +3329,13 @@ details .divider-ornate {
 
 .seek-bar::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     
     background: 
         radial-gradient(circle at 35% 35%, rgba(255, 240, 210, 0.9) 0%, rgba(212, 165, 116, 0.9) 45%, rgba(160, 125, 85, 0.85) 100%);
     
-    border: 3px solid;
+    border: 2px solid;
     border-color: 
         rgba(255, 240, 210, 0.8)
         rgba(200, 160, 110, 0.6)
@@ -3346,10 +3346,10 @@ details .divider-ornate {
     cursor: pointer;
     
     box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.7),
-        0 2px 6px rgba(0, 0, 0, 0.5),
-        inset 0 2px 4px rgba(255, 255, 255, 0.4),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+        0 3px 10px rgba(0, 0, 0, 0.7),
+        0 2px 5px rgba(0, 0, 0, 0.5),
+        inset 0 1px 3px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 3px rgba(0, 0, 0, 0.3),
         inset 0 0 0 1px rgba(255, 255, 255, 0.2);
     
     transition: all 0.2s ease;
@@ -3360,23 +3360,23 @@ details .divider-ornate {
         radial-gradient(circle at 35% 35%, rgba(255, 250, 220, 1) 0%, rgba(240, 212, 168, 1) 45%, rgba(200, 160, 110, 0.95) 100%);
     
     box-shadow: 
-        0 6px 16px rgba(0, 0, 0, 0.8),
-        0 3px 8px rgba(0, 0, 0, 0.6),
-        inset 0 2px 6px rgba(255, 255, 255, 0.5),
-        inset 0 -2px 6px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(240, 212, 168, 0.6);
+        0 5px 12px rgba(0, 0, 0, 0.8),
+        0 2px 6px rgba(0, 0, 0, 0.6),
+        inset 0 2px 4px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+        0 0 18px rgba(240, 212, 168, 0.6);
     
     transform: scale(1.15);
 }
 
 .seek-bar::-moz-range-thumb {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     
     background: 
         radial-gradient(circle at 35% 35%, rgba(255, 240, 210, 0.9) 0%, rgba(212, 165, 116, 0.9) 45%, rgba(160, 125, 85, 0.85) 100%);
     
-    border: 3px solid;
+    border: 2px solid;
     border-color: 
         rgba(255, 240, 210, 0.8)
         rgba(200, 160, 110, 0.6)
@@ -3387,10 +3387,10 @@ details .divider-ornate {
     cursor: pointer;
     
     box-shadow: 
-        0 4px 12px rgba(0, 0, 0, 0.7),
-        0 2px 6px rgba(0, 0, 0, 0.5),
-        inset 0 2px 4px rgba(255, 255, 255, 0.4),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3);
+        0 3px 10px rgba(0, 0, 0, 0.7),
+        0 2px 5px rgba(0, 0, 0, 0.5),
+        inset 0 1px 3px rgba(255, 255, 255, 0.4),
+        inset 0 -1px 3px rgba(0, 0, 0, 0.3);
     
     transition: all 0.2s ease;
 }
@@ -3400,11 +3400,11 @@ details .divider-ornate {
         radial-gradient(circle at 35% 35%, rgba(255, 250, 220, 1) 0%, rgba(240, 212, 168, 1) 45%, rgba(200, 160, 110, 0.95) 100%);
     
     box-shadow: 
-        0 6px 16px rgba(0, 0, 0, 0.8),
-        0 3px 8px rgba(0, 0, 0, 0.6),
-        inset 0 2px 6px rgba(255, 255, 255, 0.5),
-        inset 0 -2px 6px rgba(0, 0, 0, 0.3),
-        0 0 20px rgba(240, 212, 168, 0.6);
+        0 5px 12px rgba(0, 0, 0, 0.8),
+        0 2px 6px rgba(0, 0, 0, 0.6),
+        inset 0 2px 4px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 4px rgba(0, 0, 0, 0.3),
+        0 0 18px rgba(240, 212, 168, 0.6);
 }
 
 .time-display {
