@@ -1574,6 +1574,8 @@ a:has(.inline-logo):hover .inline-logo {
 .lesson-image-default {
     transition: opacity 10s ease-in-out;
     display: block;
+    position: relative;
+    z-index: 1;
 }
 
 /* Animation layer images - stacked on top */
@@ -1587,6 +1589,7 @@ a:has(.inline-logo):hover .inline-logo {
     transition: opacity 10s ease-in-out;
     pointer-events: none; /* Don't interfere with clicks */
     display: none; /* Hidden by default until animation starts */
+    z-index: 2 !important; /* Stack above default image */
 }
 
 /* If image doesn't load, show a placeholder */
