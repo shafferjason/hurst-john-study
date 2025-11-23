@@ -404,8 +404,16 @@
             
             // Set up animation if frames are available
             function setupImageAnimation() {
-                if (!animationFramesAvailable || !currentLesson.audio_file) return;
+                console.log('setupImageAnimation called');
+                console.log('animationFramesAvailable:', animationFramesAvailable);
+                console.log('currentLesson.audio_file:', currentLesson.audio_file);
                 
+                if (!animationFramesAvailable || !currentLesson.audio_file) {
+                    console.log('Animation setup aborted - frames or audio missing');
+                    return;
+                }
+                
+                console.log('Setting up animation...');
                 const audio = document.getElementById('lesson-audio');
                 const loopPattern = [1, 2, 3, 2]; // Pattern: 1→2→3→2→1→2→3→2...
                 let currentPatternIndex = 0;
@@ -420,6 +428,7 @@
                 imageFrame3.style.transition = `opacity ${transitionSpeed}s ease-in-out`;
                 
                 function showFrame(frameNumber) {
+                    console.log('Showing frame:', frameNumber);
                     // Hide default image
                     imageDefault.style.opacity = '0';
                     
@@ -437,16 +446,23 @@
                 function advanceAnimation() {
                     currentPatternIndex = (currentPatternIndex + 1) % loopPattern.length;
                     const frameNumber = loopPattern[currentPatternIndex];
+                    console.log('Advancing to frame:', frameNumber);
                     showFrame(frameNumber);
                 }
                 
                 function startAnimation() {
-                    if (animationInterval) return;
+                    console.log('startAnimation called');
+                    if (animationInterval) {
+                        console.log('Animation already running');
+                        return;
+                    }
                     
+                    console.log('Starting animation - showing first frame');
                     // Start with frame 1
                     showFrame(loopPattern[0]);
                     
                     // Begin cycling
+                    console.log('Setting interval for', cycleInterval, 'ms');
                     animationInterval = setInterval(advanceAnimation, cycleInterval);
                 }
                 
@@ -469,9 +485,20 @@
                 }
                 
                 // Connect animation to audio playback
-                audio.addEventListener('play', startAnimation);
-                audio.addEventListener('pause', stopAnimation);
-                audio.addEventListener('ended', resetAnimation);
+                console.log('Attaching audio event listeners to:', audio);
+                audio.addEventListener('play', () => {
+                    console.log('Audio PLAY event fired');
+                    startAnimation();
+                });
+                audio.addEventListener('pause', () => {
+                    console.log('Audio PAUSE event fired');
+                    stopAnimation();
+                });
+                audio.addEventListener('ended', () => {
+                    console.log('Audio ENDED event fired');
+                    resetAnimation();
+                });
+                console.log('Animation setup complete!');
             }
             // === END IMAGE ANIMATION JAVASCRIPT ===
         }
