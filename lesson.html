@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=48">
+    <link rel="stylesheet" href="style.css?v=49">
 </head>
 <body>
     <!-- Sticky Breadcrumb Navigation -->
@@ -122,15 +122,20 @@
                     
                     <!-- Grid layout: image left, content right -->
                     <div class="song-content-grid">
-                        <!-- Image - left column (always present for grid layout) -->
-                        <img 
-                            src="${currentLesson.image_url || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23333%22/%3E%3C/svg%3E'}" 
-                            alt="${currentLesson.song_title}" 
-                            class="song-image"
-                            style="display: block; position: relative; z-index: 1;"
-                            onload="console.log('Image loaded:', this.src)"
-                            onerror="console.error('Image failed to load:', this.src)">
-                        
+                        <!-- Animated Image Container - left column -->
+                        <div class="lesson-image-container" id="lessonImageContainer">
+                            <!-- Default/fallback image - always present -->
+                            <img 
+                                src="${currentLesson.image_url || 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22280%22 height=%22280%22%3E%3Crect width=%22100%25%22 height=%22100%25%22 fill=%22%23333%22/%3E%3C/svg%3E'}" 
+                                alt="${currentLesson.song_title}" 
+                                class="song-image lesson-image-default"
+                                id="lessonImageDefault">
+                            
+                            <!-- Animation frames (will be populated by JavaScript if they exist) -->
+                            <img class="song-image lesson-image-layer" data-frame="1" id="lessonImageFrame1" style="display:none;">
+                            <img class="song-image lesson-image-layer" data-frame="2" id="lessonImageFrame2" style="display:none;">
+                            <img class="song-image lesson-image-layer" data-frame="3" id="lessonImageFrame3" style="display:none;">
+                        </div>
                         <!-- Right column: player + lyrics wrapped together -->
                         <div class="song-right-column">
                             ${currentLesson.audio_file ? `
@@ -320,6 +325,132 @@
                 });
             }
             // === END AUDIO PLAYER JAVASCRIPT ===
+
+            // === IMAGE ANIMATION JAVASCRIPT ===
+            // Check if animation images exist and set up animation if they do
+            const lessonIdNum = currentLesson.id;
+            const imageFrame1 = document.getElementById('lessonImageFrame1');
+            const imageFrame2 = document.getElementById('lessonImageFrame2');
+            const imageFrame3 = document.getElementById('lessonImageFrame3');
+            const imageDefault = document.getElementById('lessonImageDefault');
+            
+            // Try to load animation frames
+            const frame1Path = `lesson-${lessonIdNum}-img1.png`;
+            const frame2Path = `lesson-${lessonIdNum}-img2.png`;
+            const frame3Path = `lesson-${lessonIdNum}-img3.png`;
+            
+            let animationFramesAvailable = false;
+            let loadedFrames = 0;
+            const requiredFrames = 3;
+            
+            // Test if images exist by trying to load them
+            function checkImageExists(path, callback) {
+                const img = new Image();
+                img.onload = () => callback(true);
+                img.onerror = () => callback(false);
+                img.src = path;
+            }
+            
+            // Check all 3 frames
+            checkImageExists(frame1Path, (exists1) => {
+                if (exists1) {
+                    imageFrame1.src = frame1Path;
+                    loadedFrames++;
+                }
+                
+                checkImageExists(frame2Path, (exists2) => {
+                    if (exists2) {
+                        imageFrame2.src = frame2Path;
+                        loadedFrames++;
+                    }
+                    
+                    checkImageExists(frame3Path, (exists3) => {
+                        if (exists3) {
+                            imageFrame3.src = frame3Path;
+                            loadedFrames++;
+                        }
+                        
+                        // If all 3 frames loaded successfully, enable animation
+                        if (loadedFrames === requiredFrames) {
+                            animationFramesAvailable = true;
+                            setupImageAnimation();
+                        }
+                    });
+                });
+            });
+            
+            // Set up animation if frames are available
+            function setupImageAnimation() {
+                if (!animationFramesAvailable || !currentLesson.audio_file) return;
+                
+                const audio = document.getElementById('lesson-audio');
+                const loopPattern = [1, 2, 3, 2]; // Pattern: 1→2→3→2→1→2→3→2...
+                let currentPatternIndex = 0;
+                let animationInterval = null;
+                
+                const transitionSpeed = 10; // 10 seconds
+                const cycleInterval = 10000; // 10 seconds in milliseconds
+                
+                // Set transition duration on all layers
+                imageFrame1.style.transition = `opacity ${transitionSpeed}s ease-in-out`;
+                imageFrame2.style.transition = `opacity ${transitionSpeed}s ease-in-out`;
+                imageFrame3.style.transition = `opacity ${transitionSpeed}s ease-in-out`;
+                
+                function showFrame(frameNumber) {
+                    // Hide default image
+                    imageDefault.style.opacity = '0';
+                    
+                    // Show all frames (they're stacked)
+                    imageFrame1.style.display = 'block';
+                    imageFrame2.style.display = 'block';
+                    imageFrame3.style.display = 'block';
+                    
+                    // Set opacity based on active frame
+                    imageFrame1.style.opacity = frameNumber === 1 ? '1' : '0';
+                    imageFrame2.style.opacity = frameNumber === 2 ? '1' : '0';
+                    imageFrame3.style.opacity = frameNumber === 3 ? '1' : '0';
+                }
+                
+                function advanceAnimation() {
+                    currentPatternIndex = (currentPatternIndex + 1) % loopPattern.length;
+                    const frameNumber = loopPattern[currentPatternIndex];
+                    showFrame(frameNumber);
+                }
+                
+                function startAnimation() {
+                    if (animationInterval) return;
+                    
+                    // Start with frame 1
+                    showFrame(loopPattern[0]);
+                    
+                    // Begin cycling
+                    animationInterval = setInterval(advanceAnimation, cycleInterval);
+                }
+                
+                function stopAnimation() {
+                    if (animationInterval) {
+                        clearInterval(animationInterval);
+                        animationInterval = null;
+                    }
+                }
+                
+                function resetAnimation() {
+                    stopAnimation();
+                    currentPatternIndex = 0;
+                    
+                    // Hide animation frames, show default
+                    imageFrame1.style.display = 'none';
+                    imageFrame2.style.display = 'none';
+                    imageFrame3.style.display = 'none';
+                    imageDefault.style.opacity = '1';
+                }
+                
+                // Connect animation to audio playback
+                audio.addEventListener('play', startAnimation);
+                audio.addEventListener('pause', stopAnimation);
+                audio.addEventListener('ended', resetAnimation);
+            }
+            // === END IMAGE ANIMATION JAVASCRIPT ===
         }
         
         
