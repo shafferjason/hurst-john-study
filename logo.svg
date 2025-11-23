@@ -1,5 +1,66 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 900" width="2000" height="900">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2000 900">
   <defs>
+    <style>
+      /* Ember glow on cross beam rays - dramatic fire effect */
+      /* Inner segments near center - blue flame (hottest part) */
+      @keyframes blueFlameCore {
+        0% {
+          opacity: 0.70;
+          stroke: #ffa844;
+        }
+        50% {
+          opacity: 1.0;
+          stroke: #4d9fff;
+        }
+        100% {
+          opacity: 0.70;
+          stroke: #ffa844;
+        }
+      }
+      
+      /* Outer tips - orange/red embers */
+      @keyframes emberGlow {
+        0% {
+          opacity: 0.80;
+          stroke: #ff6622;
+        }
+        50% {
+          opacity: 0.30;
+          stroke: #cc3311;
+        }
+        100% {
+          opacity: 0.80;
+          stroke: #ff6622;
+        }
+      }
+      
+      @keyframes emberGlowBright {
+        0% {
+          opacity: 0.75;
+          stroke: #ff9933;
+        }
+        50% {
+          opacity: 1.0;
+          stroke: #ffdd77;
+        }
+        100% {
+          opacity: 0.75;
+          stroke: #ff9933;
+        }
+      }
+      
+      .blue-flame {
+        animation: blueFlameCore 2s ease-in-out infinite;
+      }
+      
+      .ember-glow {
+        animation: emberGlow 2s ease-in-out infinite;
+      }
+      
+      .ember-glow-bright {
+        animation: emberGlowBright 2s ease-in-out infinite;
+      }
+    </style>
     <linearGradient id="m" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" style="stop-color:#7a6030;stop-opacity:0.3"/>
       <stop offset="50%" style="stop-color:#fff8e0;stop-opacity:1"/>
@@ -45,23 +106,54 @@
       <stop offset="100%" style="stop-color:#4a3018;stop-opacity:0.05"/>
     </linearGradient>
 
+    <!-- THE: Transitional - earthly stone transitioning to heavenly fire -->
     <linearGradient id="theGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#7a7a7a;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#9a9a9a;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#6a6a6a;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#9a9a9a;stop-opacity:1" />
+      <stop offset="35%" style="stop-color:#a8a89a;stop-opacity:1" />
+      <stop offset="65%" style="stop-color:#b8b09a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#c8b8a0;stop-opacity:1" />
     </linearGradient>
+    
+    <!-- Subtle threshold glow for THE - less intense -->
+    <radialGradient id="theGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#d4c4a8;stop-opacity:0.2" />
+      <stop offset="50%" style="stop-color:#c4b498;stop-opacity:0.1" />
+      <stop offset="100%" style="stop-color:#b4a488;stop-opacity:0" />
+    </radialGradient>
+    
+    <!-- TENTH: Stone texture - weathered granite/marble -->
     <linearGradient id="tenthGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#a8754a;stop-opacity:1" />
-      <stop offset="25%" style="stop-color:#8a5f38;stop-opacity:1" />
-      <stop offset="50%" style="stop-color:#6a4828;stop-opacity:1" />
-      <stop offset="75%" style="stop-color:#4a3018;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#2a180a;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#9a9a9a;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#7a7a7a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#8a8a8a;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#6a6a6a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#7a7a7a;stop-opacity:1" />
     </linearGradient>
+    
+    <!-- Additional texture overlay for TENTH -->
+    <linearGradient id="tenthTexture" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#a0a0a0;stop-opacity:0.3" />
+      <stop offset="33%" style="stop-color:#707070;stop-opacity:0.5" />
+      <stop offset="66%" style="stop-color:#909090;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#757575;stop-opacity:0.4" />
+    </linearGradient>
+    
+    <!-- HOUR: Heavenly ascension - brass to brilliant light -->
     <linearGradient id="hourGradient" x1="0%" y1="100%" x2="0%" y2="0%">
-      <stop offset="0%" style="stop-color:#1a3d8f;stop-opacity:1" />
-      <stop offset="30%" style="stop-color:#2d5fd9;stop-opacity:1" />
-      <stop offset="70%" style="stop-color:#4a7aff;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#5a8aff;stop-opacity:1" />
+      <stop offset="0%" style="stop-color:#8b7355;stop-opacity:1" />
+      <stop offset="20%" style="stop-color:#b8956a;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#d4af76;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#f4d9a0;stop-opacity:1" />
+      <stop offset="80%" style="stop-color:#fff9e6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:1" />
+    </linearGradient>
+    
+    <!-- Metallic highlight for HOUR - more intense -->
+    <linearGradient id="hourShine" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.6" />
+      <stop offset="30%" style="stop-color:#fffef8;stop-opacity:0.3" />
+      <stop offset="70%" style="stop-color:#fff9e6;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#ffe8c0;stop-opacity:0.1" />
     </linearGradient>
   </defs>
 
@@ -129,14 +221,14 @@
     <line x1="1000" y1="450" x2="1000" y2="365" stroke="#ffe8a0" stroke-width="3.5" opacity="0.08" stroke-linecap="round"/>
 
     <!-- Diagonal rays -->
-    <line x1="1000" y1="450" x2="1031.82" y2="481.82" stroke="#f4d58d" stroke-width="1.5" opacity="0.5" stroke-linecap="round"/>
-    <line x1="1031.82" y1="481.82" x2="1045.96" y2="495.96" stroke="#ff9944" stroke-width="1.5" opacity="0.65" stroke-linecap="round"/>
-    <line x1="1000" y1="450" x2="968.18" y2="481.82" stroke="#f4d58d" stroke-width="1.5" opacity="0.5" stroke-linecap="round"/>
-    <line x1="968.18" y1="481.82" x2="954.04" y2="495.96" stroke="#ff9944" stroke-width="1.5" opacity="0.65" stroke-linecap="round"/>
-    <line x1="1000" y1="450" x2="968.18" y2="418.18" stroke="#f4d58d" stroke-width="1.5" opacity="0.5" stroke-linecap="round"/>
-    <line x1="968.18" y1="418.18" x2="954.04" y2="404.04" stroke="#ff9944" stroke-width="1.5" opacity="0.65" stroke-linecap="round"/>
-    <line x1="1000" y1="450" x2="1031.82" y2="418.18" stroke="#f4d58d" stroke-width="1.5" opacity="0.5" stroke-linecap="round"/>
-    <line x1="1031.82" y1="418.18" x2="1045.96" y2="404.04" stroke="#ff9944" stroke-width="1.5" opacity="0.65" stroke-linecap="round"/>
+    <line x1="1000" y1="450" x2="1031.82" y2="481.82" stroke="#f4d58d" stroke-width="3" opacity="0.5" stroke-linecap="round" class="blue-flame"/>
+    <line x1="1031.82" y1="481.82" x2="1045.96" y2="495.96" stroke="#ff9944" stroke-width="4" opacity="0.65" stroke-linecap="round" class="ember-glow"/>
+    <line x1="1000" y1="450" x2="968.18" y2="481.82" stroke="#f4d58d" stroke-width="3" opacity="0.5" stroke-linecap="round" class="blue-flame"/>
+    <line x1="968.18" y1="481.82" x2="954.04" y2="495.96" stroke="#ff9944" stroke-width="4" opacity="0.65" stroke-linecap="round" class="ember-glow-bright"/>
+    <line x1="1000" y1="450" x2="968.18" y2="418.18" stroke="#f4d58d" stroke-width="3" opacity="0.5" stroke-linecap="round" class="blue-flame"/>
+    <line x1="968.18" y1="418.18" x2="954.04" y2="404.04" stroke="#ff9944" stroke-width="4" opacity="0.65" stroke-linecap="round" class="ember-glow"/>
+    <line x1="1000" y1="450" x2="1031.82" y2="418.18" stroke="#f4d58d" stroke-width="3" opacity="0.5" stroke-linecap="round" class="blue-flame"/>
+    <line x1="1031.82" y1="418.18" x2="1045.96" y2="404.04" stroke="#ff9944" stroke-width="4" opacity="0.65" stroke-linecap="round" class="ember-glow-bright"/>
 
     <!-- Core -->
     <circle cx="1000" cy="450" r="40" fill="url(#c)" opacity="0.35"/>
@@ -160,14 +252,31 @@
 
   <!-- Text Elements -->
   <g>
-    <text x="1000" y="300" font-family="Georgia, serif" font-size="72" font-weight="bold" text-anchor="middle" fill="url(#theGradient)" letter-spacing="8">THE</text>
+    <!-- THE: Transitional - caught between earth and heaven -->
+    <!-- Subtle threshold glow -->
+    <ellipse cx="1000" cy="275" rx="120" ry="35" fill="url(#theGlow)" opacity="0.3"/>
+    <!-- Subtle dual-tone stroke (earth and fire) -->
+    <text x="1000" y="300" font-family="Georgia, serif" font-size="72" font-weight="300" text-anchor="middle" stroke="#8a8a8a" stroke-width="1" stroke-opacity="0.4" fill="none" letter-spacing="4">THE</text>
+    <!-- Main text -->
+    <text x="1000" y="300" font-family="Georgia, serif" font-size="72" font-weight="300" text-anchor="middle" fill="url(#theGradient)" letter-spacing="4">THE</text>
+    <!-- Fewer, subtler ember hints -->
+    <circle cx="960" cy="272" r="1.2" fill="#c8b8a0" opacity="0.4"/>
+    <circle cx="1040" cy="272" r="1.2" fill="#c8b8a0" opacity="0.4"/>
   </g>
 
   <g>
-    <text x="860" y="500" font-family="Georgia, serif" font-size="180" font-weight="900" text-anchor="end" fill="url(#tenthGradient)">TENTH</text>
+    <!-- TENTH: Stone texture - weathered granite/marble with texture overlay -->
+    <text x="860" y="500" font-family="'Times New Roman', Times, serif" font-size="200" font-weight="900" text-anchor="end" stroke="#000000" stroke-width="1.5" fill="url(#tenthGradient)" letter-spacing="-2">TENTH</text>
+    <text x="860" y="500" font-family="'Times New Roman', Times, serif" font-size="200" font-weight="900" text-anchor="end" fill="url(#tenthTexture)" letter-spacing="-2">TENTH</text>
   </g>
 
   <g>
-    <text x="1140" y="500" font-family="Georgia, serif" font-size="180" font-weight="400" text-anchor="start" fill="url(#hourGradient)">HOUR</text>
+    <!-- HOUR: Brass/bronze metallic with luminous glow -->
+    <!-- Outer glow layer -->
+    <text x="1140" y="500" font-family="Georgia, serif" font-size="180" font-weight="200" text-anchor="start" stroke="#d4af76" stroke-width="3" stroke-opacity="0.4" fill="none" letter-spacing="12">HOUR</text>
+    <!-- Base brass -->
+    <text x="1140" y="500" font-family="Georgia, serif" font-size="180" font-weight="200" text-anchor="start" fill="url(#hourGradient)" letter-spacing="12">HOUR</text>
+    <!-- Metallic shine overlay -->
+    <text x="1140" y="500" font-family="Georgia, serif" font-size="180" font-weight="200" text-anchor="start" fill="url(#hourShine)" letter-spacing="12">HOUR</text>
   </g>
 </svg>
