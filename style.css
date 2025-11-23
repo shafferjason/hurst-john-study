@@ -1589,7 +1589,7 @@ a:has(.inline-logo):hover .inline-logo {
     transition: opacity 10s ease-in-out;
     pointer-events: none; /* Don't interfere with clicks */
     display: none; /* Hidden by default until animation starts */
-    z-index: 2 !important; /* Stack above default image */
+    z-index: 20 !important; /* Stack ABOVE default image (which has z-index: 10) */
 }
 
 /* If image doesn't load, show a placeholder */
