@@ -330,10 +330,10 @@
             
             console.log('Checking for animation images for lesson:', lessonId);
             
-            // Try to load animation frames
-            const frame1Path = `${lessonId}-img1.png`;
-            const frame2Path = `${lessonId}-img2.png`;
-            const frame3Path = `${lessonId}-img3.png`;
+            // Try to load animation frames from images folder
+            const frame1Path = `images/${lessonId}-img1.png`;
+            const frame2Path = `images/${lessonId}-img2.png`;
+            const frame3Path = `images/${lessonId}-img3.png`;
             
             let animationFramesAvailable = false;
             let loadedFrames = 0;
