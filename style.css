@@ -1567,12 +1567,13 @@ a:has(.inline-logo):hover .inline-logo {
 .lesson-image-container {
     position: relative;
     width: 100%;
-    min-height: 280px;
+    display: block;
 }
 
 /* Default image - shown when no animation */
 .lesson-image-default {
     transition: opacity 10s ease-in-out;
+    display: block;
 }
 
 /* Animation layer images - stacked on top */
@@ -1581,10 +1582,11 @@ a:has(.inline-logo):hover .inline-logo {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: auto;
     opacity: 0;
     transition: opacity 10s ease-in-out;
     pointer-events: none; /* Don't interfere with clicks */
+    display: none; /* Hidden by default until animation starts */
 }
 
 /* If image doesn't load, show a placeholder */
@@ -3446,4 +3448,3 @@ details .divider-ornate {
 /* ===================================
    END OF STYLESHEET
    =================================== */
-
