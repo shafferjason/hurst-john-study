@@ -130,11 +130,7 @@
                                 alt="${currentLesson.song_title}" 
                                 class="song-image lesson-image-default"
                                 id="lessonImageDefault">
-                            
-                            <!-- Animation frames (will be populated by JavaScript if they exist) -->
-                            <img class="song-image lesson-image-layer" data-frame="1" id="lessonImageFrame1" style="display:none;">
-                            <img class="song-image lesson-image-layer" data-frame="2" id="lessonImageFrame2" style="display:none;">
-                            <img class="song-image lesson-image-layer" data-frame="3" id="lessonImageFrame3" style="display:none;">
+                            <!-- Animation frames will be added here by JavaScript if they exist -->
                         </div>
                         <!-- Right column: player + lyrics wrapped together -->
                         <div class="song-right-column">
@@ -329,9 +325,7 @@
             // === IMAGE ANIMATION JAVASCRIPT ===
             // Check if animation images exist and set up animation if they do
             const lessonIdNum = currentLesson.id;
-            const imageFrame1 = document.getElementById('lessonImageFrame1');
-            const imageFrame2 = document.getElementById('lessonImageFrame2');
-            const imageFrame3 = document.getElementById('lessonImageFrame3');
+            const imageContainer = document.getElementById('lessonImageContainer');
             const imageDefault = document.getElementById('lessonImageDefault');
             
             // Try to load animation frames
@@ -342,6 +336,7 @@
             let animationFramesAvailable = false;
             let loadedFrames = 0;
             const requiredFrames = 3;
+            let imageFrame1, imageFrame2, imageFrame3;
             
             // Test if images exist by trying to load them
             function checkImageExists(path, callback) {
@@ -354,19 +349,35 @@
             // Check all 3 frames
             checkImageExists(frame1Path, (exists1) => {
                 if (exists1) {
+                    // Create img element only if file exists
+                    imageFrame1 = document.createElement('img');
                     imageFrame1.src = frame1Path;
+                    imageFrame1.className = 'song-image lesson-image-layer';
+                    imageFrame1.setAttribute('data-frame', '1');
+                    imageFrame1.style.display = 'none';
+                    imageContainer.appendChild(imageFrame1);
                     loadedFrames++;
                 }
                 
                 checkImageExists(frame2Path, (exists2) => {
                     if (exists2) {
+                        imageFrame2 = document.createElement('img');
                         imageFrame2.src = frame2Path;
+                        imageFrame2.className = 'song-image lesson-image-layer';
+                        imageFrame2.setAttribute('data-frame', '2');
+                        imageFrame2.style.display = 'none';
+                        imageContainer.appendChild(imageFrame2);
                         loadedFrames++;
                     }
                     
                     checkImageExists(frame3Path, (exists3) => {
                         if (exists3) {
+                            imageFrame3 = document.createElement('img');
                             imageFrame3.src = frame3Path;
+                            imageFrame3.className = 'song-image lesson-image-layer';
+                            imageFrame3.setAttribute('data-frame', '3');
+                            imageFrame3.style.display = 'none';
+                            imageContainer.appendChild(imageFrame3);
                             loadedFrames++;
                         }
                         
