@@ -324,16 +324,16 @@
 
             // === IMAGE ANIMATION JAVASCRIPT ===
             // Check if animation images exist and set up animation if they do
-            const lessonIdNum = currentLesson.id;
+            const lessonId = currentLesson.id; // e.g., "lesson-2"
             const imageContainer = document.getElementById('lessonImageContainer');
             const imageDefault = document.getElementById('lessonImageDefault');
             
-            console.log('Checking for animation images for lesson:', lessonIdNum);
+            console.log('Checking for animation images for lesson:', lessonId);
             
             // Try to load animation frames
-            const frame1Path = `lesson-${lessonIdNum}-img1.png`;
-            const frame2Path = `lesson-${lessonIdNum}-img2.png`;
-            const frame3Path = `lesson-${lessonIdNum}-img3.png`;
+            const frame1Path = `${lessonId}-img1.png`;
+            const frame2Path = `${lessonId}-img2.png`;
+            const frame3Path = `${lessonId}-img3.png`;
             
             let animationFramesAvailable = false;
             let loadedFrames = 0;
@@ -393,7 +393,7 @@
                         console.log('Loaded frames:', loadedFrames, '/ Required:', requiredFrames);
                         if (loadedFrames === requiredFrames) {
                             animationFramesAvailable = true;
-                            console.log('✓ Animation enabled for lesson', lessonIdNum);
+                            console.log('✓ Animation enabled for lesson', lessonId);
                             setupImageAnimation();
                         } else {
                             console.log('✗ Animation disabled - not all frames found');
