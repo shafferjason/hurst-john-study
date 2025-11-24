@@ -3453,5 +3453,143 @@ details .divider-ornate {
 }
 
 /* ===================================
+   INFOGRAPHIC BUTTON & MODAL
+   =================================== */
+
+/* Infographic Button */
+.infographic-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1rem 1.5rem;
+    background: linear-gradient(180deg, 
+        rgba(60, 55, 48, 0.8) 0%, 
+        rgba(45, 40, 35, 0.9) 100%
+    );
+    border: 1px solid rgba(201, 164, 122, 0.4);
+    border-radius: 6px;
+    color: #c9a47a;
+    font-family: 'Georgia', serif;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 
+        0 2px 8px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.infographic-btn:hover {
+    background: linear-gradient(180deg, 
+        rgba(70, 65, 55, 0.9) 0%, 
+        rgba(55, 50, 42, 0.95) 100%
+    );
+    border-color: rgba(201, 164, 122, 0.6);
+    color: #d4b896;
+    transform: translateY(-1px);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.4),
+        0 0 20px rgba(201, 164, 122, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.08);
+}
+
+.infographic-btn-icon {
+    font-size: 1.2rem;
+}
+
+/* Infographic Modal */
+.infographic-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
+.infographic-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infographic-modal-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(8px);
+}
+
+.infographic-modal-content {
+    position: relative;
+    z-index: 1;
+    max-width: 95vw;
+    max-height: 95vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infographic-modal-image {
+    max-width: 100%;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+}
+
+.infographic-modal-close {
+    position: absolute;
+    top: -40px;
+    right: 0;
+    width: 36px;
+    height: 36px;
+    background: rgba(201, 164, 122, 0.2);
+    border: 1px solid rgba(201, 164, 122, 0.4);
+    border-radius: 50%;
+    color: #c9a47a;
+    font-size: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infographic-modal-close:hover {
+    background: rgba(201, 164, 122, 0.3);
+    border-color: rgba(201, 164, 122, 0.6);
+    color: #f5f0e6;
+}
+
+/* Mobile adjustments for modal */
+@media (max-width: 768px) {
+    .infographic-modal-content {
+        max-width: 100vw;
+        max-height: 100vh;
+        padding: 10px;
+    }
+    
+    .infographic-modal-image {
+        max-height: 85vh;
+        border-radius: 4px;
+    }
+    
+    .infographic-modal-close {
+        top: 10px;
+        right: 10px;
+        position: fixed;
+        z-index: 10;
+    }
+}
+
+/* ===================================
    END OF STYLESHEET
    =================================== */
+

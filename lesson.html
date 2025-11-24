@@ -91,7 +91,20 @@
                             <p>${currentLesson.summary_full}</p>
                         </div>
                     </details>
+                    <button class="infographic-btn" id="openInfographic" style="display:none;">
+                        <span class="infographic-btn-icon">◈</span>
+                        View Lesson Infographic
+                    </button>
                 </section>
+
+                <!-- Infographic Modal -->
+                <div class="infographic-modal" id="infographicModal">
+                    <div class="infographic-modal-overlay" id="modalOverlay"></div>
+                    <div class="infographic-modal-content">
+                        <button class="infographic-modal-close" id="closeInfographic">✕</button>
+                        <img src="" alt="Lesson Infographic" class="infographic-modal-image" id="infographicImage">
+                    </div>
+                </div>
 
                 <!-- Ornate divider for visual section break -->
                 <div class="divider-ornate"></div>
@@ -501,6 +514,49 @@
                 console.log('Animation setup complete!');
             }
             // === END IMAGE ANIMATION JAVASCRIPT ===
+
+            // === INFOGRAPHIC MODAL JAVASCRIPT ===
+            const infographicPath = `images/${lessonId}-infographic.png`;
+            const infographicBtn = document.getElementById('openInfographic');
+            const infographicModal = document.getElementById('infographicModal');
+            const infographicImage = document.getElementById('infographicImage');
+            const closeInfographic = document.getElementById('closeInfographic');
+            const modalOverlay = document.getElementById('modalOverlay');
+
+            // Check if infographic exists
+            const testInfographic = new Image();
+            testInfographic.onload = () => {
+                console.log('✓ Infographic found:', infographicPath);
+                infographicBtn.style.display = 'flex';
+                infographicImage.src = infographicPath;
+            };
+            testInfographic.onerror = () => {
+                console.log('✗ No infographic for this lesson');
+            };
+            testInfographic.src = infographicPath;
+
+            // Open modal
+            infographicBtn.addEventListener('click', () => {
+                infographicModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            // Close modal functions
+            function closeModal() {
+                infographicModal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            closeInfographic.addEventListener('click', closeModal);
+            modalOverlay.addEventListener('click', closeModal);
+
+            // Close on Escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && infographicModal.classList.contains('active')) {
+                    closeModal();
+                }
+            });
+            // === END INFOGRAPHIC MODAL JAVASCRIPT ===
         }
         
         
