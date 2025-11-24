@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Music - Hurst Class Study</title>
-    <link rel="stylesheet" href="style.css?v=54">
+    <link rel="stylesheet" href="style.css?v=55">
     <style>
         /* Override container for two-column layout */
         body {
@@ -257,7 +257,7 @@
         /* Current song display - SIDE BY SIDE LAYOUT */
         .current-song-display {
             width: 100%;
-            max-width: 700px;
+            max-width: 800px;
             display: none;
             padding-top: 1.5rem;
             box-sizing: border-box;
@@ -265,7 +265,7 @@
         
         .current-song-display.active {
             display: grid;
-            grid-template-columns: 280px 1fr;
+            grid-template-columns: 350px 1fr;
             gap: 2rem;
             grid-template-areas:
                 "image info"
@@ -516,7 +516,7 @@
             }
             
             .current-song-display.active {
-                grid-template-columns: 220px 1fr;
+                grid-template-columns: 300px 1fr;
                 gap: 1.5rem;
             }
         }
@@ -604,9 +604,9 @@
                 max-width: 100%;
             }
             
-            /* Smaller album art on mobile */
+            /* Larger album art on mobile - centered */
             .album-art-container {
-                max-width: 200px;
+                max-width: 280px;
                 margin: 0 auto;
             }
             
@@ -714,7 +714,7 @@
             }
             
             .album-art-container {
-                max-width: 160px;
+                max-width: 240px;
             }
             
             .song-info h1 {
