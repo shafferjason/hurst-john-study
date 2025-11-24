@@ -277,6 +277,32 @@
             align-self: start;
         }
         
+        /* Album art animation container */
+        .album-art-container {
+            grid-area: image;
+            position: relative;
+            width: 100%;
+        }
+        
+        .album-art-default {
+            display: block;
+            transition: opacity 10s ease-in-out;
+        }
+        
+        .album-art-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transition: opacity 10s ease-in-out;
+            display: none;
+            z-index: 20;
+        }
+        
         .song-info {
             grid-area: info;
             text-align: left;
@@ -580,7 +606,10 @@
             
             <!-- Current song display -->
             <div class="current-song-display" id="current-display">
-                <img id="album-art" class="album-art" alt="">
+                <div class="album-art-container" id="albumArtContainer">
+                    <img id="album-art" class="album-art album-art-default" alt="">
+                    <!-- Animation frames will be added by JavaScript if they exist -->
+                </div>
                 
                 <div class="song-info">
                     <h1 id="song-title"></h1>
@@ -670,11 +699,19 @@
         const emptyState = document.getElementById('empty-state');
         const currentDisplay = document.getElementById('current-display');
         const albumArt = document.getElementById('album-art');
+        const albumArtContainer = document.getElementById('albumArtContainer');
         const songTitle = document.getElementById('song-title');
         const lyricsSection = document.getElementById('lyrics-section');
         const lyricsText = document.getElementById('lyrics-text');
         const sunoLink = document.getElementById('suno-link');
         const lessonLink = document.getElementById('lesson-link');
+        
+        // Animation variables
+        let animationInterval = null;
+        let animationFramesAvailable = false;
+        let imageFrame1, imageFrame2, imageFrame3;
+        const loopPattern = [1, 2, 3, 2];
+        let currentPatternIndex = 0;
         
         // Format time helper
         function formatTime(seconds) {
@@ -725,6 +762,9 @@
             currentSongIndex = index;
             const lesson = lessonData[index];
             
+            // Reset any existing animation
+            resetAnimation();
+            
             // Hide empty state, show player
             emptyState.style.display = 'none';
             currentDisplay.classList.add('active');
@@ -741,6 +781,9 @@
                 albumArt.src = lesson.image_url;
                 albumArt.alt = lesson.song_title;
             }
+            
+            // Setup animation for this song
+            setupSongAnimation(lesson.id);
             
             if (lesson.song_lyrics) {
                 lyricsText.textContent = lesson.song_lyrics;
@@ -766,6 +809,122 @@
             audio.play();
             playIcon.style.display = 'none';
             pauseIcon.style.display = 'inline-block';
+        }
+        
+        // Setup animation for current song
+        function setupSongAnimation(lessonId) {
+            // Clear existing animation frames from container
+            const existingLayers = albumArtContainer.querySelectorAll('.album-art-layer');
+            existingLayers.forEach(layer => layer.remove());
+            
+            animationFramesAvailable = false;
+            imageFrame1 = imageFrame2 = imageFrame3 = null;
+            
+            const frame1Path = `images/${lessonId}-img1.png`;
+            const frame2Path = `images/${lessonId}-img2.png`;
+            const frame3Path = `images/${lessonId}-img3.png`;
+            
+            let loadedFrames = 0;
+            
+            function checkImageExists(path, callback) {
+                const img = new Image();
+                img.onload = () => callback(true);
+                img.onerror = () => callback(false);
+                img.src = path;
+            }
+            
+            checkImageExists(frame1Path, (exists1) => {
+                if (exists1) {
+                    imageFrame1 = document.createElement('img');
+                    imageFrame1.src = frame1Path;
+                    imageFrame1.className = 'album-art album-art-layer';
+                    imageFrame1.setAttribute('data-frame', '1');
+                    imageFrame1.style.display = 'none';
+                    albumArtContainer.appendChild(imageFrame1);
+                    loadedFrames++;
+                }
+                
+                checkImageExists(frame2Path, (exists2) => {
+                    if (exists2) {
+                        imageFrame2 = document.createElement('img');
+                        imageFrame2.src = frame2Path;
+                        imageFrame2.className = 'album-art album-art-layer';
+                        imageFrame2.setAttribute('data-frame', '2');
+                        imageFrame2.style.display = 'none';
+                        albumArtContainer.appendChild(imageFrame2);
+                        loadedFrames++;
+                    }
+                    
+                    checkImageExists(frame3Path, (exists3) => {
+                        if (exists3) {
+                            imageFrame3 = document.createElement('img');
+                            imageFrame3.src = frame3Path;
+                            imageFrame3.className = 'album-art album-art-layer';
+                            imageFrame3.setAttribute('data-frame', '3');
+                            imageFrame3.style.display = 'none';
+                            albumArtContainer.appendChild(imageFrame3);
+                            loadedFrames++;
+                        }
+                        
+                        if (loadedFrames === 3) {
+                            animationFramesAvailable = true;
+                            console.log('✓ Animation available for', lessonId);
+                            // If audio is already playing, start animation
+                            if (!audio.paused) {
+                                startAnimation();
+                            }
+                        } else {
+                            console.log('✗ No animation for', lessonId);
+                        }
+                    });
+                });
+            });
+        }
+        
+        // Animation functions
+        function showFrame(frameNumber) {
+            albumArt.style.opacity = '0';
+            
+            imageFrame1.style.display = 'block';
+            imageFrame2.style.display = 'block';
+            imageFrame3.style.display = 'block';
+            
+            imageFrame1.style.opacity = frameNumber === 1 ? '1' : '0';
+            imageFrame2.style.opacity = frameNumber === 2 ? '1' : '0';
+            imageFrame3.style.opacity = frameNumber === 3 ? '1' : '0';
+        }
+        
+        function advanceAnimation() {
+            currentPatternIndex = (currentPatternIndex + 1) % loopPattern.length;
+            showFrame(loopPattern[currentPatternIndex]);
+        }
+        
+        function startAnimation() {
+            if (!animationFramesAvailable || animationInterval) return;
+            
+            currentPatternIndex = 0;
+            showFrame(loopPattern[0]);
+            animationInterval = setInterval(advanceAnimation, 10000);
+        }
+        
+        function stopAnimation() {
+            if (animationInterval) {
+                clearInterval(animationInterval);
+                animationInterval = null;
+            }
+        }
+        
+        function resetAnimation() {
+            stopAnimation();
+            currentPatternIndex = 0;
+            
+            // Hide animation frames, show default
+            const layers = albumArtContainer.querySelectorAll('.album-art-layer');
+            layers.forEach(layer => {
+                layer.style.display = 'none';
+                layer.style.opacity = '0';
+            });
+            albumArt.style.opacity = '1';
         }
         
         // Auto-load song if coming from a lesson page
@@ -820,6 +979,17 @@
                 seekBar.value = (audio.currentTime / audio.duration) * 100;
                 currentTimeEl.textContent = formatTime(audio.currentTime);
             }
+        });
+        
+        // Animation sync with audio
+        audio.addEventListener('play', () => {
+            if (animationFramesAvailable) {
+                startAnimation();
+            }
+        });
+        
+        audio.addEventListener('pause', () => {
+            stopAnimation();
         });
         
         audio.addEventListener('loadedmetadata', () => {
