@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Music - Hurst Class Study</title>
-    <link rel="stylesheet" href="style.css?v=55">
+    <link rel="stylesheet" href="style.css?v=56">
     <style>
         /* Override container for two-column layout */
         body {
@@ -544,8 +544,10 @@
                 height: 3rem;
             }
             
+            /* FLIPPED LAYOUT: Player first, song list second */
             .music-container {
-                grid-template-columns: 1fr;
+                display: flex;
+                flex-direction: column;
                 height: auto !important;
                 overflow: visible !important;
                 padding: 0 15px 2rem 15px;
@@ -553,7 +555,15 @@
                 gap: 1rem;
             }
             
+            .main-display {
+                order: 1;
+                height: auto !important;
+                overflow: visible !important;
+                padding: 1rem;
+            }
+            
             .sidebar {
+                order: 2;
                 position: static;
                 margin-bottom: 1rem;
                 height: auto !important;
@@ -563,12 +573,6 @@
             .sidebar h2 {
                 font-size: 0.9rem;
                 margin-bottom: 0.75rem;
-            }
-            
-            .main-display {
-                height: auto !important;
-                overflow: visible !important;
-                padding: 1rem;
             }
             
             .song-list-compact {

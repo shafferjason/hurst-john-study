@@ -2425,26 +2425,31 @@ strong, b {
     }
 
     /* Mobile navigation improvements */
-    .nav-links {
-        flex-direction: row;
-        gap: 0.75rem;
-        padding: 0 15px;
+    .lesson-navigation {
+        padding: 0.75rem 0 0.5rem 0;
     }
     
-    /* Compact nav buttons on mobile */
+    .nav-links {
+        flex-direction: row;
+        gap: 0.5rem;
+        padding: 0 10px;
+    }
+    
+    /* Slim, compact nav buttons on mobile */
     .nav-link {
-        padding: 0.875rem 1.25rem;
-        min-height: 48px;
+        padding: 0.5rem 1rem;
+        min-height: 40px;
         flex: 1;
         justify-content: center;
+        border-radius: 6px;
     }
     
     .nav-link .nav-label {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
     }
     
     .nav-link .nav-arrow {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
     
     .nav-link-placeholder {
@@ -2662,13 +2667,23 @@ strong, b {
         padding: 1.75rem 1rem;
     }
     
+    /* Even slimmer nav on small phones */
+    .lesson-navigation {
+        padding: 0.5rem 0 0.35rem 0;
+    }
+    
     .nav-link {
-        padding: 0.75rem 1rem;
+        padding: 0.4rem 0.75rem;
+        min-height: 36px;
     }
     
     .nav-link .nav-label {
-        font-size: 0.8rem;
-        letter-spacing: 0.08em;
+        font-size: 0.75rem;
+        letter-spacing: 0.06em;
+    }
+    
+    .nav-link .nav-arrow {
+        font-size: 0.85rem;
     }
     
     /* Mobile fire: Ornate dividers pulse with golden glow on small screens */
