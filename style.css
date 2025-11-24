@@ -2058,6 +2058,89 @@ a:has(.inline-logo):hover .inline-logo {
     width: 45%;
 }
 
+/* ===================================
+   LESSON NAV LINKS (Bottom Navigation)
+   =================================== */
+
+.nav-links {
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, rgba(42, 38, 33, 0.85) 0%, rgba(30, 28, 25, 0.9) 100%);
+    border: 1px solid rgba(212, 165, 116, 0.35);
+    border-radius: 8px;
+    color: #c9a47a;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.05),
+        0 3px 10px rgba(0, 0, 0, 0.4);
+}
+
+.nav-link:hover {
+    background: linear-gradient(135deg, rgba(52, 48, 43, 0.9) 0%, rgba(40, 38, 35, 0.95) 100%);
+    border-color: rgba(240, 212, 168, 0.5);
+    color: #f0d4a8;
+    transform: translateY(-2px);
+    box-shadow: 
+        inset 0 1px 0 rgba(255, 255, 255, 0.08),
+        0 6px 16px rgba(0, 0, 0, 0.5),
+        0 0 25px rgba(212, 165, 116, 0.25);
+    text-shadow: 0 0 10px rgba(240, 212, 168, 0.3);
+}
+
+.nav-link:active {
+    transform: translateY(0);
+    box-shadow: 
+        inset 0 2px 4px rgba(0, 0, 0, 0.3),
+        0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.prev-link:hover {
+    transform: translateY(-2px) translateX(-3px);
+}
+
+.next-link:hover {
+    transform: translateY(-2px) translateX(3px);
+}
+
+.nav-link .nav-arrow {
+    font-size: 1.1rem;
+    line-height: 1;
+    transition: transform 0.3s ease;
+}
+
+.prev-link:hover .nav-arrow {
+    transform: translateX(-3px);
+}
+
+.next-link:hover .nav-arrow {
+    transform: translateX(3px);
+}
+
+.nav-link .nav-label {
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.nav-link-placeholder {
+    width: 120px; /* Reserve space for balanced layout */
+}
+
 /* Mobile: Simplified nav buttons */
 @media (max-width: 768px) {
     .nav-button {
@@ -2343,19 +2426,29 @@ strong, b {
 
     /* Mobile navigation improvements */
     .nav-links {
-        flex-direction: column;
-        gap: 1rem;
+        flex-direction: row;
+        gap: 0.75rem;
+        padding: 0 15px;
     }
     
-    /* Larger tap targets for navigation */
+    /* Compact nav buttons on mobile */
     .nav-link {
-        padding: 1.5rem;
+        padding: 0.875rem 1.25rem;
         min-height: 48px;
+        flex: 1;
+        justify-content: center;
     }
-
-    .prev-link,
-    .next-link {
-        text-align: center;
+    
+    .nav-link .nav-label {
+        font-size: 0.85rem;
+    }
+    
+    .nav-link .nav-arrow {
+        font-size: 1rem;
+    }
+    
+    .nav-link-placeholder {
+        display: none;
     }
 
     .accordion-content {
@@ -2570,7 +2663,12 @@ strong, b {
     }
     
     .nav-link {
-        padding: 1.75rem 1rem;
+        padding: 0.75rem 1rem;
+    }
+    
+    .nav-link .nav-label {
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
     }
     
     /* Mobile fire: Ornate dividers pulse with golden glow on small screens */
@@ -3634,6 +3732,31 @@ details .divider-ornate {
     .audio-player-main .audio-speaker-icon {
         display: none;
     }
+    
+    /* SONGS PAGE player mobile fixes */
+    .audio-player-main {
+        padding: 1.25rem 1rem;
+        border-radius: 12px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+    
+    /* Smaller corner brackets on songs player mobile */
+    .audio-player-main::before,
+    .audio-player-main::after {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .audio-player-main::before {
+        top: 8px;
+        left: 8px;
+    }
+    
+    .audio-player-main::after {
+        bottom: 8px;
+        right: 8px;
+    }
 }
 
 /* Extra small screens */
@@ -3655,6 +3778,11 @@ details .divider-ornate {
     .simple-player-btn {
         width: 52px;
         height: 52px;
+    }
+    
+    /* Songs player extra small screens */
+    .audio-player-main {
+        padding: 1rem 0.75rem;
     }
 }
 

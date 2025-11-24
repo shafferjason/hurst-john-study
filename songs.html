@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Music - Hurst Class Study</title>
-    <link rel="stylesheet" href="style.css?v=50">
+    <link rel="stylesheet" href="style.css?v=52">
     <style>
         /* Override container for two-column layout */
         body {
@@ -507,7 +507,8 @@
         @media (max-width: 1024px) {
             /* CRITICAL: Allow scrolling on mobile */
             body {
-                overflow: auto !important;
+                overflow-x: hidden !important;
+                overflow-y: auto !important;
                 height: auto !important;
                 min-height: 100vh;
             }
@@ -516,7 +517,8 @@
                 grid-template-columns: 1fr;
                 height: auto !important;
                 overflow: visible !important;
-                padding-bottom: 3rem;
+                padding: 0 15px 3rem 15px;
+                max-width: 100%;
             }
             
             .sidebar {
@@ -528,6 +530,7 @@
             .main-display {
                 height: auto !important;
                 overflow: visible !important;
+                padding: 1rem;
             }
             
             .song-list-compact {
@@ -543,6 +546,7 @@
                     "player"
                     "lyrics";
                 gap: 1rem;
+                max-width: 100%;
             }
             
             .album-art {
@@ -555,6 +559,23 @@
             
             .player-controls-main {
                 justify-content: center;
+            }
+            
+            /* Ensure player doesn't overflow */
+            .audio-player-main {
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+            
+            /* Time display mobile fixes */
+            .progress-bar-container {
+                gap: 0.5rem;
+            }
+            
+            .time-display {
+                min-width: 38px;
+                font-size: 0.8rem;
+                flex-shrink: 0;
             }
         }
     </style>

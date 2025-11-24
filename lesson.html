@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=50">
+    <link rel="stylesheet" href="style.css?v=52">
 </head>
 <body>
     <!-- Sticky Breadcrumb Navigation -->
@@ -209,8 +209,9 @@
             if (currentIndex > 0) {
                 const prevLesson = lessonData[currentIndex - 1];
                 navHTML += `
-                    <a href="lesson.html?id=${prevLesson.id}" class="nav-link prev-link">
-                        ← Previous Lesson: ${prevLesson.title}
+                    <a href="lesson.html?id=${prevLesson.id}" class="nav-link prev-link" title="${prevLesson.title}">
+                        <span class="nav-arrow">←</span>
+                        <span class="nav-label">Previous</span>
                     </a>
                 `;
             } else {
@@ -221,8 +222,9 @@
             if (currentIndex < lessonData.length - 1) {
                 const nextLesson = lessonData[currentIndex + 1];
                 navHTML += `
-                    <a href="lesson.html?id=${nextLesson.id}" class="nav-link next-link">
-                        Next Lesson: ${nextLesson.title} →
+                    <a href="lesson.html?id=${nextLesson.id}" class="nav-link next-link" title="${nextLesson.title}">
+                        <span class="nav-label">Next</span>
+                        <span class="nav-arrow">→</span>
                     </a>
                 `;
             } else {
