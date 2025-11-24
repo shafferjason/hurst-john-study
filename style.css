@@ -3590,6 +3590,75 @@ details .divider-ornate {
 }
 
 /* ===================================
+   MOBILE PLAYER FIXES (v50)
+   =================================== */
+
+/* Mobile fixes for lesson page player - prevent time overflow */
+@media (max-width: 768px) {
+    /* Ensure time displays have enough space */
+    .simple-time-display {
+        min-width: 42px;
+        font-size: 0.9rem;
+        text-align: center;
+        flex-shrink: 0;
+    }
+    
+    /* Reduce gap for tighter mobile layout */
+    .simple-progress-wrapper {
+        gap: 0.5rem;
+    }
+    
+    /* Reduce padding on lesson player */
+    .simple-audio-player {
+        padding: 1.25rem 1rem;
+    }
+    
+    /* Smaller corner brackets on mobile */
+    .simple-audio-player::before,
+    .simple-audio-player::after {
+        width: 25px;
+        height: 25px;
+    }
+    
+    .simple-audio-player::before {
+        top: 8px;
+        left: 8px;
+    }
+    
+    .simple-audio-player::after {
+        bottom: 8px;
+        right: 8px;
+    }
+    
+    /* Hide speaker icon on SONGS page mobile (audio-player-main) */
+    .audio-player-main .audio-speaker-icon {
+        display: none;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .simple-time-display {
+        min-width: 38px;
+        font-size: 0.85rem;
+    }
+    
+    .simple-progress-wrapper {
+        gap: 0.35rem;
+    }
+    
+    .simple-audio-player {
+        padding: 1rem 0.75rem;
+    }
+    
+    /* Even smaller play button on very small screens */
+    .simple-player-btn {
+        width: 52px;
+        height: 52px;
+    }
+}
+
+/* ===================================
    END OF STYLESHEET
    =================================== */
 
