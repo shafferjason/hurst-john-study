@@ -1558,9 +1558,13 @@ a:has(.inline-logo):hover .inline-logo {
     background: rgba(0, 0, 0, 0.3); /* Fallback background if image missing */
     display: block !important;
     visibility: visible !important;
-    opacity: 1 !important;
     position: relative !important;
     z-index: 10 !important;
+}
+
+/* Default image gets full opacity */
+.lesson-image-default {
+    opacity: 1 !important;
 }
 
 /* Animated image container - stacks multiple images */
