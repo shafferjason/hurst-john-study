@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=59">
+    <link rel="stylesheet" href="style.css?v=60">
 </head>
 <body>
     <!-- Sticky Breadcrumb Navigation -->
@@ -683,6 +683,52 @@
             });
         }
         // === END ACCORDION REPLAY ===
+        
+        // ========================================
+        // SWIPE GESTURE NAVIGATION (Mobile Only)
+        // ========================================
+        (function() {
+            let touchStartX = 0;
+            let touchStartY = 0;
+            let touchEndX = 0;
+            let touchEndY = 0;
+            
+            const minSwipeDistance = 80;
+            const maxVerticalDistance = 100;
+            
+            document.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                touchStartY = e.changedTouches[0].screenY;
+            }, { passive: true });
+            
+            document.addEventListener('touchend', (e) => {
+                touchEndX = e.changedTouches[0].screenX;
+                touchEndY = e.changedTouches[0].screenY;
+                handleSwipe();
+            }, { passive: true });
+            
+            function handleSwipe() {
+                const deltaX = touchEndX - touchStartX;
+                const deltaY = Math.abs(touchEndY - touchStartY);
+                
+                // Only trigger if horizontal swipe is significant and vertical movement is small
+                if (Math.abs(deltaX) > minSwipeDistance && deltaY < maxVerticalDistance) {
+                    if (deltaX > 0) {
+                        // Swiped right → go to previous lesson
+                        const prevLink = document.querySelector('.nav-link.prev-link');
+                        if (prevLink) {
+                            prevLink.click();
+                        }
+                    } else {
+                        // Swiped left → go to next lesson
+                        const nextLink = document.querySelector('.nav-link.next-link');
+                        if (nextLink) {
+                            nextLink.click();
+                        }
+                    }
+                }
+            }
+        })();
     </script>
 
 </body>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Music - Hurst Class Study</title>
-    <link rel="stylesheet" href="style.css?v=59">
+    <link rel="stylesheet" href="style.css?v=60">
     <style>
         /* Override container for two-column layout */
         body {
@@ -567,6 +567,119 @@
             text-shadow: 0 0 10px rgba(240, 212, 168, 0.3);
         }
         
+        /* ========================================
+           STICKY MINI PLAYER (Mobile Only)
+           ======================================== */
+        .mini-player {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, 
+                rgba(35, 32, 28, 0.98) 0%,
+                rgba(25, 23, 20, 0.99) 100%
+            );
+            backdrop-filter: blur(10px);
+            border-top: 1px solid rgba(212, 165, 116, 0.3);
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            padding: 0.5rem 1rem;
+            padding-bottom: calc(0.5rem + env(safe-area-inset-bottom));
+        }
+        
+        .mini-player.visible {
+            display: block;
+        }
+        
+        .mini-player-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .mini-album-art {
+            width: 44px;
+            height: 44px;
+            border-radius: 6px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+        }
+        
+        .mini-song-details {
+            flex: 1;
+            min-width: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0.15rem;
+        }
+        
+        .mini-song-title {
+            color: #e8e4dc;
+            font-size: 0.95rem;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .mini-song-artist {
+            color: #a8a49b;
+            font-size: 0.8rem;
+        }
+        
+        .mini-player-controls {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .mini-play-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #c9a47a 0%, #a8835a 100%);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.2s ease;
+        }
+        
+        .mini-play-btn:active {
+            transform: scale(0.95);
+        }
+        
+        .mini-play-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #1a1816;
+        }
+        
+        .mini-play-icon {
+            margin-left: 2px;
+        }
+        
+        /* Mini progress bar at top of mini player */
+        .mini-progress-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: rgba(212, 165, 116, 0.2);
+        }
+        
+        .mini-progress-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #c9a47a, #f0d4a8);
+            transition: width 0.1s linear;
+        }
+        
         /* Tablet / Smaller desktop screens */
         @media (max-width: 1200px) {
             .music-container {
@@ -917,6 +1030,30 @@
         </main>
     </div>
     
+    <!-- Sticky Mini Player (Mobile only) -->
+    <div class="mini-player" id="mini-player">
+        <div class="mini-player-info">
+            <img id="mini-album-art" class="mini-album-art" src="" alt="">
+            <div class="mini-song-details">
+                <span class="mini-song-title" id="mini-song-title">Select a song</span>
+                <span class="mini-song-artist">The Tenth Hour</span>
+            </div>
+        </div>
+        <div class="mini-player-controls">
+            <button class="mini-play-btn" id="mini-play-btn" aria-label="Play/Pause">
+                <svg class="mini-play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M8 5v14l11-7z"/>
+                </svg>
+                <svg class="mini-pause-icon" style="display:none;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="mini-progress-bar" id="mini-progress-bar">
+            <div class="mini-progress-fill" id="mini-progress-fill"></div>
+        </div>
+    </div>
+    
     <script src="data.js"></script>
     <script>
         let currentSongIndex = -1;
@@ -942,6 +1079,16 @@
         const lyricsText = document.getElementById('lyrics-text');
         const sunoLink = document.getElementById('suno-link');
         const lessonLink = document.getElementById('lesson-link');
+        
+        // Mini player elements
+        const miniPlayer = document.getElementById('mini-player');
+        const miniAlbumArt = document.getElementById('mini-album-art');
+        const miniSongTitle = document.getElementById('mini-song-title');
+        const miniPlayBtn = document.getElementById('mini-play-btn');
+        const miniPlayIcon = miniPlayBtn.querySelector('.mini-play-icon');
+        const miniPauseIcon = miniPlayBtn.querySelector('.mini-pause-icon');
+        const miniProgressFill = document.getElementById('mini-progress-fill');
+        let songLoaded = false;
         
         // Animation variables
         let animationInterval = null;
@@ -1047,6 +1194,9 @@
                 item.classList.remove('active', 'playing', 'paused');
             });
             document.querySelector(`[data-index="${index}"]`).classList.add('active');
+            
+            // Update mini player
+            updateMiniPlayer(lesson);
             
             // Auto-play
             audio.play();
@@ -1292,6 +1442,90 @@
             navigator.mediaSession.setActionHandler('previoustrack', () => prevBtn.click());
             navigator.mediaSession.setActionHandler('nexttrack', () => nextBtn.click());
         }
+        
+        // ========================================
+        // MINI PLAYER LOGIC (Mobile Only)
+        // ========================================
+        
+        // Check if we're on mobile
+        function isMobileView() {
+            return window.innerWidth <= 1024;
+        }
+        
+        // Update mini player info when song loads
+        function updateMiniPlayer(lesson) {
+            songLoaded = true;
+            miniSongTitle.textContent = lesson.song_title;
+            if (lesson.image_url) {
+                miniAlbumArt.src = lesson.image_url;
+                miniAlbumArt.style.display = 'block';
+            } else {
+                miniAlbumArt.style.display = 'none';
+            }
+            checkMiniPlayerVisibility();
+        }
+        
+        // Sync mini player play/pause icons with main player
+        function syncMiniPlayerState() {
+            if (audio.paused) {
+                miniPlayIcon.style.display = 'block';
+                miniPauseIcon.style.display = 'none';
+            } else {
+                miniPlayIcon.style.display = 'none';
+                miniPauseIcon.style.display = 'block';
+            }
+        }
+        
+        // Update mini progress bar
+        function updateMiniProgress() {
+            if (audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                miniProgressFill.style.width = percent + '%';
+            }
+        }
+        
+        // Check if mini player should be visible
+        function checkMiniPlayerVisibility() {
+            if (!isMobileView() || !songLoaded) {
+                miniPlayer.classList.remove('visible');
+                return;
+            }
+            
+            // Show mini player when scrolled past the main player
+            const mainDisplay = document.querySelector('.main-display');
+            if (mainDisplay) {
+                const rect = mainDisplay.getBoundingClientRect();
+                const mainPlayerBottom = rect.bottom;
+                
+                // Show mini player if main player is mostly scrolled out of view
+                if (mainPlayerBottom < 150) {
+                    miniPlayer.classList.add('visible');
+                } else {
+                    miniPlayer.classList.remove('visible');
+                }
+            }
+        }
+        
+        // Mini play button click
+        miniPlayBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+            } else {
+                audio.pause();
+            }
+        });
+        
+        // Sync states on audio events
+        audio.addEventListener('play', syncMiniPlayerState);
+        audio.addEventListener('pause', syncMiniPlayerState);
+        audio.addEventListener('timeupdate', updateMiniProgress);
+        
+        // Check visibility on scroll
+        window.addEventListener('scroll', checkMiniPlayerVisibility, { passive: true });
+        window.addEventListener('resize', checkMiniPlayerVisibility);
+        
+        // Initial check
+        checkMiniPlayerVisibility();
     </script>
 </body>
 </html>
