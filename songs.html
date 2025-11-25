@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Music - Hurst Class Study</title>
-    <link rel="stylesheet" href="style.css?v=56">
+    <link rel="stylesheet" href="style.css?v=59">
     <style>
         /* Override container for two-column layout */
         body {
@@ -144,6 +144,65 @@
             );
             border-color: rgba(240, 212, 168, 0.5);
             box-shadow: 0 0 12px rgba(240, 212, 168, 0.3);
+        }
+        
+        /* Now Playing Indicator - Animated Sound Bars */
+        .now-playing-indicator {
+            display: none;
+            align-items: flex-end;
+            gap: 2px;
+            height: 16px;
+            padding-left: 0.5rem;
+            flex-shrink: 0;
+        }
+        
+        .song-item-compact.playing .now-playing-indicator {
+            display: flex;
+        }
+        
+        .now-playing-indicator .bar {
+            width: 3px;
+            background: linear-gradient(to top, #c9a47a, #f0d4a8);
+            border-radius: 1px;
+            animation: soundBars 0.8s ease-in-out infinite;
+        }
+        
+        .now-playing-indicator .bar:nth-child(1) {
+            height: 60%;
+            animation-delay: 0s;
+        }
+        
+        .now-playing-indicator .bar:nth-child(2) {
+            height: 100%;
+            animation-delay: 0.2s;
+        }
+        
+        .now-playing-indicator .bar:nth-child(3) {
+            height: 40%;
+            animation-delay: 0.4s;
+        }
+        
+        .now-playing-indicator .bar:nth-child(4) {
+            height: 80%;
+            animation-delay: 0.1s;
+        }
+        
+        @keyframes soundBars {
+            0%, 100% {
+                transform: scaleY(0.3);
+            }
+            50% {
+                transform: scaleY(1);
+            }
+        }
+        
+        /* Paused state - bars frozen */
+        .song-item-compact.paused .now-playing-indicator {
+            display: flex;
+        }
+        
+        .song-item-compact.paused .now-playing-indicator .bar {
+            animation-play-state: paused;
         }
         
         .song-item-thumbnail {
@@ -576,7 +635,7 @@
             }
             
             .song-list-compact {
-                max-height: 200px;
+                max-height: 350px;
             }
             
             .song-item-compact {
@@ -714,7 +773,7 @@
             }
             
             .song-list-compact {
-                max-height: 150px;
+                max-height: 320px;
             }
             
             .album-art-container {
@@ -929,6 +988,12 @@
                         <span class="song-item-number">${index + 1}.</span>
                         <span class="song-item-title">${lesson.song_title}</span>
                     </div>
+                    <div class="now-playing-indicator">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
                 `;
                 songItem.addEventListener('click', () => loadSong(index));
                 songList.appendChild(songItem);
@@ -977,9 +1042,9 @@
                 sunoLink.style.display = 'none';
             }
             
-            // Update active state in list
+            // Update active state in list (clear all states first)
             document.querySelectorAll('.song-item-compact').forEach(item => {
-                item.classList.remove('active');
+                item.classList.remove('active', 'playing', 'paused');
             });
             document.querySelector(`[data-index="${index}"]`).classList.add('active');
             
@@ -1159,15 +1224,27 @@
             }
         });
         
-        // Animation sync with audio
+        // Animation sync with audio + Now Playing indicator
         audio.addEventListener('play', () => {
             if (animationFramesAvailable) {
                 startAnimation();
+            }
+            // Update now playing indicator
+            const activeItem = document.querySelector('.song-item-compact.active');
+            if (activeItem) {
+                activeItem.classList.add('playing');
+                activeItem.classList.remove('paused');
             }
         });
         
         audio.addEventListener('pause', () => {
             stopAnimation();
+            // Update now playing indicator
+            const activeItem = document.querySelector('.song-item-compact.active');
+            if (activeItem) {
+                activeItem.classList.remove('playing');
+                activeItem.classList.add('paused');
+            }
         });
         
         audio.addEventListener('loadedmetadata', () => {
@@ -1188,6 +1265,11 @@
             } else {
                 playIcon.style.display = 'inline-block';
                 pauseIcon.style.display = 'none';
+                // Clear playing indicator
+                const activeItem = document.querySelector('.song-item-compact.active');
+                if (activeItem) {
+                    activeItem.classList.remove('playing');
+                }
             }
         });
         
