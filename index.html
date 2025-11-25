@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hurst Class Study: Book of John</title>
-    <link rel="stylesheet" href="style.css?v=60">
+    <link rel="stylesheet" href="style.css?v=61">
 </head>
 <body>
     <!-- Reading progress bar will be auto-injected here by JavaScript -->
@@ -76,7 +76,15 @@
         </section>
 
         <section class="lessons-section">
-            <h2>Lessons</h2>
+            <div class="lessons-header">
+                <h2>Lessons</h2>
+                <button class="sort-toggle" id="sort-toggle" aria-label="Toggle lesson order">
+                    <span class="sort-label" id="sort-label">Newest First</span>
+                    <svg class="sort-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16">
+                        <path d="M7 10l5 5 5-5z"/>
+                    </svg>
+                </button>
+            </div>
             <div id="lessons-list">
                 <!-- Lessons will be dynamically inserted here -->
             </div>
@@ -87,27 +95,62 @@
 
     <script src="data.js"></script>
     <script>
-        // Build the lesson list dynamically
-        const lessonsList = document.getElementById('lessons-list');
+        // Sort preference from localStorage (default: newest first for regular users)
+        const SORT_KEY = 'lessonSortOrder';
+        let sortNewestFirst = localStorage.getItem(SORT_KEY) !== 'oldest';
         
-        if (typeof lessonData !== 'undefined' && lessonData.length > 0) {
-            lessonData.forEach(lesson => {
-                const lessonItem = document.createElement('div');
-                lessonItem.className = 'lesson-item';
+        const lessonsList = document.getElementById('lessons-list');
+        const sortToggle = document.getElementById('sort-toggle');
+        const sortLabel = document.getElementById('sort-label');
+        
+        // Render lessons based on current sort order
+        function renderLessons() {
+            lessonsList.innerHTML = '';
+            
+            if (typeof lessonData !== 'undefined' && lessonData.length > 0) {
+                // Create a copy to sort
+                const sortedLessons = [...lessonData];
                 
-                const link = document.createElement('a');
-                link.href = `lesson.html?id=${lesson.id}`;
-                link.innerHTML = `
-                    <span class="lesson-title">${lesson.title}</span>
-                    <span class="lesson-scripture">${lesson.scripture}</span>
-                `;
+                if (sortNewestFirst) {
+                    sortedLessons.reverse();
+                }
                 
-                lessonItem.appendChild(link);
-                lessonsList.appendChild(lessonItem);
-            });
-        } else {
-            lessonsList.innerHTML = '<p class="no-lessons">No lessons available yet. Check back soon!</p>';
+                sortedLessons.forEach(lesson => {
+                    const lessonItem = document.createElement('div');
+                    lessonItem.className = 'lesson-item';
+                    
+                    const link = document.createElement('a');
+                    link.href = `lesson.html?id=${lesson.id}`;
+                    link.innerHTML = `
+                        <span class="lesson-title">${lesson.title}</span>
+                        <span class="lesson-scripture">${lesson.scripture}</span>
+                    `;
+                    
+                    lessonItem.appendChild(link);
+                    lessonsList.appendChild(lessonItem);
+                });
+            } else {
+                lessonsList.innerHTML = '<p class="no-lessons">No lessons available yet. Check back soon!</p>';
+            }
         }
+        
+        // Update toggle button text
+        function updateToggleLabel() {
+            sortLabel.textContent = sortNewestFirst ? 'Newest First' : 'Oldest First';
+            sortToggle.classList.toggle('flipped', !sortNewestFirst);
+        }
+        
+        // Toggle click handler
+        sortToggle.addEventListener('click', () => {
+            sortNewestFirst = !sortNewestFirst;
+            localStorage.setItem(SORT_KEY, sortNewestFirst ? 'newest' : 'oldest');
+            updateToggleLabel();
+            renderLessons();
+        });
+        
+        // Initial render
+        updateToggleLabel();
+        renderLessons();
     </script>
 
     <!-- UX Enhancements: Progress Bar & Back-to-Top Button -->
