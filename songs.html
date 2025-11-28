@@ -1320,10 +1320,15 @@
             albumArt.style.opacity = '1';
         }
         
-        // Auto-load song if coming from a lesson page
+        // Auto-load song if coming from a lesson page, otherwise load first song
         if (autoLoadIndex !== -1) {
             setTimeout(() => {
                 loadSong(autoLoadIndex);
+            }, 300);
+        } else {
+            // Auto-play first song on page load
+            setTimeout(() => {
+                loadSong(0);
             }, 300);
         }
         
