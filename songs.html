@@ -1198,10 +1198,8 @@
             // Update mini player
             updateMiniPlayer(lesson);
             
-            // Auto-play
-            audio.play();
-            playIcon.style.display = 'none';
-            pauseIcon.style.display = 'inline-block';
+            // Don't auto-play - let user click play
+            // Button stays on play icon until user clicks
         }
         
         // Setup animation for current song
