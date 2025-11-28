@@ -2372,7 +2372,7 @@ strong, b {
         width: 100vw !important;
         margin-left: calc(-50vw + 50%) !important;
         margin-right: calc(-50vw + 50%) !important;
-        padding: 2.5rem 1.5rem !important;
+        padding: 2rem 1rem !important;
         border-radius: 0 !important; /* Square edges when expanded */
     }
     
@@ -2530,7 +2530,7 @@ strong, b {
         margin-right: 0 !important;
         margin-top: 1.5rem !important;
         margin-bottom: 1rem !important;
-        padding: 2rem 1.25rem 1.5rem 1.25rem !important;
+        padding: 2rem 1rem 1.5rem 1rem !important;
         font-size: 1.05rem;
         line-height: 1.7;
         border-radius: 8px !important;
@@ -2546,6 +2546,15 @@ strong, b {
             inset 0 0 60px rgba(0, 0, 0, 0.03),
             0 2px 6px rgba(0, 0, 0, 0.12) !important;
         min-height: 50px !important;
+    }
+    
+    /* Home page accordions expand to full width when open */
+    .about-section:has(.accordion[open]),
+    .about-music-section:has(.accordion[open]) {
+        width: 100vw !important;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+        padding: 1.5rem 1rem !important;
     }
     
     /* Force all mobile accordion text to pure black */
