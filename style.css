@@ -1909,12 +1909,6 @@ a:has(.inline-logo):hover .inline-logo {
     font-size: 0.95em;
 }
 
-/* Brass corner tabs removed */
-.song-section::before,
-.song-section::after {
-    display: none;
-}
-
 /* Lyrics accordion within song section */
 .song-section .lyrics-accordion {
     margin-top: 1.5rem;
