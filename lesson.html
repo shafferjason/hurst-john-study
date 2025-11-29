@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=67">
+    <link rel="stylesheet" href="style.css?v=68">
 </head>
 <body>
     <!-- Sticky Breadcrumb Navigation -->
@@ -35,6 +35,72 @@
 
     <script src="data.js"></script>
     <script>
+        // Format content text - convert newlines to paragraphs, handle bullets and headers
+        function formatContent(text) {
+            if (!text) return '';
+            
+            // Split by double newlines (paragraphs)
+            let paragraphs = text.split(/\n\n+/);
+            
+            let html = '';
+            let inList = false;
+            
+            paragraphs.forEach(para => {
+                para = para.trim();
+                if (!para) return;
+                
+                // Check if this paragraph contains bullet points
+                if (para.includes('•')) {
+                    // Split by bullet points
+                    let lines = para.split(/\n/);
+                    let headerText = '';
+                    let bullets = [];
+                    
+                    lines.forEach(line => {
+                        line = line.trim();
+                        if (line.startsWith('•')) {
+                            bullets.push(line.substring(1).trim());
+                        } else if (line && bullets.length === 0) {
+                            // Text before bullets - treat as header/intro
+                            headerText = line;
+                        }
+                    });
+                    
+                    if (headerText) {
+                        html += '<p class="section-header">' + headerText + '</p>';
+                    }
+                    
+                    if (bullets.length > 0) {
+                        html += '<ul class="content-list">';
+                        bullets.forEach(bullet => {
+                            html += '<li>' + bullet + '</li>';
+                        });
+                        html += '</ul>';
+                    }
+                } else {
+                    // Check if it looks like a section header (short, no period at end, often followed by content)
+                    let isHeader = para.length < 80 && 
+                                   !para.endsWith('.') && 
+                                   !para.endsWith('?') && 
+                                   !para.endsWith('"') &&
+                                   (para.includes(':') || /^[A-Z]/.test(para));
+                    
+                    // More specific header patterns
+                    if (para.match(/^(The |A |What |Why |How |Key |[0-9]+\.|Example)/)) {
+                        isHeader = para.length < 100 && !para.endsWith('.');
+                    }
+                    
+                    if (isHeader && para.length < 60) {
+                        html += '<p class="section-header">' + para + '</p>';
+                    } else {
+                        html += '<p>' + para + '</p>';
+                    }
+                }
+            });
+            
+            return html;
+        }
+        
         // Format tie-in text to style reflective question
         function formatTieIn(text) {
             // Check if there's a reflective question section
@@ -44,13 +110,13 @@
                 const mainContent = parts[0].trim();
                 const question = parts[1] ? parts[1].trim() : '';
                 
-                return mainContent + 
-                    '</p><div class="reflective-question">' +
+                return formatContent(mainContent) + 
+                    '<div class="reflective-question">' +
                     '<span class="reflective-label">Reflective Question</span>' +
                     '<p class="reflective-text">' + question + '</p>' +
-                    '</div><p style="display:none;">';
+                    '</div>';
             }
-            return text;
+            return formatContent(text);
         }
         
         // Get the lesson ID from the URL parameter
@@ -106,7 +172,7 @@
                     <details class="accordion">
                         <summary>Read Full Lesson Summary</summary>
                         <div class="accordion-content">
-                            <p>${currentLesson.summary_full}</p>
+                            ${formatContent(currentLesson.summary_full)}
                         </div>
                     </details>
                     <button class="infographic-btn" id="openInfographic" style="display:none;">
@@ -133,7 +199,7 @@
                     <details class="accordion">
                         <summary>Read About the Song</summary>
                         <div class="accordion-content">
-                            <p>${formatTieIn(currentLesson.tie_in_full)}</p>
+                            ${formatTieIn(currentLesson.tie_in_full)}
                         </div>
                     </details>
                 </section>

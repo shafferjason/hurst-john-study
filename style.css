@@ -1443,6 +1443,43 @@ a:has(.inline-logo):hover .inline-logo {
     margin: 0;
 }
 
+/* Section headers within accordion content */
+.accordion-content .section-header {
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #c9a47a;
+    margin-top: 1.75rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.01em;
+}
+
+.accordion-content .section-header:first-child {
+    margin-top: 0;
+}
+
+/* Bullet lists within accordion content */
+.accordion-content .content-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 1rem 0 1.5rem 0;
+}
+
+.accordion-content .content-list li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.7;
+}
+
+.accordion-content .content-list li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: #c9a47a;
+    font-weight: bold;
+}
+
 /* Brass corner tabs removed */
 .song-section::before,
 .song-section::after {
