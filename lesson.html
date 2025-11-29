@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=66">
+    <link rel="stylesheet" href="style.css?v=67">
 </head>
 <body>
     <!-- Sticky Breadcrumb Navigation -->
@@ -35,6 +35,24 @@
 
     <script src="data.js"></script>
     <script>
+        // Format tie-in text to style reflective question
+        function formatTieIn(text) {
+            // Check if there's a reflective question section
+            const reflectiveMarker = 'Reflective Question for the Reader';
+            if (text.includes(reflectiveMarker)) {
+                const parts = text.split(reflectiveMarker);
+                const mainContent = parts[0].trim();
+                const question = parts[1] ? parts[1].trim() : '';
+                
+                return mainContent + 
+                    '</p><div class="reflective-question">' +
+                    '<span class="reflective-label">Reflective Question</span>' +
+                    '<p class="reflective-text">' + question + '</p>' +
+                    '</div><p style="display:none;">';
+            }
+            return text;
+        }
+        
         // Get the lesson ID from the URL parameter
         const urlParams = new URLSearchParams(window.location.search);
         const lessonId = urlParams.get('id');
@@ -115,7 +133,7 @@
                     <details class="accordion">
                         <summary>Read About the Song</summary>
                         <div class="accordion-content">
-                            <p>${currentLesson.tie_in_full}</p>
+                            <p>${formatTieIn(currentLesson.tie_in_full)}</p>
                         </div>
                     </details>
                 </section>
