@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=69">
+    <link rel="stylesheet" href="style.css?v=70">
 </head>
 <body>
     <!-- Sticky Breadcrumb Navigation -->
@@ -48,27 +48,69 @@
                 para = para.trim();
                 if (!para) return;
                 
+                // Helper function to process nested numbered lists within text
+                function processNestedNumberedList(text) {
+                    // Check if text contains indented numbered items
+                    if (text.match(/\n\s{2,}\d+\.\s/)) {
+                        let lines = text.split(/\n/);
+                        let result = '';
+                        let items = [];
+                        let beforeList = '';
+                        
+                        lines.forEach(line => {
+                            let match = line.match(/^\s{2,}(\d+)\.\s+(.+)/);
+                            if (match) {
+                                items.push(match[2]);
+                            } else if (items.length === 0) {
+                                beforeList += (beforeList ? ' ' : '') + line.trim();
+                            }
+                        });
+                        
+                        result = beforeList;
+                        if (items.length > 0) {
+                            result += '<ol class="content-list numbered nested">';
+                            items.forEach(item => {
+                                result += '<li>' + item + '</li>';
+                            });
+                            result += '</ol>';
+                        }
+                        return result;
+                    }
+                    return text;
+                }
+                
                 // Check if this paragraph contains bullet points with •
                 if (para.includes('•')) {
                     // Split by lines
                     let lines = para.split(/\n/);
                     let headerText = '';
                     let bullets = [];
+                    let currentBullet = '';
                     
                     lines.forEach(line => {
-                        line = line.trim();
-                        if (line.startsWith('•')) {
-                            bullets.push(line.substring(1).trim());
-                        } else if (line.startsWith('◦')) {
-                            // Sub-bullet - append to last bullet as sub-item
-                            if (bullets.length > 0) {
-                                bullets[bullets.length - 1] += '<br><span class="sub-item">◦ ' + line.substring(1).trim() + '</span>';
+                        let trimmedLine = line.trim();
+                        if (trimmedLine.startsWith('•')) {
+                            // Save previous bullet if exists
+                            if (currentBullet) {
+                                bullets.push(processNestedNumberedList(currentBullet));
                             }
-                        } else if (line && bullets.length === 0) {
+                            currentBullet = trimmedLine.substring(1).trim();
+                        } else if (trimmedLine.startsWith('◦')) {
+                            // Sub-bullet - append to current bullet
+                            currentBullet += '<br><span class="sub-item">◦ ' + trimmedLine.substring(1).trim() + '</span>';
+                        } else if (line.match(/^\s{2,}\d+\.\s/)) {
+                            // Indented numbered item - append to current bullet
+                            currentBullet += '\n' + line;
+                        } else if (trimmedLine && !currentBullet && bullets.length === 0) {
                             // Text before bullets - treat as header/intro
-                            headerText = line;
+                            headerText = trimmedLine;
                         }
                     });
+                    
+                    // Don't forget the last bullet
+                    if (currentBullet) {
+                        bullets.push(processNestedNumberedList(currentBullet));
+                    }
                     
                     if (headerText) {
                         html += '<p class="section-header">' + headerText + '</p>';
@@ -118,18 +160,19 @@
                 }
                 else {
                     // Check if it looks like a section header (short, no period at end)
-                    let isHeader = para.length < 80 && 
+                    let isHeader = para.length < 100 && 
                                    !para.endsWith('.') && 
                                    !para.endsWith('?') && 
                                    !para.endsWith('"') &&
+                                   !para.endsWith(':') &&
                                    (para.includes(':') || /^[A-Z]/.test(para));
                     
-                    // More specific header patterns
-                    if (para.match(/^(The |A |What |Why |How |Key |Example)/)) {
-                        isHeader = para.length < 100 && !para.endsWith('.');
+                    // More specific header patterns - these can be longer
+                    if (para.match(/^(The |A |What |Why |How |Key |Example|Description|Conclusion|Class|Dating|Ancient)/)) {
+                        isHeader = para.length < 120 && !para.endsWith('.') && !para.endsWith(':');
                     }
                     
-                    if (isHeader && para.length < 60) {
+                    if (isHeader && para.length < 80) {
                         html += '<p class="section-header">' + para + '</p>';
                     } else {
                         html += '<p>' + para + '</p>';

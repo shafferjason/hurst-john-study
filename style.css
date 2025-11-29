@@ -1494,6 +1494,18 @@ a:has(.inline-logo):hover .inline-logo {
     font-weight: normal;
 }
 
+/* Nested numbered lists (inside bullet points) */
+.accordion-content .content-list .content-list.numbered.nested {
+    margin-top: 0.75rem;
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+}
+
+.accordion-content .content-list .content-list.numbered.nested li {
+    padding-left: 1.75rem;
+    margin-bottom: 0.5rem;
+}
+
 /* Sub-items within list items */
 .accordion-content .content-list .sub-item {
     display: block;
