@@ -64,6 +64,11 @@ h1:hover {
     text-shadow: 0 0 30px rgba(232, 228, 220, 0.18);
 }
 
+/* Hide mobile line break on desktop */
+.mobile-break {
+    display: none;
+}
+
 h2 {
     /* Section headers - brass inscriptions, prominent chapter headings */
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -2298,6 +2303,11 @@ strong, b {
 
     h1 {
         font-size: 2rem;
+    }
+    
+    /* Show line break on mobile */
+    .mobile-break {
+        display: block;
     }
 
     h2 {
