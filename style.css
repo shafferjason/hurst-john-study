@@ -1480,6 +1480,29 @@ a:has(.inline-logo):hover .inline-logo {
     font-weight: bold;
 }
 
+/* Numbered lists */
+.accordion-content .content-list.numbered {
+    counter-reset: list-counter;
+}
+
+.accordion-content .content-list.numbered li {
+    counter-increment: list-counter;
+}
+
+.accordion-content .content-list.numbered li::before {
+    content: counter(list-counter) ".";
+    font-weight: normal;
+}
+
+/* Sub-items within list items */
+.accordion-content .content-list .sub-item {
+    display: block;
+    padding-left: 1rem;
+    margin-top: 0.25rem;
+    color: #b8b4ab;
+    font-size: 0.95em;
+}
+
 /* Brass corner tabs removed */
 .song-section::before,
 .song-section::after {

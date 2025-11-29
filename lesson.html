@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=68">
+    <link rel="stylesheet" href="style.css?v=69">
 </head>
 <body>
     <!-- Sticky Breadcrumb Navigation -->
@@ -35,7 +35,7 @@
 
     <script src="data.js"></script>
     <script>
-        // Format content text - convert newlines to paragraphs, handle bullets and headers
+        // Format content text - convert newlines to paragraphs, handle bullets, numbered lists, and headers
         function formatContent(text) {
             if (!text) return '';
             
@@ -43,15 +43,14 @@
             let paragraphs = text.split(/\n\n+/);
             
             let html = '';
-            let inList = false;
             
             paragraphs.forEach(para => {
                 para = para.trim();
                 if (!para) return;
                 
-                // Check if this paragraph contains bullet points
+                // Check if this paragraph contains bullet points with •
                 if (para.includes('•')) {
-                    // Split by bullet points
+                    // Split by lines
                     let lines = para.split(/\n/);
                     let headerText = '';
                     let bullets = [];
@@ -60,6 +59,11 @@
                         line = line.trim();
                         if (line.startsWith('•')) {
                             bullets.push(line.substring(1).trim());
+                        } else if (line.startsWith('◦')) {
+                            // Sub-bullet - append to last bullet as sub-item
+                            if (bullets.length > 0) {
+                                bullets[bullets.length - 1] += '<br><span class="sub-item">◦ ' + line.substring(1).trim() + '</span>';
+                            }
                         } else if (line && bullets.length === 0) {
                             // Text before bullets - treat as header/intro
                             headerText = line;
@@ -77,8 +81,43 @@
                         });
                         html += '</ul>';
                     }
-                } else {
-                    // Check if it looks like a section header (short, no period at end, often followed by content)
+                }
+                // Check if this paragraph contains INDENTED numbered list items (  1. , for sub-lists like Seven Signs)
+                else if (para.match(/\n\s{2,}\d+\.\s/)) {
+                    // Split by lines and look for numbered items
+                    let lines = para.split(/\n/);
+                    let headerText = '';
+                    let items = [];
+                    
+                    lines.forEach(line => {
+                        // Match lines with leading whitespace + number + period
+                        let match = line.match(/^\s{2,}(\d+)\.\s+(.+)/);
+                        if (match) {
+                            items.push(match[2]);
+                        } else if (line.trim() && items.length === 0) {
+                            headerText = line.trim();
+                        }
+                    });
+                    
+                    if (headerText) {
+                        html += '<p class="section-header">' + headerText + '</p>';
+                    }
+                    
+                    if (items.length > 0) {
+                        html += '<ol class="content-list numbered">';
+                        items.forEach(item => {
+                            html += '<li>' + item + '</li>';
+                        });
+                        html += '</ol>';
+                    }
+                }
+                // Check if paragraph starts with a number (like "1. Matthew: For Jewish Christians")
+                else if (para.match(/^\d+\.\s+[A-Z]/)) {
+                    // This is a numbered section header
+                    html += '<p class="section-header">' + para + '</p>';
+                }
+                else {
+                    // Check if it looks like a section header (short, no period at end)
                     let isHeader = para.length < 80 && 
                                    !para.endsWith('.') && 
                                    !para.endsWith('?') && 
@@ -86,7 +125,7 @@
                                    (para.includes(':') || /^[A-Z]/.test(para));
                     
                     // More specific header patterns
-                    if (para.match(/^(The |A |What |Why |How |Key |[0-9]+\.|Example)/)) {
+                    if (para.match(/^(The |A |What |Why |How |Key |Example)/)) {
                         isHeader = para.length < 100 && !para.endsWith('.');
                     }
                     
