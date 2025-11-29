@@ -2105,15 +2105,15 @@ a:has(.inline-logo):hover .inline-logo {
     width: 100% !important;
     height: auto !important;
     min-height: 280px !important; /* Prevent collapse if image doesn't load */
-    border-radius: 8px;
+    border-radius: 6px;
     align-self: start;
     background: rgba(0, 0, 0, 0.3); /* Fallback background if image missing */
     display: block !important;
     visibility: visible !important;
     position: relative !important;
     z-index: 10 !important;
-    /* Remove default shadow - container will handle it */
-    box-shadow: none;
+    /* Subtle shadow on the image itself */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 /* Default image gets full opacity */
@@ -2121,39 +2121,24 @@ a:has(.inline-logo):hover .inline-logo {
     opacity: 1 !important;
 }
 
-/* Animated image container - indented into journal like a photo slot */
+/* Animated image container - subtle photo indent */
 .lesson-image-container {
     position: relative;
     width: 100%;
     display: block;
     
-    /* Recessed area styling - like photo indent in leather */
-    background: 
-        /* Dark inner area */
-        linear-gradient(180deg,
-            rgba(15, 12, 10, 0.9) 0%,
-            rgba(20, 17, 14, 0.85) 50%,
-            rgba(25, 22, 18, 0.8) 100%
-        );
+    /* Very subtle recessed area */
+    background: rgba(20, 18, 15, 0.4);
     
-    padding: 10px;
-    border-radius: 10px;
+    padding: 5px;
+    border-radius: 8px;
     
-    /* Inset shadow - carved into leather */
+    /* Soft, thin inset shadow */
     box-shadow:
-        /* Deep inset - carved pocket */
-        inset 0 4px 8px rgba(0, 0, 0, 0.7),
-        inset 0 2px 4px rgba(0, 0, 0, 0.5),
-        inset 2px 0 4px rgba(0, 0, 0, 0.4),
-        inset -2px 0 4px rgba(0, 0, 0, 0.4),
-        inset 0 -2px 4px rgba(0, 0, 0, 0.3),
-        /* Subtle highlight on outer edge */
-        0 1px 0 rgba(201, 164, 122, 0.15),
-        /* Inner glow around image */
-        inset 0 0 20px rgba(0, 0, 0, 0.5);
-    
-    /* Brass corner accents border */
-    border: 1px solid rgba(120, 95, 65, 0.4);
+        inset 0 1px 3px rgba(0, 0, 0, 0.35),
+        inset 0 0 8px rgba(0, 0, 0, 0.2),
+        /* Tiny highlight on bottom edge */
+        0 1px 0 rgba(201, 164, 122, 0.1);
 }
 
 /* Default image - shown when no animation */
