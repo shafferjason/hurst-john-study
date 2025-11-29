@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lesson - Hurst Class Study</title>
     <!-- Updated CSS file with all UX enhancements -->
-    <link rel="stylesheet" href="style.css?v=63">
+    <link rel="stylesheet" href="style.css?v=64">
 </head>
 <body>
     <!-- Sticky Breadcrumb Navigation -->
@@ -562,28 +562,10 @@
         }
         
         
-        // === ONE-TIME SCROLL FADE-IN ===
-        // Sections fade in once as you scroll down, then stay visible
-        const fadeObserverOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -100px 0px'
-        };
-        
-        const fadeObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                // Only add illuminate class if not already added
-                if (entry.isIntersecting && !entry.target.classList.contains('illuminate')) {
-                    entry.target.classList.add('illuminate');
-                    // Stop observing this element (one-time only)
-                    fadeObserver.unobserve(entry.target);
-                }
-            });
-        }, fadeObserverOptions);
-        
-        // Observe all major sections
+        // === SCROLL FADE-IN DISABLED ===
+        // Sections now appear immediately without fade animation
         document.querySelectorAll('.lesson-summary, .song-tie-in, .song-lyrics-section, .song-section').forEach(section => {
-            section.classList.add('awaiting-light');
-            fadeObserver.observe(section);
+            section.classList.add('illuminate');
         });
         
         // Header is always visible immediately
@@ -591,7 +573,7 @@
         if (header) {
             header.classList.add('illuminate');
         }
-        // === END ONE-TIME SCROLL FADE-IN ===
+        // === END SCROLL FADE-IN ===
         
         // === ACCORDION ANIMATION REPLAY ===
         // Force animations to replay every time accordion opens + smooth closing
@@ -692,6 +674,7 @@
             let touchStartY = 0;
             let touchEndX = 0;
             let touchEndY = 0;
+            let touchStartedInAccordion = false;
             
             const minSwipeDistance = 80;
             const maxVerticalDistance = 100;
@@ -699,6 +682,11 @@
             document.addEventListener('touchstart', (e) => {
                 touchStartX = e.changedTouches[0].screenX;
                 touchStartY = e.changedTouches[0].screenY;
+                
+                // Check if touch started inside an open accordion
+                const target = e.target;
+                const openAccordion = target.closest('.accordion[open]');
+                touchStartedInAccordion = openAccordion !== null;
             }, { passive: true });
             
             document.addEventListener('touchend', (e) => {
@@ -708,6 +696,9 @@
             }, { passive: true });
             
             function handleSwipe() {
+                // Don't trigger swipe navigation if touch was inside an accordion
+                if (touchStartedInAccordion) return;
+                
                 const deltaX = touchEndX - touchStartX;
                 const deltaY = Math.abs(touchEndY - touchStartY);
                 

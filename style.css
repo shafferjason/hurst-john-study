@@ -521,17 +521,18 @@ header {
     text-indent: 0;
 }
 
-/* Cascading fade for accordion children - SLOWER */
+/* Cascading fade DISABLED - content appears instantly */
+/*
 .accordion-content > * {
-    animation: cascadeAccordionFade 1.2s ease-out backwards; /* Slightly slower */
+    animation: cascadeAccordionFade 1.2s ease-out backwards;
 }
 
-.accordion-content > *:nth-child(1) { animation-delay: 0.15s; } /* Increased from 0.1s */
-.accordion-content > *:nth-child(2) { animation-delay: 0.35s; } /* Was 0.2s, now 0.35s */
-.accordion-content > *:nth-child(3) { animation-delay: 0.55s; } /* Was 0.3s, now 0.55s */
-.accordion-content > *:nth-child(4) { animation-delay: 0.75s; } /* Was 0.4s, now 0.75s */
-.accordion-content > *:nth-child(5) { animation-delay: 0.95s; } /* Was 0.5s, now 0.95s */
-.accordion-content > *:nth-child(6) { animation-delay: 1.15s; } /* Was 0.6s, now 1.15s */
+.accordion-content > *:nth-child(1) { animation-delay: 0.15s; }
+.accordion-content > *:nth-child(2) { animation-delay: 0.35s; }
+.accordion-content > *:nth-child(3) { animation-delay: 0.55s; }
+.accordion-content > *:nth-child(4) { animation-delay: 0.75s; }
+.accordion-content > *:nth-child(5) { animation-delay: 0.95s; }
+.accordion-content > *:nth-child(6) { animation-delay: 1.15s; }
 
 @keyframes cascadeAccordionFade {
     from {
@@ -543,6 +544,7 @@ header {
         transform: translateY(0);
     }
 }
+*/
 
 /* Disable animations temporarily (used to force restart) */
 .no-animate,
