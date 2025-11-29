@@ -1589,6 +1589,12 @@ a:has(.inline-logo):hover .inline-logo {
     
     /* Rich DARK TEXTURED leather - matching journal style */
     background: 
+        /* Dark gradient at top - shadow under brass plate for logo */
+        linear-gradient(180deg,
+            rgba(10, 8, 6, 0.6) 0%,
+            rgba(15, 12, 10, 0.4) 15%,
+            transparent 30%
+        ),
         /* Vertical grain */
         repeating-linear-gradient(
             0deg,
@@ -1620,12 +1626,12 @@ a:has(.inline-logo):hover .inline-logo {
         radial-gradient(ellipse at 75% 75%, rgba(65, 55, 45, 0.6) 0%, transparent 40%),
         /* Lighting gradient - DARKER */
         linear-gradient(180deg, 
-            rgba(55, 48, 40, 1) 0%,
-            rgba(45, 40, 34, 1) 20%,
-            rgba(38, 34, 29, 1) 40%,
-            rgba(32, 29, 25, 1) 60%,
-            rgba(28, 25, 21, 1) 80%,
-            rgba(24, 21, 18, 1) 100%
+            rgba(45, 38, 30, 1) 0%,
+            rgba(38, 33, 27, 1) 20%,
+            rgba(32, 28, 23, 1) 40%,
+            rgba(28, 25, 21, 1) 60%,
+            rgba(25, 22, 18, 1) 80%,
+            rgba(22, 19, 16, 1) 100%
         );
     
     border-radius: 8px;
@@ -1663,9 +1669,9 @@ a:has(.inline-logo):hover .inline-logo {
     top: 1.25rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 75%;
-    max-width: 340px;
-    height: 3.2rem;
+    width: 85%;
+    max-width: 420px;
+    height: 3.8rem;
     background: 
         /* Matte brass gradient - less reflective */
         linear-gradient(180deg,
@@ -1701,9 +1707,9 @@ a:has(.inline-logo):hover .inline-logo {
     top: 1.25rem;
     left: 50%;
     transform: translateX(-50%);
-    width: 75%;
-    max-width: 340px;
-    height: 3.2rem;
+    width: 85%;
+    max-width: 420px;
+    height: 3.8rem;
     display: flex;
     align-items: center;
     justify-content: center;
