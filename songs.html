@@ -1105,35 +1105,102 @@
             return `${mins}:${secs.toString().padStart(2, '0')}`;
         }
         
+        // Special songs (not tied to lessons)
+        const specialSongs = [
+            {
+                id: "christmas",
+                song_title: "The Weary World",
+                audio_file: "audio/christmas.mp3",
+                image_url: "images/christmas.png",
+                suno_link: "https://suno.com/s/N55BTfHguGDEvXeT",
+                song_lyrics: `A stillness stretched across the years
+Has held its single tone
+The hopes and fears of all the years
+Now enter flesh and bone
+The light shines on — the dark has not overcome.
+
+He came into the world He made
+Where no one knew His face
+The hands that flung the stars to light
+Now wear our dust, our frame
+
+A thrill of hope — the weary world
+Now falls upon its knees
+The light has come to where we are
+The dark begins to ease
+
+He came among His own, unknown
+Our weary eyes were falling
+So close and still we could not see
+The silenced Word still calling
+The light shines on — the dark has not overcome.
+
+But those who knelt to meet His gaze
+Received Him on that day
+No longer lost, no longer lone
+The Christ is born in us today
+
+A thrill of hope — the weary world
+Now falls upon its knees
+The light has come to where we are
+The dark begins to ease
+
+Now veiled in flesh, behold Him here
+Held close against the cold
+The Word who made the stars — He's come
+To need a mother's hold
+
+Come and see — the Light shines on
+Come and see — the dawn is here
+Come and see — the Word appears
+Let all the earth draw near
+
+The light shines on — the dark has not overcome.
+The light shines on — the dark has not overcome.
+
+Emmanuel.`,
+                isSpecial: true,
+                specialLabel: "A Johannine Christmas Carol",
+                specialLink: "christmas.html"
+            }
+        ];
+        
+        // Combine lesson songs with special songs
+        const allSongs = [...specialSongs, ...lessonData.filter(l => l.audio_file)];
+        
         // Detect which lesson they came from
         const urlParams = new URLSearchParams(window.location.search);
         const fromLessonId = urlParams.get('from');
         let autoLoadIndex = -1;
         
         if (fromLessonId) {
-            autoLoadIndex = lessonData.findIndex(lesson => lesson.id === fromLessonId);
+            autoLoadIndex = allSongs.findIndex(song => song.id === fromLessonId);
         }
         
         // Build compact song list with thumbnails
-        lessonData.forEach((lesson, index) => {
-            if (lesson.audio_file) {
+        allSongs.forEach((song, index) => {
                 const songItem = document.createElement('div');
                 songItem.className = 'song-item-compact';
+                if (song.isSpecial) songItem.classList.add('special-song');
                 songItem.dataset.index = index;
                 
                 // Create thumbnail
                 let thumbnailHTML = '';
-                if (lesson.image_url) {
-                    thumbnailHTML = `<img src="${lesson.image_url}" alt="${lesson.song_title}" class="song-item-thumbnail">`;
+                if (song.image_url) {
+                    thumbnailHTML = `<img src="${song.image_url}" alt="${song.song_title}" class="song-item-thumbnail">`;
                 } else {
                     thumbnailHTML = `<div class="song-item-thumbnail placeholder">♪</div>`;
                 }
+                
+                // Add special label if it's a special song
+                const labelHTML = song.isSpecial ? `<span class="song-item-label">${song.specialLabel}</span>` : '';
                 
                 songItem.innerHTML = `
                     ${thumbnailHTML}
                     <div class="song-item-info">
                         <span class="song-item-number">${index + 1}.</span>
-                        <span class="song-item-title">${lesson.song_title}</span>
+                        <span class="song-item-title">${song.song_title}</span>
+                        ${labelHTML}
                     </div>
                     <div class="now-playing-indicator">
                         <div class="bar"></div>
@@ -1144,13 +1211,12 @@
                 `;
                 songItem.addEventListener('click', () => loadSong(index));
                 songList.appendChild(songItem);
-            }
         });
         
         // Load a song
         function loadSong(index) {
             currentSongIndex = index;
-            const lesson = lessonData[index];
+            const song = allSongs[index];
             
             // Reset any existing animation
             resetAnimation();
@@ -1160,30 +1226,36 @@
             currentDisplay.classList.add('active');
             
             // Update UI
-            songTitle.textContent = lesson.song_title;
-            audio.src = lesson.audio_file;
+            songTitle.textContent = song.song_title;
+            audio.src = song.audio_file;
             
-            // Set lesson link
-            lessonLink.href = `lesson.html?id=${lesson.id}`;
+            // Set lesson link (or special link for special songs)
+            if (song.isSpecial) {
+                lessonLink.href = song.specialLink;
+                lessonLink.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> View Song`;
+            } else {
+                lessonLink.href = `lesson.html?id=${song.id}`;
+                lessonLink.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="14" height="14"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg> View Lesson`;
+            }
             lessonLink.style.display = 'inline-flex';
             
-            if (lesson.image_url) {
-                albumArt.src = lesson.image_url;
-                albumArt.alt = lesson.song_title;
+            if (song.image_url) {
+                albumArt.src = song.image_url;
+                albumArt.alt = song.song_title;
             }
             
             // Setup animation for this song
-            setupSongAnimation(lesson.id);
+            setupSongAnimation(song.id);
             
-            if (lesson.song_lyrics) {
-                lyricsText.textContent = lesson.song_lyrics;
+            if (song.song_lyrics) {
+                lyricsText.textContent = song.song_lyrics;
                 lyricsSection.style.display = 'block';
             } else {
                 lyricsSection.style.display = 'none';
             }
             
-            if (lesson.suno_link) {
-                sunoLink.innerHTML = `Can't play? <a href="${lesson.suno_link}" target="_blank" rel="noopener">Listen on Suno →</a>`;
+            if (song.suno_link) {
+                sunoLink.innerHTML = `Can't play? <a href="${song.suno_link}" target="_blank" rel="noopener">Listen on Suno →</a>`;
                 sunoLink.style.display = 'block';
             } else {
                 sunoLink.style.display = 'none';
@@ -1196,7 +1268,7 @@
             document.querySelector(`[data-index="${index}"]`).classList.add('active');
             
             // Update mini player
-            updateMiniPlayer(lesson);
+            updateMiniPlayer(song);
             
             // Auto-play when user selects a song
             audio.play().then(() => {
@@ -1358,13 +1430,13 @@
             if (currentSongIndex > 0) {
                 loadSong(currentSongIndex - 1);
             } else if (isRepeatAll) {
-                loadSong(lessonData.length - 1);
+                loadSong(allSongs.length - 1);
             }
         });
         
         // Next song
         nextBtn.addEventListener('click', () => {
-            if (currentSongIndex < lessonData.length - 1) {
+            if (currentSongIndex < allSongs.length - 1) {
                 loadSong(currentSongIndex + 1);
             } else if (isRepeatAll) {
                 loadSong(0);
@@ -1419,7 +1491,7 @@
         
         // Auto-play next
         audio.addEventListener('ended', () => {
-            if (currentSongIndex < lessonData.length - 1) {
+            if (currentSongIndex < allSongs.length - 1) {
                 loadSong(currentSongIndex + 1);
             } else if (isRepeatAll) {
                 loadSong(0);
@@ -1437,13 +1509,13 @@
         // Media Session API
         if ('mediaSession' in navigator) {
             audio.addEventListener('loadedmetadata', () => {
-                const lesson = lessonData[currentSongIndex];
+                const song = allSongs[currentSongIndex];
                 navigator.mediaSession.metadata = new MediaMetadata({
-                    title: lesson.song_title,
+                    title: song.song_title,
                     artist: 'The Tenth Hour',
-                    album: 'Hurst Class Study: Book of John',
-                    artwork: lesson.image_url ? [
-                        { src: lesson.image_url, sizes: '512x512', type: 'image/jpeg' }
+                    album: song.isSpecial ? song.specialLabel : 'Hurst Class Study: Book of John',
+                    artwork: song.image_url ? [
+                        { src: song.image_url, sizes: '512x512', type: 'image/jpeg' }
                     ] : []
                 });
             });

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Weary World - A Johannine Christmas Carol</title>
+    <link rel="stylesheet" href="style.css?v=85">
+</head>
+<body>
+    <!-- Sticky Breadcrumb Navigation -->
+    <nav class="breadcrumb-nav">
+        <div class="breadcrumb-container">
+            <div class="breadcrumb">
+                <a href="index.html">Home</a>
+                <span class="separator">›</span>
+                <span class="current">Christmas Carol</span>
+            </div>
+            <a href="index.html" class="back-button">
+                <span class="back-arrow">←</span>
+                <span class="back-text">Back to All Lessons</span>
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <article class="christmas-content">
+            <!-- Special Christmas Header -->
+            <header class="christmas-header">
+                <p class="christmas-label">A Johannine Christmas Carol</p>
+                <h1>The Weary World</h1>
+                <p class="christmas-scripture">"The light shines in the darkness, and the darkness has not overcome it."<br><span class="scripture-ref">— John 1:5</span></p>
+            </header>
+
+            <!-- About This Song Section -->
+            <section class="christmas-about">
+                <h2>About This Song</h2>
+                <div class="christmas-about-content">
+                    <p>Most Christmas songs live in Luke and Matthew—the manger, the shepherds, the star. We wanted to write one from John.</p>
+                    
+                    <p>John doesn't open with a birth story. He opens with a prologue that stretches back before time—the Word who was God, the single tone before creation's symphony, through whom everything was made, stepping into His own creation. And no one recognized Him. Then the turn: <em>The Word became flesh and dwelt among us</em> (John 1:14). That word "dwelt"—in the Greek it's <em>tabernacled</em>. Pitched His tent. The glory that once filled the temple now fills skin and bone.</p>
+                    
+                    <p>The title comes from "O Holy Night"—<em>a thrill of hope, the weary world rejoices</em>. But most tellings rush past the weariness to get to the rejoicing. We wanted to stay in the tired. The weary world doesn't leap to its feet. It falls to its knees.</p>
+                    
+                    <p>So we traced John's Prologue almost line by line, and let the old carols sing alongside.</p>
+                </div>
+                <details class="accordion">
+                    <summary>Read More About the Song</summary>
+                    <div class="accordion-content">
+                        <p>The opening verse borrows "the hopes and fears of all the years" from "O Little Town of Bethlehem"—that long ache of waiting—then the stillness breaks: <em>Now enter flesh and bone</em>. The Word becomes flesh. Four syllables. It's finally happening.</p>
+                        
+                        <p>The refrain holds onto John 1:5—the light shines in the darkness, and the darkness has not overcome it. That word "overcome" does double duty in the original Greek. The darkness couldn't understand it. Couldn't extinguish it. Tried both. Lost both. And John uses present tense—the light <em>keeps</em> shining. Ongoing. Undefeated.</p>
+                        
+                        <p>The second and third verses sit in the tragedy of John 1:10-11. The world made through Him didn't know Him. His own people didn't receive Him. <em>The hands that flung the stars now wear our dust</em>—and we still couldn't see. That's the ache of Christmas that doesn't get sung enough. He was right there.</p>
+                        
+                        <p>Then the turn—John 1:12. Those who knelt. Those who received. No longer lost, no longer lone.</p>
+                        
+                        <p>The bridge echoes "Hark the Herald"—<em>veiled in flesh the Godhead see</em>. "Behold" is a Johannine word—John the Baptist used it, Pilate used it. Now we use it: <em>behold Him here</em>. And we wanted to show what that glory looks like up close. Not a throne. A mother's hold. The Word who made the stars, small enough to need warmth.</p>
+                        
+                        <p>The song starts quiet. Stripped back. It builds until the invitation the first disciples heard finally opens wide—<em>Come and see</em> (John 1:39, 46)—and what started with two followers becomes a call for all the earth to draw near. If you know John 12, you hear the echo: <em>I, when I am lifted up, will draw all people to myself</em>. The drawing starts here.</p>
+                        
+                        <p>We don't end with a crash. We end with a sustain—and the word the whole song has been reaching for:</p>
+                        
+                        <p class="emmanuel-text">Emmanuel.</p>
+                        
+                        <p>It's Hebrew. "God with us." Isaiah spoke it into the dark seven centuries before the Word arrived. And it holds everything John's Prologue has been saying—the Word didn't just shine toward us. He moved in. Pitched His tent. Stayed.</p>
+                        
+                        <p><em>The Light has come to where we are. The dark begins to ease.</em></p>
+                        
+                        <p><em>Come and see.</em></p>
+                    </div>
+                </details>
+            </section>
+
+            <!-- Ornate divider -->
+            <div class="divider-ornate"></div>
+
+            <!-- Song Section -->
+            <section class="christmas-song-section">
+                <h2>The Weary World</h2>
+                
+                <!-- The Tenth Hour logo -->
+                <div class="song-attribution">
+                    <a href="songs.html" title="View all songs">
+                        <img src="logo.svg" alt="The Tenth Hour" class="song-logo">
+                    </a>
+                </div>
+                
+                <!-- Grid layout: image left, content right -->
+                <div class="song-content-grid">
+                    <!-- Animated Image Container -->
+                    <div class="lesson-image-container" id="christmasImageContainer">
+                        <img 
+                            src="images/christmas.png" 
+                            alt="The Weary World" 
+                            class="song-image lesson-image-default"
+                            id="christmasImageDefault">
+                    </div>
+                    
+                    <!-- Right column: player + lyrics -->
+                    <div class="song-right-column">
+                        <!-- Audio Player -->
+                        <div class="simple-audio-player">
+                            <audio id="christmas-audio" src="audio/christmas.mp3"></audio>
+                            
+                            <!-- Speaker icon in upper right -->
+                            <div class="audio-speaker-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                                </svg>
+                            </div>
+                            
+                            <div class="simple-player-controls">
+                                <button id="play-pause-btn" class="simple-player-btn" aria-label="Play/Pause">
+                                    <svg class="play-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M8 5v14l11-7z"/>
+                                    </svg>
+                                    <svg class="pause-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display:none;">
+                                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                                    </svg>
+                                </button>
+                                
+                                <div class="simple-progress-wrapper">
+                                    <div id="current-time" class="simple-time-display">0:00</div>
+                                    <input type="range" id="seek-bar" class="simple-seek-bar" value="0" min="0" max="100" aria-label="Audio seek bar">
+                                    <div id="duration" class="simple-time-display">0:00</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Lyrics -->
+                        <details class="accordion lyrics-accordion">
+                            <summary>View Song Lyrics</summary>
+                            <div class="accordion-content">
+                                <div class="lyrics-text">A stillness stretched across the years
+Has held its single tone
+The hopes and fears of all the years
+Now enter flesh and bone
+The light shines on — the dark has not overcome.
+
+He came into the world He made
+Where no one knew His face
+The hands that flung the stars to light
+Now wear our dust, our frame
+
+A thrill of hope — the weary world
+Now falls upon its knees
+The light has come to where we are
+The dark begins to ease
+
+He came among His own, unknown
+Our weary eyes were falling
+So close and still we could not see
+The silenced Word still calling
+The light shines on — the dark has not overcome.
+
+But those who knelt to meet His gaze
+Received Him on that day
+No longer lost, no longer lone
+The Christ is born in us today
+
+A thrill of hope — the weary world
+Now falls upon its knees
+The light has come to where we are
+The dark begins to ease
+
+Now veiled in flesh, behold Him here
+Held close against the cold
+The Word who made the stars — He's come
+To need a mother's hold
+
+Come and see — the Light shines on
+Come and see — the dawn is here
+Come and see — the Word appears
+Let all the earth draw near
+
+The light shines on — the dark has not overcome.
+The light shines on — the dark has not overcome.
+
+Emmanuel.</div>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+                
+                <!-- Suno link -->
+                <p class="suno-link">
+                    Can't play? <a href="https://suno.com/s/N55BTfHguGDEvXeT" target="_blank" rel="noopener noreferrer">Listen on Suno →</a>
+                </p>
+            </section>
+        </article>
+    </div>
+
+    <script>
+        // === AUDIO PLAYER JAVASCRIPT ===
+        const audio = document.getElementById('christmas-audio');
+        const playPauseBtn = document.getElementById('play-pause-btn');
+        const playIcon = playPauseBtn.querySelector('.play-icon');
+        const pauseIcon = playPauseBtn.querySelector('.pause-icon');
+        const seekBar = document.getElementById('seek-bar');
+        const currentTimeEl = document.getElementById('current-time');
+        const durationEl = document.getElementById('duration');
+        const audioPlayer = document.querySelector('.simple-audio-player');
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+
+        playPauseBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play();
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'inline-block';
+                audioPlayer.classList.add('playing');
+            } else {
+                audio.pause();
+                playIcon.style.display = 'inline-block';
+                pauseIcon.style.display = 'none';
+                audioPlayer.classList.remove('playing');
+            }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            seekBar.value = audio.currentTime; 
+            currentTimeEl.textContent = formatTime(audio.currentTime);
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = formatTime(audio.duration);
+            seekBar.max = audio.duration;
+            
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: 'The Weary World',
+                    artist: 'The Tenth Hour',
+                    album: 'A Johannine Christmas Carol',
+                    artwork: [
+                        { src: 'images/christmas.png', sizes: '512x512', type: 'image/png' }
+                    ]
+                });
+                
+                navigator.mediaSession.setActionHandler('play', () => {
+                    audio.play();
+                    playIcon.style.display = 'none';
+                    pauseIcon.style.display = 'inline-block';
+                    audioPlayer.classList.add('playing');
+                });
+                
+                navigator.mediaSession.setActionHandler('pause', () => {
+                    audio.pause();
+                    playIcon.style.display = 'inline-block';
+                    pauseIcon.style.display = 'none';
+                    audioPlayer.classList.remove('playing');
+                });
+            }
+        });
+
+        seekBar.addEventListener('input', () => {
+            audio.currentTime = seekBar.value;
+        });
+
+        audio.addEventListener('ended', () => {
+            playIcon.style.display = 'inline-block';
+            pauseIcon.style.display = 'none';
+            seekBar.value = 0;
+            currentTimeEl.textContent = '0:00';
+            audioPlayer.classList.remove('playing');
+        });
+
+        // === IMAGE ANIMATION ===
+        const imageContainer = document.getElementById('christmasImageContainer');
+        const imageDefault = document.getElementById('christmasImageDefault');
+        
+        const frame1Path = 'images/christmas-img1.png';
+        const frame2Path = 'images/christmas-img2.png';
+        const frame3Path = 'images/christmas-img3.png';
+        
+        let animationFramesAvailable = false;
+        let loadedFrames = 0;
+        const requiredFrames = 3;
+        let imageFrame1, imageFrame2, imageFrame3;
+        
+        function checkImageExists(path, callback) {
+            const img = new Image();
+            img.onload = () => callback(true);
+            img.onerror = () => callback(false);
+            img.src = path;
+        }
+        
+        checkImageExists(frame1Path, (exists1) => {
+            if (exists1) {
+                imageFrame1 = document.createElement('img');
+                imageFrame1.src = frame1Path;
+                imageFrame1.className = 'song-image lesson-image-layer';
+                imageFrame1.setAttribute('data-frame', '1');
+                imageFrame1.style.display = 'none';
+                imageContainer.appendChild(imageFrame1);
+                loadedFrames++;
+            }
+            
+            checkImageExists(frame2Path, (exists2) => {
+                if (exists2) {
+                    imageFrame2 = document.createElement('img');
+                    imageFrame2.src = frame2Path;
+                    imageFrame2.className = 'song-image lesson-image-layer';
+                    imageFrame2.setAttribute('data-frame', '2');
+                    imageFrame2.style.display = 'none';
+                    imageContainer.appendChild(imageFrame2);
+                    loadedFrames++;
+                }
+                
+                checkImageExists(frame3Path, (exists3) => {
+                    if (exists3) {
+                        imageFrame3 = document.createElement('img');
+                        imageFrame3.src = frame3Path;
+                        imageFrame3.className = 'song-image lesson-image-layer';
+                        imageFrame3.setAttribute('data-frame', '3');
+                        imageFrame3.style.display = 'none';
+                        imageContainer.appendChild(imageFrame3);
+                        loadedFrames++;
+                    }
+                    
+                    if (loadedFrames === requiredFrames) {
+                        animationFramesAvailable = true;
+                        setupImageAnimation();
+                    }
+                });
+            });
+        });
+        
+        function setupImageAnimation() {
+            if (!animationFramesAvailable) return;
+            
+            const loopPattern = [1, 2, 3, 2];
+            let currentPatternIndex = 0;
+            let animationInterval = null;
+            const cycleInterval = 10000;
+            
+            imageFrame1.style.transition = 'opacity 10s ease-in-out';
+            imageFrame2.style.transition = 'opacity 10s ease-in-out';
+            imageFrame3.style.transition = 'opacity 10s ease-in-out';
+            
+            function showFrame(frameNumber) {
+                imageDefault.style.opacity = '0';
+                imageFrame1.style.display = 'block';
+                imageFrame2.style.display = 'block';
+                imageFrame3.style.display = 'block';
+                imageFrame1.style.opacity = frameNumber === 1 ? '1' : '0';
+                imageFrame2.style.opacity = frameNumber === 2 ? '1' : '0';
+                imageFrame3.style.opacity = frameNumber === 3 ? '1' : '0';
+            }
+            
+            function advanceAnimation() {
+                currentPatternIndex = (currentPatternIndex + 1) % loopPattern.length;
+                showFrame(loopPattern[currentPatternIndex]);
+            }
+            
+            function startAnimation() {
+                if (animationInterval) return;
+                showFrame(loopPattern[0]);
+                animationInterval = setInterval(advanceAnimation, cycleInterval);
+            }
+            
+            function stopAnimation() {
+                if (animationInterval) {
+                    clearInterval(animationInterval);
+                    animationInterval = null;
+                }
+            }
+            
+            function resetAnimation() {
+                stopAnimation();
+                currentPatternIndex = 0;
+                imageFrame1.style.display = 'none';
+                imageFrame2.style.display = 'none';
+                imageFrame3.style.display = 'none';
+                imageDefault.style.opacity = '1';
+            }
+            
+            audio.addEventListener('play', startAnimation);
+            audio.addEventListener('pause', stopAnimation);
+            audio.addEventListener('ended', resetAnimation);
+        }
+
+        // === ACCORDION ANIMATION ===
+        document.querySelectorAll('.accordion').forEach(accordion => {
+            accordion.addEventListener('toggle', function(e) {
+                const content = this.querySelector('.accordion-content');
+                
+                if (this.open) {
+                    if (content) {
+                        this.removeAttribute('closing');
+                        content.classList.add('no-animate');
+                        void content.offsetWidth;
+                        content.classList.remove('no-animate');
+                    }
+                } else {
+                    e.preventDefault();
+                    this.setAttribute('closing', '');
+                    setTimeout(() => {
+                        this.removeAttribute('open');
+                        this.removeAttribute('closing');
+                    }, 1600);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
