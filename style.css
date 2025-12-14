@@ -4873,3 +4873,59 @@ details .divider-ornate {
     margin-top: 2px;
     font-weight: 500;
 }
+
+/* ===================================
+   CHRISTMAS PAGE MOBILE STYLES
+   =================================== */
+
+@media (max-width: 768px) {
+    .christmas-header h1 {
+        font-size: 2.2rem;
+    }
+    
+    .christmas-scripture {
+        font-size: 1rem;
+    }
+    
+    /* Full-bleed expansion for Christmas accordions */
+    .christmas-about:has(.accordion[open]),
+    .christmas-song-section:has(.accordion[open]) {
+        width: 100vw !important;
+        margin-left: calc(-50vw + 50%) !important;
+        margin-right: calc(-50vw + 50%) !important;
+        padding: 2rem 1rem !important;
+        border-radius: 0 !important;
+    }
+    
+    /* Song content grid - stack on mobile */
+    .christmas-song-section .song-content-grid {
+        display: block;
+    }
+    
+    /* Fix image container alignment on mobile */
+    .christmas-song-section .lesson-image-container {
+        position: relative;
+        width: 100%;
+        margin: 0 auto 1.5rem auto;
+        overflow: hidden;
+    }
+    
+    .christmas-song-section .lesson-image-container img.lesson-image-default {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 6px;
+    }
+    
+    /* Animation frame layers alignment - must match default image exactly */
+    .christmas-song-section .lesson-image-layer {
+        position: absolute !important;
+        top: 5px; /* Match container padding */
+        left: 5px;
+        right: 5px;
+        width: calc(100% - 10px) !important;
+        height: auto;
+        object-fit: cover;
+        border-radius: 6px;
+    }
+}
