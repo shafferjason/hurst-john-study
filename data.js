@@ -110,5 +110,19 @@ const lessonData = [
         image_url: "images/lesson-8.png",
         audio_file: "audio/lesson-8.mp3",
         suno_link: "https://suno.com/s/uIqjh0Z3qUY4xTbL"
+    },
+    {
+        id: "lesson-9",
+        title: "Lesson 9: [TITLE HERE]",
+        scripture: "[SCRIPTURE REFERENCES HERE - e.g., John 1:29-34]",
+        summary_preview: "[1-2 SENTENCE PREVIEW OF THE LESSON]",
+        summary_full: "[FULL LESSON CONTENT HERE]\n\n[Use \\n\\n for paragraph breaks]\n\n[You can include headings, bullet points, and detailed explanations just like the previous lessons]",
+        tie_in_preview: "[1-2 SENTENCE PREVIEW OF HOW THE SONG CONNECTS TO THE LESSON]",
+        tie_in_full: "[FULL EXPLANATION OF THE SONG'S CONNECTION TO THE LESSON]\n\n[Explain how the song's themes mirror the lesson's teachings]\n\n[Include specific lyric references and their meaning]\n\nReflective Question for the Reader\n\n[A thoughtful question for personal reflection based on the lesson and song]",
+        song_title: "[SONG TITLE HERE]",
+        song_lyrics: "[FULL SONG LYRICS HERE]\n[Use \\n for line breaks]\n[Use \\n\\n for verse/chorus separation]",
+        image_url: "images/lesson-9.png",
+        audio_file: "audio/lesson-9.mp3",
+        suno_link: "[SUNO LINK HERE - e.g., https://suno.com/s/XXXXXX]"
     }
 ];
