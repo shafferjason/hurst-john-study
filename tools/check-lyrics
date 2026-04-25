@@ -1,0 +1,1130 @@
+#!/usr/bin/env python3
+"""check-lyrics — Tenth Hour lyric singability + AI-tell checker.
+
+Analyzes clean lyrics against:
+- Singability (line-ending vowel openness, syllable variance, opening clusters)
+- Rhyme structure (per-stanza schemes)
+- AI tells (manifesto blacklist patterns, modern psych language, suspect-word frequency)
+- Punctuation rules (Suno-aware: no ellipses in first 1-2 lines, etc.)
+
+Usage:
+    check-lyrics path/to/lyrics.txt
+    check-lyrics path/to/lyrics.txt --label "Song Name"
+    check-lyrics path/to/lyrics.txt --json   # machine-readable output
+"""
+
+import argparse
+import json
+import os
+import re
+import shutil
+import statistics
+import subprocess
+import sys
+import tempfile
+from collections import defaultdict
+
+import pronouncing
+from nltk.corpus import cmudict
+import pyphen
+
+CMU_DICT = cmudict.dict()
+PYPHEN_DIC = pyphen.Pyphen(lang="en_US")
+
+# CMU ARPABET vowel classification for singability
+OPEN_VOWELS = {"AA", "AE", "AH", "AO", "AW", "AY"}
+DIPHTHONGS = {"EY", "OW", "OY"}
+CLOSED_VOWELS = {"EH", "ER", "IH", "IY", "UH", "UW"}
+ALL_VOWELS = OPEN_VOWELS | DIPHTHONGS | CLOSED_VOWELS
+
+# AI-tell patterns from the Tenth Hour manifesto
+AI_TELLS = {
+    "amidst": "archaic-poetic AI tell",
+    "midst of": "archaic-poetic AI tell",
+    "in the silence": "AI cliche (overused)",
+    "in the stillness": "AI cliche",
+    "shattered pieces": "AI cliche",
+    "broken pieces": "AI cliche when used metaphorically",
+    "interwoven": "AI generated cliche",
+    "tapestry of": "AI cliche",
+    "echoes of": "AI cliche when used as paired abstraction",
+    "whispers of": "AI cliche",
+    "depths of": "AI abstraction",
+    "myriad of": "AI register-shift",
+    "ethereal": "AI register-shift",
+    "transcendent": "AI register-shift",
+}
+
+# Modern psychological language (forbidden in biblical/historical witness songs)
+MODERN_PSYCH = [
+    r"\bprocessing\b",
+    r"\bsitting with\b",
+    r"\bholding space\b",
+    r"\btriggered\b",
+    r"\bboundaries\b",
+    r"\bself-care\b",
+    r"\blean in\b",
+    r"\bbandwidth\b",
+    r"\bunpacking\b",
+    r"\bin my journey\b",
+]
+
+# Words that are suspect when overused (count, threshold for warning)
+SUSPECT_WORDS = {
+    "yet": 2,
+    "still": 4,
+    "amidst": 1,
+    "shall": 2,
+    "behold": 1,
+}
+
+# Stage 15 patterns from Songwriting Process — additional AI tells
+
+# Adjective+noun pairings AI defaults to (specific pairs, not general bigrams)
+ADJ_NOUN_AI_PAIRS = [
+    "quiet certainty", "quiet desperation", "quiet courage", "quiet surrender",
+    "patient walking", "patient waiting", "patient love",
+    "trembling hands", "trembling heart", "trembling whisper",
+    "fragile hope", "fragile faith", "fragile peace",
+    "broken silence",
+    "sacred ground", "sacred space", "sacred fire",
+    "holy fire",
+    "weary heart", "weary soul", "weary bones",
+    "tender mercy", "tender mercies",
+    "gentle whisper", "gentle wind",
+    "deep silence", "deep waters",
+    "soft thunder", "soft surrender",
+    "stolen breath", "borrowed time",
+]
+
+# Words signaling "literary" — fine in moderation, slop when stacked
+LITERARY_SIGNAL_WORDS = [
+    "whisper", "whispers", "whispered", "whispering",
+    "echo", "echoes", "echoed",
+    "shadow", "shadows", "shadowed",
+    "stillness",
+    "hush", "hushed",
+]
+# Threshold: this many or more signals a stacking problem
+LITERARY_STACK_THRESHOLD = 5
+
+# "And the [noun] [verb] [optional particle]" closing — AI signature for profound endings
+# Examples: "and the road sang back", "and the shadow whispered back", "and the bell tolled"
+CLOSING_AI_RE = re.compile(
+    r"^(?:and|then|so)\s+the\s+\w+\s+\w+(?:\s+\w+)?[\.,!?]?$",
+    re.IGNORECASE,
+)
+
+# Triadic constructions — three short comma-separated items
+TRIADIC_RE = re.compile(r"^\s*([^,]+),\s*([^,]+),\s*(?:and\s+)?([^,]+?)\s*[\.,]?$")
+
+# Abstractions disguised as images — "the [abstract] of [abstract]"
+ABSTRACTION_AS_IMAGE_RE = re.compile(
+    r"\bthe\s+(weight|shape|depth|silence|stillness|echo|shadow|measure|sound)\s+of\s+\w+",
+    re.IGNORECASE,
+)
+
+# Past tense markers (irregular past + common regulars not captured by -ed heuristic)
+PAST_TENSE_MARKERS = {
+    "was", "were", "had", "went", "came", "said", "took", "gave", "knew",
+    "saw", "told", "made", "stood", "sat", "ran", "fell", "kept", "lost",
+    "found", "met", "did", "felt", "left", "got", "thought", "spoke",
+    "began", "brought", "bought", "caught", "taught", "wrote", "rose",
+    "drove", "rode", "broke", "spoke", "chose", "froze", "shook",
+}
+
+# Present tense markers (3rd person singular + "is/am/are/has/have/do" auxiliaries)
+PRESENT_TENSE_MARKERS = {
+    "is", "are", "am", "has", "have", "do", "does",
+    "walks", "runs", "sees", "says", "takes", "gives", "knows", "tells",
+    "makes", "stands", "sits", "falls", "keeps", "loses", "finds",
+    "meets", "feels", "leaves", "gets", "thinks", "speaks", "rises",
+    "drives", "rides", "breaks", "chooses", "freezes", "shakes",
+}
+
+# -ed words that are NOT past tense (false-positive guards)
+NOT_PAST_ED = {
+    "need", "feed", "bed", "head", "red", "led", "fed", "wed",
+    "shred", "spread", "thread", "dread", "bread", "tread",
+    "deed", "indeed", "creed", "freed",
+}
+
+# Common pronoun openers — to count for line-opener cadence check
+LINE_OPENER_TOKENS = {"I", "We", "He", "She", "They", "You", "It", "And", "But", "So", "The", "My"}
+
+# Suno script validation rules
+SUNO_FORBIDDEN_TAGS = ["[spoken word]", "[pause]", "[hold]"]
+SUNO_BRACKET_TAG_MAX_WORDS = 5  # for plain tags
+SUNO_PARAM_TAG_MAX_WORDS = 12   # for parameterized tags with colons
+
+# Style prompt mandatory elements — list of (alternate_substring_keys, display_label)
+# Loosened post-v5.5 calibration: any of the alternates counts as present.
+# Note: "Vocal-forward" was previously mandatory but the v5.5 research found genre-first
+# is more important. A vocal anchor is now expressed via descriptive vocal phrasing instead.
+STYLE_MANDATORY_ELEMENTS = [
+    (("unpolished",), "Unpolished"),
+    (("analog",), "Analog warmth/character"),
+    (("raw production", "raw unpolished", "raw arrangement", "raw acoustic"), "Raw production/feel"),
+    (("not pop",), "NOT pop"),
+    (("not synth",), "NOT synth"),
+    (("not auto-tune", "not autotune"), "NOT Auto-Tune"),
+]
+
+
+def normalize_word(word: str) -> str:
+    """Lowercase + strip non-alpha (keep apostrophes for contractions)."""
+    return re.sub(r"[^a-zA-Z']", "", word).lower()
+
+
+def get_phones(word: str):
+    """Get phone string for a word, returning None if not found."""
+    w = normalize_word(word)
+    if not w:
+        return None
+    phones_list = pronouncing.phones_for_word(w)
+    if phones_list:
+        return phones_list[0]
+    return None
+
+
+def syllables_for_word(word: str) -> int:
+    """Count syllables in a word, falling back to pyphen if not in CMU."""
+    phones = get_phones(word)
+    if phones:
+        return pronouncing.syllable_count(phones)
+    w = normalize_word(word)
+    if not w:
+        return 0
+    hyphenated = PYPHEN_DIC.inserted(w)
+    return max(1, hyphenated.count("-") + 1)
+
+
+def syllable_count_line(line: str) -> int:
+    """Total syllables in a line."""
+    return sum(syllables_for_word(w) for w in line.split())
+
+
+def get_last_vowel_and_trail(line: str):
+    """Find the last vowel in the last word of the line + any trailing consonants.
+
+    Returns (vowel, trailing_consonants_list) or (None, [])."""
+    words = [w for w in line.split() if normalize_word(w)]
+    if not words:
+        return None, []
+    last_word = words[-1]
+    phones = get_phones(last_word)
+    if not phones:
+        return None, []
+    phone_list = phones.split()
+    last_vowel_idx = None
+    for i in range(len(phone_list) - 1, -1, -1):
+        base = re.sub(r"\d", "", phone_list[i])
+        if base in ALL_VOWELS:
+            last_vowel_idx = i
+            break
+    if last_vowel_idx is None:
+        return None, []
+    vowel = re.sub(r"\d", "", phone_list[last_vowel_idx])
+    trailing = phone_list[last_vowel_idx + 1:]
+    return vowel, trailing
+
+
+def vowel_openness(vowel: str) -> str:
+    if vowel in OPEN_VOWELS:
+        return "open"
+    if vowel in DIPHTHONGS:
+        return "diphthong"
+    if vowel in CLOSED_VOWELS:
+        return "closed"
+    return "unknown"
+
+
+def line_ending_singability(line: str):
+    """Score 0-10 for how singable the line ending is. Higher = better sustain.
+
+    Returns (score, note)."""
+    vowel, trailing = get_last_vowel_and_trail(line)
+    if vowel is None:
+        return None, "no vowel detected"
+    openness = vowel_openness(vowel)
+    n_trail = len(trailing)
+    if openness == "open" and n_trail == 0:
+        return 10, f"open vowel /{vowel}/, clean ending — strong sustain"
+    if openness == "open" and n_trail == 1:
+        return 7, f"open vowel /{vowel}/ + 1 consonant"
+    if openness == "open":
+        return 5, f"open vowel /{vowel}/ + {n_trail}-consonant cluster"
+    if openness == "diphthong" and n_trail == 0:
+        return 9, f"diphthong /{vowel}/, clean ending — strong"
+    if openness == "diphthong":
+        return 6, f"diphthong /{vowel}/ + {n_trail} consonants"
+    if openness == "closed" and n_trail == 0:
+        return 4, f"closed vowel /{vowel}/, clean ending — medium"
+    if openness == "closed":
+        return 2, f"closed vowel /{vowel}/ + {n_trail}-consonant cluster — weak"
+    return 5, f"unknown vowel /{vowel}/"
+
+
+def opening_consonant_cluster(line: str) -> int:
+    """Count consonants before the first vowel in the first word."""
+    words = [w for w in line.split() if normalize_word(w)]
+    if not words:
+        return 0
+    phones = get_phones(words[0])
+    if not phones:
+        return 0
+    count = 0
+    for p in phones.split():
+        base = re.sub(r"\d", "", p)
+        if base in ALL_VOWELS:
+            return count
+        count += 1
+    return count
+
+
+SECTION_LABEL_RE = re.compile(
+    r"^\[?(verse|chorus|pre[-\s]?chorus|bridge|refrain|intro|outro|coda|"
+    r"final\s+(chorus|refrain)|hook|interlude|breakdown)"
+    r"(\s*\d+)?:?\s*\]?$",
+    re.IGNORECASE,
+)
+
+
+def is_skippable(line: str) -> bool:
+    """Skip comment lines and inline section labels."""
+    if line.startswith("#"):
+        return True
+    if SECTION_LABEL_RE.match(line):
+        return True
+    return False
+
+
+def parse_song(text: str):
+    """Parse song text into stanzas (separated by blank lines), each a list of lyric lines.
+
+    Skips comment lines (#) and inline section labels (Verse 1, Chorus, etc.)."""
+    stanzas = []
+    current = []
+    for raw in text.splitlines():
+        line = raw.strip()
+        if line:
+            if is_skippable(line):
+                continue
+            current.append(line)
+        else:
+            if current:
+                stanzas.append(current)
+                current = []
+    if current:
+        stanzas.append(current)
+    return stanzas
+
+
+def detect_rhyme_scheme(stanza):
+    """Return rhyme scheme letters (A, B, C...) per line based on rhyming part of last word."""
+    rhyme_parts = []
+    for line in stanza:
+        words = [w for w in line.split() if normalize_word(w)]
+        if not words:
+            rhyme_parts.append(None)
+            continue
+        last = words[-1]
+        phones = get_phones(last)
+        if not phones:
+            rhyme_parts.append(None)
+            continue
+        rp = pronouncing.rhyming_part(phones)
+        rhyme_parts.append(rp if rp else None)
+    letter_map = {}
+    next_code = ord("A")
+    scheme = []
+    for rp in rhyme_parts:
+        if rp is None:
+            scheme.append("?")
+            continue
+        if rp not in letter_map:
+            letter_map[rp] = chr(next_code)
+            next_code += 1
+        scheme.append(letter_map[rp])
+    return "".join(scheme)
+
+
+def find_ai_tells(text: str):
+    findings = []
+    text_lower = text.lower()
+    for pattern, reason in AI_TELLS.items():
+        for m in re.finditer(re.escape(pattern), text_lower):
+            findings.append({
+                "severity": "WARNING",
+                "category": "AI tell",
+                "pattern": pattern,
+                "reason": reason,
+            })
+    for pattern in MODERN_PSYCH:
+        for m in re.finditer(pattern, text_lower):
+            findings.append({
+                "severity": "ERROR",
+                "category": "modern psych language",
+                "pattern": m.group(),
+                "reason": "modern psychological term in biblical/historical witness context",
+            })
+    word_counts = defaultdict(int)
+    for w in re.findall(r"\b\w+\b", text_lower):
+        word_counts[w] += 1
+    for word, threshold in SUSPECT_WORDS.items():
+        c = word_counts.get(word, 0)
+        if c >= threshold:
+            findings.append({
+                "severity": "WARNING",
+                "category": "suspect word frequency",
+                "pattern": word,
+                "reason": f"used {c}x (suspect at {threshold}+)",
+            })
+    return findings
+
+
+def find_triadic_constructions(stanzas):
+    """Detect rule-of-three list constructions on single lines."""
+    findings = []
+    for stanza in stanzas:
+        for line in stanza:
+            stripped = line.strip()
+            m = TRIADIC_RE.match(stripped)
+            if not m:
+                continue
+            parts = [m.group(1).strip(), m.group(2).strip(), m.group(3).strip()]
+            if all(p and 1 <= len(p.split()) <= 4 for p in parts):
+                findings.append({
+                    "severity": "WARNING",
+                    "category": "AI tell - triadic",
+                    "pattern": stripped[:60],
+                    "reason": "rule-of-three list (humans rarely speak in three-item lists; cut to one or two)",
+                })
+    return findings
+
+
+def find_adj_noun_pairs(text: str):
+    findings = []
+    text_lower = text.lower()
+    for pair in ADJ_NOUN_AI_PAIRS:
+        for _ in re.finditer(r"\b" + re.escape(pair) + r"\b", text_lower):
+            findings.append({
+                "severity": "WARNING",
+                "category": "AI tell - adj+noun default",
+                "pattern": pair,
+                "reason": "common AI-default adjective-noun pairing; reach for stronger noun or verb",
+            })
+    return findings
+
+
+def find_closing_ai_constructions(stanzas):
+    """End-of-stanza 'And the X verbed' closings."""
+    findings = []
+    for stanza in stanzas:
+        if not stanza:
+            continue
+        last = stanza[-1].strip().rstrip(".,!?")
+        if CLOSING_AI_RE.match(last):
+            findings.append({
+                "severity": "WARNING",
+                "category": "AI tell - profound closing",
+                "pattern": last[:60],
+                "reason": "'and the [noun] [verbed]' closing — AI signature for ending on a profound-sounding note. If profound but not concrete, cut.",
+            })
+    return findings
+
+
+def find_literary_word_stacking(text: str):
+    findings = []
+    text_lower = text.lower()
+    counts = defaultdict(int)
+    for w in LITERARY_SIGNAL_WORDS:
+        for _ in re.finditer(r"\b" + re.escape(w) + r"\b", text_lower):
+            counts[w] += 1
+    total = sum(counts.values())
+    if total >= LITERARY_STACK_THRESHOLD:
+        top = ", ".join(f"{w}({c})" for w, c in sorted(counts.items(), key=lambda x: -x[1]) if c)
+        findings.append({
+            "severity": "WARNING",
+            "category": "AI tell - literary words stacked",
+            "pattern": top,
+            "reason": f"{total} literary signal words (whisper/echo/shadow/stillness/hush). Fine in moderation, slop when stacked above {LITERARY_STACK_THRESHOLD - 1}.",
+        })
+    return findings
+
+
+def find_abstractions_as_images(text: str):
+    findings = []
+    text_lower = text.lower()
+    for m in ABSTRACTION_AS_IMAGE_RE.finditer(text_lower):
+        phrase = m.group(0)
+        findings.append({
+            "severity": "WARNING",
+            "category": "AI tell - abstraction-as-image",
+            "pattern": phrase,
+            "reason": f"'{phrase}' — abstract noun masquerading as concrete image. Cannot be seen, touched, or held.",
+        })
+    return findings
+
+
+def tense_consistency_check(text: str):
+    """Stage 15: 'The song should sit in one tense throughout.'"""
+    findings = []
+    text_lower = text.lower()
+    words = re.findall(r"\b\w+\b", text_lower)
+    past_count = 0
+    present_count = 0
+    for w in words:
+        if w in PAST_TENSE_MARKERS:
+            past_count += 1
+        elif w in PRESENT_TENSE_MARKERS:
+            present_count += 1
+        elif len(w) > 3 and w.endswith("ed") and w not in NOT_PAST_ED:
+            past_count += 1
+    if past_count >= 4 and present_count >= 4:
+        ratio = min(past_count, present_count) / max(past_count, present_count)
+        if ratio > 0.3:
+            findings.append({
+                "severity": "WARNING",
+                "category": "tense consistency",
+                "pattern": f"past={past_count}, present={present_count}",
+                "reason": "song mixes past and present tense — Stage 15 says sit in one tense throughout (most testimony songs are past)",
+            })
+    return findings
+
+
+def line_opener_check(stanzas):
+    """Stage 15: count line-openers; flag if one pronoun deadens the cadence."""
+    findings = []
+    counts = defaultdict(int)
+    total = 0
+    for stanza in stanzas:
+        for line in stanza:
+            words = line.strip().split()
+            if not words:
+                continue
+            first = re.sub(r"[^\w']", "", words[0])
+            if first in LINE_OPENER_TOKENS:
+                counts[first] += 1
+            total += 1
+    if total < 8:
+        return findings
+    threshold = 0.5  # 50% of total lines starting with same opener
+    for opener, count in counts.items():
+        pct = count / total
+        if pct >= threshold:
+            findings.append({
+                "severity": "WARNING",
+                "category": "line opener cadence",
+                "pattern": opener,
+                "reason": f"'{opener}' starts {count}/{total} lines ({pct:.0%}); cadence deadens. Stage 15: let the world enter the song — prepositions, image-nouns, sense-verbs.",
+            })
+    # Also report distribution as INFO if >= 30% on any opener (helpful context)
+    for opener, count in counts.items():
+        pct = count / total
+        if 0.30 <= pct < threshold:
+            findings.append({
+                "severity": "INFO",
+                "category": "line opener distribution",
+                "pattern": opener,
+                "reason": f"'{opener}' starts {count}/{total} lines ({pct:.0%}) — within tolerance, but watch the cadence",
+            })
+    return findings
+
+
+def punctuation_check(text: str):
+    findings = []
+    em_dashes = text.count("—") + text.count("--")
+    if em_dashes > 6:
+        findings.append({
+            "severity": "WARNING",
+            "category": "punctuation",
+            "pattern": "em-dash",
+            "reason": f"{em_dashes} em-dashes (consider trimming; AI tell when over-used)",
+        })
+    ellipses = text.count("...") + text.count("…")
+    if ellipses > 6:
+        findings.append({
+            "severity": "WARNING",
+            "category": "punctuation",
+            "pattern": "ellipsis",
+            "reason": f"{ellipses} ellipses (consider trimming)",
+        })
+    # Suno: no ellipses in opening lines (causes hesitation)
+    non_blank_lines = [ln for ln in text.splitlines() if ln.strip()]
+    for i, line in enumerate(non_blank_lines[:2]):
+        if "..." in line or "…" in line:
+            findings.append({
+                "severity": "WARNING",
+                "category": "Suno opening",
+                "pattern": "ellipsis",
+                "reason": f"line {i+1} has ellipsis (causes Suno hesitation in opening)",
+            })
+            break
+    return findings
+
+
+def analyze(text: str):
+    stanzas = parse_song(text)
+    if not stanzas:
+        return None
+
+    findings = []
+    line_stats = []
+
+    line_idx = 0
+    for stanza_idx, stanza in enumerate(stanzas):
+        for line in stanza:
+            sylls = syllable_count_line(line)
+            score, note = line_ending_singability(line)
+            cluster = opening_consonant_cluster(line)
+            line_stats.append({
+                "stanza": stanza_idx,
+                "line_idx": line_idx,
+                "text": line,
+                "syllables": sylls,
+                "ending_score": score,
+                "ending_note": note,
+                "opening_cluster": cluster,
+            })
+            line_idx += 1
+
+    # Opening line consonant cluster
+    if line_stats and line_stats[0]["opening_cluster"] >= 3:
+        findings.append({
+            "severity": "WARNING",
+            "category": "Suno opening",
+            "pattern": line_stats[0]["text"][:40],
+            "reason": f"opens with {line_stats[0]['opening_cluster']}-consonant cluster (Suno may stumble)",
+        })
+
+    # Per-stanza syllable variance
+    for stanza_idx, stanza in enumerate(stanzas):
+        rows = [s for s in line_stats if s["stanza"] == stanza_idx]
+        if len(rows) < 2:
+            continue
+        sylls = [r["syllables"] for r in rows]
+        try:
+            stdev = statistics.stdev(sylls)
+        except statistics.StatisticsError:
+            stdev = 0
+        mean = statistics.mean(sylls)
+        if stdev > 4 and len(rows) >= 3:
+            findings.append({
+                "severity": "WARNING",
+                "category": "syllable variance",
+                "pattern": f"stanza {stanza_idx + 1}",
+                "reason": f"high syllable variance (mean={mean:.1f}, stdev={stdev:.1f}); singer will rush or stretch",
+            })
+
+    # Weak line endings (ending_score < 3 = closed vowel + cluster)
+    weak = [l for l in line_stats if l["ending_score"] is not None and l["ending_score"] < 3]
+    for w in weak:
+        findings.append({
+            "severity": "INFO",
+            "category": "weak ending",
+            "pattern": w["text"][-30:],
+            "reason": f"singability {w['ending_score']}/10: {w['ending_note']}",
+        })
+
+    findings.extend(find_ai_tells(text))
+    findings.extend(find_triadic_constructions(stanzas))
+    findings.extend(find_adj_noun_pairs(text))
+    findings.extend(find_closing_ai_constructions(stanzas))
+    findings.extend(find_literary_word_stacking(text))
+    findings.extend(find_abstractions_as_images(text))
+    findings.extend(tense_consistency_check(text))
+    findings.extend(line_opener_check(stanzas))
+    findings.extend(punctuation_check(text))
+
+    end_scores = [l["ending_score"] for l in line_stats if l["ending_score"] is not None]
+    avg_singability = statistics.mean(end_scores) if end_scores else 0
+    avg_sylls = statistics.mean([l["syllables"] for l in line_stats]) if line_stats else 0
+
+    return {
+        "stanzas": len(stanzas),
+        "lines": len(line_stats),
+        "avg_syllables_per_line": avg_sylls,
+        "avg_singability": avg_singability,
+        "rhyme_schemes": [detect_rhyme_scheme(s) for s in stanzas],
+        "line_stats": line_stats,
+        "findings": findings,
+    }
+
+
+def overall_score(analysis) -> float:
+    """Combine singability + findings into a single 0-100 craft score.
+
+    Singability = 60% (objective metric, primary signal).
+    Findings = 40% (deductions for errors/warnings; info findings are descriptive only)."""
+    if not analysis:
+        return 0
+    singability_pts = (analysis["avg_singability"] / 10.0) * 60
+    findings = analysis["findings"]
+    error_penalty = sum(10 for f in findings if f["severity"] == "ERROR")
+    warning_penalty = sum(3 for f in findings if f["severity"] == "WARNING")
+    findings_pts = max(0, 40 - error_penalty - warning_penalty)
+    return round(singability_pts + findings_pts, 1)
+
+
+def classify_register(avg_singability: float) -> str:
+    """Classify the song's vocal register based on avg ending singability.
+
+    Anthemic (>= 6.0) = open-vowel endings, designed to be belted/sustained.
+    Confessional (4.0-5.9) = conversational delivery, mixed endings.
+    Sparse (< 4.0) = mostly closed-vowel endings, intimate / spoken-sung."""
+    if avg_singability >= 6.0:
+        return "anthemic"
+    if avg_singability >= 4.0:
+        return "confessional"
+    return "sparse"
+
+
+def format_report(analysis, label: str = "song", verbose: bool = False) -> str:
+    if not analysis:
+        return f"=== {label} ===\nNo content to analyze."
+    out = []
+    out.append(f"=== {label} ===")
+    out.append(f"Stanzas: {analysis['stanzas']}  Lines: {analysis['lines']}")
+    out.append(f"Avg syllables/line: {analysis['avg_syllables_per_line']:.1f}")
+    out.append(f"Avg ending singability: {analysis['avg_singability']:.1f}/10  ({classify_register(analysis['avg_singability'])} register)")
+    out.append(f"Overall score: {overall_score(analysis):.1f}/100")
+    out.append("")
+    out.append("Rhyme schemes:")
+    for i, s in enumerate(analysis["rhyme_schemes"]):
+        out.append(f"  Stanza {i+1}: {s}")
+    out.append("")
+
+    findings = analysis["findings"]
+    errors = [f for f in findings if f["severity"] == "ERROR"]
+    warnings = [f for f in findings if f["severity"] == "WARNING"]
+    infos = [f for f in findings if f["severity"] == "INFO"]
+
+    if errors:
+        out.append(f"ERRORS ({len(errors)}):")
+        for f in errors:
+            out.append(f"  [{f['category']}] \"{f['pattern']}\" — {f['reason']}")
+        out.append("")
+    if warnings:
+        out.append(f"WARNINGS ({len(warnings)}):")
+        for f in warnings:
+            out.append(f"  [{f['category']}] \"{f['pattern']}\" — {f['reason']}")
+        out.append("")
+    if infos:
+        out.append(f"INFO ({len(infos)}):")
+        limit = len(infos) if verbose else 5
+        for f in infos[:limit]:
+            out.append(f"  [{f['category']}] \"{f['pattern']}\" — {f['reason']}")
+        if len(infos) > limit:
+            out.append(f"  ... and {len(infos) - limit} more (use --verbose to see all)")
+        out.append("")
+
+    out.append(f"Total: {len(errors)} errors, {len(warnings)} warnings, {len(infos)} info notes")
+    return "\n".join(out)
+
+
+BRACKET_TAG_RE = re.compile(r"\[([^\]]+)\]")
+
+
+def parse_suno_script(text: str):
+    """Parse a Suno Musical Script into tags and lyric lines, in order."""
+    items = []  # list of {"type": "tag"|"lyric"|"blank", "text": ..., "line_no": int}
+    for i, raw in enumerate(text.splitlines(), start=1):
+        line = raw.strip()
+        if not line:
+            items.append({"type": "blank", "text": "", "line_no": i})
+            continue
+        if line.startswith("#"):
+            continue  # comment lines skipped
+        # Check if line is purely tags
+        without_tags = BRACKET_TAG_RE.sub("", line).strip()
+        if without_tags:
+            # has lyric content
+            items.append({"type": "lyric", "text": line, "line_no": i})
+        else:
+            # tag-only line
+            for m in BRACKET_TAG_RE.finditer(line):
+                items.append({"type": "tag", "text": m.group(1), "line_no": i})
+    return items
+
+
+def validate_suno_script(text: str):
+    """Validate a Suno Musical Script."""
+    findings = []
+    items = parse_suno_script(text)
+    text_lower = text.lower()
+
+    # Forbidden tags
+    for forbidden in SUNO_FORBIDDEN_TAGS:
+        if forbidden in text_lower:
+            findings.append({
+                "severity": "ERROR",
+                "category": "Suno forbidden tag",
+                "pattern": forbidden,
+                "reason": f"'{forbidden}' is forbidden — Suno literally talks instead of singing for [Spoken Word], stretches time unpredictably for [Pause]/[Hold]. Use [Break] instead.",
+            })
+
+    # Bracket tag length validation
+    for item in items:
+        if item["type"] != "tag":
+            continue
+        content = item["text"]
+        is_param = ":" in content
+        max_words = SUNO_PARAM_TAG_MAX_WORDS if is_param else SUNO_BRACKET_TAG_MAX_WORDS
+        word_count = len(content.split())
+        if word_count > max_words:
+            findings.append({
+                "severity": "WARNING",
+                "category": "Suno bracket length",
+                "pattern": f"[{content}]",
+                "reason": f"tag is {word_count} words (max {max_words} for {'parameterized' if is_param else 'plain'} tags); verbose tags get sung as lyrics",
+            })
+
+    # First sung line checks
+    first_lyric = None
+    prev_tag = None
+    for item in items:
+        if item["type"] == "lyric":
+            first_lyric = item
+            break
+        if item["type"] == "tag":
+            prev_tag = item
+
+    if first_lyric:
+        # No [Breath] immediately before first sung line
+        # Find tag immediately preceding first lyric
+        tag_just_before = None
+        for item in items:
+            if item is first_lyric:
+                break
+            if item["type"] == "tag":
+                tag_just_before = item
+            elif item["type"] == "lyric":
+                tag_just_before = None
+        if tag_just_before and tag_just_before["text"].lower().strip() == "breath":
+            findings.append({
+                "severity": "ERROR",
+                "category": "Suno first-line rule",
+                "pattern": "[Breath] before first vocal",
+                "reason": "[Breath] tag immediately before the first sung line causes mumbling",
+            })
+        # No ellipses in first 1-2 sung lines
+        sung_seen = 0
+        for item in items:
+            if item["type"] != "lyric":
+                continue
+            sung_seen += 1
+            if sung_seen > 2:
+                break
+            if "..." in item["text"] or "…" in item["text"]:
+                findings.append({
+                    "severity": "ERROR",
+                    "category": "Suno first-line rule",
+                    "pattern": item["text"][:50],
+                    "reason": f"ellipses in sung line {sung_seen} (must be no ellipses in first 1-2 sung lines — causes hesitation)",
+                })
+
+    # Hyphen-splitting word warnings (e.g., "be-cause", "for-given") — Suno mispronounces
+    hyphen_split = re.findall(r"\b\w+-\w+(?:-\w+)*\b", text)
+    real_hyphenated_ok = {"twenty-some", "follow-up", "all-night", "open-eyed", "well-known"}
+    for word in hyphen_split:
+        if word.lower() in real_hyphenated_ok:
+            continue
+        # Heuristic: if the word fragments look like syllables (each fragment 2-5 chars), suspicious
+        fragments = word.split("-")
+        if all(2 <= len(f) <= 5 for f in fragments) and len(fragments) >= 2:
+            # Check if joining the fragments forms a real word
+            joined = "".join(fragments)
+            if get_phones(joined):  # real word when joined
+                findings.append({
+                    "severity": "WARNING",
+                    "category": "Suno hyphen-split word",
+                    "pattern": word,
+                    "reason": f"'{word}' looks like a hyphen-split syllabification of '{joined}' — Suno mispronounces these. Trust natural stress.",
+                })
+
+    # Progressive CAPS check (informational)
+    chorus_caps_counts = []
+    in_chorus_section = False
+    current_caps = 0
+    for item in items:
+        if item["type"] == "tag":
+            tag_lower = item["text"].lower().strip()
+            if "chorus" in tag_lower or "refrain" in tag_lower:
+                if in_chorus_section:
+                    chorus_caps_counts.append(current_caps)
+                in_chorus_section = True
+                current_caps = 0
+        elif item["type"] == "lyric" and in_chorus_section:
+            current_caps += sum(1 for w in item["text"].split() if w.isupper() and len(w) > 1)
+    if in_chorus_section:
+        chorus_caps_counts.append(current_caps)
+    if len(chorus_caps_counts) >= 2:
+        # Are caps progressive (later choruses have more)?
+        is_progressive = all(
+            chorus_caps_counts[i] <= chorus_caps_counts[i + 1]
+            for i in range(len(chorus_caps_counts) - 1)
+        )
+        if not is_progressive and max(chorus_caps_counts) > 0:
+            findings.append({
+                "severity": "INFO",
+                "category": "Suno progressive CAPS",
+                "pattern": "chorus CAPS not progressive",
+                "reason": f"CAPS counts across choruses: {chorus_caps_counts}. Stage 12-style: progressive CAPS across choruses build intensity naturally.",
+            })
+
+    # Also run lyric-level checks on the sung lines
+    sung_text = "\n\n".join(item["text"] for item in items if item["type"] == "lyric")
+    if sung_text:
+        lyric_analysis = analyze(sung_text)
+        if lyric_analysis:
+            findings.extend(lyric_analysis["findings"])
+
+    return findings
+
+
+def validate_style_prompt(text: str):
+    """Validate the Style of Music prompt has all mandatory elements."""
+    findings = []
+    text_lower = text.lower()
+    missing = []
+    for keys, label in STYLE_MANDATORY_ELEMENTS:
+        if not any(k in text_lower for k in keys):
+            missing.append(label)
+    if missing:
+        findings.append({
+            "severity": "ERROR",
+            "category": "Style prompt missing element",
+            "pattern": ", ".join(missing),
+            "reason": f"missing mandatory Style prompt element(s): {', '.join(missing)}. The full mandatory list is documented in the Tenth Hour project instructions.",
+        })
+    # Tag count — Suno performs best with 5-8 main tags (not counting NOTs)
+    main_tags = [t.strip() for t in text.split(",") if not t.strip().lower().startswith("not")]
+    main_tag_count = len([t for t in main_tags if t])
+    if main_tag_count > 12:
+        findings.append({
+            "severity": "WARNING",
+            "category": "Style prompt tag count",
+            "pattern": f"{main_tag_count} main tags",
+            "reason": f"{main_tag_count} main tags exceeds 10-12 ceiling — past 10, signals start conflicting and Suno averages them into mush",
+        })
+    # First tag should be the genre (research finding)
+    if main_tags:
+        first = main_tags[0].lower()
+        genre_keywords = ["folk", "rock", "americana", "ballad", "story-song", "country", "gospel", "soul", "indie"]
+        if not any(k in first for k in genre_keywords):
+            findings.append({
+                "severity": "INFO",
+                "category": "Style prompt order",
+                "pattern": main_tags[0],
+                "reason": "first Style tag should be the genre (highest weight in Suno). Move genre to position 1.",
+            })
+    return findings
+
+
+CODEX_SAGE_PROMPT_TEMPLATE = """You are Sage, the integrity editor for The Tenth Hour Bible study songwriting series.
+
+Read the lyrics below and identify qualitative issues that pattern-matching tools cannot catch. The lyrics have already been screened by a regex-based checker for AI-tell vocabulary, modern psych language, triadic constructions, abstraction-as-image, and several other pattern-level tells. Your job is what those tools miss:
+
+- Generic lines that could appear in any other song (not specific to this song's witness moment)
+- Voice slips — lines that don't fit the speaker's register, exhaustion, or 1st-century context if applicable
+- Telling instead of showing — narrating an emotion or interpretation when an image would do
+- Default adjective-noun pairings that aren't on standard blacklists
+- Tense or perspective slips
+- Lines that imitate "profound" without being concrete
+- Cliche endings disguised as resolutions
+- Lines that explain what should be felt
+- Overly polished phrasing where rawness would serve
+
+Tenth Hour manifesto principles:
+- "Confessed not crafted" — every line should sound witnessed, not assembled
+- Plain words pointed at the right things become images
+- Trust the listener; explain less, image more
+- No words in biblical figures' mouths they didn't say
+- Theological accuracy is non-negotiable
+- The speaker is real and specific, not a generic pious narrator
+- Restraint over triumph (the band's center of gravity)
+
+Write your findings as a JSON array to the file path: {output_path}
+
+Each finding is an object with these keys:
+- "severity": "ERROR" (must fix), "WARNING" (consider), or "INFO" (suggestion)
+- "line": the exact line text you're flagging (truncate at 70 chars)
+- "reason": a one-sentence specific concern explaining why
+
+Use ERROR for things that must be fixed (theological errors, modern psych language slipped through, generic stand-in lines).
+Use WARNING for things to consider (slightly default phrasings, voice register inconsistencies, lines that explain instead of showing).
+Use INFO for soft suggestions (lines that could be more concrete, places to trust the listener more).
+
+If the song is genuinely clean and you find nothing, write an empty array: []
+
+Be honest. Do not manufacture findings to seem useful. A clean song should get an empty array.
+
+LYRICS TO REVIEW:
+---
+{text}
+---
+
+After writing the JSON file at {output_path}, respond with the single word DONE and nothing else."""
+
+
+def codex_sage_review(text: str, timeout: int = 240, verbose_console: bool = False):
+    """Run Codex as a Sage-style qualitative reviewer.
+
+    Returns a list of findings (same structure as other check functions)."""
+    if not shutil.which("codex"):
+        return [{
+            "severity": "INFO",
+            "category": "Codex Sage review",
+            "pattern": "unavailable",
+            "reason": "codex CLI not found on PATH (skipping Sage review)",
+        }]
+    output_fd, output_path = tempfile.mkstemp(prefix="codex_sage_", suffix=".json")
+    os.close(output_fd)
+    try:
+        os.remove(output_path)
+    except FileNotFoundError:
+        pass
+    prompt = CODEX_SAGE_PROMPT_TEMPLATE.format(output_path=output_path, text=text)
+    cmd = ["codex", "exec", "--skip-git-repo-check", prompt]
+    try:
+        if verbose_console:
+            print("Calling Codex Sage (this can take 1-3 minutes)...", file=sys.stderr)
+        subprocess.run(cmd, capture_output=True, text=True, timeout=timeout)
+    except subprocess.TimeoutExpired:
+        return [{
+            "severity": "INFO",
+            "category": "Codex Sage review",
+            "pattern": "timeout",
+            "reason": f"Codex did not respond within {timeout}s",
+        }]
+    except Exception as e:
+        return [{
+            "severity": "INFO",
+            "category": "Codex Sage review",
+            "pattern": "error",
+            "reason": f"could not invoke codex: {e}",
+        }]
+    if not os.path.exists(output_path):
+        return [{
+            "severity": "INFO",
+            "category": "Codex Sage review",
+            "pattern": "no output",
+            "reason": "Codex did not write findings file (may have refused or hit a tool error)",
+        }]
+    try:
+        with open(output_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        os.remove(output_path)
+    except Exception as e:
+        return [{
+            "severity": "INFO",
+            "category": "Codex Sage review",
+            "pattern": "parse error",
+            "reason": f"could not parse Codex output: {e}",
+        }]
+    if not isinstance(data, list):
+        return [{
+            "severity": "INFO",
+            "category": "Codex Sage review",
+            "pattern": "format error",
+            "reason": "Codex output was not a JSON array",
+        }]
+    findings = []
+    for item in data:
+        if not isinstance(item, dict):
+            continue
+        sev = str(item.get("severity", "INFO")).upper()
+        if sev not in ("ERROR", "WARNING", "INFO"):
+            sev = "INFO"
+        findings.append({
+            "severity": sev,
+            "category": "Codex Sage review",
+            "pattern": str(item.get("line", ""))[:70],
+            "reason": str(item.get("reason", "")),
+        })
+    return findings
+
+
+def format_suno_report(findings, label: str) -> str:
+    """Format a Suno-script-mode report."""
+    out = []
+    out.append(f"=== {label} (Suno script mode) ===")
+    errors = [f for f in findings if f["severity"] == "ERROR"]
+    warnings = [f for f in findings if f["severity"] == "WARNING"]
+    infos = [f for f in findings if f["severity"] == "INFO"]
+    if errors:
+        out.append(f"\nERRORS ({len(errors)}):")
+        for f in errors:
+            out.append(f"  [{f['category']}] \"{f['pattern']}\" — {f['reason']}")
+    if warnings:
+        out.append(f"\nWARNINGS ({len(warnings)}):")
+        for f in warnings:
+            out.append(f"  [{f['category']}] \"{f['pattern']}\" — {f['reason']}")
+    if infos:
+        out.append(f"\nINFO ({len(infos)}):")
+        for f in infos[:8]:
+            out.append(f"  [{f['category']}] \"{f['pattern']}\" — {f['reason']}")
+        if len(infos) > 8:
+            out.append(f"  ... and {len(infos) - 8} more")
+    out.append(f"\nTotal: {len(errors)} errors, {len(warnings)} warnings, {len(infos)} info")
+    return "\n".join(out)
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Tenth Hour lyric singability + AI-tell checker")
+    parser.add_argument("lyrics_file", help="Path to lyrics or Suno script")
+    parser.add_argument("--label", default=None, help="Label for the song")
+    parser.add_argument("--verbose", action="store_true", help="Show all info-level findings")
+    parser.add_argument("--json", action="store_true", help="JSON output")
+    parser.add_argument("--suno", action="store_true", help="Validate as Suno Musical Script (with bracket tags)")
+    parser.add_argument("--style", action="store_true", help="Validate as Style of Music prompt")
+    parser.add_argument("--codex-review", action="store_true",
+                        help="Add a qualitative Codex Sage pass for what regex misses (slow, requires codex CLI)")
+    args = parser.parse_args()
+
+    with open(args.lyrics_file, "r", encoding="utf-8") as f:
+        text = f.read()
+    label = args.label or args.lyrics_file.split("/")[-1]
+
+    if args.suno:
+        findings = validate_suno_script(text)
+        if args.json:
+            print(json.dumps({"label": label, "mode": "suno", "findings": findings}, indent=2))
+        else:
+            print(format_suno_report(findings, label))
+        return
+
+    if args.style:
+        findings = validate_style_prompt(text)
+        if args.json:
+            print(json.dumps({"label": label, "mode": "style", "findings": findings}, indent=2))
+        else:
+            print(format_suno_report(findings, label).replace("Suno script mode", "Style prompt mode"))
+        return
+
+    analysis = analyze(text)
+
+    if args.codex_review:
+        sage_findings = codex_sage_review(text, verbose_console=not args.json)
+        analysis["findings"].extend(sage_findings)
+
+    if args.json:
+        out = {
+            "label": label,
+            "stanzas": analysis["stanzas"],
+            "lines": analysis["lines"],
+            "avg_syllables_per_line": analysis["avg_syllables_per_line"],
+            "avg_singability": analysis["avg_singability"],
+            "register": classify_register(analysis["avg_singability"]),
+            "overall_score": overall_score(analysis),
+            "rhyme_schemes": analysis["rhyme_schemes"],
+            "findings": analysis["findings"],
+        }
+        print(json.dumps(out, indent=2))
+    else:
+        print(format_report(analysis, label, verbose=args.verbose))
+
+
+if __name__ == "__main__":
+    main()

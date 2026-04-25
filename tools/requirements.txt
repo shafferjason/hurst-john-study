@@ -1,0 +1,3 @@
+pronouncing>=0.2.0
+nltk>=3.6
+pyphen>=0.13.0
