@@ -160,35 +160,90 @@
         const sortToggle = document.getElementById('sort-toggle');
         const sortLabel = document.getElementById('sort-label');
         
-        // Render lessons based on current sort order
+        // Lesson number from id (e.g. "lesson-19" -> 19)
+        function lessonNum(lesson) {
+            const m = (lesson.id || '').match(/(\d+)/);
+            return m ? parseInt(m[1], 10) : 0;
+        }
+
+        // Which chapter group a lesson belongs to.
+        // Lessons 1-4 are foundational; everything else groups by the
+        // John chapter named in its scripture line.
+        function chapterOf(lesson) {
+            const num = lessonNum(lesson);
+            if (num <= 4) return { label: 'Foundations', order: 0 };
+            const m = (lesson.scripture || '').match(/John\s+(\d+)\s*:/);
+            if (m) { const ch = parseInt(m[1], 10); return { label: 'John ' + ch, order: ch }; }
+            return { label: 'Other', order: 99 };
+        }
+
+        // Render lessons grouped into collapsible chapter sections
         function renderLessons() {
             lessonsList.innerHTML = '';
-            
-            if (typeof lessonData !== 'undefined' && lessonData.length > 0) {
-                // Create a copy to sort
-                const sortedLessons = [...lessonData];
-                
-                if (sortNewestFirst) {
-                    sortedLessons.reverse();
-                }
-                
-                sortedLessons.forEach(lesson => {
+
+            if (typeof lessonData === 'undefined' || lessonData.length === 0) {
+                lessonsList.innerHTML = '<p class="no-lessons">No lessons available yet. Check back soon!</p>';
+                return;
+            }
+
+            // Bucket lessons by chapter group
+            const groupsMap = {};
+            lessonData.forEach(lesson => {
+                const g = chapterOf(lesson);
+                if (!groupsMap[g.label]) groupsMap[g.label] = { label: g.label, order: g.order, lessons: [] };
+                groupsMap[g.label].lessons.push(lesson);
+            });
+
+            let groups = Object.keys(groupsMap).map(k => groupsMap[k]);
+            groups.sort((a, b) => a.order - b.order); // reading order
+
+            // Find the group that holds the most recent lesson — open it by default
+            let newestLabel = null, newestNum = -1;
+            groups.forEach(g => {
+                const maxN = Math.max.apply(null, g.lessons.map(lessonNum));
+                if (maxN > newestNum) { newestNum = maxN; newestLabel = g.label; }
+            });
+
+            // Order lessons within each group, and section order, to match the toggle
+            groups.forEach(g => {
+                g.lessons.sort((a, b) => sortNewestFirst ? lessonNum(b) - lessonNum(a) : lessonNum(a) - lessonNum(b));
+            });
+            if (sortNewestFirst) groups.reverse();
+
+            groups.forEach(group => {
+                const section = document.createElement('details');
+                section.className = 'chapter';
+                if (group.label === newestLabel) section.open = true;
+
+                const summary = document.createElement('summary');
+                summary.className = 'chapter-header';
+                summary.innerHTML = `
+                    <span class="chapter-name"><span class="chapter-chevron">▸</span>${group.label}</span>
+                    <span class="chapter-count">${group.lessons.length}</span>
+                `;
+                section.appendChild(summary);
+
+                const body = document.createElement('div');
+                body.className = 'chapter-lessons';
+
+                group.lessons.forEach(lesson => {
                     const lessonItem = document.createElement('div');
                     lessonItem.className = 'lesson-item';
-                    
+
                     const link = document.createElement('a');
                     link.href = `lesson.html?id=${lesson.id}`;
                     link.innerHTML = `
                         <span class="lesson-title">${lesson.title}</span>
                         <span class="lesson-scripture">${lesson.scripture}</span>
                     `;
-                    
+
                     lessonItem.appendChild(link);
-                    lessonsList.appendChild(lessonItem);
+                    body.appendChild(lessonItem);
                 });
-            } else {
-                lessonsList.innerHTML = '<p class="no-lessons">No lessons available yet. Check back soon!</p>';
-            }
+
+                section.appendChild(body);
+                lessonsList.appendChild(section);
+            });
         }
         
         // Update toggle button text
