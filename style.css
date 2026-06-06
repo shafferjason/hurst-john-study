@@ -19,6 +19,7 @@ body {
     color: #e0ddd5; /* Improved from #d4d0c8 for better contrast */
     line-height: 1.75;
     padding: 20px;
+    overflow-x: hidden; /* clip the full-bleed stone slabs so no sideways scroll */
     font-size: 18px;
     /* Black leather texture with pebbled grain effect */
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='leatherFilter'%3E%3CfeTurbulence type='turbulence' baseFrequency='0.35' numOctaves='5' stitchTiles='stitch' seed='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23leatherFilter)' opacity='0.22'/%3E%3C/svg%3E");
@@ -779,6 +780,11 @@ header {
         gap: 0.85rem;
     }
     .lessons-section h2 { flex: none; }
+    /* push the stone slabs nearly to the screen edge on phones */
+    .chapter-header {
+        margin-left: -30px;
+        margin-right: -30px;
+    }
 }
 
 .lessons-section h2 {
@@ -845,6 +851,10 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 0.82rem 1.4rem;
+    /* bleed the slab out past the book stack so the stone runs longer than the
+       books (books keep full width); margins clipped by body overflow-x: hidden */
+    margin-left: -18px;
+    margin-right: -18px;
     border-radius: 7px;
     border: 1px solid rgba(70, 56, 38, 0.5);
     border-top-color: rgba(255, 250, 235, 0.35);   /* lit top edge of the block */
@@ -997,8 +1007,7 @@ header {
 
 .chapter[open] .chapter-lessons {
     position: relative;
-    /* inset the book stack so the stone slab runs a touch longer than the books */
-    padding: 0.1rem 18px 0;
+    padding-top: 0.1rem;
 }
 
 .chapter[open] .chapter-lessons .lesson-item:last-child {
