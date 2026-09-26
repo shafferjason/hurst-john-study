@@ -187,6 +187,7 @@
         function formatTieIn(text) {
             // Check if there's a reflective question section
             const reflectiveMarker = 'Reflective Question for the Reader';
+            if (!text) return '';
             if (text.includes(reflectiveMarker)) {
                 const parts = text.split(reflectiveMarker);
                 const mainContent = parts[0].trim();
@@ -275,6 +276,12 @@
                 <!-- Ornate divider for visual section break -->
                 <div class="divider-ornate"></div>
 
+${currentLesson.song_pending ? `
+                <section class="song-tie-in song-pending">
+                    <h2>Song Tie-in</h2>
+                    <p class="preview-text">This lesson's song is still being written. Check back soon.</p>
+                </section>
+                ` : `
                 <section class="song-tie-in">
                     <h2>Song Tie-in</h2>
                     <p class="preview-text">${currentLesson.tie_in_preview}</p>
@@ -363,6 +370,7 @@
                         </p>
                     ` : ''}
                 </section>
+                `}
             `;
 
             // Build navigation links
