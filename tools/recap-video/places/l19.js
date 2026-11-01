@@ -7,7 +7,7 @@ export default async function (P) {
   const D = 6.5, Z = P.Z - D, cam = P.camera, L = P.beats(1), H = 5, Y0 = -0.8, SKYD = 64;
   const key = P.ev('key', 1, 1), up = P.ev('dawn behind him', 2, 1);
   const figX = P.X + (P.pathX(P.Z - 12) - P.X) * D / 12 - 0.2, x = figX + 0.875, o = { y0: Y0, gain: 1.5, sil: 0.6, fadeNear: false, turn: false };   // he stands on the road, centre screen
-  const load = P.art('load', x, Z, H, { ...o, far: 26, near: 10 }), lift = P.art('lift', x, Z, H, { ...o, drawn: true }), free = P.art('free', x, Z, H, { ...o, drawn: true });
+  const load = P.art('load', x, Z, H, { ...o, far: 26, near: 10 }), lift = P.art('lift', x, Z, H, { ...o, drawn: true }), free = P.art('free', x, Z, H, { ...o, drawn: true, sil: 0.78 });
   // two soft ellipses on the horizon, wide and low. A ray through the figure keeps them centred behind him.
   const SW = 70, SH = 24, PX = 20, dawn = P.thing(0, 0, SW, SH, PX, c => { const w = c.canvas.width, h = c.canvas.height;
     const blob = (rx, ry, a) => { c.save(); c.translate(w / 2, h / 2); c.scale(rx, ry); const g = c.createRadialGradient(0, 0, 0, 0, 0, 1); g.addColorStop(0, `rgba(240,212,168,${a})`); g.addColorStop(0.45, `rgba(232,190,135,${a * 0.42})`); g.addColorStop(1, 'rgba(212,165,116,0)'); c.fillStyle = g; c.beginPath(); c.arc(0, 0, 1, 0, 6.3); c.fill(); c.restore(); };

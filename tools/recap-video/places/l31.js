@@ -14,7 +14,7 @@ export default async function (P) {
   const he = P.walker('he', H0X, H0Z, false, 3.1, { fog: false, fadeNear: false }), heGlow = P.glow(HX, 1.8, HZ - 0.2, 6, 0);
   // the pool: a thin stone rim on the ground, a ring of water, nothing filled
   const PX = cx(5.05) - 0.1, PZ = zd(5.05), ring = (R, r, u, w) => { const a = u * 6.283, k = 1 + 0.035 * Math.sin(a * 3 + 1) + 0.02 * Math.sin(a * 7), x = PX + Math.cos(a) * R * k, z = PZ + Math.sin(a) * r * k, m = w / 2; return [x - Math.cos(a) * m, z - Math.sin(a) * m, x + Math.cos(a) * m, z + Math.sin(a) * m]; };
-  const rim = P.ribbon(0xf0d4a8, 0, 120), water = P.ribbon(0xd4a574, 0, 120); rim.set(u => ring(1.65, 0.72, u, 0.026)); water.set(u => ring(1.38, 0.56, u, 0.016));
+  const rim = P.ribbon(0xf0d4a8, 0, 120), water = P.ribbon(0xd4a574, 0, 120); rim.set(u => ring(1.5, 0.52, u, 0.026)); water.set(u => ring(1.25, 0.4, u, 0.016));
   const rocks = [[1.15, 0.72], [1.72, 0.2], [-1.75, 0.12]].map(([dx, dz], i) => P.art(['s1', 's2', 's3'][i % 3], PX + dx, PZ - dz, 0.24 + hash(i + 61) * 0.1, { far: 30, near: 14, sil: 0.7, gain: 1.15, flip: i % 2 === 1 }));
   const ripples = wet.map(t0 => ({ t0, r: P.ribbon(0xf0d4a8, 0, 80) })), lightUp = P.glow(KX - 0.2, 1.9, KZ - 0.1, 4.5, 0), lightDown = P.pool(KX - 0.8, KZ + 0.6, 6, 3.4, 0);
   // the disciples: ordinary arms from beyond the frame, either side of you; they stay with you as you walk

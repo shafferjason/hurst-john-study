@@ -5,9 +5,9 @@ export default async function (P) {
   const Z = P.Z, X = P.X, cam = P.camera, L = P.beats(1);
   const view = d => X + (P.pathX(Z - 12) - X) * d / 12;                      // the straight line of sight from where you stop
   const flows = P.evs('stream runs', 0, 3, 4, 1), HEADKEY = 0.6, key = P.ev('key', 1, 1), opens = P.evs('line goes', 1, 2, 3, 1);
-  const HD = 4.7, WD = 8.2, LD = 6.3, hx = view(HD) - 1.05, wx = view(WD) + 1.15;
+  const HD = 4.7, WD = 8.2, LD = 6.3, hx = view(HD) - 1.05, wx = view(WD) + 1.35;
   const well = P.art('well', hx, Z - HD, 3.5, { flip: true, turn: false, far: 26, near: 9, gain: 1.6, sil: 0.6, fadeNear: false });
-  const woman = P.walker('woman', wx, Z - WD, false, 3.15, { turn: false, far: 26, near: 9, gain: 1.55, sil: 0.45, fadeNear: false });
+  const woman = P.walker('woman', wx, Z - WD, false, 3.15, { turn: false, far: 26, near: 9, gain: 1.4, sil: 0.92, fadeNear: false });
   // the stream: from the foot of the well, one gentle curve round his feet and away to the line on the key beat, across it, stopping just short of hers
   const pts = [[-1.05, 4.68], [-0.55, 4.5], [0, 4.75], [0.34, LD], [0.58, 7.15], [0.72, 7.95]].map(([o, d]) => [view(d) + o, d]), CX = pts[3][0];
   const cat = (a, b, c, e, s) => 0.5 * (2 * b + (c - a) * s + (2 * a - 5 * b + 4 * c - e) * s * s + (3 * b - a - 3 * c + e) * s * s * s);

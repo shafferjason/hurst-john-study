@@ -1,15 +1,15 @@
 // Lesson 18 (short stop): a man walks after 38 years, and all the leaders can see is the mat he's carrying.
 // One detail: at Bethesda's colonnade only the rolled mat shows past the pillar, with two men from behind looking at it. Then he
-// walks out from behind it: the whole man, walking. No lens, no frame. The men never move.
+// walks out from behind it: the whole man in side view, face visible, mid-stride. The walking is the miracle. The men never move.
 export default async function (P) {
   await P.loadArt();
   const cam = P.camera, L = P.beats(1), dirX = (P.pathX(P.Z - 12) - P.X) / 12;
   const at = (d, px) => P.X + dirX * d + (px - 540) * d / 1283;              // world x that lands on screen x px, seen from where you stop
   const go = P.ev('he sets off', 1, 3); P.ev('key', 2, 1);                   // key: he is out from behind the pillar
-  const SP = 0.42, DM = 6, DP = 5, ZP = P.Z - DP, MX = at(DM, 350);
+  const SP = 0.6, DM = 7.5, DP = 5, ZP = P.Z - DP, MX = at(DM, 342);
 
   // the pillar: a stone shaft on a plain base, rising into the dark below the words. Opaque: it has to hide him.
-  const CW = 1.42, SW = 1.1, HT = 9, PX = 180;
+  const CW = 1.54, SW = 1.22, HT = 9, PX = 180;   // he stands further back than the pillar, so a slimmer shaft still hides his whole stride; only the roll's end shows past it.
   const pillar = P.thing(at(DP, 330), ZP, CW, HT, PX, c => { const cw = c.canvas.width, ch = c.canvas.height, d = cam.position.z - ZP, m = (CW - SW) / 2 * PX, b = 0.42 * PX;
     const yAt = sy => ch - (2.6 + (875 - sy) * d / 1283) * PX, g = c.createLinearGradient(0, yAt(570), 0, yAt(635));
     g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,1)');

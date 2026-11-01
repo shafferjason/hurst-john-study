@@ -8,8 +8,8 @@
 "bodyH": 0.658
 },
 "reach": {
-"aspect": 0.417,
-"bodyH": 0.648
+"aspect": 0.4169,
+"bodyH": 0.701
 },
 "armR": {
 "aspect": 1.0999,
@@ -24,8 +24,8 @@
 "bodyH": 0.983
 },
 "see": {
-"aspect": 0.4169,
-"bodyH": 0.663
+"aspect": 0.4175,
+"bodyH": 0.841
 },
 "walk": {
 "aspect": 0.4168,
