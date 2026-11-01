@@ -1,14 +1,14 @@
 {
 "man": {
-"aspect": 0.417,
-"bodyH": 0.586
+"aspect": 0.4172,
+"bodyH": 0.71
 },
-"mat": {
-"aspect": 1.6508,
-"bodyH": 0.973
+"elder2": {
+"aspect": 0.4173,
+"bodyH": 0.991
 },
-"lens": {
-"aspect": 0.7352,
-"bodyH": 0.899
+"elder1": {
+"aspect": 0.4174,
+"bodyH": 0.991
 }
 }
