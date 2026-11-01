@@ -8,8 +8,8 @@
 "bodyH": 0.99
 },
 "stoop": {
-"aspect": 0.9656,
-"bodyH": 0.983
+"aspect": 0.9507,
+"bodyH": 0.984
 },
 "mgo": {
 "aspect": 0.4175,
@@ -22,5 +22,9 @@
 "mset": {
 "aspect": 0.7877,
 "bodyH": 0.983
+},
+"he": {
+"aspect": 0.4168,
+"bodyH": 0.99
 }
 }

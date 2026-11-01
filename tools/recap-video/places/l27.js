@@ -1,5 +1,5 @@
 // Lesson 27 (short stop, S = the trickle is a deliberate symbol): on the one day no water was poured, "If anyone is thirsty, come to me."
-// Temple steps. The great pitcher stands upright and nobody touches it, the whole hold. On the key a figure stands above you, hand open (from behind).
+// Temple steps. The great pitcher stands upright and nobody touches it, the whole hold. On the key a figure stands far off at the top, facing down at you, hand open, too small for any face (blank head).
 // Then a thin trickle starts at his feet and comes down the steps toward you. It does not come from the pitcher, which stays dry.
 export default async function (P) {
   await P.loadArt();
@@ -30,7 +30,7 @@ export default async function (P) {
   // the temple: the colonnade from Lesson 30, faint, standing along the top of the stair behind him
   const COLH = 1.3, colonnade = P.art('colonnade', CX, PZ - 0.04, COLH, { y0: TOP - 0.03, drawn: true, turn: false, fog: false, sil: 1, gain: 0.85, fadeNear: false });
   const CW = colonnade.wU, colBack = P.thing(CX, PZ - 0.06, CW * 0.97, COLH * 0.95, 20, c => { c.fillStyle = '#0c0a08'; c.fillRect(0, 0, c.canvas.width, c.canvas.height); }, { y0: TOP, turn: false, far: 26, near: 7 });   // so the far hills don't show through the columns
-  const FIGH = 1.52, figure = P.artAt('figure', CX + 0.02, PZ + 0.03, FIGH, key, 2, { y0: TOP - 0.04, turn: false, gain: 1.6, sil: 1, fadeNear: false });
+  const FIGH = 0.84, figure = P.artAt('figure', CX + 0.02, PZ + 0.03, FIGH, key, 2, { y0: TOP - 0.04, turn: false, gain: 1.6, sil: 1, fadeNear: false });
   // the trickle's course: starts just in front of his feet, eases right a little on each tread, drops straight down each riser; corners rounded so it reads as water, not a crack.
   const raw = [], END = 0.3, xAt = i => lerp(0.04, END, i / N) + 0.035 * Math.sin(i * 2.4); raw.push([xAt(0), TOP - 0.05]);
   ys.forEach((y, i) => { if (i === 0) return; const g = ys[i - 1] - y; raw.push([xAt(i - 1), ys[i - 1]], [xAt(i - 1), ys[i - 1] - g * RISE], [xAt(i), y]); }); raw.push([xAt(N - 1), ys[N - 1]], [xAt(N - 1), ys[N - 1] * (1 - RISE)], [END, 0.02]);
