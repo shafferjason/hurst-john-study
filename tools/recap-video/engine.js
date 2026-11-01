@@ -37,14 +37,16 @@ function plen(pts) { let L = 0; for (let i = 1; i < pts.length; i++) L += Math.h
 function strokePts(ctx, pts, upto) {
   if (pts.length < 2 || upto <= 0) return;
   ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
-  let acc = 0;
+  let acc = 0, tip = pts[pts.length - 1];
   for (let i = 1; i < pts.length; i++) {
     const d = Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
-    if (acc + d >= upto) { const t = (upto - acc) / d; ctx.lineTo(lerp(pts[i - 1][0], pts[i][0], t), lerp(pts[i - 1][1], pts[i][1], t)); break; }
+    if (acc + d >= upto) { const t = (upto - acc) / d; tip = [lerp(pts[i - 1][0], pts[i][0], t), lerp(pts[i - 1][1], pts[i][1], t)]; ctx.lineTo(tip[0], tip[1]); break; }
     ctx.lineTo(pts[i][0], pts[i][1]); acc += d;
   }
-  ctx.stroke();
+  ctx.stroke(); return tip;
 }
+// PEN: where the most recent still-drawing stroke's tip is, in canvas pixels (the walk's "golden thread" follows it)
+let PEN = null;
 // draw a list of polylines in sequence, revealing `prog` (0..1) of their combined length
 function draw(ctx, shapes, prog, o = {}) {
   if (prog <= 0) return;
@@ -53,16 +55,20 @@ function draw(ctx, shapes, prog, o = {}) {
   ctx.globalAlpha *= (o.alpha ?? 1);
   if (o.glow !== false) { ctx.shadowColor = 'rgba(240,212,168,0.45)'; ctx.shadowBlur = o.blur ?? 10; }
   const lens = shapes.map(plen); const total = lens.reduce((a, b) => a + b, 0);
-  let budget = clamp(prog) * total;
-  for (let i = 0; i < shapes.length && budget > 0; i++) { strokePts(ctx, shapes[i], Math.min(budget, lens[i])); budget -= lens[i]; }
+  let budget = clamp(prog) * total, tip = null;
+  for (let i = 0; i < shapes.length && budget > 0; i++) { tip = strokePts(ctx, shapes[i], Math.min(budget, lens[i])); budget -= lens[i]; }
+  if (tip && prog < 1) { const m = ctx.getTransform(); const q = m.transformPoint(new DOMPoint(tip[0], tip[1])); PEN = [q.x, q.y]; }
   ctx.restore();
 }
 function fillPoly(ctx, pts, color, alpha = 1) { ctx.save(); ctx.globalAlpha *= alpha; ctx.fillStyle = color; ctx.beginPath(); pts.forEach(([x, y], i) => (i ? ctx.lineTo(x, y) : ctx.moveTo(x, y))); ctx.closePath(); ctx.fill(); ctx.restore(); }
 
 // ---------- text ----------
 function font(size, o = {}) { return `${o.italic ? 'italic ' : ''}${o.bold ? 'bold ' : ''}${size}px ${SERIF}`; }
+// MIN_FONT: the phone walk raises tiny labels so they read on a small screen (0 = off).
+let MIN_FONT = 0;
 function txt(ctx, s, x, y, size, o = {}) {
   const a = o.alpha ?? 1; if (a <= 0) return;
+  if (size < MIN_FONT) { size = MIN_FONT; if (!o.color || o.color === GOLD) o = { ...o, color: GOLD_HI }; }
   ctx.save(); ctx.globalAlpha *= a; ctx.font = font(size, o); ctx.fillStyle = o.color || INK;
   ctx.textAlign = o.align || 'center'; ctx.textBaseline = 'middle';
   if (o.glow) { ctx.shadowColor = 'rgba(240,212,168,0.7)'; ctx.shadowBlur = o.glow; }
@@ -72,7 +78,9 @@ function txt(ctx, s, x, y, size, o = {}) {
 }
 function measure(ctx, s, size, o = {}) { ctx.save(); ctx.font = font(size, o); if (o.spacing) ctx.letterSpacing = o.spacing + 'px'; const w = ctx.measureText(s).width; ctx.restore(); return w; }
 // words rise in one after another across [a,b] of p. per-word style hook: o.style(word,i) -> extra opts
+let TEXT_SINK = null;
 function words(ctx, s, x, y, size, p, a, b, o = {}) {
+  if (TEXT_SINK) { TEXT_SINK.push({ s, x, y, size, p, a, b, o, alpha: ctx.globalAlpha }); return; }
   const ws = s.split(' '); const space = measure(ctx, ' ', size, o);
   const widths = ws.map(w => measure(ctx, w, size, { ...o, ...(o.style ? o.style(w, 0) : {}) }));
   const total = widths.reduce((q, w) => q + w, 0) + space * (ws.length - 1);
