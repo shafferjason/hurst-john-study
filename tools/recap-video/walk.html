@@ -142,7 +142,8 @@ scene.add(thread);
 
 // ---------- drawing a station ----------
 function phaseP(s, lt) { // drawing forms on the walk in; the phrase completes in the first bar standing there
-  if (s.kind === 'open' || s.kind === 'close') return clamp(lt / (s.dur * 0.75));
+  if (s.kind === 'open') return clamp(lt / (s.dur * 0.75));
+  if (s.kind === 'close') return clamp(lt / (barSec() * 2));   // done well before the look-back lifts off
   const w = s.walk, b = barSec();
   if (lt < w) return 0.62 * easeOut(lt / w);
   return Math.min(1, 0.62 + 0.38 * clamp((lt - w) / (b * 0.9)));
