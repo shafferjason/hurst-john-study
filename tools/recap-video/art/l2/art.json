@@ -1,0 +1,14 @@
+{
+"scroll": {
+"aspect": 0.3468,
+"bodyH": 0.989
+},
+"man": {
+"aspect": 0.8311,
+"bodyH": 0.985
+},
+"priest": {
+"aspect": 0.4172,
+"bodyH": 0.992
+}
+}

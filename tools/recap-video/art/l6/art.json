@@ -1,0 +1,22 @@
+{
+"kneel": {
+"aspect": 0.4169,
+"bodyH": 0.839
+},
+"stand": {
+"aspect": 0.4172,
+"bodyH": 0.991
+},
+"scroll": {
+"aspect": 0.5509,
+"bodyH": 0.988
+},
+"armtake": {
+"aspect": 1.8421,
+"bodyH": 0.755
+},
+"armopen": {
+"aspect": 1.8421,
+"bodyH": 0.755
+}
+}

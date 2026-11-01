@@ -1,6 +1,8 @@
 // The walk: timeline from the one bar list, the camera, the world, the words. Lessons plug in as places/l<N>.js.
 import * as THREE from 'three';
 import * as K from './shared.js';
+// Round, soft specks: bare points are squares, and a near one reads as a floating box.
+let _softDot; function softDot() { if (_softDot) return _softDot; const c = document.createElement('canvas'); c.width = c.height = 32; const x = c.getContext('2d'), g = x.createRadialGradient(16, 16, 0, 16, 16, 16); g.addColorStop(0, 'rgba(255,255,255,1)'); g.addColorStop(0.5, 'rgba(255,255,255,.55)'); g.addColorStop(1, 'rgba(255,255,255,0)'); x.fillStyle = g; x.fillRect(0, 0, 32, 32); return (_softDot = new THREE.CanvasTexture(c)); }
 const { OW, OH, EYE, scene, camera, renderer, clock, barAt, beatAt, barLen, pathX, smooth, pool, glow, line, thing, art, updateArts, updateThings, gait, bodyScale, pulse, beatPhase, beatIndex, surge, ribbon, seedAt, META } = K;
 const q = new URLSearchParams(location.search), only = q.get('only')?.split(',');
 const TL = await (await fetch('places/timeline.json')).json();
@@ -43,10 +45,10 @@ const WORLD = {};
 { const pts = []; for (let zz = ZSTART + 60; zz > ZEND - 160; zz -= 0.5) pts.push([pathX(zz), zz]); WORLD.path = line(pts, 0.05); WORLD.wide = line(pts, 0.5, 0xd4a574, 0.05); }
 { const pos = [], L = ZSTART + 60 - (ZEND - 170); for (let gz = ZSTART + 60; gz > ZEND - 170; gz -= 1.5) { const cx = pathX(gz); for (let gx = -40; gx <= 40; gx += 1.5) { const j = hash(gx * 31 + gz); if (j < 0.5) pos.push(cx + gx + (j - 0.25), 0, gz + (hash(gz) - 0.5)); } }
   const g = new THREE.BufferGeometry(); g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
-  scene.add(new THREE.Points(g, new THREE.PointsMaterial({ color: 0x9a7650, size: 0.045, transparent: true, opacity: 0.7, depthWrite: false })));
+  scene.add(new THREE.Points(g, new THREE.PointsMaterial({ map: softDot(), alphaTest: 0.01, color: 0x9a7650, size: 0.045, transparent: true, opacity: 0.7, depthWrite: false })));
   const N = Math.round(L * 4.5), dp = new Float32Array(N * 3); for (let k = 0; k < N; k++) { const zz = ZSTART + 60 - hash(k + 13) * L; dp[k * 3] = pathX(zz) + (hash(k) - 0.5) * 50; dp[k * 3 + 1] = hash(k + 7) * 9; dp[k * 3 + 2] = zz; }
   const dg = new THREE.BufferGeometry(); dg.setAttribute('position', new THREE.BufferAttribute(dp, 3));
-  WORLD.dust = new THREE.Points(dg, new THREE.PointsMaterial({ color: 0xf0d4a8, size: 0.04, transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending, depthWrite: false })); scene.add(WORLD.dust); }
+  WORLD.dust = new THREE.Points(dg, new THREE.PointsMaterial({ map: softDot(), alphaTest: 0.01, color: 0xf0d4a8, size: 0.04, transparent: true, opacity: 0.45, blending: THREE.AdditiveBlending, depthWrite: false })); scene.add(WORLD.dust); }
 // faint rings on the ground that go with the bass
 WORLD.rings = [0, 1, 2].map(() => ribbon(0xd4a574, 0, 90));
 const sky = thing(0, 0, 90, 8, 24, (c) => { seedAt(3); const pts = []; for (let k = 0; k <= 80; k++) pts.push([k / 80 * 90 * 24, 8 * 24 - 34 - 74 * Math.abs(Math.sin(k * 0.21 + 3)) - 34 * hash(k + 3)]); draw(c, [S.poly(pts)], 1, { width: 1.8, color: DIM, glow: false }); }, { far: 1e6, near: 0, fog: false, turn: false });
