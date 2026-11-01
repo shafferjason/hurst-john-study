@@ -6,7 +6,7 @@ export default async function (P) {
   const cam = P.camera, L = P.beats(1), dirX = (P.pathX(P.Z - 12) - P.X) / 12;
   const at = (d, px) => P.X + dirX * d + (px - 540) * d / 1283;              // world x that lands on screen x px, seen from where you stop
   const go = P.ev('he sets off', 1, 3); P.ev('key', 2, 1);                   // key: he is out from behind the pillar
-  const SP = 0.42, DM = 6, DP = 5, ZP = P.Z - DP, MX = at(DM, 401);
+  const SP = 0.42, DM = 6, DP = 5, ZP = P.Z - DP, MX = at(DM, 350);
 
   // the pillar: a stone shaft on a plain base, rising into the dark below the words. Opaque: it has to hide him.
   const CW = 1.42, SW = 1.1, HT = 9, PX = 180;

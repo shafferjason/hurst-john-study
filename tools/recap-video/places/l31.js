@@ -18,7 +18,7 @@ export default async function (P) {
   const rocks = [[1.15, 0.72], [1.72, 0.2], [-1.75, 0.12]].map(([dx, dz], i) => P.art(['s1', 's2', 's3'][i % 3], PX + dx, PZ - dz, 0.24 + hash(i + 61) * 0.1, { far: 30, near: 14, sil: 0.7, gain: 1.15, flip: i % 2 === 1 }));
   const ripples = wet.map(t0 => ({ t0, r: P.ribbon(0xf0d4a8, 0, 80) })), lightUp = P.glow(KX - 0.2, 1.9, KZ - 0.1, 4.5, 0), lightDown = P.pool(KX - 0.8, KZ + 0.6, 6, 3.4, 0);
   // the disciples: ordinary arms from beyond the frame, either side of you; they stay with you as you walk
-  const ARM = [['armL', -0.78, 1.58, -0.38, onL, dnL], ['armR', 1.4, 1.25, 0, onR, dnR]].map(([n, off, y, rot, up, dn]) => { const a = P.art(n, X, Z, 1.35, { drawn: true, fog: false, fadeNear: false, sil: 0.72, gain: 1.45 }); a.mesh.renderOrder = 8; return { a, off, y, rot, up, dn }; });
+  const ARM = [['armL', -0.78, 1.58, -0.38, onL, dnL], ['armR', 1.4, 1.25, 0, onR, dnR]].map(([n, off, y, rot, up, dn]) => { const a = P.art(n, X, Z, 1.35, { drawn: true, fog: false, fadeNear: false, sil: 1, gain: 1.45 }); a.mesh.renderOrder = 8; return { a, off, y, rot, up, dn }; });
   P.keep(reach, { h: 5.0 }); P.keep(other, { h: 5.0 * other.hU / reach.hU });
   return { say: [0, 3], update(t) { const cz = cam.position.z, leaveK = 1 - seg(t, P.T.leave, P.T.leave + L), near = clamp((Z + 34 - cz) / 12) * leaveK, dirX = (P.pathX(cz - 12) - cam.position.x) / 12;
     // he walks up the road, then stands

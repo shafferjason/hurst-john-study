@@ -1,15 +1,15 @@
 {
 "sit": {
-"aspect": 0.4169,
-"bodyH": 0.444
+"aspect": 0.4168,
+"bodyH": 0.472
 },
 "wash": {
-"aspect": 0.4172,
-"bodyH": 0.581
+"aspect": 0.4175,
+"bodyH": 0.658
 },
 "reach": {
-"aspect": 0.4167,
-"bodyH": 0.638
+"aspect": 0.417,
+"bodyH": 0.648
 },
 "armR": {
 "aspect": 1.0999,
@@ -24,11 +24,11 @@
 "bodyH": 0.983
 },
 "see": {
-"aspect": 0.4174,
-"bodyH": 0.64
+"aspect": 0.4169,
+"bodyH": 0.663
 },
 "walk": {
-"aspect": 0.4171,
-"bodyH": 0.847
+"aspect": 0.4168,
+"bodyH": 0.955
 }
 }
