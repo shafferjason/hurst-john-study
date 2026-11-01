@@ -1,0 +1,34 @@
+{
+"up2": {
+"aspect": 0.4171,
+"bodyH": 0.99
+},
+"up4": {
+"aspect": 0.4174,
+"bodyH": 0.991
+},
+"up3": {
+"aspect": 0.417,
+"bodyH": 0.991
+},
+"up1": {
+"aspect": 0.4167,
+"bodyH": 0.99
+},
+"around1": {
+"aspect": 0.4169,
+"bodyH": 0.991
+},
+"around2": {
+"aspect": 0.4167,
+"bodyH": 0.99
+},
+"around3": {
+"aspect": 0.4174,
+"bodyH": 0.991
+},
+"turned": {
+"aspect": 0.4174,
+"bodyH": 0.991
+}
+}
