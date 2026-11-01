@@ -1,7 +1,7 @@
 # John Recap Video — Storyboard (v1, 2026-10-31)
 
 Locked with Jason 2026-10-31:
-- Lives on the study website only. Stands on its own: covers the LESSONS, not the songs. No song art, no song audio.
+- Lives on the study website only. Stands on its own: covers the LESSONS, not the songs. No song art, no song audio, no song titles or lyrics as on-screen text (Jason, 2026-10-31: "the main focus needs to be the lesson, not the song"). Every line must trace to the lesson write-up or the passage; if a phrase also happens to be a song title, prefer the lesson's own wording.
 - No narrator. Instrumental music (new Suno track, warm acoustic guitar + soft piano, gentle pulse) + playful kinetic words + drawings.
 - Target ~3:00 (a little under or over is fine). 16:9, 1920x1080.
 - Tone: playful with words/drawings, reverent with substance; quieter treatment for heavy lessons (24, 31).
@@ -34,18 +34,18 @@ Order = teaching order (lesson 22 sits under John 6 where it was taught, though 
 | 11 | John 2 | Six stone jars fill to the brim; "water" turns wine-red | "The first sign." |
 | 12 | John 2 | Tables flip; coins scatter | "Overturning the tables." · "Why? Holiness." |
 | 13 | John 3 | Moon and lamp; a lamp passes from an old hand to a young one | "Born again." · "Inherited faith → your own." |
-| 14 | John 3 | Four cards (four readings); one crossed off | "Water and Spirit." · "Grace, not works." |
+| 14 | John 3 | Four cards (four readings); IV pushed off, II (baptism view) crossed off — per data.js | "Water and Spirit." · "Grace, not works." |
 | 15 | John 3 | "HE MUST INCREASE" grows as "I must decrease" shrinks | (the words are the picture) |
-| 16 | John 4 | A wall between two peoples; a well; a jar set down and left | "Give me a drink." · "Jesus' longest conversation in John." |
+| 16 | John 4 | A wall between two peoples; a well; a jar set down and left | "Give me a drink." · "Living water: the Spirit." (Ben's "most important distinction") |
 | 17 | John 4 | Long road; a man walks home alone | "He took him at his word." |
 | 18 | John 5 | Pool with porches; a mat rolls up and walks off | "Do you want to be healed?" |
 | 19 | John 5 | A rulebook opens — its own words turn back on the accusers | "Whose day was it?" |
-| 20 | John 6 | Five loaves, two fish multiply; four books get check marks | "The one story all four tell." |
+| 20 | John 6 | Five loaves, two fish multiply; four books get check marks | "Here John joins the other three." (NOT "the one story" — the temple cleansing is in all four too) |
 | 21 | John 6 | Wave line; words tiny, whisper-size | "It is I." · "John tells it in a whisper." |
 | 22 | John 6 | Burning bush; "I AM" catches fire | "Ego eimi." · "Answering the burning bush." |
 | 23 | John 6 | Manna dots fall, become one loaf; "the" underlined | "Not a bread. THE bread." |
 | 24 | John 6 (quiet) | Many footprints turn away; a few stay | "Many turned back." · "He did not chase them." |
-| 25 | John 7 | Festival booths; a speech bubble from the brothers | "Go be famous." |
+| 25 | John 7 | Festival booths; a speech bubble from the brothers | "Show yourself to the world." (John 7:4 — exact words, not a paraphrase in quote marks) |
 | 26 | John 7 | House of cards labeled SIGNS wobbles | "A signs-based faith is a fragile faith." |
 | 27 | John 7 | Guards walk back with empty hands | "They came back empty-handed." |
 | 28 | John 8 | Manuscript page; a bracketed passage slides in; writing in dust | "Not in the earliest manuscripts." · "Still in our Bibles." |

@@ -106,10 +106,10 @@ function drawTrack(ctx, litTo, alpha = 1, drawIn = 1) {
   }
   ctx.restore();
 }
-function drawMarker(ctx, pos, alpha = 1) {
+function drawMarker(ctx, pos, alpha = 1, pulse = 0) {
   const x = lerp(TRACK.x0, TRACK.x1, pos / 21);
-  ctx.save(); ctx.globalAlpha *= alpha; ctx.fillStyle = GOLD_HI; ctx.shadowColor = 'rgba(240,212,168,0.9)'; ctx.shadowBlur = 18;
-  ctx.beginPath(); ctx.arc(x, TRACK.y, 8, 0, Math.PI * 2); ctx.fill(); ctx.restore();
+  ctx.save(); ctx.globalAlpha *= alpha; ctx.fillStyle = GOLD_HI; ctx.shadowColor = 'rgba(240,212,168,0.9)'; ctx.shadowBlur = 18 + 22 * pulse;
+  ctx.beginPath(); ctx.arc(x, TRACK.y, 8 + 4 * pulse, 0, Math.PI * 2); ctx.fill(); ctx.restore();
 }
 
 function background(ctx) {

@@ -116,7 +116,7 @@ add({
     }
     const wc = `rgb(${lerp(170, 200, wine)},${lerp(195, 70, wine)},${lerp(210, 85, wine)})`;
     txt(ctx, wine < 0.5 ? 'water' : 'wine', W / 2, 330, 76, { italic: true, color: wc, glow: 10, alpha: seg(p, 0.22, 0.3) * (1 - seg(p, 0.76, 0.8)) });
-    txt(ctx, 'to the brim', W / 2, 650, 30, { italic: true, color: GOLD, alpha: seg(p, 0.4, 0.48) * 0.8 });
+    txt(ctx, '120–180 gallons', W / 2, 650, 34, { italic: true, color: GOLD, alpha: seg(p, 0.4, 0.48) * 0.8 });
     words(ctx, 'The first sign.', W / 2, 790, 80, p, 0.7, 0.82, { color: GOLD_HI, glow: 10 });
   },
 });
@@ -157,14 +157,17 @@ add({
 add({
   lesson: 14, station: 3, ref: 'Working Out the Water', fn(ctx, p) {
     words(ctx, 'Water and Spirit.', W / 2, 240, 70, p, 0.02, 0.18, { color: INK, italic: true });
+    // View IV is pushed off the table first; View II (baptism saves) is the one crossed off (data.js lesson 14)
+    const push = seg(p, 0.32, 0.42, easeIn);
     for (let i = 0; i < 4; i++) {
       const x = 600 + i * 240, a = seg(p, 0.14 + i * 0.04, 0.22 + i * 0.04, back);
-      ctx.save(); ctx.translate(x, 460 + (1 - a) * 40); ctx.globalAlpha *= clamp(a * 2);
+      const off = i === 3 ? push : 0;
+      ctx.save(); ctx.translate(x + off * 260, 460 + (1 - a) * 40 + off * 80); ctx.rotate(off * 0.5); ctx.globalAlpha *= clamp(a * 2) * (1 - off * 0.85);
       draw(ctx, [S.rect(-80, -110, 160, 220)], 1, { width: 2.8 }); txt(ctx, ['I', 'II', 'III', 'IV'][i], 0, 0, 56, { color: GOLD });
       ctx.restore();
     }
-    const x = 600 + 3 * 240; draw(ctx, [S.line(x - 95, 330, x + 95, 590, 10), S.line(x + 95, 330, x - 95, 590, 10)], seg(p, 0.4, 0.54), { color: WINE, width: 7, blur: 4 });
-    txt(ctx, 'four readings · one crossed off', W / 2, 640, 30, { italic: true, color: GOLD, alpha: seg(p, 0.5, 0.58) * 0.8 });
+    const x2 = 600 + 240; draw(ctx, [S.line(x2 - 95, 330, x2 + 95, 590, 10), S.line(x2 + 95, 330, x2 - 95, 590, 10)], seg(p, 0.44, 0.56), { color: WINE, width: 7, blur: 4 });
+    txt(ctx, 'four readings', W / 2, 640, 30, { italic: true, color: GOLD, alpha: seg(p, 0.3, 0.38) * 0.8 });
     words(ctx, 'Grace, not works.', W / 2, 790, 86, p, 0.62, 0.78, { style: w => (w === 'Grace,' ? { color: GOLD_HI, glow: 16 } : { color: INK }) });
   },
 });
@@ -190,7 +193,7 @@ add({
     draw(ctx, [S.arc(W / 2, 480, 150, 34, 0, Math.PI * 2), S.line(810, 480, 810, 590, 6), S.line(1110, 480, 1110, 590, 6), S.arc(W / 2, 590, 150, 34, 0, Math.PI, 30), S.line(830, 400, 830, 480, 4), S.line(1090, 400, 1090, 480, 4), S.line(830, 400, 1090, 400, 10)], wl, { width: 3 });
     const j = jarShape(1240, 600, 46, 100); draw(ctx, j.outline, seg(p, 0.54, 0.64), { width: 2.6, color: GOLD_HI });
     txt(ctx, '“Give me a drink.”', W / 2, 250, 58, { italic: true, color: INK, alpha: seg(p, 0.46, 0.54) });
-    words(ctx, "Jesus' longest conversation in John.", W / 2, 780, 58, p, 0.64, 0.82, { color: GOLD_HI });
+    words(ctx, 'Living water: the Spirit.', W / 2, 780, 70, p, 0.64, 0.82, { style: w => (w === 'Spirit.' ? { color: GOLD_HI, glow: 14, italic: true } : { color: GOLD_HI }) });
   },
 });
 add({
@@ -250,7 +253,7 @@ add({
       draw(ctx, [S.poly([[x, 560], [x - 80, 548], [x - 80, 650], [x, 662]], true), S.poly([[x, 560], [x + 80, 548], [x + 80, 650], [x, 662]], true)], a, { width: 2.2 });
       draw(ctx, [S.poly([[x - 26, 600], [x - 6, 624], [x + 34, 574]])], seg(p, 0.6 + i * 0.03, 0.64 + i * 0.03), { color: GOLD_HI, width: 5 });
     }
-    words(ctx, 'The one story all four tell.', W / 2, 800, 66, p, 0.64, 0.82, { color: GOLD_HI });
+    words(ctx, 'Here John joins the other three.', W / 2, 800, 66, p, 0.64, 0.82, { color: GOLD_HI });
   },
 });
 add({
@@ -317,8 +320,8 @@ add({
     const b = seg(p, 0.34, 0.46, back);
     if (b > 0) {
       ctx.save(); ctx.translate(W / 2, 250); ctx.scale(b, b);
-      draw(ctx, [S.arc(0, 0, 300, 90, 0, Math.PI * 2), S.poly([[-60, 84], [-110, 150], [-10, 88]])], 1, { width: 3 });
-      txt(ctx, '“Go be famous.”', 0, 0, 66, { italic: true, color: GOLD_HI, glow: 12 });
+      draw(ctx, [S.arc(0, 0, 420, 95, 0, Math.PI * 2), S.poly([[-60, 89], [-110, 155], [-10, 93]])], 1, { width: 3 });
+      txt(ctx, '“Show yourself to the world.”', 0, 0, 52, { italic: true, color: GOLD_HI, glow: 12 });
       ctx.restore();
       for (let i = 0; i < 6; i++) { const a = i / 6 * Math.PI * 2 + t, r = 360 + Math.sin(t * 5 + i) * 20; ctx.save(); ctx.globalAlpha *= seg(p, 0.46, 0.52) * (1 - seg(p, 0.8, 0.9)); txt(ctx, '✦', W / 2 + Math.cos(a) * r, 250 + Math.sin(a) * r * 0.36, 30, { color: GOLD_HI }); ctx.restore(); }
     }

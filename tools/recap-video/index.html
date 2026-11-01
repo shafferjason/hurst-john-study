@@ -5,8 +5,10 @@
 <canvas id="c" width="1920" height="1080"></canvas>
 <div id="bar"><button id="play">play</button><input id="scrub" type="range" min="0" max="1000" value="0"><span id="tt"></span></div>
 <script src="engine.js"></script>
+<script src="beats.js"></script>
 <script src="scenes.js"></script>
 <script src="scenes2.js"></script>
+<script src="notes.js"></script>
 <script>
 const ctx = document.getElementById('c').getContext('2d');
 const TL = buildTimeline([...SCENES, CLOSE]);
@@ -18,18 +20,30 @@ function chapterLabel(s) { return s.station === 0 ? 'Foundations' : 'John ' + s.
 function renderAt(t) {
   t = clamp(t, 0, DURATION - 1e-6);
   let i = TL.findIndex(s => t >= s.start && t < s.start + s.dur); if (i < 0) i = TL.length - 1;
-  const s = TL[i], lt = t - s.start, p = lt / s.dur;
+  const s = TL[i], lt = t - s.start, base = s.dur - (s.note ? s.noteDur : 0), p = Math.min(lt / base, 1);
   background(ctx);
   // track: draws in during the opening, lights up chapter by chapter
   const prev = i > 0 ? TL[i - 1].station : 0;
   const pos = lerp(prev, s.station, seg(lt, 0, 0.8));
   if (s.kind === 'open') drawTrack(ctx, -1, 1, seg(p, 0.0, 0.5));
-  else { drawTrack(ctx, pos, 1, 1); drawMarker(ctx, s.kind === 'close' ? s.station : pos, s.kind === 'close' ? 0.6 + 0.4 * Math.sin(lt * 3) : 1); }
+  else { drawTrack(ctx, pos, 1, 1); const bi = BEATS.findIndex(b => b > t), since = bi > 0 ? t - BEATS[bi - 1] : 1, pulse = Math.exp(-since * 6) * (((bi - 1) % 4 === 0) ? 1 : 0.55);
+    drawMarker(ctx, s.kind === 'close' ? s.station : pos, 0.55 + 0.45 * pulse, pulse); }
   // scene content with fade in/out
   const env = s.kind === 'open' ? clamp((s.dur - lt) / FADE) : Math.min(clamp(lt / FADE), clamp((s.dur - lt) / FADE));
   ctx.save(); ctx.globalAlpha = env;
   _seed = (i + 1) * 1000;
   s.fn(ctx, p, lt);
+  if (s.note) { // the 'worth noticing' beat: dim the scene, show the note
+    const k = seg(lt, base - 0.1, base + 0.35);
+    if (k > 0) {
+      ctx.save(); ctx.globalAlpha *= 0.8 * k; const dg = ctx.createLinearGradient(0, 160, 0, 950); dg.addColorStop(0, 'rgba(15,15,15,0)'); dg.addColorStop(0.15, BG); dg.addColorStop(0.85, BG); dg.addColorStop(1, 'rgba(15,15,15,0)'); ctx.fillStyle = dg; ctx.fillRect(0, 160, W, 790); ctx.restore();
+      const [a, b] = s.note.split('|');
+      txt(ctx, '✦  WORTH NOTICING  ✦', W / 2, 400, 24, { color: GOLD, spacing: 6, alpha: k });
+      draw(ctx, [S.line(860, 440, 1060, 440, 12)], seg(lt, base + 0.1, base + 0.5), { width: 1.6 });
+      txt(ctx, a, W / 2, 520, 58, { italic: true, color: GOLD_HI, glow: 10, alpha: seg(lt, base + 0.05, base + 0.45), dy: (1 - seg(lt, base + 0.05, base + 0.45)) * 14 });
+      if (b) txt(ctx, b, W / 2, 600, 58, { italic: true, color: INK, alpha: seg(lt, base + 0.3, base + 0.7), dy: (1 - seg(lt, base + 0.3, base + 0.7)) * 14 });
+    }
+  }
   if (s.lesson) {
     txt(ctx, 'LESSON ' + s.lesson, 120, 92, 22, { align: 'left', color: GOLD, spacing: 4 });
     txt(ctx, chapterLabel(s) + '  ·  ' + s.ref, 120, 128, 26, { align: 'left', italic: true, color: INK, alpha: 0.6 });
