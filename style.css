@@ -5156,3 +5156,9 @@ details .divider-ornate {
         border-radius: 6px;
     }
 }
+
+/* A Walk Through John: recap video on the home page */
+.walk-section { margin-bottom: 3rem; text-align: center; }
+.walk-section .walk-title { display: block; width: 100%; margin: 0; text-align: center; }
+.walk-subtitle { margin: 0.25rem 0 1rem; font-style: italic; opacity: 0.8; }
+.walk-video { display: block; width: 100%; max-width: 360px; aspect-ratio: 9 / 16; margin: 0 auto; background: #0c0a08; border-radius: 10px; }
