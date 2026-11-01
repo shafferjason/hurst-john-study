@@ -1,0 +1,49 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>John Recap</title>
+<style>html,body{margin:0;background:#000}canvas{display:block;width:100vw;height:auto;max-height:100vh;object-fit:contain}#bar{position:fixed;bottom:0;left:0;right:0;display:flex;gap:8px;padding:6px;background:#111;color:#ccc;font:13px sans-serif}#bar input{flex:1}</style>
+</head><body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<div id="bar"><button id="play">play</button><input id="scrub" type="range" min="0" max="1000" value="0"><span id="tt"></span></div>
+<script src="engine.js"></script>
+<script src="scenes.js"></script>
+<script src="scenes2.js"></script>
+<script>
+const ctx = document.getElementById('c').getContext('2d');
+const TL = buildTimeline([...SCENES, CLOSE]);
+const DURATION = TL.reduce((a, s) => a + s.dur, 0);
+const FADE = 0.35;
+
+function chapterLabel(s) { return s.station === 0 ? 'Foundations' : 'John ' + s.station; }
+
+function renderAt(t) {
+  t = clamp(t, 0, DURATION - 1e-6);
+  let i = TL.findIndex(s => t >= s.start && t < s.start + s.dur); if (i < 0) i = TL.length - 1;
+  const s = TL[i], lt = t - s.start, p = lt / s.dur;
+  background(ctx);
+  // track: draws in during the opening, lights up chapter by chapter
+  const prev = i > 0 ? TL[i - 1].station : 0;
+  const pos = lerp(prev, s.station, seg(lt, 0, 0.8));
+  if (s.kind === 'open') drawTrack(ctx, -1, 1, seg(p, 0.0, 0.5));
+  else { drawTrack(ctx, pos, 1, 1); drawMarker(ctx, s.kind === 'close' ? s.station : pos, s.kind === 'close' ? 0.6 + 0.4 * Math.sin(lt * 3) : 1); }
+  // scene content with fade in/out
+  const env = s.kind === 'open' ? clamp((s.dur - lt) / FADE) : Math.min(clamp(lt / FADE), clamp((s.dur - lt) / FADE));
+  ctx.save(); ctx.globalAlpha = env;
+  _seed = (i + 1) * 1000;
+  s.fn(ctx, p, lt);
+  if (s.lesson) {
+    txt(ctx, 'LESSON ' + s.lesson, 120, 92, 22, { align: 'left', color: GOLD, spacing: 4 });
+    txt(ctx, chapterLabel(s) + '  ·  ' + s.ref, 120, 128, 26, { align: 'left', italic: true, color: INK, alpha: 0.6 });
+  }
+  ctx.restore();
+}
+window.renderAt = renderAt; window.DURATION = DURATION;
+
+// preview controls (ignored by the renderer)
+const scrub = document.getElementById('scrub'), tt = document.getElementById('tt'); let playing = false, t0 = 0, base = 0;
+function show(t) { renderAt(t); scrub.value = (t / DURATION) * 1000; tt.textContent = t.toFixed(2) + ' / ' + DURATION.toFixed(1); }
+scrub.oninput = () => { playing = false; show((scrub.value / 1000) * DURATION); };
+document.getElementById('play').onclick = () => { playing = !playing; base = (scrub.value / 1000) * DURATION; t0 = performance.now(); if (playing) loop(); };
+function loop() { if (!playing) return; const t = base + (performance.now() - t0) / 1000; if (t >= DURATION) { playing = false; return; } show(t); requestAnimationFrame(loop); }
+const q = new URLSearchParams(location.search); if (q.has('nobar')) document.getElementById('bar').remove();
+show(parseFloat(q.get('t') || '0'));
+</script></body></html>
