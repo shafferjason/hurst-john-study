@@ -1,0 +1,78 @@
+{
+"jar1": {
+"aspect": 0.566,
+"bodyH": 0.986
+},
+"jar2": {
+"aspect": 0.9282,
+"bodyH": 0.979
+},
+"cup": {
+"aspect": 0.9213,
+"bodyH": 0.965
+},
+"s1": {
+"aspect": 1.3597,
+"bodyH": 0.973
+},
+"s2": {
+"aspect": 1.3563,
+"bodyH": 0.972
+},
+"s3": {
+"aspect": 1.6243,
+"bodyH": 0.967
+},
+"john": {
+"aspect": 0.7352,
+"bodyH": 0.675
+},
+"johng": {
+"aspect": 0.7352,
+"bodyH": 0.695
+},
+"h1": {
+"aspect": 1.0,
+"bodyH": 0.824
+},
+"h2": {
+"aspect": 1.0,
+"bodyH": 0.839
+},
+"p1": {
+"aspect": 0.4174,
+"bodyH": 0.991
+},
+"p2": {
+"aspect": 0.4167,
+"bodyH": 0.99
+},
+"p3": {
+"aspect": 0.4172,
+"bodyH": 0.991
+},
+"p4": {
+"aspect": 0.4169,
+"bodyH": 0.99
+},
+"p5": {
+"aspect": 0.417,
+"bodyH": 0.991
+},
+"he": {
+"aspect": 0.4173,
+"bodyH": 0.99
+},
+"m1": {
+"aspect": 0.4176,
+"bodyH": 0.977
+},
+"m2": {
+"aspect": 0.4176,
+"bodyH": 0.918
+},
+"b1": {
+"aspect": 0.4174,
+"bodyH": 0.541
+}
+}

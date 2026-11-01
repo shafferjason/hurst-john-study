@@ -1,0 +1,12 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>John Walk Places</title>
+<style>html,body{margin:0;background:#000}#out{display:block;height:100vh;width:auto;margin:0 auto}#gl{display:none}</style>
+</head><body>
+<canvas id="gl" width="1080" height="1920"></canvas>
+<canvas id="out" width="1080" height="1920"></canvas>
+<!-- Prototype: lessons as PLACES you walk through, not signs in the air. Lessons 11, 15, 30 only.
+     Scene code: places2.js. Art: art/. Direction notes: heart/visuals/picks-world.md (local only). -->
+<script src="engine.js"></script>
+<script type="importmap">{ "imports": { "three": "./node_modules/three/build/three.module.js" } }</script>
+<script type="module" src="places2.js"></script>
+</body></html>
