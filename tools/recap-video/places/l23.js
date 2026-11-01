@@ -1,23 +1,20 @@
-// Lesson 23 (short stop): not a bread of life. THE bread of life. Stalls of bread on both sides fall away, one a beat,
-// until one loaf is left, and hands reach for it from every edge. One detail: the single loaf.
+// Lesson 23 (short stop): not a bread of life. THE bread of life.
+// An ordinary road, stalls going away down it, one per beat. Then, close up, one plain loaf in an open hand, held out, and a
+// second hand just taking it, one drawing. One detail: the loaf between the two hands. No altar, no raised loaf, no cupped hands in a line.
 export default async function (P) {
   await P.loadArt();
-  const stalls = [[-2.3, 7, 'stall2', 4.0, false], [2.5, 7.5, 'stall1', 4.6, true], [-3.3, 11, 'stall1', 5.0, false], [3.5, 11.5, 'stall2', 4.6, true], ];
-  const gone = P.evs('stall gone', 1, 1, stalls.length, 1);   // farthest stalls first, one per beat, through bar 1
-  const key = P.ev('key', 2, 1);                        // bar 2 beat 1: the last two go and the one loaf stands alone
-  const L = P.beats(1), order = [2, 3, 0, 1];
-  const A = stalls.map(([dx, d, n, h, flip]) => P.art(n, P.pathX(P.Z - d) + dx, P.Z - d, h, { flip, far: 24, near: 10, sil: 0.9 }));
-  const lz = P.Z - 5.6, lx = P.pathX(lz), loaf = P.art('loaf', lx, lz, 0.95, { y0: 1.1, far: 22, near: 8, gain: 1.5, sil: 0.95, turn: false });
-  const rock = P.art('s3', lx, lz + 0.02, 1.2, { far: 22, near: 8, sil: 0.95, turn: false });
-  const light = P.glow(lx, 1.7, lz - 0.1, 7, 0);
-  // hands from every edge, on beats after the key
-  const H = [[-1, 1.75, 0.0], [1, 1.45, 0.0], [-1, 1.05, 0.28], [1, 2.1, -0.22]];
-  const when = P.evs('hand', 2, 1, H.length, 1);
-  const hands = H.map(([s, y, tilt], i) => { const a = P.art('reach', 0, lz + 0.2 + i * 0.03, 0.72, { drawn: true, flip: s > 0, gain: 1.4, sil: 0.9, turn: false, fadeNear: false }); a.mesh.rotation.z = s * tilt * -1 + (s > 0 ? 0 : 0); return { a, s, y, t0: when[i] }; });
-  P.keep(loaf, { h: 2.6 });
+  const Z = P.Z, L = P.beats(1), vx = d => P.X + (P.pathX(Z - 12) - P.X) * d / 12;       // centre of the view from where you stop
+  const S = [[-3.4, 7, 'stall1', 4.1, false], [3.8, 10, 'stall2', 3.5, true], [-4.0, 15, 'stall2', 3.5, false], [4.0, 22, 'stall1', 4.0, true], [-4.0, 32, 'stall1', 4.0, false]];
+  const when = P.evs('stall', 0, 1, S.length, 1);                                        // nearest first, the last two as you stop
+  const stalls = S.map(([dx, d, n, h, flip], i) => P.artAt(n, P.pathX(Z - d) + dx, Z - d, h, when[i], 1, { flip, y0: -0.1, gain: 1.25, sil: 0.75, fadeNear: false }));
+  const offer = P.ev('held out', 1, 1), key = P.ev('key', 2, 1);                        // the hand-off draws itself over bar 1 and is whole on the key
+  const d = 2.8, hz = Z - d, cx = vx(d) + 0.02, h = 2.6 / 3.4908, ly = 1.52;              // wider than the screen, so both arms run off the edges; low, clear of the stalls and the track
+  const handoff = P.artAt('handoff', cx - 0.1, hz, h, offer, 4, { y0: ly - h / 2, gain: 1.5, sil: 0.7, turn: false, fadeNear: false, fog: false });
+  const warm = P.glow(cx, ly, hz - 0.1, 2.4, 0);
+  P.keep(handoff, { h: 1.3 });
   return { update(t) {
-    A.forEach((a, i) => { const o = order.indexOf(i), g = gone[o]; a.u.uA.value = 1 - seg(t, g, g + L * 1.5); });
-    light.material.opacity = 0.42 * seg(t, key, key + L * 3) * (1 + 0.15 * P.pulse(t));
-    hands.forEach(({ a, s, y, t0 }) => { const u = P.smooth(clamp((t - t0) / (L * 3))); a.u.uA.value = clamp((t - t0) / (L * 1.5)); const w = a.mesh.geometry.parameters.width; a.mesh.position.set(lx + s * (lerp(2.5, 0.55, u) + w / 2), y, lz + 0.2); });
+    const out = 1 - seg(t, P.T.leave, P.T.leave + L);
+    stalls.forEach(a => { a.u.uA.value = out; }); handoff.u.uA.value = out; handoff.u.uSil.value = 0.6 * seg(t, key - L, key + L);   // lines first, so no dark shape before the drawing is there
+    warm.material.opacity = seg(t, offer, offer + L * 2) * out * (0.14 + 0.04 * P.listen('keys', t));
   } };
 }
