@@ -1,43 +1,53 @@
 // Lesson 11 (full moment): water meant for ritual washing becomes the best wine, and far more than anyone needed.
-// Nothing tips. Six stone jars stand still, full to the brim, too heavy for anyone to lift. A servant's hand dips a small ladle and fills
-// one small cup; the water turns on the way, red only in the stream and cup. The excess: the jars stay full, and quiet gold rings rise off
-// their brims and spread across the ground past you. One detail: one small cup against six full jars.
+// Six massive stone jars stand level, full, never moved. A servant dips a small ladle in the near one and fills the small cup in his other
+// hand: a thin red arc, the only red. Others carry full cups away along the road; the jars stay full. Thin gold ripples on dry ground.
 export default async function (P) {
   await P.loadArt();
-  const RED = '#c8453c', GOLD = '#f0d4a8', X = P.X, Z = P.Z, L = P.beats(1), ease = P.smooth;
-  const comes = P.ev('hand comes', 0, 1), dips = P.ev('ladle dips', 0, 3), lifts = P.ev('ladle lifts', 1, 1), over = P.ev('over the cup', 1, 3), pour = P.ev('pours', 1, 4), key = P.ev('key', 2, 1), full = P.ev('cup full', 3, 1), leaves = P.ev('hand leaves', 3, 3);
-  const when = P.evs('ring', 2, 3, 15, 1);
-  // [side offset, distance, drawing, height]. Real jars: chest high, set on the ground, never moved.
-  const J = [[1.55, 5.4, 'jar1', 2.35], [-1.9, 6, 'jar1', 2.35], [1.75, 8, 'jar2', 2.25], [-1.35, 8.6, 'jar2', 2.2], [1.2, 10.8, 'jar1', 2.3], [-0.95, 11.2, 'jar1', 2.3]].map(([dx, d, n, h], i) => {
-    const z = Z - d, x = P.pathX(z) + dx, a = P.art(n, x, z, h, { far: 30, near: 9, flip: i % 2 === 1, turn: false, sil: 0.95 }), w = h * P.META[n].aspect * 0.62;
-    // full to the brim: a still gold surface in the mouth of the jar
-    P.thing(x, z + 0.02, w, 0.3, 200, (c, p) => { if (p < 0.75) return; const W = c.canvas.width, H = c.canvas.height; c.save(); c.globalAlpha = seg(p, 0.75, 1); c.fillStyle = 'rgba(240,212,168,0.55)'; c.shadowColor = 'rgba(240,212,168,0.8)'; c.shadowBlur = 8; c.beginPath(); c.ellipse(W / 2, H / 2, W / 2 - 6, H / 2 - 6, 0, 0, 7); c.fill(); c.restore(); }, { y0: h * 0.945 - 0.15, far: 30, near: 9, turn: false, live: true });
-    return { x, z, h, r: w * 0.46, a };
+  const RED = '#c8453c', X = P.X, Z = P.Z, L = P.beats(1), cam = P.camera;
+  const lifts = P.ev('ladle lifts', 1, 1), over = P.ev('over the cup', 1, 3), pour = P.ev('pours', 1, 4), key = P.ev('key', 2, 1), stops = P.ev('stream ends', 2, 4), full = P.ev('cup full', 3, 1);
+  const goes = P.evs('servant carries a cup away', 2, 2, 2, 3), ripples = P.evs('ripple', 2, 1, 6, 2);
+  // positions as the stopped viewer sees them: side = right of the line of sight, d = distance ahead
+  const n = Math.hypot(P.pathX(Z - 12) - X, 12), fx = (P.pathX(Z - 12) - X) / n, fz = -12 / n, at = (side, d) => ({ x: X + fx * d - fz * side, z: Z + fz * d + fx * side });
+  // six jars: the near one with the servant, four receding down the far side of the road, one more across it, so every jar can be counted
+  const near = at(0.62, 5.6), road = (dx, d) => ({ x: P.pathX(Z - d) + dx, z: Z - d }), J = [[near, 'jarb', 2.05], [at(-1.6, 5.8), 'jard', 2.1], [road(-1.6, 8.2), 'jarb', 2.0], [road(-1.5, 11.5), 'jard', 2.1], [road(-1.2, 16.5), 'jarb', 2.05], [road(1.1, 18), 'jard', 2.1]].map(([p, name, h], i) => {
+    const a = P.art(name, p.x, p.z, h, { far: 32, near: 10, flip: i % 2 === 0 && i > 0, turn: false, sil: 0.97, gain: 1.4 }), w = h * P.META[P.keyOf(name)].aspect, oh = h * 0.166;
+    // full to the brim: a faint still surface inside the lip
+    const water = P.thing(p.x, p.z + 0.01, w * 0.77, oh, 160, (c, q) => { const W = c.canvas.width, H = c.canvas.height; c.globalAlpha = seg(q, 0.7, 1) * 0.14; c.fillStyle = '#f0d4a8'; c.beginPath(); c.ellipse(W / 2, H / 2, W / 2 - 3, H / 2 - 3, 0, 0, 7); c.fill(); }, { y0: h * 0.89 - oh / 2, far: 32, near: 10, turn: false });
+    water.mesh.material.transparent = true; return { p, h, a, water };
   });
-  const D = J[0], CX = P.pathX(Z - 4.6) - 0.42, CZ = Z - 4.6, CB = 0.6, CH = 0.36, CT = CB + CH;
-  P.art('s1', CX, CZ + 0.02, 0.62, { far: 24, near: 8, sil: 0.95, turn: false });
-  const cup = P.art('cup', CX, CZ + 0.06, CH, { y0: CB, far: 24, near: 8, gain: 1.5, turn: false, sil: 0.95 });
-  // the ladle: its plane sits just behind the near jar's front, so the bowl really goes down inside the jar
-  const LH = 0.95, LW = LH * P.META[P.keyOf('ladle')].aspect, BOWL = [-0.442 * LW, -0.3 * LH], LIP = [-0.5 * LW, -0.18 * LH], LZ = D.z - 0.05;
-  const lad = P.art('ladle', 0, LZ, LH, { drawn: true, turn: false, gain: 1.35, sil: 0.92, fadeNear: false, y0: 0 });
-  const POSES = [[comes, D.x + 1.9, 3.5], [dips, D.x + 0.05, D.h + 0.45], [dips + P.beats(1), D.x + 0.05, D.h - 0.42], [lifts, D.x + 0.05, D.h + 0.45], [over, CX + 0.16, 1.62], [leaves - P.beats(2), CX + 0.16, 1.62], [leaves, D.x + 1.9, 3.3]];
-  const bowlAt = t => { let i = 0; while (i < POSES.length - 2 && t >= POSES[i + 1][0]) i++; const [a, x0, y0] = POSES[i], [b, x1, y1] = POSES[i + 1], u = ease(clamp((t - a) / Math.max(b - a, 1e-3))); return [lerp(x0, x1, u), lerp(y0, y1, u)]; };
-  const tilt = t => 0.42 * seg(t, pour, pour + L) * (1 - seg(t, full, full + L));
-  const lipAt = t => { const [bx, by] = bowlAt(t), th = tilt(t), c = Math.cos(th), s = Math.sin(th), rot = ([u, v]) => [u * c - v * s, u * s + v * c], b = rot(BOWL), l = rot(LIP), cx = bx - b[0], cy = by - b[1]; return { cx, cy, th, lip: [cx + l[0], cy + l[1]] }; };
-  // the stream: water while it's in the ladle's hands, wine by the time it reaches the cup
-  const SW = 1.6, SH = 2.2, SX = CX + 0.1, PX = 320;
-  P.thing(SX, CZ + 0.1, SW, SH, PX, (c, p, t) => { if (t < pour || t > full) return; const toC = (x, y) => [(x - SX + SW / 2) * PX, (SH - y) * PX], a = toC(...lipAt(t).lip), b = toC(CX, CT - 0.04), ends = seg(t, full - L * 0.5, full), u = seg(t, pour, pour + L * 0.5, x => x), tk = seg(t, key - L, key);
-    const pt = v => [lerp(a[0], b[0], Math.pow(v, 1.6)) + Math.sin(v * 9 + t * 8) * 1.4, lerp(a[1], b[1], v)], s1 = [], s2 = [], split = lerp(1.01, 0.12, tk); for (let k = 0; k <= 30; k++) { const v = lerp(ends, 1, k / 30) * u; if (v <= split) s1.push(pt(v)); if (v >= split) s2.push(pt(v)); }
-    const w = 15 + 3 * P.hit('guitar', t); c.save(); c.lineCap = 'round'; c.lineWidth = w; c.shadowBlur = 10; c.shadowColor = 'rgba(240,212,168,0.6)'; c.strokeStyle = GOLD; c.beginPath(); s1.forEach((q, i) => i ? c.lineTo(q[0], q[1]) : c.moveTo(q[0], q[1])); c.stroke();
-    if (s2.length > 1) { c.shadowColor = 'rgba(200,69,60,0.7)'; c.strokeStyle = RED; c.beginPath(); s2.forEach((q, i) => i ? c.lineTo(q[0], q[1]) : c.moveTo(q[0], q[1])); c.stroke(); } c.restore();
-  }, { far: 24, near: 8, live: true, turn: false });
-  // far more than needed: rings lift off the brims, one jar a beat, settle to the ground, and go on past you. Not a spill, a quiet excess.
-  const SPEED = 1.9, rings = when.map((t0, i) => ({ t0, j: J[i % 6], r: P.ribbon(0xf0d4a8, 0, 120), ph: i * 1.7 })), lastT = P.T.end + P.beats(4);
-  P.keep(J[0].a, { h: 3.2 }); P.keep(cup, { h: 1.5, x: J[0].x - 1.2, z: J[0].z + 0.5 });
+  // the servant: two registered drawings of one man, ladle in the jar and ladle over the cup. His plane is just behind the near jar, so the bowl is inside it; the jar's dark fill hides the road, and the bit of handle crossing the mouth is painted back on in front.
+  const SH = 3.6 / P.META[P.keyOf('dip2')].bodyH, SW = SH * P.META[P.keyOf('dip2')].aspect, SY = -(1 - 0.9267) * SH, SX = near.x + (0.5 - 0.175) * SW, SZ = near.z - 0.12;
+  const man = P.art('dip2', SX, SZ, SH, { map2: 'pour3', y0: SY, far: 32, near: 11, turn: false, fadeNear: false, sil: 0.85, gain: 1.35 });
+  const HB = 0.4, handle = P.thing(near.x, near.z + 0.02, 0.14, HB, 300, c => { const W = c.canvas.width, H = c.canvas.height; c.strokeStyle = '#f0d4a8'; c.lineWidth = 3; for (const o of [-5, 5]) { c.beginPath(); c.moveTo(W / 2 + o, 0); c.lineTo(W / 2 + o + 1, H); c.stroke(); } }, { y0: 1.655, far: 32, near: 11, turn: false });
+  handle.mesh.material.transparent = true;
+  // wine, painted over the pouring drawing. Coordinates are fractions of that drawing, read off it.
+  const U0 = 0.13, U1 = 0.28, V0 = 0.21, V1 = 0.4, PX = 340, lipU = 0.197, lipV = 0.262, cupU = 0.231, cupV = 0.352;
+  const wine = P.thing(SX + ((U0 + U1) / 2 - 0.5) * SW, SZ + 0.02, (U1 - U0) * SW, (V1 - V0) * SH, PX, (c, p, t) => { if (t < over) return;
+    const W = c.canvas.width, H = c.canvas.height, sx = u => (u - U0) / (U1 - U0) * W, sy = v => (v - V0) / (V1 - V0) * H; c.save(); c.fillStyle = c.strokeStyle = RED; c.lineCap = 'round';
+    // a little in the ladle's bowl
+    const inB = seg(t, over, pour) * (1 - seg(t, stops - L * 0.5, stops)); if (inB > 0) { c.globalAlpha = inB * 0.92; c.beginPath(); c.ellipse(sx(0.174), sy(0.246), 30 * W / 160 * 0.42, 8 * W / 160 * 0.42, 0.62, 0, 7); c.fill(); }
+    // the stream: leaves the lip sideways and falls in a thin curve, then thins from the top when the ladle is empty
+    const head = seg(t, pour, key, x => x), tail = seg(t, stops - L * 0.5, stops + L * 0.25, x => x); if (head > tail) { c.globalAlpha = 0.95; c.lineWidth = 3.8; c.beginPath();
+      for (let k = 0; k <= 24; k++) { const s = lerp(tail, head, k / 24), u = lipU + (cupU - lipU) * (1.6 * Math.sqrt(s) - 0.6 * s), v = lipV + (cupV - lipV) * s; k ? c.lineTo(sx(u), sy(v)) : c.moveTo(sx(u), sy(v)); } c.stroke(); }
+    // the cup fills
+    const lvl = seg(t, key - L * 0.5, full, x => x); if (lvl > 0) { const v0 = 0.379, v = lerp(v0, 0.356, lvl), hw = q => lerp(0.0255, 0.03, (v0 - q) / (v0 - 0.356)); c.globalAlpha = 0.95; c.beginPath(); c.moveTo(sx(cupU - hw(v0)), sy(v0)); c.lineTo(sx(cupU + hw(v0)), sy(v0)); c.lineTo(sx(cupU + hw(v)), sy(v)); c.lineTo(sx(cupU - hw(v)), sy(v)); c.closePath(); c.fill(); c.beginPath(); c.ellipse(sx(cupU), sy(v), (U1 > 0 ? hw(v) : 0) / (U1 - U0) * W, 5, 0, 0, 7); c.fill(); }
+    c.restore(); }, { y0: SY + (1 - V1) * SH, far: 32, near: 11, live: true, turn: false });
+  wine.mesh.material.transparent = true;
+  // other servants come out from behind him and carry full cups away along the road, from behind, each with a touch of red
+  const BH = 3.3, SPEED = 1.6, starts = [0.35, 0.45], lane = [0.45, -0.3];
+  const bearers = goes.map((t0, i) => { const b = P.walker('bearer', 0, Z - 9, true, BH, { turn: false, gain: 1.4, sil: 0.8, fadeNear: false }), s0 = at(starts[i], 7.9), w = b.wU * 0.1, h = w * 0.62;
+    const dab = P.thing(0, 0, w, h, 90, c => { const W = c.canvas.width, H = c.canvas.height; c.fillStyle = RED; c.globalAlpha = 0.95; c.beginPath(); c.moveTo(W * 0.1, H * 0.25); c.lineTo(W * 0.9, H * 0.25); c.lineTo(W * 0.78, H * 0.95); c.lineTo(W * 0.22, H * 0.95); c.closePath(); c.fill(); c.beginPath(); c.ellipse(W / 2, H * 0.25, W * 0.4, H * 0.18, 0, 0, 7); c.fill(); }, { far: 1e6, near: 0, turn: false });
+    dab.mesh.material.transparent = true; return { i, t0, b, s0, dab, h }; });
+  const rings = ripples.map((t0, i) => ({ t0, r: P.ribbon(0xf0d4a8, 0, 120), ph: i * 1.7 })), RS = 1.9, lastT = P.T.end + P.beats(2);
+  P.keep(J[0].a, { h: 3.2 });
   return { update(t) {
-    const q = lipAt(t); lad.mesh.position.set(q.cx, q.cy, LZ); lad.mesh.rotation.z = q.th; lad.u.uA.value = seg(t, comes, comes + L) * (1 - seg(t, leaves - L, leaves));
-    cup.u.uFill.value = t < key - L * 0.5 ? 0 : 0.82 * seg(t, key - L * 0.5, full, x => x);
-    for (const R of rings) { const a0 = t - R.t0, m = R.r.m; if (a0 <= 0 || t > lastT) { m.visible = false; continue; } const rad = R.j.r + SPEED * a0, y = lerp(R.j.h * 0.945, 0.03, ease(clamp(a0 / (L * 2.2)))), op = 0.42 * clamp(a0 / 0.4) * clamp(1.1 - rad / 20); m.visible = op > 0.004; if (!m.visible) continue; m.position.y = y; m.material.opacity = op * (0.85 + 0.15 * P.listen('keys', t));
-      R.r.set(v => { const a = v * Math.PI * 2, k = 1 + 0.012 * Math.sin(3 * a + R.ph), r1 = rad * k, r2 = (rad + 0.03) * k; return [R.j.x + Math.cos(a) * r1, R.j.z + Math.sin(a) * r1, R.j.x + Math.cos(a) * r2, R.j.z + Math.sin(a) * r2]; }); }
+    const outK = 1 - seg(t, P.T.leave, P.T.leave + L), cx = cam.position.x, cz = cam.position.z;
+    man.u.uMix.value = seg(t, lifts, over); man.u.uA.value = outK; handle.mesh.material.opacity = (1 - seg(t, lifts, lifts + L * 0.8)) * outK; wine.mesh.material.opacity = outK;
+    for (const j of J) { const d = Math.hypot(j.p.x - cx, j.p.z - cz); j.water.mesh.material.opacity = clamp((d - 2.2) / 1.4) * (0.85 + 0.15 * P.listen('keys', t)); }
+    for (const B of bearers) { const a0 = t - B.t0, on = a0 > 0 ? clamp(a0 / L) : 0, go = Math.max(a0, 0) * SPEED, k = P.smooth(clamp(go / 8)), z = B.s0.z - go, x = lerp(B.s0.x, P.pathX(z) + lane[B.i], k), al = on * outK;
+      B.b.mesh.position.x = x; B.b.mesh.position.z = z; P.gait(B.b, a0 > 0, t); B.b.u.uA.value = al;
+      B.dab.mesh.position.set(x - (0.925 - 0.5) * B.b.wU, B.b.mesh.position.y - B.b.hU / 2 + (1 - 0.288) * B.b.hU, z + 0.01); B.dab.mesh.material.opacity = al; B.dab.mesh.visible = al > 0.003 && B.dab.mesh.visible; }
+    for (const R of rings) { const a0 = t - R.t0, m = R.r.m; if (a0 <= 0 || t > lastT) { m.visible = false; continue; } const rad = 0.9 + RS * a0, op = 0.38 * clamp(a0 / 0.5) * clamp((8.5 - rad) / 3.5); m.visible = op > 0.004; if (!m.visible) continue; m.material.opacity = op * (0.85 + 0.15 * P.listen('bass', t));
+      R.r.set(v => { const a = v * Math.PI * 2, k = 1 + 0.012 * Math.sin(3 * a + R.ph), r1 = rad * k, r2 = (rad + 0.02) * k; return [near.x + Math.cos(a) * r1, near.z + Math.sin(a) * r1, near.x + Math.cos(a) * r2, near.z + Math.sin(a) * r2]; }); }
   } };
 }

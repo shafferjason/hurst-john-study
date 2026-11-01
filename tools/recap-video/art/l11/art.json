@@ -1,6 +1,22 @@
 {
-"ladle": {
-"aspect": 2.8065,
-"bodyH": 0.97
+"jarb": {
+"aspect": 0.6045,
+"bodyH": 0.987
+},
+"bearer": {
+"aspect": 0.4169,
+"bodyH": 0.862
+},
+"dip2": {
+"aspect": 0.6573,
+"bodyH": 0.855
+},
+"pour3": {
+"aspect": 0.6573,
+"bodyH": 0.855
+},
+"jard": {
+"aspect": 0.6049,
+"bodyH": 0.987
 }
 }
