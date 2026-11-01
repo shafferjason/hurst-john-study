@@ -14,13 +14,15 @@ const NOTES = {
 SCENES.forEach(s => { if (s.lesson && NOTES[s.lesson]) s.note = NOTES[s.lesson]; });
 
 // Lay the scenes on the music's bar grid: every cut and every note lands on a downbeat.
-// open = 3 bars, lesson = 2 bars, quiet lesson = 3 bars, note = +1 bar, close = 3 bars.
+// open = 3 bars, lesson = 2 bars, busy (SLOW) or quiet lesson = 3 bars, note = +2 bars, close = 3 bars.
+// Jason 2026-10-31: 'still a little quick in some places' -> SLOW scenes and longer notes. MUST match build_music.py.
+const SLOW = [1, 5, 6, 7, 13, 14, 19, 23, 28, 30];
 function beatTime(i) { if (i < BEATS.length) return i === 0 ? 0 : BEATS[i]; const n = BEATS.length, step = (BEATS[n - 1] - BEATS[n - 33]) / 32; return BEATS[n - 1] + (i - n + 1) * step; }
 function buildTimeline(scenes) {
   let bar = 0;
   return scenes.map(s => {
-    const bars = s.kind === 'open' ? 3 : s.kind === 'close' ? 3 : s.quiet ? 3 : 2;
-    const nb = s.note ? 1 : 0;
+    const bars = s.kind === 'open' ? 3 : s.kind === 'close' ? 3 : (s.quiet || SLOW.includes(s.lesson)) ? 3 : 2;
+    const nb = s.note ? 2 : 0;
     const start = beatTime(bar * 4), mid = beatTime((bar + bars) * 4), end = beatTime((bar + bars + nb) * 4);
     bar += bars + nb;
     return { ...s, start, dur: end - start, noteDur: end - mid };
