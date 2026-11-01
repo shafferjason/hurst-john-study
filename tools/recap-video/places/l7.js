@@ -1,13 +1,13 @@
 // Lesson 7: asked who he was, John the Baptist kept saying no. He was the voice pointing to Jesus. Three questioners hold out an open
 // hand in turn; a rough man beside the path raises one still palm and each lowers. On the key he points across your path to someone
-// far ahead. One detail: the pointing arm. No crowns, no titles drawn, no faces.
+// far ahead. One detail: the pointing arm. No crowns, no titles drawn. John is in side view with a quiet face; the questioners stay faceless.
 export default async function (P) {
   await P.loadArt();
-  const Z = P.Z, X = P.X, L = P.beats(1), JD = 6, JH = 4.1;
+  const Z = P.Z, X = P.X, L = P.beats(1), JD = 6, JH = 4.02;
   const offer = P.evs('offer', 0, 3, 3, 2), no = P.evs('no', 0, 4, 3, 2), key = P.ev('key', 2, 1);
   const o = { far: 26, near: 13, turn: false, fadeNear: false, sil: 0.95, gain: 1.45 };
-  const jr = P.art('jrest', X - 1.17, Z - JD, JH, { ...o, y0: -0.16, map2: 'jhand', gain: 1.6 });
-  const jp = P.art('jhand', X - 1.17, Z - JD, JH, { ...o, y0: -0.16, map2: 'jpoint', gain: 1.6 });
+  const jr = P.art('jrest', X - 1.17, Z - JD, JH, { ...o, y0: -0.075, map2: 'jhand', gain: 1.6 });
+  const jp = P.art('jhand', X - 1.17, Z - JD, JH, { ...o, y0: -0.075, map2: 'jpoint', gain: 1.6 });
   const q = [['q2', 1.57, 11, 3.95, false], ['q1', 1.98, 9.2, 3.8, true], ['q3', 1.62, 7.6, 3.85, false]]
     .map(([n, x, d, h, flip]) => P.art(n + 'a', X + x, Z - d, h, { ...o, y0: -0.04 * h, map2: n + 'b', flip }));
   const hz = Z - 30, hx = X + 3.2, he = P.walker('he', hx, hz, false, 3.5, { fog: false, fadeNear: false, gain: 1.7, sil: 0.9, turn: false });

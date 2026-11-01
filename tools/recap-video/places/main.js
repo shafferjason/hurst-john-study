@@ -137,7 +137,7 @@ function overlay(t) { let cur = places[0]; for (const o of places) if (t >= o.T.
     ls.forEach((L, i) => { const ti = beatAt(Q.sayBeat + i), a = seg(t, ti, ti + 0.22) * so; if (a > 0) txt(out, L, 540, y0 + i * SAY_LEAD, SAY_SIZE, { color: GOLD_HI, alpha: a, glow: 10 }); }); }
   // the opening title, one beat-paced line at a time; the only credit in the film
   if (places[0].kind === 'open') { const o = places[0], b = i => beatAt(o.startBar * 4 + i), so = 1 - seg(t, o.T.end - bl / 2, o.T.end);
-    [['The Gospel of John', 300, 92, { color: GOLD_HI, glow: 18 }, 2], ['so far', 410, 54, { italic: true, color: GOLD }, 4], ['taught by Ben', 500, 36, { color: INK, spacing: 3 }, 6], ['31 lessons', 570, 30, { italic: true, color: GOLD }, 8]].forEach(([s, y, sz, st, bi]) => { const a = seg(t, b(bi), b(bi) + 0.4) * so; if (a > 0) txt(out, s, 540, y, sz, { ...st, alpha: a }); }); }
+    [['A Walk Through John', 300, 92, { color: GOLD_HI, glow: 18 }, 2], ['so far', 410, 54, { italic: true, color: GOLD }, 4], ['taught by Ben', 500, 36, { color: INK, spacing: 3 }, 6], ['31 lessons', 570, 30, { italic: true, color: GOLD }, 8]].forEach(([s, y, sz, st, bi]) => { const a = seg(t, b(bi), b(bi) + 0.4) * so; if (a > 0) txt(out, s, 540, y, sz, { ...st, alpha: a }); }); }
   if (LAST.kind === 'close') { const c = LAST, b0 = c.arriveBar * 4, s0 = beatAt(b0), so = 1 - openK(t) * 2.2; if (t >= s0 && so > 0) { backing(seg(t, s0, s0 + 0.3) * so, 420);
       txt(out, 'To be continued.', 540, 400, 88, { italic: true, color: GOLD_HI, glow: 16, alpha: seg(t, s0, s0 + 0.4) * so }); const s1 = beatAt(b0 + 4); txt(out, 'John 10 – 21 still ahead', 540, 492, 36, { color: GOLD, spacing: 2, alpha: seg(t, s1, s1 + 0.4) * so * 0.85 }); }
   }

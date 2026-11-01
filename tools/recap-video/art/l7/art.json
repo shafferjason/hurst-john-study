@@ -1,11 +1,11 @@
 {
 "jpoint": {
 "aspect": 1.0,
-"bodyH": 0.907
+"bodyH": 0.927
 },
 "jhand": {
 "aspect": 1.0,
-"bodyH": 0.907
+"bodyH": 0.927
 },
 "q2b": {
 "aspect": 1.0,
@@ -33,6 +33,6 @@
 },
 "jrest": {
 "aspect": 1.0,
-"bodyH": 0.907
+"bodyH": 0.927
 }
 }

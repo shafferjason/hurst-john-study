@@ -1,5 +1,6 @@
 // Lesson 28 (full moment): Jesus neither condemns the woman nor excuses her.
 // One detail: he stays stooped, marks in the dust, so the men can go unwatched. One at a time each sets his stone down and leaves. Only when they're gone does he stand and speak; only then she walks on.
+// The woman stands three-quarter toward him, so toward us, head lowered, with a quiet face. Jesus stays from behind; the accusers stay faceless.
 export default async function (P) {
   await P.loadArt();
   const X = P.X, Z = P.Z, cam = P.camera, L = P.beats(1), FINGER = 0.32, STONE = 0.88;

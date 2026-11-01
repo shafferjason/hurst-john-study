@@ -1,11 +1,12 @@
 // Lesson 10 (short stop): "come and see," passed from one ordinary person to the next. Up the road, a far figure from behind walks on; three
 // ordinary men strung out behind him. Each stops, turns back and holds out a hand to the one behind, one per beat, nearest last: that one is
 // holding it out to you. Then they go on, far to near, and you fall in behind the nearest. One detail: the nearest man's offered hand.
+// The nearest man, when he turns, is in three-quarter view looking back at you with a quiet face; the others and the far figure stay from behind.
 export default async function (P) {
   await P.loadArt();
   const Z = P.Z, L = P.beats(1), SP = 0.55, H = 3.3;
   const key = P.ev('key', 1, 1), turns = P.evs('turns back', 0, 3, 2, 1), goes = P.evs('goes on', 1, 2, 3, 1); turns.push(key);
-  const FEET = { walk1: 0.533, turn1: 0.394, walk2: 0.524, turn2: 0.638, walk3: 0.534, turn3: 0.371 };   // where the feet sit in each drawing, so the two poses share one spot
+  const FEET = { walk1: 0.533, turn1: 0.357, walk2: 0.524, turn2: 0.638, walk3: 0.534, turn3: 0.371 };   // where the feet sit in each drawing, so the two poses share one spot
   const men = [[3, 18, -1.55], [2, 11, 1.6], [1, 5, -1.05]].map(([n, d, off], i) => { const zs = Z - d, opt = { fadeNear: false, turn: false, sil: 0.5, gain: 1.6 };
     return { off, zs, stop: turns[i], back: goes[i], near: i === 2, walk: P.walker('walk' + n, 0, zs, false, H, opt), turn: P.walker('turn' + n, 0, zs, false, H, opt), kw: FEET['walk' + n], kt: FEET['turn' + n] }; });
   const HZ = Z - 27, he = P.walker('he', P.pathX(HZ), HZ, false, 3.1, { gain: 1.5 }), heLight = P.glow(P.pathX(HZ), 1.8, HZ - 0.2, 8, 0);

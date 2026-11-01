@@ -12,7 +12,7 @@ lessons, or any older file (`walk*.html`, `places.js`, `places2.js`, `scene*.js`
 - **Use the tall screen.** Not a thin band across the middle. Big things, low and high. See the geometry table.
 - **Elegant adult line art.** Warm line on near-black. Never cartoon, never clip art, never a children's Bible.
 - **Never draw Jesus's face, or God.** Jesus only from far off or from behind (use the common `he`).
-- **People are mostly far off or from behind, and fade before they swell near the camera.**
+- **Which way every figure faces must be a choice with a reason (Jason, 11/1).** `heart/visuals/orientation.md` sets it per lesson. All people fade before they swell near the camera.
 - **No text in the art.** Words come only from the sentence, which you do not touch.
 - **Red is rare.** Only where the lesson needs it.
 - **Read that lesson's "Don't get this wrong" in `heart/lessons/lesson-N.md` first**, and the `heart/main-points.md` sentence.
