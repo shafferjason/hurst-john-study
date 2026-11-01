@@ -1,0 +1,22 @@
+{
+"lie": {
+"aspect": 1.8421,
+"bodyH": 0.519
+},
+"cast": {
+"aspect": 3.9776,
+"bodyH": 0.955
+},
+"under": {
+"aspect": 1.8421,
+"bodyH": 0.578
+},
+"sit": {
+"aspect": 1.8421,
+"bodyH": 0.839
+},
+"walk": {
+"aspect": 0.4173,
+"bodyH": 0.99
+}
+}
