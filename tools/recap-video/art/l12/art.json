@@ -1,0 +1,22 @@
+{
+"table": {
+"aspect": 1.0694,
+"bodyH": 0.984
+},
+"hands": {
+"aspect": 0.9585,
+"bodyH": 0.985
+},
+"table2": {
+"aspect": 1.405,
+"bodyH": 0.977
+},
+"colonnade": {
+"aspect": 1.8421,
+"bodyH": 0.456
+},
+"kneeler": {
+"aspect": 0.4171,
+"bodyH": 0.616
+}
+}

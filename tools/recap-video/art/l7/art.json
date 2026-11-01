@@ -1,0 +1,38 @@
+{
+"jpoint": {
+"aspect": 1.0,
+"bodyH": 0.907
+},
+"jhand": {
+"aspect": 1.0,
+"bodyH": 0.907
+},
+"q2b": {
+"aspect": 1.0,
+"bodyH": 0.911
+},
+"q3b": {
+"aspect": 1.0,
+"bodyH": 0.911
+},
+"q1b": {
+"aspect": 1.0,
+"bodyH": 0.908
+},
+"q3a": {
+"aspect": 1.0,
+"bodyH": 0.911
+},
+"q1a": {
+"aspect": 1.0,
+"bodyH": 0.909
+},
+"q2a": {
+"aspect": 1.0,
+"bodyH": 0.911
+},
+"jrest": {
+"aspect": 1.0,
+"bodyH": 0.907
+}
+}

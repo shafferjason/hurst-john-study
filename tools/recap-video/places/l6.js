@@ -26,7 +26,7 @@ export default async function (P) {
   P.keep(arm, { h: 1.7 });
   return { update(t) {
     const inK = ease(seg(t, comes, takes, x => x)), away = ease(seg(t, takes, takes + L * 3, x => x)), fx = lerp(X + 3.6, GRIP, inK) + AWAY * away;
-    const out = t > P.T.end ? 0 : seg(t, P.T.leave, P.T.leave + L), rise = ease(seg(t, key, key + L * 2, x => x));
+    const out = seg(t, P.T.leave, P.T.leave + L), rise = ease(seg(t, key, key + L * 2, x => x));
     arm.mesh.position.set(armX(fx), ROD - 0.32 * ease(seg(t, key, key + L, x => x)), Z + 0.1); arm.u.uA.value = seg(t, comes, comes + L) * (1 - out); arm.u.uMix.value = seg(t, key, key + L * 0.6);
     markK = seg(t, key, key + L * 0.5);
     const sx = X + AWAY * away, so = 1 - seg(t, key, key + L); sc.mesh.position.x = sx; ink.mesh.position.x = sx; sc.u.uA.value = so; ink.mesh.visible = ink.mesh.visible && so > 0.003; ink.mesh.material.opacity = so;
