@@ -1,0 +1,34 @@
+{
+"sit": {
+"aspect": 0.4169,
+"bodyH": 0.444
+},
+"wash": {
+"aspect": 0.4172,
+"bodyH": 0.581
+},
+"reach": {
+"aspect": 0.4167,
+"bodyH": 0.638
+},
+"armR": {
+"aspect": 1.0999,
+"bodyH": 0.984
+},
+"other": {
+"aspect": 0.4173,
+"bodyH": 0.424
+},
+"armL": {
+"aspect": 1.0829,
+"bodyH": 0.983
+},
+"see": {
+"aspect": 0.4174,
+"bodyH": 0.64
+},
+"walk": {
+"aspect": 0.4171,
+"bodyH": 0.847
+}
+}
