@@ -109,14 +109,14 @@ const HK = 2.0, SX = 1.7, SZ = Math.min(1, 130 / Math.max(ZSTART - ZEND, 1)), MI
 const RISE0 = LAST.startBar + 2, RISE1 = LAST.startBar + 3.5, openK = t => LAST.kind === 'close' ? easeInOut(clamp((t - barAt(RISE0)) / (barAt(RISE1) - barAt(RISE0)))) : 0;
 function placeCamera(t) { const c = camAt(t), dz = Math.abs(camAt(t + 0.05).z - c.z) / 0.05, i = beatIndex(t), ph = beatPhase(t), step = Math.sin(ph * Math.PI);
   const foot = 1 + 0.5 * K.hit('drums', t), px = c.x + (i % 2 ? 1 : -1) * step * 0.008 * dz * foot, py = EYE + step * 0.012 * dz * foot, ahead = c.z - 12; const u = openK(t);
-  if (u <= 0) { camera.position.set(px, py, c.z); camera.lookAt(pathX(ahead), 1.95, ahead); }
+  if (u <= 0) { camera.position.set(px, py, c.z); camera.lookAt(pathX(ahead), 2.4, ahead); }
   else { const hold = clamp((t - barAt(RISE1)) / (DURATION - barAt(RISE1))), sx = lerp(1, SX, u), sz = lerp(1, SZ, u), to = new THREE.Vector3(MIDX * SX, 70 + 3 * hold, ZSTART * SZ + 24), p = new THREE.Vector3(px * sx, py, c.z * sz).lerp(to, u);
-    p.y += Math.sin(u * Math.PI) * 10; camera.position.copy(p); const mid = lerp(ZSTART, ZEND, 0.5) * SZ, a = new THREE.Vector3(pathX(ahead) * sx, 1.95, ahead * sz).lerp(new THREE.Vector3(MIDX * SX, 0, mid), u); camera.lookAt(a); } }
+    p.y += Math.sin(u * Math.PI) * 10; camera.position.copy(p); const mid = lerp(ZSTART, ZEND, 0.5) * SZ, a = new THREE.Vector3(pathX(ahead) * sx, 2.4, ahead * sz).lerp(new THREE.Vector3(MIDX * SX, 0, mid), u); camera.lookAt(a); } }
 
 // ---------- words on top ----------
 const out = document.getElementById('out').getContext('2d');
 function wrap(ctx, s, size, maxW) { ctx.font = font(size); const ws = s.split(' '), ls = []; let cur = ''; for (const w of ws) { const n = cur ? cur + ' ' + w : w; if (ctx.measureText(n).width > maxW && cur) { ls.push(cur); cur = w; } else cur = n; } ls.push(cur); return ls; }
-const SAY_SIZE = 62, SAY_LEAD = 78, SAY_Y = 400;
+const SAY_SIZE = 62, SAY_LEAD = 78, SAY_Y = 500;
 places.forEach(o => { if (!o.say) return; o.lines = wrap(out, o.say, SAY_SIZE, 930); o.lines.forEach((L, i) => logEv('L' + o.lesson, 'sentence line ' + (i + 1), o.sayBeat + i, 'beat')); });
 function backing(a, y = SAY_Y) { out.save(); out.globalAlpha = a; const g = out.createRadialGradient(540, y, 60, 540, y, 640); g.addColorStop(0, 'rgba(12,10,8,0.9)'); g.addColorStop(1, 'rgba(12,10,8,0)'); out.fillStyle = g; out.translate(0, y); out.scale(1, 0.32); out.translate(0, -y); out.fillRect(0, -700, 1080, 2100); out.restore(); }
 function hud(cur, a) { const x0 = 80, x1 = OW - 80, y = OH - 120, sx = k => lerp(x0, x1, k / 21), lit = cur.lesson || cur.kind === 'close' ? cur.station : -1;
@@ -151,12 +151,12 @@ function renderAt(t) { t = clamp(t, 0, DURATION - 1e-3); renderTime = t;
   sky.mesh.position.x = camera.position.x * 0.9; sky.mesh.position.z = camera.position.z - 62; sky.mesh.visible = u < 0.2;
   for (const f of UPDATES) f(t);
   updateThings(t); if (u >= 0.2) sky.mesh.visible = false; updateArts(t);
-  const pl = pulse(t); places.forEach(o => { if (!o.beacon) return; const nextUp = t < o.T.start && t > o.T.start - barLen() * 4, here = t >= o.T.start && t < o.T.end; const lit = u > 0 ? litK(o, t) : 0; const kk = K.listen('keys', t); o.beacon.material.opacity = lerp(here ? 0.05 + 0.03 * pl + 0.07 * kk : nextUp ? 0.06 + 0.025 * pl : t >= o.T.end ? 0.03 : 0.012, 0.03 + 0.34 * lit, u); o.pool.material.opacity = lerp(here ? 0.07 + 0.08 * kk : 0.08, 0.05 + 0.3 * lit, u); o.bead.material.opacity = u * lit * (0.75 + 0.25 * pl); const bs = lerp(1, 0.5, u); o.beacon.scale.set(bs, bs, bs); o.pool.scale.set(bs, bs, 1); });
+  const pl = pulse(t); places.forEach(o => { if (!o.beacon) return; const nextUp = t < o.T.start && t > o.T.start - barLen() * 4, here = t >= o.T.start && t < o.T.end; const lit = u > 0 ? litK(o, t) : 0; const kk = K.listen('keys', t); o.beacon.material.opacity = lerp(here ? 0.05 + 0.03 * pl + 0.22 * kk : nextUp ? 0.06 + 0.025 * pl : t >= o.T.end ? 0.03 : 0.012, 0.03 + 0.34 * lit, u); o.pool.material.opacity = lerp(here ? 0.07 + 0.24 * kk : 0.08, 0.05 + 0.3 * lit, u); o.bead.material.opacity = u * lit * (0.75 + 0.25 * pl); const bs = lerp(1, 0.5, u); o.beacon.scale.set(bs, bs, bs); { const ls = here && u === 0 ? 1 + 0.9 * kk : 1; o.beacon.scale.set(bs * ls, bs * ls, bs); o.pool.scale.set(bs * ls, bs * ls, 1); } });
   scene.scale.set(lerp(1, SX, u), 1, lerp(1, SZ, u));
   // the instruments in the world: a breath, never a flash
-  { const dr = K.hit('drums', t), sw = K.listen('swell', t), bs = K.listen('bass', t); WORLD.wide.m.material.opacity = 0.05 + 0.1 * dr; WORLD.path.m.material.opacity = 0.66 + 0.14 * dr; WORLD.dust.material.opacity = 0.34 + 0.42 * sw; WORLD.dust.material.size = 0.04 + 0.022 * sw;
+  { const dr = K.hit('drums', t), sw = K.listen('swell', t), bs = K.listen('bass', t); WORLD.wide.m.material.opacity = 0.04 + 0.3 * dr; WORLD.path.m.material.opacity = 0.5 + 0.5 * dr; WORLD.dust.material.opacity = 0.25 + 0.75 * sw; WORLD.dust.material.size = 0.035 + 0.075 * sw; { const w = K.windAt(t); WORLD.dust.position.x = 12 * Math.sin(w * 0.1); WORLD.dust.position.y = Math.sin(w * 0.07) * 0.6; }
     let cur = places[0]; for (const o of places) if (t >= o.T.start) cur = o; const bi = beatIndex(t), bp = beatPhase(t);
-    WORLD.rings.forEach((R, k) => { const age = ((bi + k * 4) % 12 + bp) / 12, r = 1.2 + age * 9, cx = cur.X, cz = (cur.S ?? 0) - 6, op = 0.2 * bs * Math.sin(Math.PI * Math.min(age * 1.05, 1)) * (1 - u); R.m.visible = op > 0.004; if (!R.m.visible) return; R.m.material.opacity = op; R.set(v => { const a = v * Math.PI * 2, r1 = r * (1 + 0.012 * Math.sin(3 * a + k)), r2 = r1 + 0.05; return [cx + Math.cos(a) * r1, cz + Math.sin(a) * r1, cx + Math.cos(a) * r2, cz + Math.sin(a) * r2]; }); }); }
+    WORLD.rings.forEach((R, k) => { const age = ((bi + k * 4) % 12 + bp) / 12, r = 1.2 + age * 9, cx = cur.X, cz = (cur.S ?? 0) - 6, op = 0.32 * bs * Math.sin(Math.PI * Math.min(age * 1.05, 1)) * (1 - u); R.m.visible = op > 0.004; if (!R.m.visible) return; R.m.material.opacity = op; R.set(v => { const a = v * Math.PI * 2, r1 = r * (1 + 0.012 * Math.sin(3 * a + k + t * 0.7) + 0.008 * Math.sin(7 * a - k * 2 - t * 1.1)), r2 = r1 + 0.05 * (1 - age * 0.6); return [cx + Math.cos(a) * r1, cz + Math.sin(a) * r1, cx + Math.cos(a) * r2, cz + Math.sin(a) * r2]; }); }); }
   if (u > 0) LIT.forEach(o => { const lit = litK(o, t), kept = new Set((o.kept || []).map(k => k.a));
     for (const q of o.objs || []) { if (kept.has(q)) continue; const m = q.mesh || q.m || q; if (q.u?.uA) q.u.uA.value *= clamp(1 - u / 0.35); if (u >= 0.35) m.visible = false; }
     const sx = lerp(1, SX, u), sz = lerp(1, SZ, u), side = LIT.indexOf(o) % 2 ? 1 : -1;

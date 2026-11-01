@@ -18,6 +18,9 @@ export const clock = { beats: [], energy: [], camAt: () => 0, stems: null };
 // what each instrument is doing right now, 0-1. level = its loudness, as a slow breath. hit = its attacks, quick up, soft down.
 const stemAt = (kind, name, t) => { const S = clock.stems; if (!S) return 0; const A = S[kind][name]; if (!A) throw new Error('no instrument "' + name + '" (drums, bass, guitar, keys, swell)'); const f = Math.max(t, 0) * S.rate, i = Math.floor(f), a = A[i] ?? 0, b = A[i + 1] ?? a; return (a + (b - a) * (f - i)) / 99; };
 export const listen = (name, t) => stemAt('level', name, t), hit = (name, t) => stemAt('hit', name, t);
+// how far the wind has blown by time t: running total of the swell instruments' loudness, in seconds of full wind
+let windSum = null;
+export const windAt = t => { const S = clock.stems; if (!S) return 0; if (!windSum) { windSum = new Float64Array(S.level.swell.length + 1); S.level.swell.forEach((v, i) => { windSum[i + 1] = windSum[i] + v / 99 / S.rate; }); } const f = Math.max(t, 0) * S.rate, i = Math.min(Math.floor(f), windSum.length - 2); return windSum[i] + (windSum[i + 1] - windSum[i]) * (f - i); };
 export const beatAt = i => { const B = clock.beats; if (i < B.length) return B[Math.max(i, 0)]; const n = B.length, k = Math.min(32, n - 1), st = (B[n - 1] - B[n - 1 - k]) / k; return B[n - 1] + (i - n + 1) * st; };
 export const barAt = n => beatAt(Math.round(n * 4));
 export const barLen = () => { const B = clock.beats; return (B[B.length - 1] - B[0]) / (B.length - 1) * 4; };
@@ -103,7 +106,7 @@ export function updateArts(time) { const cz = camera.position.z, cx = camera.pos
     if (A.turn) m.rotation.y = Math.atan2(cx - xx, cz - zz);
     A.u.uFog.value = A.fog ? clamp((d - fg.near) / (fg.far - fg.near)) : 0;
     A.u.uThin.value = clamp((A.hU / Math.max(d, 0.5) * 1321 / A.u.map.value.image.height - 0.28) / 0.45);
-    A.u.uGain.value = A.gain * (1 + (p < 1 ? 0.28 : 0.06) * pl + (p < 1 ? 0.55 : 0.1) * gtr); } }   // the line breathes on the beat, more while it is still forming
+    A.u.uGain.value = A.gain * (1 + (p < 1 ? 0.28 : 0.06) * pl + (p < 1 ? 1.1 : 0.5) * gtr); } }   // the line breathes on the beat, more while it is still forming
 
 // ---------- people: a footfall on every beat, never a free-running sway ----------
 export const bodyScale = (key, target) => target / META[key].bodyH;

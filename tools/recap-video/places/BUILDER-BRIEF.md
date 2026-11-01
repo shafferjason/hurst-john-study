@@ -69,7 +69,7 @@ downbeat, or it fails. `preview.sh` runs it too.
 
 ### Tying something to an instrument
 
-The song comes apart into instruments, and anything can follow one. `P.listen(name, t)` is that instrument's loudness, a slow breath.
+The song comes apart into instruments, and anything can follow one. `P.listen(name, t)` is that instrument's loudness, a slow breath. Each instrument stands for a John image: drums = walking and following (8:12), bass = living water (4, 7), guitar = the Word, the line that draws (1:14), keys = light in the darkness (1:5), swell = the Spirit as wind (3:8).
 `P.hit(name, t)` is its attacks, quick up, soft down. Both run 0 to 1.
 
 | Name | What it is | Already wired for you, everywhere | Good for |
@@ -128,7 +128,7 @@ to about 1.7), `far`/`near` (distance it starts/finishes forming; default 22/8),
 | Screen height | What's there |
 |---|---|
 | y 90-180 | Label (`LESSON N`, chapter). Keep clear |
-| y 283-517 | The sentence. **Keep clear.** Nothing above y ≈ 560 while it's up |
+| y 383-617 | The sentence (moved down 100 on 11/1 so eyes take in words and picture together; camera tilted about 50 px to match). **Keep clear.** Nothing above y ≈ 640 while it's up |
 | y ≈ 875 | Horizon |
 | y 1320, y 1750 | Ground at distance 8, distance 4 |
 | y 1800+ | Chapter track. Stay off it at the centre if you can |
