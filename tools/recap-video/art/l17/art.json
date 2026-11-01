@@ -1,0 +1,22 @@
+{
+"house": {
+"aspect": 2.3185,
+"bodyH": 0.962
+},
+"father": {
+"aspect": 0.4171,
+"bodyH": 0.991
+},
+"servants": {
+"aspect": 1.0738,
+"bodyH": 0.981
+},
+"marker": {
+"aspect": 0.5256,
+"bodyH": 0.985
+},
+"lamp": {
+"aspect": 1.6869,
+"bodyH": 0.972
+}
+}

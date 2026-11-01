@@ -1,0 +1,22 @@
+{
+"prop": {
+"aspect": 0.1694,
+"bodyH": 0.986
+},
+"cross": {
+"aspect": 0.5286,
+"bodyH": 0.988
+},
+"setter": {
+"aspect": 0.4172,
+"bodyH": 0.638
+},
+"riser": {
+"aspect": 0.4172,
+"bodyH": 0.447
+},
+"water": {
+"aspect": 1.8421,
+"bodyH": 0.422
+}
+}

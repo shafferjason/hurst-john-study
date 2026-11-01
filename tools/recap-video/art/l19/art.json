@@ -1,0 +1,14 @@
+{
+"load": {
+"aspect": 1.0,
+"bodyH": 0.709
+},
+"lift": {
+"aspect": 1.0,
+"bodyH": 0.763
+},
+"free": {
+"aspect": 1.0,
+"bodyH": 0.71
+}
+}

@@ -1,0 +1,18 @@
+{
+"loaf": {
+"aspect": 1.7231,
+"bodyH": 0.976
+},
+"boat": {
+"aspect": 2.2804,
+"bodyH": 0.975
+},
+"hill": {
+"aspect": 1.8421,
+"bodyH": 0.414
+},
+"baskets": {
+"aspect": 1.5019,
+"bodyH": 0.977
+}
+}
