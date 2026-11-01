@@ -1,0 +1,18 @@
+{
+"loaf": {
+"aspect": 1.373,
+"bodyH": 0.976
+},
+"reach": {
+"aspect": 2.5415,
+"bodyH": 0.966
+},
+"stall2": {
+"aspect": 0.744,
+"bodyH": 0.986
+},
+"stall1": {
+"aspect": 0.6341,
+"bodyH": 0.987
+}
+}

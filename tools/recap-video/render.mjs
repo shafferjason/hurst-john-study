@@ -28,7 +28,8 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 await page.setViewport({ width: VW, height: VH });
 page.on('pageerror', e => console.error('PAGE ERROR', e.message));
-await page.goto(`http://127.0.0.1:${server.address().port}/${PAGE}?nobar`, { waitUntil: 'load' });
+page.on('console', m => { if (m.type() === 'error' && !/404/.test(m.text())) console.error('PAGE', m.text()); });
+await page.goto(`http://127.0.0.1:${server.address().port}/${PAGE}${PAGE.includes('?') ? '&' : '?'}nobar`, { waitUntil: 'load' });
 if (WALK) await page.waitForFunction('window.READY === true', { timeout: 30000 });
 const DURATION = await page.evaluate(() => window.DURATION);
 const grab = (t, type = 'image/png', q) => page.evaluate((t, type, q, id) => { window.renderAt(t); return document.getElementById(id).toDataURL(type, q).split(',')[1]; }, t, type, q, CANVAS);
@@ -36,10 +37,10 @@ const grab = (t, type = 'image/png', q) => page.evaluate((t, type, q, id) => { w
 if (mode === 'stills') {
   const { writeFileSync } = await import('node:fs');
   // walk page: 'L14' = end of lesson 14's hold, 'N3' = lesson 3's note fully up, 'E-2' = 2 s before the end
-  const when = async v => { if (v.startsWith('E')) return DURATION + Number(v.slice(1)); if (!/^[LN]/.test(v)) return Number(v);
-    const L = await page.evaluate(n => window.lessonAt(n), Number(v.slice(1))); return v[0] === 'N' ? L.note + 1.5 : L.end - 0.3; };
+  const when = async v => { if (v.startsWith('E')) return DURATION + Number(v.slice(1)); if (!/^[LNWAM]/.test(v)) return Number(v);
+    const L = await page.evaluate(n => window.lessonAt(n), Number(v.slice(1))); return v[0] === 'N' ? L.note + 1.5 : v[0] === 'W' ? (L.start + L.arrive) / 2 : v[0] === 'A' ? L.arrive + 0.2 : v[0] === 'M' ? (L.arrive + L.end) / 2 : L.end - 0.3; };
   for (const t of await Promise.all((a1 || '1').split(',').map(when))) {
-    writeFileSync(path.join(out, `${WALK ? 'walk-' : ''}still-${t.toFixed(2)}.png`), Buffer.from(await grab(t), 'base64'));
+    writeFileSync(path.join(out, `${process.env.STILLPREFIX || (WALK ? 'walk-' : '')}still-${t.toFixed(2)}.png`), Buffer.from(await grab(t), 'base64'));
   }
   console.log('duration', DURATION.toFixed(2));
 } else {
@@ -48,7 +49,7 @@ if (mode === 'stills') {
   if (a2 && a2 !== '-') args.push('-ss', String(from), '-i', a2, '-af', `afade=t=out:st=${Math.max(0, to - from - 3)}:d=3`, '-shortest');
   args.push('-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '18', '-preset', 'medium', '-movflags', '+faststart');
   if (a2 && a2 !== '-') args.push('-c:a', 'aac', '-b:a', '192k');
-  args.push(path.join(out, (WALK ? 'walk-' : '') + (a2 && a2 !== '-' ? 'recap.mp4' : `recap-silent-${from}-${to}.mp4`)));
+  args.push(path.join(out, process.env.OUTNAME || (WALK ? 'walk-' : '') + (a2 && a2 !== '-' ? 'recap.mp4' : `recap-silent-${from}-${to}.mp4`)));
   const ff = spawn('ffmpeg', args, { stdio: ['pipe', 'ignore', 'inherit'] });
   const n = Math.round((to - from) * fps);
   for (let i = 0; i < n; i++) {
