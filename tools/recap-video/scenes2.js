@@ -375,7 +375,7 @@ add({
 add({
   lesson: 29, station: 8, ref: 'I Am the Light of the World', fn(ctx, p, t) {
     const l = seg(p, 0.22, 0.55);
-    if (l > 0) { ctx.save(); const g = ctx.createRadialGradient(W / 2, 470, 10, W / 2, 470, lerp(60, 1300, l)); g.addColorStop(0, `rgba(240,212,168,${0.32 * l})`); g.addColorStop(1, 'rgba(240,212,168,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore(); }
+    if (l > 0) { ctx.save(); const g = ctx.createRadialGradient(W / 2, 470, 10, W / 2, 470, lerp(60, self.WALK_MODE ? 520 : 1300, l)); g.addColorStop(0, `rgba(240,212,168,${0.32 * l})`); g.addColorStop(1, 'rgba(240,212,168,0)'); ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore(); }
     draw(ctx, [S.arc(W / 2, 470, 80, 34, 0, Math.PI * 2, 50), S.bez([W / 2 + 78, 460], [W / 2 + 120, 440], [W / 2 + 130, 450], [W / 2 + 150, 442], 12)], seg(p, 0, 0.16), { width: 3 });
     flame(ctx, W / 2 + 150, 442, 60, t, seg(p, 0.12, 0.2));
     draw(ctx, [S.line(820, 900, 940, 560, 20), S.line(1100, 900, 980, 560, 20)], seg(p, 0.46, 0.62), { width: 2.4, alpha: 0.8 });

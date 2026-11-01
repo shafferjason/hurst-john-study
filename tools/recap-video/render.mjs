@@ -35,7 +35,10 @@ const grab = (t, type = 'image/png', q) => page.evaluate((t, type, q, id) => { w
 
 if (mode === 'stills') {
   const { writeFileSync } = await import('node:fs');
-  for (const t of (a1 || '1').split(',').map(Number)) {
+  // walk page: 'L14' = end of lesson 14's hold, 'N3' = lesson 3's note fully up, 'E-2' = 2 s before the end
+  const when = async v => { if (v.startsWith('E')) return DURATION + Number(v.slice(1)); if (!/^[LN]/.test(v)) return Number(v);
+    const L = await page.evaluate(n => window.lessonAt(n), Number(v.slice(1))); return v[0] === 'N' ? L.note + 1.5 : L.end - 0.3; };
+  for (const t of await Promise.all((a1 || '1').split(',').map(when))) {
     writeFileSync(path.join(out, `${WALK ? 'walk-' : ''}still-${t.toFixed(2)}.png`), Buffer.from(await grab(t), 'base64'));
   }
   console.log('duration', DURATION.toFixed(2));

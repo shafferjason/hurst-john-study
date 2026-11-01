@@ -9,7 +9,8 @@ B = json.load(open('beats.json'))['beats']; nbars = len(B) // 4
 bs = lambda k: 0.0 if k == 0 else B[4 * k]
 NOTES = {3, 8, 11, 12, 16, 20, 21, 29}; QUIET = {24, 31}
 old = [3] + [(3 if n in QUIET else 2) + (1 if n in NOTES else 0) for n in range(1, 32)] + [3]
-new = [3] + [4 if (n in QUIET or n in NOTES) else 3 for n in range(1, 32)] + [4]
+DENSE = {5, 14}
+new = [3] + [5 if (n in QUIET or n in NOTES) else 4 if n in DENSE else 3 for n in range(1, 32)] + [7]
 seq, k = [], 0
 for j, (o, n) in enumerate(zip(old, new)):
     own = list(range(k, k + o)); k += o

@@ -15,16 +15,17 @@
 <script type="importmap">{ "imports": { "three": "./node_modules/three/build/three.module.js" } }</script>
 <script type="module">
 import * as THREE from 'three';
-MIN_FONT = 40;
+MIN_FONT = 40; self.WALK_MODE = true;   // floating panels have edges: glows must fade out inside them
 const OW = 1080, OH = 1920, q = new URLSearchParams(location.search);
 
 // ---------- timeline: bars per scene (MUST match build_music_walk.py) ----------
-// open 3, lesson 3 (1 bar walking in + 2 bars standing), lesson with a note or a quiet lesson 4, close 4.
-const BAR = 4, WALK_BEATS = 4;
-function walkBars(s) { return s.kind === 'open' ? 3 : s.kind === 'close' ? 4 : (s.quiet || s.note) ? 4 : 3; }
+// open 3, lesson 3 (1 bar walking in + 2 bars standing), dense lessons (5, 14) 4,
+// a note or a quiet lesson 5 (a full settled bar after the last words land), close 7 (arrive, then the look back).
+const BAR = 4, WALK_BEATS = 4, DENSE = [5, 14];
+function walkBars(s) { return s.kind === 'open' ? 3 : s.kind === 'close' ? 7 : (s.quiet || s.note) ? 5 : DENSE.includes(s.lesson) ? 4 : 3; }
 const TL = (() => { let bar = 0; return [...SCENES, CLOSE].map(s => {
   const n = walkBars(s), start = beatTime(bar * BAR), end = beatTime((bar + n) * BAR);
-  const arrive = beatTime(bar * BAR + WALK_BEATS), noteAt = s.note ? beatTime(bar * BAR + WALK_BEATS + 6) : null;
+  const arrive = beatTime(bar * BAR + (s.quiet ? 2 * WALK_BEATS : WALK_BEATS)), noteAt = s.note ? beatTime(bar * BAR + WALK_BEATS + 6) : null;
   const o = { ...s, start, dur: end - start, walk: s.kind === 'open' ? 0 : arrive - start, noteAt: noteAt ? noteAt - start : null, bar }; bar += n; return o; }); })();
 const DURATION = TL.at(-1).start + TL.at(-1).dur;
 const barSec = () => (BEATS[BEATS.length - 1] - BEATS[0]) / (BEATS.length - 1) * 4;
@@ -53,16 +54,38 @@ const GLOW = glowTex(240, 212, 168);
 const stations = TL.map((s, i) => {
   const x = s.kind ? 0 : (i % 2 ? 1.6 : -1.6), z = -i * STEP;
   const d = canvasPlane(PW, PH, 1920, 1080); d.mesh.position.set(x, DRAW_Y, z);
-  const t = canvasPlane(TW, TH, 1920, 760); t.mesh.position.set(x, TEXT_Y, z + TEXT_FWD);
+  const t = canvasPlane(TW, TH, 1920, 760); t.mesh.position.set(x, TEXT_Y, z + TEXT_FWD); t.mesh.renderOrder = 10; d.mesh.renderOrder = 5;   // words draw last, so their dark backing covers the path
   const pool = new THREE.Mesh(new THREE.PlaneGeometry(9, 4), new THREE.MeshBasicMaterial({ map: GLOW, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.16 }));
+  if (s.quiet) { pool.material.color.setRGB(1, 0.78, 0.5); pool.material.opacity = 0.32; pool.scale.set(1.4, 1.6, 1); }
   pool.rotation.x = -Math.PI / 2; pool.position.set(x, 0.02, z + 1.5); scene.add(pool);
   const beacon = new THREE.Sprite(new THREE.SpriteMaterial({ map: GLOW, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending, opacity: 0.0 }));
   beacon.scale.set(11, 9, 1); beacon.position.set(x, DRAW_Y - 0.6, z - 0.4); scene.add(beacon);
-  const view = new THREE.Vector3(x, EYE, z + VIEW_D);
+  const view = new THREE.Vector3(x, EYE, z + VIEW_D);   // refined per lesson once the drawing is measured (fitViews)
   const nx = TL[i + 1] && !TL[i + 1].kind ? ((i + 1) % 2 ? 1.6 : -1.6) : 0;
   const sideDir = Math.sign(nx - x) || (i % 2 ? -1 : 1);
   const pass = s.kind === 'open' ? new THREE.Vector3(0, EYE - 0.4, z - 6) : new THREE.Vector3(x + sideDir * 6.2, EYE - 0.6, z - 1.5);   // step past this panel's shoulder
   return { s, i, d, t, pool, beacon, center: new THREE.Vector3(x, DRAW_Y, z), view, pass, state: null };
+});
+
+function fitViews() {
+  const c = document.createElement('canvas'); c.width = 1920; c.height = 1080; const x = c.getContext('2d', { willReadFrequently: true });
+  stations.forEach(st => {
+    if (st.s.kind) return;
+    x.clearRect(0, 0, 1920, 1080); TEXT_SINK = []; _seed = (st.i + 1) * 1000; x.save(); st.s.fn(x, 1, st.s.dur); x.restore(); TEXT_SINK = null;
+    const d = x.getImageData(0, 0, 1920, 1080).data; let x0 = 1920, x1 = 0;
+    for (let px = 0; px < 1920; px += 4) for (let py = 0; py < 1080; py += 6) if (d[(py * 1920 + px) * 4 + 3] > 40) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); }
+    const half = Math.max(Math.abs(x0 - 960), Math.abs(x1 - 960)) + 70, w = clamp(half * 2, 1220, 1700);   // closer for small drawings, but not so close the words shrink
+    st.view.z = st.center.z + ((PW * w / 1920) / 2) / Math.tan(HFOV / 2);
+  });
+}
+fitViews();
+stations.forEach(st => {
+  if (st.s.kind) return;
+  paint(st, 0, true); const d = st.t.cx.getImageData(0, 0, 1920, 760).data; let x0 = 1920, x1 = 0;
+  for (let px = 0; px < 1920; px += 4) for (let py = 0; py < 760; py += 5) if (d[(py * 1920 + px) * 4 + 3] > 150 && d[(py * 1920 + px) * 4] > 90) { x0 = Math.min(x0, px); x1 = Math.max(x1, px); }
+  blank(st); st.state = 'blank';
+  const wide = TW * Math.max(Math.abs(x0 - 960), Math.abs(x1 - 960)) * 2 / 1920, dist = st.view.z - 0.5 - st.t.mesh.position.z, vis = 2 * Math.tan(HFOV / 2) * dist * 0.92;
+  if (wide > 0) st.t.mesh.scale.setScalar(Math.min(1, vis / wide));
 });
 
 // the gold path follows the walker's route on the ground
@@ -96,11 +119,14 @@ function label(text, size, color) {
   const t = new THREE.CanvasTexture(c); t.colorSpace = THREE.SRGBColorSpace;
   return new THREE.Mesh(new THREE.PlaneGeometry(4.6, 1), new THREE.MeshBasicMaterial({ map: t, transparent: true, depthWrite: false }));
 }
+const ARCHES = [];
 function arch(x, z, text, lit) {
   const pts = []; for (let k = 0; k <= 40; k++) { const a = Math.PI * k / 40; pts.push(new THREE.Vector3(x + Math.cos(a) * 2.6, Math.sin(a) * 6.4, z)); }
   const curve = new THREE.CatmullRomCurve3([new THREE.Vector3(x + 2.6, 0, z), ...pts, new THREE.Vector3(x - 2.6, 0, z)]);
-  scene.add(new THREE.Mesh(new THREE.TubeGeometry(curve, 80, 0.03, 6, false), new THREE.MeshBasicMaterial({ color: lit ? 0xd4a574 : 0x5c5446, transparent: true, opacity: lit ? 0.8 : 0.45, blending: THREE.AdditiveBlending, depthWrite: false })));
+  const tube = new THREE.Mesh(new THREE.TubeGeometry(curve, 80, 0.03, 6, false), new THREE.MeshBasicMaterial({ color: lit ? 0xd4a574 : 0x5c5446, transparent: true, opacity: lit ? 0.8 : 0.45, blending: THREE.AdditiveBlending, depthWrite: false }));
+  scene.add(tube);
   const m = label(text, 76, lit ? GOLD_HI : '#6b6152'); m.position.set(x, 7.1, z); scene.add(m);
+  ARCHES.push({ z, lit, tube, m, base: lit ? 0.8 : 0.45 });
 }
 { let last = -1; stations.forEach((st, i) => { const s = st.s; if (s.kind || s.station === last) return; last = s.station;
     const ax = st.view.x, az = st.view.z + 4.5;   // walk through the arch just before arriving
@@ -132,10 +158,10 @@ function paint(st, lt, final) {
   const sizeOf = y => Math.max(...sink.filter(o => o.y === y).map(o => o.size)) * 1.08;
   const total = ys.reduce((a, y) => a + sizeOf(y) * 1.5, 0);
   let yy = 380 - total / 2;
-  if (ys.length) { const g = tc.createRadialGradient(960, 380, 60, 960, 380, 900); g.addColorStop(0, 'rgba(12,10,8,0.85)'); g.addColorStop(1, 'rgba(12,10,8,0)'); tc.save(); tc.fillStyle = g; tc.scale(1, 0.42); tc.fillRect(0, 0, 1920, 760 / 0.42); tc.restore(); }
+  if (ys.length) { const g = tc.createRadialGradient(960, 380, 60, 960, 380, 1000); g.addColorStop(0, 'rgba(12,10,8,0.95)'); g.addColorStop(0.55, 'rgba(12,10,8,0.8)'); g.addColorStop(1, 'rgba(12,10,8,0)'); tc.save(); tc.fillStyle = g; tc.translate(0, 380 * (1 - 0.34)); tc.scale(1, 0.34); tc.fillRect(0, -380 / 0.34, 1920, 2 * 760 / 0.34); tc.restore(); }
   const noteK = !s.note ? 0 : final ? 1 : seg(lt, s.noteAt - 0.1, s.noteAt + 0.4);
   ys.forEach(y => { const h = sizeOf(y) * 1.5; yy += h / 2;
-    sink.filter(o => o.y === y).forEach(o => { tc.save(); tc.globalAlpha = o.alpha * (1 - noteK * 0.9); words(tc, o.s, o.x, yy, o.size * 1.08, o.p, o.a, o.b, o.o); tc.restore(); });
+    sink.filter(o => o.y === y).forEach(o => { tc.save(); tc.globalAlpha = o.alpha * (1 - noteK); words(tc, o.s, o.x, yy, o.size * 1.08, o.p, o.a, o.b, o.o); tc.restore(); });
     yy += h / 2; });
   if (noteK > 0) { // 'worth noticing' takes over the words plane; the drawing dims a little
     dc.save(); dc.globalCompositeOperation = 'destination-out'; dc.fillStyle = `rgba(0,0,0,${0.55 * noteK})`; dc.fillRect(0, 0, 1920, 1080); dc.restore();
@@ -154,11 +180,12 @@ const lookY = (DRAW_Y + TEXT_Y) / 2 + 0.35;
 function cameraAt(i, lt) {
   const st = stations[i], pv = stations[i - 1], s = st.s;
   if (s.kind === 'close') { // walk up to the last card, then rise and look back over the whole lit trail
-    const u = easeInOut(clamp((lt - s.dur * 0.35) / (s.dur * 0.6)));
-    const w = clamp(lt / (s.dur * 0.3)), start = cr([pv.view, pv.pass, st.view], easeInOut(w));
-    const to = new THREE.Vector3(0, 30, st.center.z - 30);
-    camera.position.copy(start.clone().lerp(to, u));
-    camera.lookAt(new THREE.Vector3(st.center.x, lookY, st.center.z).lerp(new THREE.Vector3(0, 0, st.center.z + STEP * 9), u)); return;
+    const b = barSec(), w = clamp(lt / b), u = easeInOut(clamp((lt - 3 * b) / (1.6 * b)));
+    const start = cr([pv.view, pv.pass, st.view], easeInOut(w));
+    const to = new THREE.Vector3(0, 13 + 1.5 * clamp((lt - 4.6 * b) / (2.4 * b)), 26);
+    const pos = start.clone().lerp(to, u); pos.y += Math.sin(u * Math.PI) * 26;   // a soaring arc back over the trail
+    camera.position.copy(pos);
+    camera.lookAt(new THREE.Vector3(st.center.x, lookY, st.center.z).lerp(new THREE.Vector3(0, 2, -230), u)); return;
   }
   const w = s.walk;
   if (lt < w) {
@@ -200,8 +227,11 @@ function renderAt(t) {
   for (let k = i + 1; k < stations.length; k++) if (stations[k].state !== 'blank') { blank(stations[k]); stations[k].state = 'blank'; }
   const pen = paint(st, lt, false); st.state = 'live';
   // beacons: the next destination glows faintly ahead; finished ones keep a soft memory glow
-  stations.forEach(o => { o.beacon.material.opacity = o.i === i ? 0.08 : o.i === i + 1 ? 0.07 + 0.04 * Math.sin(t * 2) : o.i < i ? (s.kind === 'close' ? 0.14 : 0.04) : 0.02; });
+  stations.forEach(o => { o.beacon.material.opacity = o.i === i ? 0.08 : o.i === i + 1 ? 0.07 + 0.04 * Math.sin(t * 2) : o.i < i ? (s.kind === 'close' ? 0.04 + 0.3 * clamp((lt - 3 * barSec()) / (2 * barSec())) : 0.04) : 0.02; });
+  const open = s.kind === 'close' ? easeInOut(clamp((lt - 3 * barSec()) / (1.6 * barSec()))) : 0;
+  scene.fog.near = lerp(22, 120, open); scene.fog.far = lerp(85, 900, open);
   cameraAt(i, lt);
+  ARCHES.forEach(a => { const dz = camera.position.z - a.z, k = a.lit ? clamp((15 - dz) / 6) * clamp((dz + 2) / 3) : 1; a.tube.material.opacity = a.base * k; a.m.material.opacity = k; a.m.visible = a.tube.visible = k > 0.01; });
   // golden thread to the pen tip while this scene is still drawing
   const drawing = pen && s.kind !== 'close' && lt < s.walk + barSec() * 0.9;
   if (drawing) {
