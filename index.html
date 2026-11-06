@@ -294,5 +294,20 @@
     <!-- Visit counter (GoatCounter) - privacy-friendly, no cookies -->
     <script data-goatcounter="https://tenthhour.goatcounter.com/count"
             async src="//gc.zgo.at/count.js"></script>
+<script>
+/* Double-tap the cross on the logo. Nothing visible; a single tap does nothing. */
+(function(){
+  var logo=document.querySelector('.tenth-hour-logo'); if(!logo) return;
+  logo.style.touchAction='manipulation';
+  var last=0;
+  logo.addEventListener('click',function(e){
+    var r=logo.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+    if(x<.36||x>.64||y<.1||y>.9){last=0;return}
+    var t=e.timeStamp;
+    if(last&&t-last<500){location.href='https://walk-john-e93ddc.netlify.app/';return}
+    last=t;
+  });
+})();
+</script>
 </body>
 </html>
